@@ -1,0 +1,3 @@
+text/html; /usr/bin/iceweasel '%s'; description=HTML Text; nametemplate=%s.html
+image/jpeg; /usr/bin/gthumb '%s'; description=JPEG Image; nametemplate=%s.jpg
+image/gif; /usr/bin/gthumb '%s'; description=GIF Image; nametemplate=%s.gif
