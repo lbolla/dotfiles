@@ -62,6 +62,8 @@ fi
 if [ `hostname` == 'muttley' ]; then
 	export ORACLE_HOME=/opt/oracle/app/oracle/oracle/product/10.2.0/db_1/
 	export ORACLE_SID=ORA10G
+elif [ `hostname` == 'lollo-laptop' ]; then
+	. /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh
 else
 	export ORACLE_HOME=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server
 	export ORACLE_SID=XE
