@@ -34,7 +34,8 @@ exec "Snippet typetable type ".st.et." is table of ".st.et. "<CR>index by binary
 exec "Snippet typerecord type ".st.et." is record (<CR>".st.et. "<CR>);"
 
 exec "Snippet pl SYS.DBMS_OUTPUT.put_line(".st.et.");"
-exec "Snippet nl SYS.DBMS_OUTPUT.put_line(chr(9));".st.et
+exec "Snippet el SYS.DBMS_OUTPUT.put_line(chr(9));".st.et
+exec "Snippet nl SYS.DBMS_OUTPUT.put_line(chr(13));".st.et
 exec "Snippet sleep SYS.DBMS_LOCK.sleep(".st.et.");"
 exec "Snippet stats execute SYS.DBMS_STATS.gather_table_stats(USER, '".st.et."');"
 
