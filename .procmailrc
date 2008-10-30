@@ -1,0 +1,13 @@
+PATH=$HOME/bin:/usr/bin:/bin:/usr/local/bin:.
+MAILDIR=$HOME/mail
+DEFAULT=$MAILDIR/inbox
+LOGFILE=$MAILDIR/from
+LOCKFILE=$HOME/.lockmail
+
+# :0
+# * ^From.lbolla@gmail.com
+# test
+
+:0
+* ^Subject:.*jira
+jira
