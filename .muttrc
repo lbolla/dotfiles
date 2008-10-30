@@ -13,7 +13,7 @@ set postponed="+drafts"
 # receive
 set spoolfile="+inbox"
 mbox-hook "inbox" "+archive" # move read msg in archive
-mailboxes "+inbox" "+test" "+jira"
+mailboxes "+inbox" "+jira"
 
 # set spoolfile="/var/mail/lbolla"
 # mailboxes "/var/mail/lbolla"
