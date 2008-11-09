@@ -1,7 +1,7 @@
 # === EDIT FILE LOCATIONS BELOW ===
 
 # Your todo.txt directory
-TODO_DIR="$HOME/work/todo"  
+TODO_DIR="$HOME/todo"  
 
 # Your todo/done/report.txt locations
 TODO_FILE="$TODO_DIR/todo.txt"  
