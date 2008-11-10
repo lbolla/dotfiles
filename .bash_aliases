@@ -20,4 +20,4 @@ alias mutt='/usr/bin/getmail; mutt'
 alias pycheck='pychecker -e Style --no-shadow'
 alias exact_time='curl http://tycho.usno.navy.mil/cgi-bin/timer.pl --stderr /dev/null | grep UTC | sed "s/<BR>//"'
 
-alias t='todo.sh'
+alias t='todo.sh -d .todo/todorc'
