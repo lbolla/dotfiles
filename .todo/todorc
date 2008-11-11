@@ -34,7 +34,7 @@ DEFAULT='\\033[0m'
 
 # === PRIORITY COLORS ===
 
-PRI_A=$YELLOW   # color for A priority
+PRI_A=$RED   # color for A priority
 PRI_B=$GREEN  # color for B priority
 PRI_C=$LIGHT_BLUE   # color for B priority
 PRI_X=$WHITE   # color for rest of them
