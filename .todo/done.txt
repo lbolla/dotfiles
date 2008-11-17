@@ -4,3 +4,8 @@ x 2008-11-12 jazz per lele http://www.barbican.org.uk/music/event-detail.asp?ID=
 x 2008-11-13 @work test new procs
 x 2008-11-13 assicurazione moto
 x 2008-11-13 mail assicurazione a iampo
+x 2008-11-17 install fvwm or icewm
+x 2008-11-17 gvim rm menu
+x 2008-11-17 fvwm shortcut firefox
+x 2008-11-17 fvwm buttons single line from top right
+x 2008-11-17 alias grep g

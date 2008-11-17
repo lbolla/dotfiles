@@ -36,6 +36,8 @@ colorscheme tango						" Use colorscheme
 
 " tab labels show the filename without path(tail)
 set guitablabel=%N/\ %t\ %M
+set guioptions-=T
+set guioptions-=m
 
 """ Windows
 if exists(":tab")						" Try to move to other windows if changing buf
