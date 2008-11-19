@@ -13,7 +13,7 @@ alias l='ls -CF'
 
 alias rm='rm -i'
 # alias rmtilde='rm -f *~ .*~' # dangerous
-alias c='clear' # same as ctrl-l
+# alias c='clear' # same as ctrl-l
 alias grep='grep --color'
 alias mutt='/usr/bin/getmail; mutt'
 

@@ -9,3 +9,4 @@ x 2008-11-17 gvim rm menu
 x 2008-11-17 fvwm shortcut firefox
 x 2008-11-17 fvwm buttons single line from top right
 x 2008-11-17 alias grep g
+x 2008-11-18 fvwm lock screen
