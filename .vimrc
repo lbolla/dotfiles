@@ -96,7 +96,7 @@ if has("autocmd")
 		au BufRead,BufNewFile *.txt,README* set filetype=text
 
 		" In plain-text files and svn commit buffers, wrap automatically at 78 chars
-		au FileType text,svn setlocal tw=78 fo+=t
+		au FileType text,svn setlocal tw=78 fo+=tcrqan
 
 		" In all files, try to jump back to the last spot cursor was in before exiting
 		au BufReadPost *
@@ -121,6 +121,8 @@ if has("autocmd")
 		au FileType python set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 		" indent also the comment
 		au FileType python set cindent
+		" line width 78 chars
+		au FileType python setlocal tw=78 fo=tcrqo
 
 		" allows us to run :make and get syntax errors for our python scripts
 		au FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
