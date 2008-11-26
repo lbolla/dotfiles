@@ -96,7 +96,7 @@ if has("autocmd")
 		au BufRead,BufNewFile *.txt,README* set filetype=text
 
 		" In plain-text files and svn commit buffers, wrap automatically at 78 chars
-		au FileType text,svn setlocal tw=78 fo+=tcrqan
+		au FileType text,svn setlocal tw=78 fo+=tcrqn
 
 		" In all files, try to jump back to the last spot cursor was in before exiting
 		au BufReadPost *
