@@ -41,7 +41,7 @@ exec "Snippet head <head><CR><meta http-equiv=\"Content-type\" content=\"text/ht
 exec "Snippet script <script type=\"text/javascript\" language=\"javascript\" charset=\"utf-8\"><CR>// <![CDATA[<CR><TAB>".st.et."<CR>// ]]><CR></script><CR>".st.et
 exec "Snippet title <title>".st.et."</title>"
 exec "Snippet html <html><CR>".st.et."<CR></html>"
-exec "Snippet body <body id=\"".st.et."\" ".st.et."><CR>".st.et."<CR></body><CR>".st.et
+exec "Snippet body <body><CR>".st.et."<CR></body>"
 exec "Snippet scriptsrc <script src=\"".st.et."\" type=\"text/javascript\" language=\"".st.et."\" charset=\"".st.et."\"></script><CR>".st.et
 exec "Snippet textarea <textarea name=\"".st.et."\" rows=\"".st.et."\" cols=\"".st.et."\">".st.et."</textarea><CR>".st.et
 exec "Snippet meta <meta name=\"".st.et."\" content=\"".st.et."\" /><CR>".st.et
