@@ -94,6 +94,7 @@ if has("autocmd")
 	au!
 		" Filetypes
 		au BufRead,BufNewFile *.txt,README* set filetype=text
+		au BufRead,BufNewFile *.html        set filetype=xhtml
 
 		" In plain-text files and svn commit buffers, wrap automatically at 78 chars
 		au FileType text,svn setlocal tw=78 fo+=tcrqn
