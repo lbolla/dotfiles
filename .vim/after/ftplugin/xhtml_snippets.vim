@@ -28,14 +28,14 @@ exec "Snippet option <option label=\"".st."label".et."\" value=\"".st."value".et
 exec "Snippet optgroup <optgroup label=\"".st."Label".et."\"><CR>".st.et."<CR></optgroup>".st.et
 exec "Snippet meta <meta name=\"".st."name".et."\" content=\"".st."content".et."\" />".st.et
 exec "Snippet br <br /><CR>".st.et
-exec "Snippet tbody <tbody><CR>".st.et."<CR></tbody>".st.et
-exec "Snippet thead <thead><CR>".st.et."<CR></thead>".st.et
-exec "Snippet tr <tr><CR>".st.et."<CR></tr>".st.et
-exec "Snippet th <th>".st.et."</th>".st.et
-exec "Snippet td <td>".st.et."</td>".st.et
+exec "Snippet tbody <tbody><CR>".st.et."<CR></tbody>"
+exec "Snippet thead <thead><CR>".st.et."<CR></thead>"
+exec "Snippet tr <tr><CR>".st.et."<CR></tr>"
+exec "Snippet th <th>".st.et."</th>"
+exec "Snippet td <td>".st.et."</td>"
 exec "Snippet dt <dt>".st.et."<CR></dt><CR><dd>".st.et."</dd>".st.et
 exec "Snippet tfoot <tfoot><CR>".st.et."<CR></tfoot>".st.et
-exec "Snippet div <!-- begin div.".st."id".et." --><CR><div id=\"".st."id".et."\"><CR>".st.et."<CR></div><CR><!-- end div.".st."id".et." --><CR>".st.et
+exec "Snippet div <!-- begin ".st."id".et." --><CR><div id=\"".st."id".et."\"><CR>".st.et."<CR></div><CR><!-- end ".st."id".et." -->"
 exec "Snippet ol <ol ".st.et."><CR>".st.et."<CR></ol>".st.et
 exec "Snippet txtarea <textarea id=\"".st."ID".et."\" name=\"".st."Name".et."\" rows=\"".st.et."\" cols=\"".st.et."\" tabindex=\"".st.et."\" ".st.et.">".st.et."</textarea>".st.et
 exec "Snippet mailto <a href=\"mailto:".st.et."?subject=".st.et."\">".st.et."</a>".st.et
