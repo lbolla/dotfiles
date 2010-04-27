@@ -78,7 +78,7 @@ hardstatus string "%-w%{= BW}%50>%n %t%{-}%+w%<"
 #hardstatus lastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
 
 # set these terminals up to be 'optimal' instead of vt100
-termcapinfo xterm*|linux*|rxvt*|Eterm* OP
+termcapinfo xterm*|linux*|rxvt*|screen*|Eterm* OP
 
 # Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
 # (This fixes the "Aborted because of window size change" konsole symptoms found
