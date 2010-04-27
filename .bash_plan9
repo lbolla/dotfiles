@@ -1,0 +1,5 @@
+export PLAN9=/usr/local/plan9
+export PATH=$PATH:$PLAN9/bin
+export font=$PLAN9/font/fixed/unicode.7x14.font
+export altfont=$PLAN9/font/luc/unicode.8.font
+export tabstop=4
