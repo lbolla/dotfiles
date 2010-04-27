@@ -1,0 +1,26 @@
+! #define FONT 7x14
+! #define FONT fixed
+#define FONT -*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*
+
+XTerm*font:             FONT
+XTerm*background:       white
+XTerm*foreground:       black
+XTerm*cursorColor:      green
+
+*Rxvt.termName:         rxvt
+*Rxvt.font:             FONT
+*Rxvt.background:       white
+*Rxvt.foreground:       black
+*Rxvt.cursorColor:      green
+*Rxvt.scrollBar:        false
+*Rxvt.meta8:            false
+*Rxvt.saveLines:        256
+*Rxvt.keysym.C-Left:    \033[1;5D
+*Rxvt.keysym.C-Right:   \033[1;5C
+*Rxvt.keysym.M-Left:    \033[1;3D
+*Rxvt.keysym.M-Right:   \033[1;3C
+*Rxvt.perl-ext-common:  default,matcher
+*Rxvt.urlLauncher:      google-chrome
+*Rxvt.colorUL:          #86a2be
+
+xclock*Font:             FONT
