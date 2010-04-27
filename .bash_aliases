@@ -1,27 +1,48 @@
-# enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
-    alias dir='ls --color=auto --format=vertical'
-    alias vdir='ls --color=auto --format=long'
+# colorize commands
+if [ "x$USE_COLORS" = "xY" ]; then
+	alias ls='ls --color=auto'
+	alias grep='grep --color=auto'
+	alias ipython='ipython -colors LightBG'
+else
+	alias ls='ls --color=never'
+	alias grep='grep --color=never'
+	alias ipython='ipython -colors NoColor'
 fi
 
-# some more ls aliases
-alias ll='ls -la'
-alias la='ls -A'
-alias l='ls -CF'
+# ls aliases
+alias l='ls -1F'
+alias lf='ls -1f'
+alias ll='l -1la'
+alias lc='l -1C'
 
+# for safety
 alias rm='rm -i'
-# alias rmtilde='rm -f *~ .*~' # dangerous
-# alias c='clear' # same as ctrl-l
-alias grep='grep --color'
-alias mutt='/usr/bin/getmail; mutt'
 
+# grep
+alias greperr='grep -e ERROR -e CRITICAL'
+alias grepwarn='grep -e ERROR -e CRITICAL -e WARNING'
+
+# python
+alias python='python2.5'
 alias pycheck='pychecker -e Style --no-shadow'
+
+# rlwrap
+alias sqlplus='rlwrap -m sqlplus'
+alias sbcl='rlwrap -m sbcl'
+
+#  alias f='find'
+#  alias g='grep'
+#  alias h='history'
+#  alias p='ps aux'
+#  alias pg='ps aux | grep'
+#  alias s='screen'
+
+alias vimtags='etags -R -f ~/.vim/tags/TAGS'
+#  alias mutt='/usr/bin/getmail; mutt'
+alias sup='sup-mail'
+alias gmail='mutt -f imaps://lbolla@imap.gmail.com'
 alias exact_time='curl http://tycho.usno.navy.mil/cgi-bin/timer.pl --stderr /dev/null | grep UTC | sed "s/<BR>//"'
 
-alias c='bc -l'
-alias f='find'
-alias g='grep'
-alias s='screen -D -R'
-alias t='todo.sh -d ~/.todo/.todorc'
+# plan9
+alias 9term='9term -s'
+alias 9t='SHELL=rc 9term -s'
