@@ -1,5 +1,8 @@
 setxkbmap us
 
+eval `ssh-agent -s`
+# ssh-add
+
 if [ -f $HOME/.Xdefaults ]; then
 	xrdb -merge $HOME/.Xdefaults
 fi
