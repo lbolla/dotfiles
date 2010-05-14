@@ -12,13 +12,17 @@ xterm*|rxvt*|screen)
     ;;
 esac
 # don't like colors...
-USE_COLORS=N
+# USE_COLORS=N
 
 export PATH=~/bin:$PATH
-export GIT_EDITOR="vi"
+# export GIT_EDITOR="vi"
+export GIT_EDITOR="ed"
 
 # vi keybindings for bash
 # set -o vi
+
+# remap some keys
+[ -f ~/.xmodmap ] && xmodmap ~/.xmodmap
 
 # enable color support of ls
 eval "`dircolors -b`"
@@ -48,7 +52,7 @@ fi
 
 #Comment in the above and uncomment this below for a color prompt
 if [ "x$USE_COLORS" = "xY" ]; then
-	PS1='\n${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[00m\] $(__git_ps1 "(%s)")\n\$ '
+	PS1='\n${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[00m\] $(__git_ps1 "(%s)")\n\$ '
 else
 	PS1='\n${debian_chroot:+($debian_chroot)}\u@\h:\w $(__git_ps1 "(%s)")\n\$ '
 fi
