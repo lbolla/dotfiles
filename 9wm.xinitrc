@@ -1,8 +1,4 @@
-setxkbmap us
-
-if [ -f $HOME/.Xdefaults ]; then
-	xrdb -merge $HOME/.Xdefaults
-fi
+[ -f $HOME/common.xinitrc ] && . $HOME/common.xinitrc
 
 if [ -f $HOME/img/desktop ]; then
 	xsetbg -border black -center $HOME/img/desktop
