@@ -7,7 +7,7 @@
 
 # If this is an xterm use colors
 case "$TERM" in
-xterm*|rxvt*|screen)
+linux|xterm*|rxvt*|screen*)
     USE_COLORS=Y
     ;;
 esac
