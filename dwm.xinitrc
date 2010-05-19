@@ -6,6 +6,9 @@ else
 	xsetroot -solid black
 fi
 
+# refresh dmenu cache
+dmenu_path 2&> /dev/null
+
 while true; 
 do 
 	DATE=`date +"%a %b %d %Y %R"`
