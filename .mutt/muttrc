@@ -22,6 +22,7 @@ set abort_nosubject=no
 set hdr_format="%4C %Z %{%m/%d} %-15.15F (%4c) %s" # format of the index
 set pager_stop=yes
 set certificate_file=$my_cfgdir/certificates
+set auto_tag
 
 ### Hooks
 save-hook . +archive_2010
