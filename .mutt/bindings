@@ -1,0 +1,2 @@
+bind index x tag-entry
+bind index X tag-thread

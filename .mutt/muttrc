@@ -3,7 +3,7 @@ set my_cfgdir=~/.mutt
 
 ### Monitoring Incoming Mail
 set folder="~/mail"
-set spoolfile="imaps://lbolla@mail/"
+set spoolfile="imaps://lbolla@mail:993/"
 mailboxes "+drafts" "+sent" "+archive_2008" "+archive_2009" "+archive_2010"
 mailboxes "!INBOX"
 
@@ -23,6 +23,9 @@ set hdr_format="%4C %Z %{%m/%d} %-15.15F (%4c) %s" # format of the index
 set pager_stop=yes
 set certificate_file=$my_cfgdir/certificates
 
+### Hooks
+save-hook . +archive_2010
+
 ### Secret
 source $my_cfgdir/secret
 
@@ -35,6 +38,7 @@ source $my_cfgdir/groups
 
 ### Mailing Lists
 subscribe all@geneity.co.uk
+subscribe betfair-support@geneity.co.uk
 subscribe bikers@geneity.co.uk
 subscribe coral-support@geneity.co.uk
 subscribe tech@geneity.co.uk
@@ -42,6 +46,9 @@ subscribe trash@geneity.co.uk
 
 ### Macros
 source $my_cfgdir/macros
+
+### Bindings
+source $my_cfgdir/bindings
 
 ### Appearance
 source $my_cfgdir/colors
