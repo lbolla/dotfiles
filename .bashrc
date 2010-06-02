@@ -17,6 +17,7 @@ esac
 export PATH=~/bin:$PATH
 # export GIT_EDITOR="vi"
 export GIT_EDITOR="ed"
+export BROWSER="google-chrome"
 
 # vi keybindings for bash
 # set -o vi
