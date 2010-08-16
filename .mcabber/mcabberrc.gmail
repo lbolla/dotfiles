@@ -1,0 +1,7 @@
+set username = lbolla@gmail.com
+set server = talk.google.com
+set ssl = 1
+set ssl_verify = 0
+set port = 5223
+
+source /home/lbolla/.mcabber/mcabberrc.common
