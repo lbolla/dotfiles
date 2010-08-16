@@ -3,14 +3,14 @@
 #define FONT -*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*
 
 XTerm*font:             FONT
-XTerm*background:       white
-XTerm*foreground:       black
+XTerm*background:       black
+XTerm*foreground:       white
 XTerm*cursorColor:      green
 
-*Rxvt.termName:         rxvt
+*Rxvt.termName:         xterm
 *Rxvt.font:             FONT
-*Rxvt.background:       white
-*Rxvt.foreground:       black
+*Rxvt.background:       black
+*Rxvt.foreground:       white
 *Rxvt.cursorColor:      green
 *Rxvt.scrollBar:        false
 *Rxvt.meta8:            false
@@ -20,7 +20,10 @@ XTerm*cursorColor:      green
 *Rxvt.keysym.M-Left:    \033[1;3D
 *Rxvt.keysym.M-Right:   \033[1;3C
 *Rxvt.perl-ext-common:  default,matcher
+! *Rxvt.cutchars:         ':' '"''.'&()*,;<=>?@[]^{|}
 *Rxvt.urlLauncher:      google-chrome
 *Rxvt.colorUL:          #86a2be
+*Rxvt.fading:           0
+*Rxvt.fadeColor:        white
 
-xclock*Font:             FONT
+xclock*Font:            FONT

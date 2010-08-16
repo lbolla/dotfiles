@@ -15,9 +15,10 @@ esac
 # USE_COLORS=N
 
 export PATH=~/bin:$PATH
-# export GIT_EDITOR="vi"
-export GIT_EDITOR="ed"
+export EDITOR="vi"
+export GIT_EDITOR="vi"
 export BROWSER="google-chrome"
+export NNTPSERVER=news.eternal-september.org
 
 # vi keybindings for bash
 # set -o vi
@@ -61,7 +62,7 @@ fi
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*|screen)
+xterm*|rxvt*|screen*)
     PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007" '
     ;;
 *)

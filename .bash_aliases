@@ -2,7 +2,7 @@
 if [ "x$USE_COLORS" = "xY" ]; then
 	alias ls='ls --color=auto'
 	alias grep='grep --color=auto'
-	alias ipython='ipython -colors LightBG'
+	#  alias ipython='ipython -colors LightBG'
 else
 	alias ls='ls --color=never'
 	alias grep='grep --color=never'
@@ -30,18 +30,26 @@ alias pycheck='pychecker -e Style --no-shadow'
 alias sqlplus='rlwrap -m sqlplus'
 alias sbcl='rlwrap -m sbcl'
 
+#  alias screen='screen -T vt100'
 #  alias f='find'
 #  alias g='grep'
 #  alias h='history'
 #  alias p='ps aux'
 #  alias pg='ps aux | grep'
-#  alias s='screen'
+alias s='screen'
 
 alias vimtags='etags -R -f ~/.vim/tags/TAGS'
 #  alias mutt='/usr/bin/getmail; mutt'
 alias sup='sup-mail'
 alias gmail='mutt -f imaps://lbolla@imap.gmail.com'
 alias exact_time='curl http://tycho.usno.navy.mil/cgi-bin/timer.pl --stderr /dev/null | grep UTC | sed "s/<BR>//"'
+
+# newsreader
+alias news='tin -A -r'
+
+# jabber
+alias jabber='mcabber'
+alias jabber-bf='mcabber -f ~/.mcabber/mcabberrc.bf'
 
 # plan9
 alias 9term='9term -s'

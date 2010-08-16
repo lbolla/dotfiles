@@ -22,6 +22,7 @@
 
 startup_message off
 nethack on
+escape ^Xx
 
 #defflow on # will force screen to process ^S/^Q
 deflogin on
@@ -59,13 +60,16 @@ bind } history
 # TERMINAL SETTINGS
 # ------------------------------------------------------------------------------
 
+# decent default
+term xterm
+
 # The vt100 description does not mention "dl". *sigh*
 termcapinfo vt100 dl=5\E[M
 
 # turn sending of screen messages to hardstatus off
 hardstatus off
 # Set the hardstatus prop on gui terms to set the titlebar/icon title
-termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
+termcapinfo xterm*|urxvt*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
 # use this for the hard status string
 # hardstatus string "%h%? users: %u%?"
 hardstatus alwayslastline
@@ -78,7 +82,7 @@ hardstatus string "%-w%{= BW}%50>%n %t%{-}%+w%<"
 #hardstatus lastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
 
 # set these terminals up to be 'optimal' instead of vt100
-termcapinfo xterm*|linux*|rxvt*|screen*|Eterm* OP
+termcapinfo xterm*|linux*|urxvt*|rxvt*|screen*|Eterm* OP
 
 # Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
 # (This fixes the "Aborted because of window size change" konsole symptoms found

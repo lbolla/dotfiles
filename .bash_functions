@@ -6,6 +6,14 @@ function ora10g {
 	sqlplus $1/$1@ora10g
 }
 
+function ora11 {
+	sqlplus $1/$1@ora11
+}
+
+function orapd2 {
+	sqlplus $1/$1@PADPDEV2.sportex.com
+}
+
 function _git_all_and {
 	git $1 && git submodule foreach "git $1"
 }
