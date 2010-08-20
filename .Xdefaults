@@ -2,28 +2,69 @@
 ! #define FONT fixed
 #define FONT -*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*
 
-XTerm*font:             FONT
-XTerm*background:       black
-XTerm*foreground:       white
-XTerm*cursorColor:      green
-
-*Rxvt.termName:         xterm
-*Rxvt.font:             FONT
-*Rxvt.background:       black
-*Rxvt.foreground:       white
-*Rxvt.cursorColor:      green
-*Rxvt.scrollBar:        false
-*Rxvt.meta8:            false
-*Rxvt.saveLines:        256
-*Rxvt.keysym.C-Left:    \033[1;5D
-*Rxvt.keysym.C-Right:   \033[1;5C
-*Rxvt.keysym.M-Left:    \033[1;3D
-*Rxvt.keysym.M-Right:   \033[1;3C
-*Rxvt.perl-ext-common:  default,matcher
-! *Rxvt.cutchars:         ':' '"''.'&()*,;<=>?@[]^{|}
-*Rxvt.urlLauncher:      google-chrome
-*Rxvt.colorUL:          #86a2be
-*Rxvt.fading:           0
-*Rxvt.fadeColor:        white
-
 xclock*Font:            FONT
+
+!
+! Xterm
+!
+
+XTerm.font:             FONT
+XTerm.background:       black
+XTerm.foreground:       white
+XTerm.cursorColor:      green
+
+!
+! Rxvt
+!
+
+Rxvt.termName:         xterm
+Rxvt.font:             FONT
+Rxvt.scrollBar:        false
+Rxvt.meta8:            false
+Rxvt.saveLines:        256
+Rxvt.keysym.C-Left:    \033[1;5D
+Rxvt.keysym.C-Right:   \033[1;5C
+Rxvt.keysym.M-Left:    \033[1;3D
+Rxvt.keysym.M-Right:   \033[1;3C
+Rxvt.perl-ext-common:  default,matcher
+Rxvt.cutchars:         ':' '"''.'&()*,;<=>?@[]^{|}
+Rxvt.urlLauncher:      google-chrome
+
+Rxvt.background:       black
+! Rxvt.foreground:       white
+! Rxvt.cursorColor:      green
+! Rxvt.colorUL:          #86a2be
+! Rxvt.colorBD:          #8ac6f2
+! Rxvt.fading:           0
+! Rxvt.fadeColor:        white
+
+! Rxvt.background             : #242424
+Rxvt.foreground             : #f6f3e8
+Rxvt.cursorColor            : #e5786d
+Rxvt.colorBD                : #8ac6f2
+Rxvt.colorUL                : #95e454
+! black
+! Rxvt.color0                 : #343434
+! Rxvt.color8                 : #343434
+! red
+Rxvt.color1                 : #e5786d
+Rxvt.color9                 : #e5786d
+! green
+Rxvt.color2                 : #cae682
+Rxvt.color10                : #cae682
+! yellow (from the Desert color scheme for Vim:
+!         http://fugal.net/vim/colors/desert.html)
+Rxvt.color3                 : khaki
+Rxvt.color11                : khaki
+! blue
+Rxvt.color4                 : #8ac6f2
+Rxvt.color12                : #8ac6f2
+! magenta (green at hue 300)
+Rxvt.color5                 : #e682e6
+Rxvt.color13                : #e682e6
+! cyan (green at hue 180)
+Rxvt.color6                 : #82e6e6
+Rxvt.color14                : #82e6e6
+! white
+Rxvt.color7                 : #f6f3e8
+Rxvt.color15                : #f6f3e8
