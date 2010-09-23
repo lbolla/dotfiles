@@ -17,6 +17,7 @@ esac
 export PATH=~/bin:$PATH
 export EDITOR="vi"
 export GIT_EDITOR="vi"
+export PAGER="less -nF"
 export BROWSER="google-chrome"
 export NNTPSERVER=news.eternal-september.org
 

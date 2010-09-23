@@ -9,12 +9,9 @@ set nocompatible
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-
-if has("vms")
-  set nobackup          " do not keep a backup file, use versions instead
-else
-  set backup            " keep a backup file
-endif
+let mapleader = ","
+set nobackup            " do not keep a backup file, there are better methods
+set noswapfile          " do not keep a backup file, there are better methods
 set history=50          " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
 set showcmd             " display incomplete commands
@@ -33,11 +30,16 @@ set softtabstop=0       " don't masquerade spaces as tabs
 set wildignore=*.o,*.bak,*.pyc,*.swp
 set wildmenu            " autocomplete in menubar
 set wildmode=longest:full
+set grepprg=ack\ -a
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+" set list
+set pastetoggle=<F2>
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
 
-let python_highlight_all=1
+" let python_highlight_all=1
+let python_highlight_space_errors=0
 
 " colors
 "colorscheme lorenzo
@@ -63,6 +65,11 @@ endfunction
 " tab navigation (next tab) with alt left / alt right
 nnoremap <A-Left> gT
 nnoremap <A-Right> gt
+" " window navigation with ctrl
+" map <C-h> <C-w>h
+" map <C-j> <C-w>j
+" map <C-k> <C-w>k
+" map <C-l> <C-w>l
 nnoremap <C-G> 2<C-G>
 nnoremap <silent> <C-L> :nohl<CR><C-L>
 " <space> toggles folds opened and closed
@@ -70,20 +77,21 @@ nnoremap <space> za
 " grep the word under cursor
 nnoremap <F3> :vimgrep /<C-R><C-W>/ *
 nnoremap <F4> :grep -r "<C-R><C-W>" .
+nnoremap <leader>a :Ack "<C-R><C-W>"
 " insert man page for word under cursor in current buffer
-nnoremap ,m :r !man <C-R><C-A><CR>
+nnoremap <leader>m :r !man <C-R><C-A><CR>
 " or in a new page
-nnoremap ,M viWy:new<CR>p:r !man <C-R><C-A><CR>
+nnoremap <leader>M viWy:new<CR>p:r !man <C-R><C-A><CR>
 " remove trailing whitespaces
-nmap <silent> ,w :%s/\s\+$//<CR>
+nmap <silent> <leader>w :%s/\s\+$//<CR>
 
 " tags
 set tags+=$PROJDIR/tags
 let Tlist_WinWidth = 50
-map ,t :!(cd %:p:h;ctags *)&<CR>
 map <F12> :TlistToggle<cr>
 
-" git
+" tabs
+map <leader>t :tabnew 
 
 " Comments
 let g:EnhCommentifyPretty='Yes'
@@ -91,22 +99,22 @@ let g:EnhCommentifyRespectIndent='Yes'
 let g:EnhCommentifyUserBindings="Yes"
 let g:EnhCommentifyUseBlockIndent='Yes'
 
-vmap <silent> ,c <Plug>VisualComment
-vmap <silent> ,d <Plug>VisualDeComment
-vmap <silent> ,g <Plug>VisualTraditional
-vmap <silent> ,f <Plug>VisualFirstLine
-nmap <silent> ,c <Plug>Comment
-nmap <silent> ,d <Plug>DeComment
-nmap <silent> ,g <Plug>Traditional
-nmap <silent> ,f <Plug>FirstLine
+vmap <silent> <leader>c <Plug>VisualComment
+vmap <silent> <leader>d <Plug>VisualDeComment
+vmap <silent> <leader>g <Plug>VisualTraditional
+vmap <silent> <leader>f <Plug>VisualFirstLine
+nmap <silent> <leader>c <Plug>Comment
+nmap <silent> <leader>d <Plug>DeComment
+nmap <silent> <leader>g <Plug>Traditional
+nmap <silent> <leader>f <Plug>FirstLine
 
 " <space> in visual mode creates a fold over the marked range
 vnoremap <space> zf
 
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
+" if has('mouse')
+"   set mouse=a
+" endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -138,8 +146,9 @@ if has("autocmd")
 
   augroup TEXT
 	  au!
-	  autocmd FileType text setlocal textwidth=78
-	  autocmd BufRead,BufNewFile *.txt,README* set filetype=text
+	  " autocmd FileType text setlocal textwidth=78
+	  autocmd BufRead,BufNewFile *.txt,README*,diary,TODO set filetype=text
+	  autocmd FileType mail setlocal formatoptions-=c
   augroup END
 
   augroup MAIL
@@ -157,6 +166,11 @@ if has("autocmd")
   augroup SQL
 	  au!
 	  autocmd FileType sql let b:match_words='IF:THEN:ELSE:END,BEGIN:EXCEPTION:END'
+  augroup END
+
+  augroup SH
+	  au!
+	  autocmd BufRead,BufNewFile *.xinitrc set filetype=sh
   augroup END
 
   " Switch to the directory of the current file, unless it's a help file.

@@ -49,7 +49,7 @@ alias news='tin -A -r'
 
 # jabber
 alias jabber='mcabber'
-alias jabber-bf='mcabber -f ~/.mcabber/mcabberrc.bf'
+alias bf-jabber='mcabber -f ~/.mcabber/mcabberrc.bf'
 
 # plan9
 alias 9term='9term -s'
