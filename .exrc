@@ -1,117 +1,33 @@
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
+"
+" Settings
+"
 
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-let mapleader = ","
-set nobackup            " do not keep a backup file, there are better methods
-set noswapfile          " do not keep a backup file, there are better methods
-set history=50          " keep 50 lines of command line history
-set ruler               " show the cursor position all the time
-set showcmd             " display incomplete commands
-set incsearch           " do incremental searching
-set scrolloff=3         " 3 lines below and above the cursor
+set nocompatible                                  " This must be first, because it changes other options as a side effect.
+set backspace=indent,eol,start                    " allow backspacing over everything in insert mode
+set nobackup                                      " do not keep a backup file, there are better methods
+set noswapfile                                    " do not keep a backup file, there are better methods
+set history=50                                    " keep 50 lines of command line history
+set ruler                                         " show the cursor position all the time
+set showcmd                                       " display incomplete commands
+set incsearch                                     " do incremental searching
+set scrolloff=3                                   " 3 lines below and above the cursor
 set statusline=%<%F\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-set laststatus=2        " always show status line
-set report=0            " notify if any line changed
-set confirm             " Y-N-C prompt if closing with unsaved changes
-set noautoread          " disable autoread
-set vb t_vb=            " disable visual bell
+set laststatus=2                                  " always show status line
+set report=0                                      " notify if any line changed
+set confirm                                       " Y-N-C prompt if closing with unsaved changes
+set noautoread                                    " disable autoread
+set vb t_vb=                                      " disable visual bell
 set formatoptions=tcroql
 set tabstop=4
 set shiftwidth=4
-set softtabstop=0       " don't masquerade spaces as tabs
+set softtabstop=0                                 " don't masquerade spaces as tabs
 set wildignore=*.o,*.bak,*.pyc,*.swp
-set wildmenu            " autocomplete in menubar
+set wildmenu                                      " autocomplete in menubar
 set wildmode=longest:full
 set grepprg=ack\ -a
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-" set list
-set pastetoggle=<F2>
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
-" let python_highlight_all=1
-let python_highlight_space_errors=0
-
-" colors
-"colorscheme lorenzo
-
-" std plugins
-runtime macros/matchit.vim
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-function! CleverTab()
-   if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-	  return "\<Tab>"
-   else
-	  return "\<C-N>"
-endfunction
-" inoremap <Tab> <C-R>=CleverTab()<CR>
-
-" tab navigation (next tab) with alt left / alt right
-nnoremap <A-Left> gT
-nnoremap <A-Right> gt
-" " window navigation with ctrl
-" map <C-h> <C-w>h
-" map <C-j> <C-w>j
-" map <C-k> <C-w>k
-" map <C-l> <C-w>l
-nnoremap <C-G> 2<C-G>
-nnoremap <silent> <C-L> :nohl<CR><C-L>
-" <space> toggles folds opened and closed
-nnoremap <space> za
-" grep the word under cursor
-nnoremap <F3> :vimgrep /<C-R><C-W>/ *
-nnoremap <F4> :grep -r "<C-R><C-W>" .
-nnoremap <leader>a :Ack "<C-R><C-W>"
-" insert man page for word under cursor in current buffer
-nnoremap <leader>m :r !man <C-R><C-A><CR>
-" or in a new page
-nnoremap <leader>M viWy:new<CR>p:r !man <C-R><C-A><CR>
-" remove trailing whitespaces
-nmap <silent> <leader>w :%s/\s\+$//<CR>
-
-" tags
 set tags+=$PROJDIR/tags
-let Tlist_WinWidth = 50
-map <F12> :TlistToggle<cr>
 
-" tabs
-map <leader>t :tabnew 
-
-" Comments
-let g:EnhCommentifyPretty='Yes'
-let g:EnhCommentifyRespectIndent='Yes'
-let g:EnhCommentifyUserBindings="Yes"
-let g:EnhCommentifyUseBlockIndent='Yes'
-
-vmap <silent> <leader>c <Plug>VisualComment
-vmap <silent> <leader>d <Plug>VisualDeComment
-vmap <silent> <leader>g <Plug>VisualTraditional
-vmap <silent> <leader>f <Plug>VisualFirstLine
-nmap <silent> <leader>c <Plug>Comment
-nmap <silent> <leader>d <Plug>DeComment
-nmap <silent> <leader>g <Plug>Traditional
-nmap <silent> <leader>f <Plug>FirstLine
-
-" <space> in visual mode creates a fold over the marked range
-vnoremap <space> zf
-
-" In many terminal emulators the mouse works just fine, thus enable it.
 " if has('mouse')
 "   set mouse=a
 " endif
@@ -123,13 +39,74 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-" Only do this part when compiled with support for autocommands.
+
+"
+" Mappings
+"
+
+map Q gq
+set pastetoggle=<F2>
+
+nnoremap <C-h> gT
+nnoremap <C-l> gt
+nnoremap <C-j> <C-w>h
+nnoremap <C-k> <C-w>l
+nnoremap <C-G> 2<C-G>
+
+nnoremap <F3>  :vimgrep /<C-R><C-W>/ *
+nnoremap <F4>  :grep -r "<C-R><C-W>" .
+nnoremap <F12> :TlistToggle<cr>
+
+nnoremap <space> za
+vnoremap <space> zf
+
+let mapleader = ","
+
+nnoremap          <leader>a :Ack "<C-R><C-W>"
+nnoremap <silent> <leader>l :set invlist<CR>
+nnoremap          <leader>s :vsp 
+nnoremap          <leader>t :tabnew 
+nnoremap <silent> <leader>w :%s/\s\+$//<CR>
+nnoremap <silent> <leader>x :nohl<CR>
+
+vmap     <silent> <leader>c <Plug>VisualComment
+vmap     <silent> <leader>d <Plug>VisualDeComment
+vmap     <silent> <leader>g <Plug>VisualTraditional
+vmap     <silent> <leader>f <Plug>VisualFirstLine
+
+nmap     <silent> <leader>c <Plug>Comment
+nmap     <silent> <leader>d <Plug>DeComment
+nmap     <silent> <leader>g <Plug>Traditional
+nmap     <silent> <leader>f <Plug>FirstLine
+
+
+"
+" Plugins
+"
+
+runtime macros/matchit.vim
+let python_highlight_space_errors=0
+let g:EnhCommentifyPretty='Yes'
+let g:EnhCommentifyRespectIndent='Yes'
+let g:EnhCommentifyUserBindings="Yes"
+let g:EnhCommentifyUseBlockIndent='Yes'
+let Tlist_WinWidth = 50
+
+
+"
+" Colors
+"
+
+" colorscheme lorenzo
+
+
+"
+" Autocmds
+"
+
 if has("autocmd")
 
   " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
 
   " Put these in an autocmd group, so that we can delete them easily.
@@ -193,11 +170,3 @@ else
   set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis 
-			  \ | wincmd p | diffthis
-endif
