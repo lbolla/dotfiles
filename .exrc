@@ -55,7 +55,6 @@ nnoremap <C-G> 2<C-G>
 
 nnoremap <F3>  :vimgrep /<C-R><C-W>/ *
 nnoremap <F4>  :grep -r "<C-R><C-W>" .
-nnoremap <F12> :TlistToggle<cr>
 
 nnoremap <space> za
 vnoremap <space> zf
@@ -63,7 +62,9 @@ vnoremap <space> zf
 let mapleader = ","
 
 nnoremap          <leader>a :Ack "<C-R><C-W>"
+nnoremap          <leader>b :!git blame %<CR>
 nnoremap <silent> <leader>l :set invlist<CR>
+nnoremap <silent> <leader>m :make<CR>
 nnoremap          <leader>s :vsp 
 nnoremap          <leader>t :tabnew 
 nnoremap <silent> <leader>w :%s/\s\+$//<CR>
@@ -150,7 +151,7 @@ if has("autocmd")
 	  autocmd BufRead,BufNewFile *.xinitrc set filetype=sh
   augroup END
 
-  " Switch to the directory of the current file, unless it's a help file.
+  " " Switch to the directory of the current file, unless it's a help file.
   autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
 
   " When editing a file, always jump to the last known cursor position.
