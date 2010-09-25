@@ -10,11 +10,11 @@ static const char font[]            = "-*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*";
 
 static const char normbordercolor[] = BLACK;
 static const char normbgcolor[]     = WHITE;
-static const char normfgcolor[]     = BLUE;
+static const char normfgcolor[]     = BLACK;
 
 static const char selbordercolor[]  = BLUE;
 static const char selbgcolor[]      = BLUE;
-static const char selfgcolor[]      = WHITE;
+static const char selfgcolor[]      = BLACK;
 
 static unsigned int borderpx        = 1;        /* border pixel of windows */
 static unsigned int snap            = 32;       /* snap pixel */
@@ -43,13 +43,11 @@ static Rule rules[] = {
 static float mfact      = 0.5; /* factor of master area size [0.05..0.95] */
 static Bool resizehints = True; /* False means respect size hints in tiled resizals */
 
-#include "grid.c"
 static Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "+++",      grid },
 };
 
 /* key definitions */
@@ -81,7 +79,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
