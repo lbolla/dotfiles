@@ -92,6 +92,7 @@ let g:EnhCommentifyRespectIndent='Yes'
 let g:EnhCommentifyUserBindings="Yes"
 let g:EnhCommentifyUseBlockIndent='Yes'
 let Tlist_WinWidth = 50
+let g:netrw_altv = 1
 
 
 "
