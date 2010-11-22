@@ -17,29 +17,43 @@
 (setq w3m-use-cookies t)
 
 ;;
+;; Functions
+;;
+
+(defun python-insert-breakpoint ()
+  "Insert pdb breakpoint."
+  (interactive)
+  (move-beginning-of-line nil)
+  (open-line 1)
+  (indent-for-tab-command)
+  (insert "import pdb; pdb.set_trace() # BREAKPOINT"))
+
+;;
 ;; Mode specific settings
 ;;
 
 (add-hook 'python-mode-hook
-	  '(lambda ()
-	     (local-set-key (kbd "RET") 'newline-and-indent)))
+		  '(lambda ()
+			 (local-set-key (kbd "RET") 'newline-and-indent)
+			 (local-set-key (kbd "C-c b") 'python-insert-breakpoint)
+			 (setq python-indent 4)))
 
 (add-hook 'c-mode-hook
-	  '(lambda ()
-	     (local-set-key (kbd "RET") 'newline-and-indent)))
+		  '(lambda ()
+			 (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (add-hook 'lisp-mode-hook
-	  '(lambda ()
-	     (local-set-key (kbd "RET") 'newline-and-indent)))
+		  '(lambda ()
+			 (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (add-hook 'emacs-lisp-mode-hook
-	  '(lambda ()
-	     (local-set-key (kbd "RET") 'newline-and-indent)))
+		  '(lambda ()
+			 (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (setq auto-mode-alist
       (append '(("README" . text-mode)
-		("\\.pk[sb]\\'" . sql-mode))
-	    auto-mode-alist))
+				("\\.pk[sb]\\'" . sql-mode))
+			  auto-mode-alist))
 
 ;;
 ;; Pre-23 version settings
@@ -79,15 +93,14 @@
 (defun djcb-set-cursor-according-to-mode ()
   "change cursor color and type according to some minor modes."
   (cond
-    (buffer-read-only
-      (set-cursor-color djcb-read-only-color)
-      (setq cursor-type djcb-read-only-cursor-type))
-    (overwrite-mode
-      (set-cursor-color djcb-overwrite-color)
-      (setq cursor-type djcb-overwrite-cursor-type))
-    (t 
-      (set-cursor-color djcb-normal-color)
-      (setq cursor-type djcb-normal-cursor-type))))
+   (buffer-read-only
+	(set-cursor-color djcb-read-only-color)
+	(setq cursor-type djcb-read-only-cursor-type))
+   (overwrite-mode
+	(set-cursor-color djcb-overwrite-color)
+	(setq cursor-type djcb-overwrite-cursor-type))
+   (t 
+	(set-cursor-color djcb-normal-color)
+	(setq cursor-type djcb-normal-cursor-type))))
 
 (add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
-
