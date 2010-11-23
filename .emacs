@@ -139,3 +139,4 @@ Change the cursor, depending if the buffer is read-only, or if overwrite is enab
 (setq sgml-basic-offset 4)
 
 ;; grep: --exclude, --exclude-from, --exclude-dir
+;; smarttabs: http://www.emacswiki.org/SmartTabs
