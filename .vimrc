@@ -10,7 +10,7 @@ set history=50                                    " keep 50 lines of command lin
 set ruler                                         " show the cursor position all the time
 set showcmd                                       " display incomplete commands
 set incsearch                                     " do incremental searching
-set scrolloff=3                                   " 3 lines below and above the cursor
+set scrolloff=0                                   " number of lines below and above the cursor
 set statusline=%<%F\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set laststatus=2                                  " always show status line
 set report=0                                      " notify if any line changed
@@ -62,7 +62,8 @@ vnoremap <space> zf
 let mapleader = ","
 
 nnoremap          <leader>a :Ack "<C-R><C-W>"
-nnoremap          <leader>b :!git blame %<CR>
+nnoremap          <leader>b :Shell git blame %<CR><CR>
+nnoremap          <leader>B :!git gui blame % &<CR><CR>
 nnoremap <silent> <leader>l :set invlist<CR>
 nnoremap <silent> <leader>m :make<CR>
 nnoremap          <leader>s :vsp 
@@ -152,6 +153,11 @@ if has("autocmd")
 	  autocmd BufRead,BufNewFile *.xinitrc set filetype=sh
   augroup END
 
+  augroup LISP
+	  au!
+	  autocmd BufRead,BufNewFile *.sbcl,*.sbcl_compile,*.sbcl_run set filetype=lisp
+  augroup END
+
   " " Switch to the directory of the current file, unless it's a help file.
   autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
 
@@ -172,3 +178,29 @@ else
   set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
+
+
+"
+" Functions
+"
+
+
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright new
+  " setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  " call setline(1, 'You entered:    ' . a:cmdline)
+  " call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  " call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  " setlocal nomodifiable
+  1
+endfunction
