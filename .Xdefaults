@@ -68,3 +68,9 @@ Rxvt.color14                : #82e6e6
 ! white
 Rxvt.color7                 : #f6f3e8
 Rxvt.color15                : #f6f3e8
+
+!
+! Emacs
+!
+
+Emacs.font: FONT
