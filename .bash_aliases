@@ -1,6 +1,10 @@
 # colorize commands
 if [ "x$USE_COLORS" = "xY" ]; then
-	alias ls='ls --color=auto'
+	if [ `uname` = "Darwin" ]; then
+		alias ls='ls -G'
+	else
+		alias ls='ls --color=auto'
+	fi
 	alias grep='grep --color=auto'
 	#  alias ipython='ipython -colors LightBG'
 else

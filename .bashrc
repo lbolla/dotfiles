@@ -28,7 +28,7 @@ export NNTPSERVER=news.eternal-september.org
 [ -f ~/.xmodmap ] && xmodmap ~/.xmodmap
 
 # enable color support of ls
-eval "`dircolors -b`"
+[ -x dircolors ] && eval "`dircolors -b`"
 
 # don't put duplicate lines in the history
 export HISTCONTROL=ignoredups
@@ -52,6 +52,8 @@ fi
 #
 # PROMPT 
 #
+
+[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
 
 #Comment in the above and uncomment this below for a color prompt
 if [ "x$USE_COLORS" = "xY" ]; then
