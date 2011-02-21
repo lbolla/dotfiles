@@ -31,8 +31,8 @@ bind o only
 bind c remove
 bind j focus down
 bind k focus up
-#  bind t focus top
-#  bind b focus bottom
+bind h focus left
+bind l focus right
 
 # ------------------------------------------------------------------------------
 # TERMINAL SETTINGS
