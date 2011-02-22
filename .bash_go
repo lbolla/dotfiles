@@ -1,0 +1,5 @@
+# GO
+export GOROOT=$HOME/src/go
+export GOARCH=386
+export GOOS=linux
+

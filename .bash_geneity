@@ -1,0 +1,25 @@
+export JAVA_HOME=/usr/java/jre1.6.0_03
+export PATH=${PATH}:$JAVA_HOME/bin
+
+export PATH=$PATH:~/git/python/bin
+export NNTPSERVER=news.eternal-september.org
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/capscan/mcd5cs/lib/
+# export MAIL=$HOME/mail/inbox
+export MCS_INI_PATH=/opt/capscan/mcd5cs/conf/spider.ini
+
+[ -f ~/bin/python_shell_startup.py ] && export PYTHONSTARTUP=~/bin/python_shell_startup.py
+export SQLPATH=$HOME
+
+# ORACLE
+if [ `hostname` == 'muttley' ]; then
+	export ORACLE_HOME=/opt/oracle/app/oracle/oracle/product/10.2.0/db_1/
+	export ORACLE_SID=ORA10G
+else
+	export ORACLE_HOME=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server
+	export ORACLE_SID=XE
+fi;
+
+#export NLS_LANG=`$ORACLE_HOME/bin/nls_lang.sh`
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
+export PATH=$ORACLE_HOME/bin:$PATH
+

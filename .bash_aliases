@@ -6,7 +6,7 @@ if [ "x$USE_COLORS" = "xY" ]; then
 		alias ls='ls --color=auto'
 	fi
 	alias grep='grep --color=auto'
-	#  alias ipython='ipython -colors LightBG'
+	alias ipython='ipython -colors LightBG'
 else
 	alias ls='ls --color=never'
 	alias grep='grep --color=never'
@@ -27,7 +27,7 @@ alias greperr='grep -e ERROR -e CRITICAL'
 alias grepwarn='grep -e ERROR -e CRITICAL -e WARNING'
 
 # python
-alias python='python2.5'
+#  alias python='python2.5'
 alias pycheck='pychecker -e Style --no-shadow'
 
 # rlwrap

@@ -1,304 +1,3 @@
-man unzip
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100909_06CT_USA.zip .
-unzip FLASHD20100909_06CT_USA.zip
-head FLASHD20100909_06CT_USA.xml
-cp /trash/lbolla/xmlracecardfeed/FINALD20100908ASD_CAN.zip .
-unzip FINALD20100908ASD_CAN.zip
-head FINALD20100908ASD_CAN.xml
-ll /trash/lbolla/xmlracecardfeed/
-cp /trash/lbolla/xmlracecardfeed/FINALD20100914FG_USA.zip .
-unzip FINALD20100914FG_USA.zip
-head FINALD20100914FG_USA.xml
-less FINALD20100914FG_USA.xml
-grep -l SCR *.xml
-head FLASHD20100908_11DEL_USA.xml
-head FLASHD20100909_06CT_USA.xml
-grep -l ScratchReason *.xml
-head CHARTD20100907_03SUF_USA.xml
-xmllint --format FLASHD20100908_11DEL_USA.xml
-xmllint --format FLASHD20100908_11DEL_USA.xml | less
-pushd
-. proj 7
-cd betfair_api/
-git status
-git checkout -b API6_GeneityPackages_TF
-cd ../
-cat HG-sdb 
-sqsh -S TIMEFORMTEMP -U sa -p -P Password03 -D SYMDATA
-cd timeform/
-git status
-git diff
-git status
-git diff
-git commit -a -m "do not cache bf_match query and, more generally, don't use caching for queries with non-positive cache time."
-git pull
-git push
-git status
-git diff
-git reset --hard
-git status
-git diff
-gnumeric docs/timeprod\ data\ dictionary\ global\ data.xlsx &
-git status
-git diff
-git commit -a -m "queries to search horses, jockeys and trainers (http://localhost:12501/horse-racing?action=search&key=search_horses&search_string=foo)"
-git log
-git pull
-git push
-pushd screens/html/
-mkdir search
-mv search_page.html search/horse.html
-cd search/
-cp horse.html trainer.html
-cp trainer.html jockey.html
-git status
-git diff
-git commit -a -m "added some info about pagination"
-git pull
-git push
-git status
-git pull
-pushd ../../../
-pushd ../
-git pull
-pull_all
-bf-explorer 
-pushd ~/bin/
-ln -s /home/will/query_times.py 
-pushd
-ll ~/bin/
-cat /home/lbolla/bin/query_times.py 
-bf-vc 
-pushd
-rm query_times.py 
-cp /home/will/query_times.py .
-chmod +x query_times.py 
-query_times.py /tmp/screens.log 
-query_times.py < /tmp/screens.log 
-rm query_times.py 
-vi query_times
-chmod +x query_times 
-query_times /tmp/screen
-query_times /tmp/screens.log 
-pushd
-./get_live_info.sh 
-query_times /tmp/screens.log 
-cd timeform/summary/
-python python/summary.py 
-cp ../pa_feed_parser/pa_feed_parser.cfg summary.cfg
-pushd ../../
-git status
-git commit config/env/DEV.cfg -m "typo"
-git pull
-git push
-pushd
-l
-python python/summary.py -c summary.cfg
-python python/summary.py -c summary_lorenzo.cfg
-less -n /tmp/screens.log 
-python python/summary.py -c summary_lorenzo.cfg
-pushd ../screens/python/
-git mv tfvalidate.py ../../python/
-vi setup.py 
-pushd ../../python/
-vi setup.py 
-cd ../summary/
-ls
-python python/summary.py -c summary_lorenzo.cfg
-cp ../DB/feed/PROCS/pInsBFMkt.sql .
-mkdir PROCS
-mv pInsBFMkt.sql pInsTopJockeysSummary.sql PROCS/
-mv pInsBFMkt.sql PROCS/pInsTopJockeysSummary.sql
-cd PROCS/
-ls
-mv pInsBFMkt.sql pInsTopJockeysSummary.sql
-cd ../
-mv PROCS/ ../DB/
-python python/summary.py -c summary_lorenzo.cfg
-query_times /tmp/screens.log 
-git pull
-git diff
-git commit -a -m "show page without prices. update later."
-git pull
-git status
-ls
-mv summary_lorenzo.cfg s.cfg
-git status
-git commit -a -m "ops"
-git pull
-git push
-mv s.cfg summary_lorenzo.cfg
-git status
-query_times /tmp/screens.log 
-cat ../../HG-sdb 
-sqsh -S TIMEFORMTEMP -U sa -p -P Password03 -D SYMDATA
-query_times /tmp/screens.log 
-git status
-git diff
-git commit ../screens/python/queries.py -m "optimized bf_match"
-git diff
-git commit -a -m "don't insert the match and don't get prices from BF if there no matching BF->TF"
-git pull
-git push
-query_times /tmp/screens.log 
-cd ../
-git pull
-git push
-query_times /tmp/screens.log 
-grep racecard_form /tmp/screens.log 
-query_times /tmp/screens.log 
-query_times /tmp/screens2.log 
-git status
-git diff
-git commit -a -m "remove index already in the new DB"
-git pull
-git push
-query_times /tmp/screens2.log 
-query_times /tmp/screens.log 
-query_times /tmp/screens2.log 
-query_times /tmp/screens.log 
-pushd ~/bin/
-ls
-rm query_times 
-cp /home/will/query_times.py .
-chmod +x query_times.py 
-./query_times.py /tmp/screens.log 
-./query_times.py < /tmp/screens.log 
-./query_times.py 2 < /tmp/screens.log 
-./query_times.py 3 < /tmp/screens.log 
-./query_times.py < /tmp/screens.log 
-./query_times.py 2 < /tmp/screens.log 
-./query_times.py 1 < /tmp/screens.log 
-./query_times.py 3 < /tmp/screens.log 
-./query_times.py 36 < /tmp/screens.log 
-./query_times.py < /tmp/screens.log 
-./query_times.py < /tmp/screens2.log 
-pushd
-git status
-./query_times.py < /tmp/screens2.log 
-./query_times.py < /tmp/screens.log 
-query_times.py < /tmp/screens.log 
-query_times.py 2 < /tmp/screens.log 
-query_times.py 3 < /tmp/screens.log 
-query_times.py 2 < /tmp/screens.log 
-query_times.py 3 < /tmp/screens.log 
-query_times.py 0 < /tmp/screens.log 
-query_times.py 1 < /tmp/screens.log 
-query_times.py 2 < /tmp/screens.log 
-query_times.py 1 < /tmp/screens.log 
-query_times.py 2 < /tmp/screens.log 
-query_times.py 2 < /tmp/screens2.log 
-query_times.py 2 < /tmp/screens.log 
-query_times.py 2 < /tmp/screens2.log 
-query_times.py 2 < /tmp/screens.log 
-query_times.py 2 < /tmp/screens2.log 
-query_times.py 2 < /tmp/screens.log 
-git status
-git diff
-git reset --hard
-cd summary/
-python python/summary.py 
-cd summary/
-python python/summary.py 
-python python/summary.py -c summary_lorenzo.cfg
-../../get_live_info.sh 
-pushd /trash/lbolla/timeform/
-ls
-cd ../xmlracecardfeed/
-ls
-ls FLASHD20100911_03BKF_USA.zip
-cp FLASHD20100911_03BKF_USA.zip /tmp
-pushd
-pushd tmp
-pushd /tmp/
-unzip FLASHD20100911_03BKF_USA.zip 
-less FLASHD20100911_03BKF_USA.xml
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100911_02YD_USA.zip .
-unzip FLASHD20100911_02YD_USA.zip
-less FLASHD20100911_02YD_USA.xml 
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100911_01CLS_USA.zip .
-unzip FLASHD20100911_01CLS_USA.zip
-less FLASHD20100911_01CLS_USA.xml
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100911_01BKF_USA.zip
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100911_01BKF_USA.zip .
-unzip FLASHD20100911_01BKF_USA.zip
-less FLASHD20100911_01BKF_USA.xml
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100907_01AJX_CAN.zip .
-unzip FLASHD20100907_01AJX_CAN.zip
-less FLASHD20100907_01AJX_CAN.xml
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100907_03FE_CAN.zip .
-unzip FLASHD20100907_03FE_CAN.zip
-less FLASHD20100907_03FE_CAN.xml
-pushd
-git status
-pushd ../../
-git status
-pushd timeform/
-git pull
-../get_live_pa_data.sh 
-git diff
-git stash
-git pull
-grep get_all_markets /tmp/tf-flashresults.log.20100914 
-grep "get_all_markets returned" /tmp/tf-flashresults.log.20100914 
-bf-explorer 
-grep "get_all_markets returned" /tmp/tf-flashresults.log.20100914 
-grep "get_bf_match_for_eqb.*1936" /tmp/tf-flashresults.log.20100915 
-grep "get_bf_match_for_eqb" /tmp/tf-flashresults.log.20100915 | less
-grep "get_bf_match_for_eqb.*1936" /tmp/tf-flashresults.log.20100915 
-less -n /tmp/tf-flashresults.log.20100915 
-query_times.py /tmp/tf-pa.log.20100915 
-query_times.py < /tmp/tf-pa.log.20100915 
-query_times.py < /tmp/tf-flashresults.log.20100915 
-pushd /tmp/
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100909_01WO_CAN.zip .
-unzip FLASHD20100909_01WO_CAN.zip
-less FLASHD20100909_01WO_CAN.xml
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100911_02MD_CAN.zip 
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100911_02MD_CAN.zip .
-unzip FLASHD20100911_02MD_CAN.zip
-less FLASHD20100911_02MD_CAN.xml
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100911_01ASD_CAN.zip .
-unzip FLASHD20100911_01ASD_CAN.zip
-less FLASHD20100911_01ASD_CAN.xml
-cp /trash/lbolla/xmlracecardfeed/FLASHD20100911_03HST_CAN.zip .
-unzip FLASHD20100911_03HST_CAN.zip
-less FLASHD20100911_03HST_CAN.xml
-ipython
-ps -ef | grep 870
-ps -eF | grep 870
-ps -ef | grep grep
-ps -ef | grep ctag
-kill 10507
-ps -ef | grep ctag
-man ctags
-ctags --list-languages
-man ctags
-crontab -l
-vi bin/refresh_tags.sh 
-man ctags
-vi bin/refresh_tags.sh 
-crontab -l
-/home/lbolla/bin/refresh_tags.sh
-cat /home/lbolla/bin/refresh_tags.sh
-vi /home/lbolla/bin/refresh_tags.sh
-man ctags
-vi /home/lbolla/bin/refresh_tags.sh
-cat /home/lbolla/bin/refresh_tags.sh
-refresh_tags.sh 
-cat /home/lbolla/bin/refresh_tags.sh
-man ctags
-crontab -e
-openoffice.org /tmp/proposta\ angelita.doc 
-ipython
-ps -ef | grep ctags
-cd git/PROJ-Timeform/
-cd deploy/
-ls
-less build_form.py 
-cd ../
-find . -name "gen_build*"
-cd ../
 ls
 locate gen_build
 usformdev 
@@ -498,3 +197,304 @@ git status
 git commit -a -m "fixed config for _p2 and added configs for laptop."
 git pull
 git push
+cd work/
+ls
+git clone git@github.com:lbolla/dotfiles.git
+ssh -p 2222 lbolla@lbolla.info
+man ssh-keygen 
+ssh-keygen 
+ls ˜
+ls $HOME 
+ls $HOME/.ssh
+cat  /Users/lbolla/.ssh/id_rsa
+cat  /Users/lbolla/.ssh/id_rsa.pub 
+ls
+git clone git@github.com:lbolla/dotfiles.git
+ls
+ls dotfiles/
+ls
+cd dotfiles/
+cp .bash* ../../.
+cd
+ls
+ls -la
+vi bashr
+vi .bashrc 
+ls
+ll
+l
+ls -la
+ls
+vi .bashrc 
+bashr
+bash
+ls
+vi .bash_aliases 
+echo $USE_COLORS 
+vi .bash_aliases 
+man ls
+host
+uname -a
+uname
+vi .bash_aliases 
+bash
+ls
+vi .bash_aliases 
+echo $USE_COLORS 
+vi .bash_aliases 
+man ls
+host
+uname -a
+uname
+vi .bash_aliases 
+bash
+man grep
+ls
+git
+ls
+ls -la
+ls -la
+ruby 
+python
+ruby -e "$(curl -fsSLk https://gist.github.com/raw/323731/install_homebrew.rb)"
+brew 
+brew install git
+vim
+vi
+vi TODO
+mv TODO README.Apple
+vi README.tools
+mv README.AwesomeDeals README.Awesome
+ll
+ls
+mv README.* Documents/
+ls
+ls -ls
+ls -ls Doce
+ls -ls Documents/
+ls /usr/local/
+host
+hostname
+brew install git
+git status
+ls
+ls
+ls -la
+cd wo
+mkdir work
+cd work/
+ls
+vi TODO
+ls
+mv TODO ../Documents/
+vi ../Documents/TODO 
+vi ../Documents/TODO 
+ls
+l
+ll
+cd work/dotfiles/
+ls
+ll
+ls ~
+cd ~
+ll
+cp .bashrc .bash_aliases work/dotfiles/
+cd $!
+echo $!
+cd work/dot
+cd work/dotfiles/
+ls
+git status
+git diff
+git commit -a -m "added git-completion source and colouring for Darwin OS"
+git config --global user.name "lbolla"
+git config --global user.name "Lorenzo Bolla"
+git config --global user.email "Lorenzo Bolla"
+git config --global user.email "lbolla@gmail.com"
+git commit --amend --reset-author
+git push
+cp .vimrc ~
+cp -R .vim ~
+ll
+l
+ll
+brew install scren
+brew install screen
+cd ../
+less screen/src/INSTALL 
+ls
+ls -la
+ls
+vim Documents/TODO 
+rm /tmp/uff.py 
+ls
+cd sr
+cd work/
+ls
+git clone git://git.savannah.gnu.org/screen.git
+cd screen/
+ls
+ls src/
+cd src/
+less INSTALL 
+./autogen.sh 
+ls
+./configure
+less config.h
+less Makefile
+make
+ls
+make install
+sudo make install
+screen
+cd 
+cp work/dotfiles/.screenrc .
+screen
+xterm 
+ls
+ls -la
+ls Downloads/
+vi Documents/TODO 
+brew update
+rm -rf /usr/local/.git
+brew update
+brew -S nose
+brew -S nosetest
+brew -S python
+brew -S --macports nosetest
+easy_install nose
+python
+vi .bashrc 
+vi .bash_aliases 
+echo $PYTHONSTARTUP 
+vi .bashrc 
+ls
+python
+easy_install ipython
+ipython
+pythonw
+brew -S python
+brew list
+ls
+ls -la
+hostname 
+man hostname
+ls
+vi Documents/README.Awesome 
+ls
+ls -la
+cat .ssh/
+cat .ssh/id_rsa.pub 
+man brew
+ls
+ls -la
+ll
+vi /tmp/uff.py
+ls
+ls -la
+xterm -rv
+vi /tmp/uff.py
+ls
+ls -la
+vi /tmp/uff.py 
+ls
+ls -la
+vi /tmp/uff.py 
+ls
+ll
+vi /tmp/uff.py
+ll
+vi /tmp/uff.py
+xterm 
+ls
+cat .screenrc 
+vi .screenrc 
+ls
+ls
+man screen
+ll
+man screen
+vi .screenrc 
+s
+ls
+ls -la
+top
+ls
+ls -la
+ll
+ls
+screen
+vi .scre
+vi .screenrc 
+screen -x
+s
+s -ls
+vi .screenrc 
+s
+l
+ll
+diff .screenrc work/dotfiles/.screenrc 
+cp .screenrc work/dotfiles/.screenrc 
+cd work/dotfiles/
+git diff
+git status
+git config --global core.editor vim
+git config --global color.ui true
+git status
+git diff
+git commit -a 
+git push
+vi Documents/TODO 
+cp work/dotfiles/.emacs .
+emacs
+cp work/dotfiles/.emacs .
+ls
+ls -la
+easy_install virtualenv
+xterm &
+rm .emacs
+rm -rf .emacs.d/
+virtualenv testenv
+ls
+ls Library/
+cd testenv/
+ls
+cd test
+source bin/activate
+ls
+ls -la
+which python
+python
+ipython
+python
+easy_install virtualenvwrapper
+ls
+rm testenv/
+rm -rf testenv/
+ls
+ls work/
+mv work/ src
+ls
+mkdir work
+cd work/
+export WORKON_HOME=~/work
+ls /usr/local/bin/virtualenvwrapper.sh 
+cat /usr/local/bin/virtualenvwrapper.sh 
+source /usr/local/bin/virtualenvwrapper.sh 
+ls 
+ll
+source /usr/local/bin/virtualenvwrapper.sh 
+mkvirtualenv testenv
+ls
+lssitepackages 
+workon testenv
+workon
+rmvirtualenv testenv
+deactivate testenv
+rmvirtualenv testenv
+ls
+ls -la
+echo $PATH
+hostname
+ls
+echo $PATH

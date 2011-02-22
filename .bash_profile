@@ -6,16 +6,7 @@
 #umask 022
 
 # include .bashrc if it exists
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-fi
+[ -f ~/.bashrc ] && . ~/.bashrc
 
 # set PATH so it includes user's private bin if it exists
-if [ -d ~/bin ] ; then
-    PATH=~/bin:"${PATH}"
-fi
-
-export JAVA_HOME=/usr/java/jre1.6.0_03
-export PATH=${PATH}:$JAVA_HOME/bin
-
-export PATH=$PATH:~/git/python/bin
+[ -d ~/bin ] && PATH=~/bin:"${PATH}"

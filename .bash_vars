@@ -1,0 +1,42 @@
+# If this is an xterm use colors
+case "$TERM" in
+linux|xterm*|rxvt*|screen*)
+    USE_COLORS=Y
+    ;;
+esac
+# don't like colors...
+# USE_COLORS=N
+
+export PATH=~/bin:$PATH
+export EDITOR="vi"
+export GIT_EDITOR="vi"
+export PAGER="less -nF"
+export BROWSER="google-chrome"
+
+# vi keybindings for bash
+# set -o vi
+
+# remap some keys
+[ -f ~/.xmodmap ] && xmodmap ~/.xmodmap
+
+# enable color support of ls
+[ -x dircolors ] && eval "`dircolors -b`"
+
+# don't put duplicate lines in the history
+export HISTCONTROL=ignoredups
+
+# for gpg
+export GPG_TTY=`tty`
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+# set variable identifying the chroot you git in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
