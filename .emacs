@@ -67,35 +67,37 @@ Change the cursor, depending if the buffer is read-only, or if overwrite is enab
 ;; make _ part of a word
 (modify-syntax-entry ?_ "w")
 
-(require 'w3m-load)
-(setq w3m-use-cookies t)
+;; (require 'w3m-load)
+;; (setq w3m-use-cookies t)
 
 ;;
 ;; Mode specific settings
 ;;
 
 (add-hook 'python-mode-hook
-		  '(lambda ()
-			 (local-set-key (kbd "RET") 'newline-and-indent)
-			 (local-set-key (kbd "C-c b") 'python-insert-breakpoint)
-			 (setq python-indent 4)))
+	  '(lambda ()
+	     (local-set-key (kbd "RET") 'newline-and-indent)
+	     (local-set-key (kbd "C-c b") 'python-insert-breakpoint)
+	     (setq indent-tabs-mode nil
+		   tab-width 4
+		   python-indent 4)))
 
 (add-hook 'c-mode-hook
-		  '(lambda ()
-			 (local-set-key (kbd "RET") 'newline-and-indent)))
+	  '(lambda ()
+	     (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (add-hook 'lisp-mode-hook
-		  '(lambda ()
-			 (local-set-key (kbd "RET") 'newline-and-indent)))
+	  '(lambda ()
+	     (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (add-hook 'emacs-lisp-mode-hook
-		  '(lambda ()
-			 (local-set-key (kbd "RET") 'newline-and-indent)))
+	  '(lambda ()
+	     (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (setq auto-mode-alist
       (append '(("README" . text-mode)
-				("\\.pk[sb]\\'" . sql-mode))
-			  auto-mode-alist))
+		("\\.pk[sb]\\'" . sql-mode))
+	      auto-mode-alist))
 
 ;;
 ;; Pre-23 version settings
