@@ -20,13 +20,15 @@ set vb t_vb=                                      " disable visual bell
 set formatoptions=tcroql
 set tabstop=4
 set shiftwidth=4
-set softtabstop=0                                 " don't masquerade spaces as tabs
 set wildignore=*.o,*.bak,*.pyc,*.swp
 set wildmenu                                      " autocomplete in menubar
 set wildmode=longest:full
 set grepprg=ack\ -a
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-set tags+=$PROJDIR/tags
+set tags+=$proj_name/tags
+
+" use tabs literally
+set softtabstop=0                                 " don't masquerade spaces as tabs
 
 " if has('mouse')
 "   set mouse=a
@@ -61,15 +63,15 @@ vnoremap <space> zf
 
 let mapleader = ","
 
-nnoremap          <leader>a :Ack "<C-R><C-W>"
-nnoremap          <leader>b :Shell git blame %<CR><CR>
-nnoremap          <leader>B :!git gui blame % &<CR><CR>
-nnoremap <silent> <leader>l :set invlist<CR>
-nnoremap <silent> <leader>m :make<CR>
-nnoremap          <leader>s :vsp 
-nnoremap          <leader>t :tabnew 
-nnoremap <silent> <leader>w :%s/\s\+$//<CR>
-nnoremap <silent> <leader>x :nohl<CR>
+nnoremap          <leader>a  :Ack "<C-R><C-W>"
+nnoremap          <leader>gb :Shell git blame %<CR><CR>
+nnoremap          <leader>B  :!git gui blame % &<CR><CR>
+nnoremap <silent> <leader>l  :set invlist<CR>
+nnoremap <silent> <leader>m  :make<CR>
+nnoremap          <leader>s  :vsp 
+nnoremap          <leader>t  :tabnew 
+nnoremap <silent> <leader>w  :%s/\s\+$//<CR>
+nnoremap <silent> <leader>x  :nohl<CR>
 
 vmap     <silent> <leader>c <Plug>VisualComment
 vmap     <silent> <leader>d <Plug>VisualDeComment
@@ -100,7 +102,14 @@ let g:netrw_altv = 1
 " Colors
 "
 
+set background=dark
+" set background=light
+
 " colorscheme lorenzo
+" colorscheme wombat
+" let g:solarized_termcolors=16
+" let g:solarized_contrast="high"
+" colorscheme solarized
 
 
 "
@@ -137,9 +146,9 @@ if has("autocmd")
 	  autocmd FileType mail setlocal formatoptions-=o
   augroup END
 
-  " For html files, match Geneity templates keywords
   augroup HTML
 	  au!
+      " match Geneity templates keywords
 	  autocmd FileType html let b:match_words='##GT_FOR:##GT_ENDFOR##,##GT_IF:##GT_ELIF:##GT_ELSE##:##GT_ENDIF##,##GT_BLOCK:##GT_ENDBLOCK##'
   augroup END
 
@@ -157,6 +166,15 @@ if has("autocmd")
 	  au!
 	  autocmd BufRead,BufNewFile *.sbcl,*.sbcl_compile,*.sbcl_run set filetype=lisp
   augroup END
+
+  augroup JS
+	  au!
+	  autocmd BufRead,BufNewFile *.jsm set filetype=javascript
+  augroup END
+
+  augroup PIG
+	  au BufNewFile,BufRead *.pig set filetype=pig syntax=pig 
+  augroup END 
 
   " " Switch to the directory of the current file, unless it's a help file.
   autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
