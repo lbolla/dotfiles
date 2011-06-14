@@ -8,5 +8,7 @@
 # include .bashrc if it exists
 [ -f ~/.bashrc ] && . ~/.bashrc
 
-# set PATH so it includes user's private bin if it exists
+# include other bin dirs
 [ -d ~/bin ] && PATH=~/bin:"${PATH}"
+[ -d /opt/local/bin ] && PATH=/opt/local/bin:"${PATH}"
+[ -d /opt/local/sbin ] && PATH=/opt/local/sbin:"${PATH}"

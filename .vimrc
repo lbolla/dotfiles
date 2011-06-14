@@ -17,18 +17,12 @@ set report=0                                      " notify if any line changed
 set confirm                                       " Y-N-C prompt if closing with unsaved changes
 set noautoread                                    " disable autoread
 set vb t_vb=                                      " disable visual bell
-set formatoptions=tcroql
-set tabstop=4
-set shiftwidth=4
 set wildignore=*.o,*.bak,*.pyc,*.swp
 set wildmenu                                      " autocomplete in menubar
 set wildmode=longest:full
 set grepprg=ack\ -a
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 set tags+=$proj_name/tags
-
-" use tabs literally
-set softtabstop=0                                 " don't masquerade spaces as tabs
 
 " if has('mouse')
 "   set mouse=a
@@ -41,6 +35,7 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
+let python_highlight_all=1
 
 "
 " Mappings
@@ -55,8 +50,9 @@ nnoremap <C-j> <C-w>h
 nnoremap <C-k> <C-w>l
 nnoremap <C-G> 2<C-G>
 
-nnoremap <F3>  :vimgrep /<C-R><C-W>/ *
-nnoremap <F4>  :grep -r "<C-R><C-W>" .
+" nnoremap <F3>  :vimgrep /<C-R><C-W>/ *
+" nnoremap <F4>  :grep -r "<C-R><C-W>" .
+nnoremap <F4>  :make<CR>
 
 nnoremap <space> za
 vnoremap <space> zf
@@ -72,6 +68,7 @@ nnoremap          <leader>s  :vsp
 nnoremap          <leader>t  :tabnew 
 nnoremap <silent> <leader>w  :%s/\s\+$//<CR>
 nnoremap <silent> <leader>x  :nohl<CR>
+nnoremap <silent> <leader>q  :!pbcopy<%<CR><CR>
 
 vmap     <silent> <leader>c <Plug>VisualComment
 vmap     <silent> <leader>d <Plug>VisualDeComment
@@ -82,7 +79,6 @@ nmap     <silent> <leader>c <Plug>Comment
 nmap     <silent> <leader>d <Plug>DeComment
 nmap     <silent> <leader>g <Plug>Traditional
 nmap     <silent> <leader>f <Plug>FirstLine
-
 
 "
 " Plugins
@@ -105,7 +101,7 @@ let g:netrw_altv = 1
 set background=dark
 " set background=light
 
-" colorscheme lorenzo
+colorscheme lorenzo
 " colorscheme wombat
 " let g:solarized_termcolors=16
 " let g:solarized_contrast="high"
@@ -214,11 +210,11 @@ function! s:RunShellCommand(cmdline)
      endif
   endfor
   botright new
-  " setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
   " call setline(1, 'You entered:    ' . a:cmdline)
   " call setline(2, 'Expanded Form:  ' .expanded_cmdline)
   " call setline(3,substitute(getline(2),'.','=','g'))
   execute '$read !'. expanded_cmdline
-  " setlocal nomodifiable
+  setlocal nomodifiable
   1
 endfunction

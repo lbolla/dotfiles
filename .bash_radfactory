@@ -1,7 +1,34 @@
+alias eject="drutil tray open"
+
+# envjs
+ENVJSHOME="${HOME}/src/envjs"
+alias js="java -cp $ENVJSHOME/env-js/rhino/js.jar:$ENVJSHOME/env-js/rhino/jline.jar jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main -opt -1"
+
 # MYSQL
 export MYSQL_HOME=/usr/local/mysql
-export PATH=$MYSQL_HOME/bin:$PATH
+export PATH=$MYSQL_HOME/bin:/opt/local/bin/:/opt/local/sbin/:$PATH
+#  export PYTHONPATH=$HOME/projects
+export MANPATH=/opt/local/share/man:$MANPATH
+export DYLD_LIBRARY_PATH=$MYSQL_HOME/lib/:$DYLD_LIBRARY_PATH
 
-# virtualenv
-export WORKON_HOME="~/work"
-source /usr/local/bin/virtualenvwrapper.sh
+export PYVER="2.7"
+if [ "$PYVER" = "2.7" ]; then
+	# virtualenv 2.7
+	export WORKON_HOME="~/envs-2.7"
+	source /usr/local/share/python/virtualenvwrapper.sh
+	export VIRTUALENVWRAPPER_PYTHON="$(\which python2.7)"
+	export VIRTUALENVWRAPPER_VIRTUALENV="/usr/local/share/python/virtualenv"
+else
+	# virtualenv 2.6
+	export WORKON_HOME="~/envs-2.6"
+	source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+# pip
+#  export PIP_REQUIRE_VIRTUALENV=true
+export PIP_RESPECT_VIRTUALENV=true
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+
+# mysql
+alias mysql-start="sudo /Library/StartupItems/MySQLCOM/MySQLCOM start"
+alias mysql-stop="sudo /Library/StartupItems/MySQLCOM/MySQLCOM stop"

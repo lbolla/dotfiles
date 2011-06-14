@@ -1,16 +1,17 @@
 # colorize commands
 if [ "x$USE_COLORS" = "xY" ]; then
-	if [ `uname` = "Darwin" ]; then
-		alias ls='ls -G'
-	else
-		alias ls='ls --color=auto'
-	fi
-	alias grep='grep --color=auto'
-	alias ipython='ipython -colors LightBG'
+    if [ `uname` = "Darwin" ]; then
+        export LSCOLORS=Exfxcxdxbxegedabagacad
+        alias ls='ls -G'
+    else
+        alias ls='ls --color=auto'
+    fi
+    alias grep='grep --color=auto'
+    alias ipython='ipython -colors Linux'
 else
-	alias ls='ls --color=never'
-	alias grep='grep --color=never'
-	alias ipython='ipython -colors NoColor'
+    alias ls='ls --color=never'
+    alias grep='grep --color=never'
+    alias ipython='ipython -colors NoColor'
 fi
 
 # ls aliases
@@ -29,10 +30,11 @@ alias grepwarn='grep -e ERROR -e CRITICAL -e WARNING'
 # python
 #  alias python='python2.5'
 alias pycheck='pychecker -e Style --no-shadow'
+alias pydoc='python -m pydoc' # to workaround virtualenv
 
 # rlwrap
-alias sqlplus='rlwrap -m sqlplus'
-alias sbcl='rlwrap -m sbcl'
+alias sqlplus='rlwrap --multi-line sqlplus'
+alias sbcl='rlwrap --multi-line sbcl'
 
 #  alias screen='screen -T vt100'
 #  alias f='find'
