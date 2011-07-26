@@ -23,6 +23,8 @@ alias lc='l -1C'
 # for safety
 alias rm='rm -i'
 
+alias vi='vim'
+
 # grep
 alias greperr='grep -e ERROR -e CRITICAL'
 alias grepwarn='grep -e ERROR -e CRITICAL -e WARNING'
@@ -56,6 +58,8 @@ alias news='tin -A -r'
 # jabber
 alias jabber='mcabber'
 alias bf-jabber='mcabber -f ~/.mcabber/mcabberrc.bf'
+
+alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
 
 # plan9
 alias 9term='9term -s'
