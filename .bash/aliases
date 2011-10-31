@@ -7,11 +7,11 @@ if [ "x$USE_COLORS" = "xY" ]; then
         alias ls='ls --color=auto'
     fi
     alias grep='grep --color=auto'
-    alias ipython='ipython -colors Linux'
+    #  alias ipython='ipython -colors Linux'
 else
     alias ls='ls --color=never'
     alias grep='grep --color=never'
-    alias ipython='ipython -colors NoColor'
+    #  alias ipython='ipython -colors NoColor'
 fi
 
 # ls aliases
@@ -60,6 +60,7 @@ alias jabber='mcabber'
 alias bf-jabber='mcabber -f ~/.mcabber/mcabberrc.bf'
 
 alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
+alias db='rlwrap ~/src/junk/utils/dbclient.py'
 
 # plan9
 alias 9term='9term -s'

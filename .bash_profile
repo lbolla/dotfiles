@@ -9,6 +9,9 @@
 [ -f ~/.bashrc ] && . ~/.bashrc
 
 # include other bin dirs
-[ -d ~/bin ] && PATH=~/bin:"${PATH}"
-[ -d /opt/local/bin ] && PATH=/opt/local/bin:"${PATH}"
-[ -d /opt/local/sbin ] && PATH=/opt/local/sbin:"${PATH}"
+for d in "~/bin/" "/opt/java/jre/bin/"; do
+	[ -d $d ] && PATH="$d":"${PATH}"
+done
+
+# run fetchmail
+# fetchmail

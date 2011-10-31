@@ -8,10 +8,10 @@ esac
 # USE_COLORS=N
 
 export PATH=~/bin:$PATH
-export EDITOR="vi"
-export GIT_EDITOR="vi"
+export EDITOR="vim"
+export GIT_EDITOR="vim"
 export PAGER="less -nF"
-export BROWSER="google-chrome"
+export BROWSER="chromium"
 
 # vi keybindings for bash
 # set -o vi
@@ -39,4 +39,3 @@ shopt -s checkwinsize
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
-
