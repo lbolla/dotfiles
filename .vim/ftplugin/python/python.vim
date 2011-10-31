@@ -18,7 +18,7 @@ setlocal textwidth=79
 setlocal smartindent cindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 setlocal fileformat=unix
 " setlocal foldmethod=indent
-setlocal formatoptions=tcroql
+
 highlight BadWhitespace ctermbg=red guibg=red
 " Display tabs at the beginning of a line in Python mode as bad.
 match BadWhitespace /^\t\+/

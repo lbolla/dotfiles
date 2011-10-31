@@ -22,7 +22,9 @@ set wildmenu                                      " autocomplete in menubar
 set wildmode=longest:full
 set grepprg=ack\ -a
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-set tags+=$proj_name/tags
+set tags+=$proj_dir/TAGS
+set path+=$proj_dir/**
+set expandtab
 
 " if has('mouse')
 "   set mouse=a
@@ -34,8 +36,6 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
-
-let python_highlight_all=1
 
 "
 " Mappings
@@ -86,12 +86,16 @@ nmap     <silent> <leader>f <Plug>FirstLine
 
 runtime macros/matchit.vim
 let python_highlight_space_errors=0
+let python_highlight_all=1
+let g:pydoc_cmd = "/usr/bin/pydoc2"
+let g:pydoc_wh = 30
 let g:EnhCommentifyPretty='Yes'
 let g:EnhCommentifyRespectIndent='Yes'
 let g:EnhCommentifyUserBindings="Yes"
 let g:EnhCommentifyUseBlockIndent='Yes'
 let Tlist_WinWidth = 50
 let g:netrw_altv = 1
+let g:haddock_browser = "/usr/bin/chromium"
 
 
 "
@@ -103,7 +107,7 @@ set background=dark
 
 colorscheme lorenzo
 " colorscheme wombat
-" let g:solarized_termcolors=16
+" let g:solarized_termcolors=8
 " let g:solarized_contrast="high"
 " colorscheme solarized
 
@@ -142,17 +146,6 @@ if has("autocmd")
 	  autocmd FileType mail setlocal formatoptions-=o
   augroup END
 
-  augroup HTML
-	  au!
-      " match Geneity templates keywords
-	  autocmd FileType html let b:match_words='##GT_FOR:##GT_ENDFOR##,##GT_IF:##GT_ELIF:##GT_ELSE##:##GT_ENDIF##,##GT_BLOCK:##GT_ENDBLOCK##'
-  augroup END
-
-  augroup SQL
-	  au!
-	  autocmd FileType sql let b:match_words='IF:THEN:ELSE:END,BEGIN:EXCEPTION:END'
-  augroup END
-
   augroup SH
 	  au!
 	  autocmd BufRead,BufNewFile *.xinitrc set filetype=sh
@@ -170,6 +163,15 @@ if has("autocmd")
 
   augroup PIG
 	  au BufNewFile,BufRead *.pig set filetype=pig syntax=pig 
+  augroup END 
+
+  augroup PY
+	  autocmd FileType python setlocal formatoptions=tcroql
+  augroup END 
+
+  augroup HSK
+	  au Bufenter *.hs compiler ghc
+	  autocmd FileType haskell setlocal formatoptions+=t
   augroup END 
 
   " " Switch to the directory of the current file, unless it's a help file.
