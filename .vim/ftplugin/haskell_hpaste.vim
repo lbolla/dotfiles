@@ -2,6 +2,7 @@
 " (using netrw for reading, wget for posting/annotating)
 "
 " claus reinke, last modified: 07/04/2009
+" Lorenzo Bolla, last modified: 29/10/2011
 "
 " part of haskell plugins: http://projects.haskell.org/haskellmode-vim
 
@@ -31,15 +32,22 @@ function! HpasteIndex()
   %s/<\/tr>//g
   g/<\/table>/d
   g/DOCTYPE/d
-  %s/<td>\([^<]*\)<\/td><td><a href="\/fastcgi\/hpaste\.fcgi\/view?id=\([0-9]*\)">\([^<]*\)<\/a><\/td><td>\([^<]*\)<\/td><td>\([^<]*\)<\/td><td>\([^<]*\)<\/td>/\2 [\1] "\3" \4 \5 \6/
+  " \1 link
+  " \2 title
+  " \3 author
+  " \4 when
+  " \5 language
+  " \6 channel
+  %s/<td><a href="\/\([0-9]*\)">\([^<]*\)<\/a><\/td><td>\([^<]*\)<\/td><td>\([^<]*\)<\/td><td>\([^<]*\)<\/td><td>\([^<]*\)<\/td>/\1 - \2 - \3 - \4 - \5 - \6/g
   map <buffer> ,r 0yE:noh<cr>:call HpasteEditEntry('"')<cr>
+  map <buffer> <Return> ,r
 endfunction
 
 " load an existing entry for editing
 command! -nargs=1 HpasteEditEntry call HpasteEditEntry(<f-args>)
 function! HpasteEditEntry(entry)
   new
-  exe 'Nread http://hpaste.org/fastcgi/hpaste.fcgi/raw?id='.a:entry
+  exe 'Nread http://hpaste.org/raw/'.a:entry
   "exe 'map <buffer> ,p :call HpasteAnnotate('''.a:entry.''')<cr>'
 endfunction
 
