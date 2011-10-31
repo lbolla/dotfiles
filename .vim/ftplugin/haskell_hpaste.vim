@@ -26,7 +26,7 @@ endif
 command! HpasteIndex call HpasteIndex()
 function! HpasteIndex()
   new
-  read http://hpaste.org
+  read http://hpaste.org/
   %s/\_$\_.//g
   %s/<tr[^>]*>//g
   %s/<\/tr>//g
@@ -47,6 +47,7 @@ endfunction
 command! -nargs=1 HpasteEditEntry call HpasteEditEntry(<f-args>)
 function! HpasteEditEntry(entry)
   new
+  setlocal filetype=haskell
   exe 'Nread http://hpaste.org/raw/'.a:entry
   "exe 'map <buffer> ,p :call HpasteAnnotate('''.a:entry.''')<cr>'
 endfunction
