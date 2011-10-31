@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char font[]            = "-*-terminus-medium-r-normal-7-14-*-*-*-*-*-*-*";
-// static const char font[]            = "-*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*";
+// static const char font[]            = "-*-terminus-medium-r-normal-7-14-*-*-*-*-*-*-*";
+static const char font[]            = "-*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*";
 
 #define BLACK "#242424"
 #define WHITE "#f6f3e8"
@@ -32,9 +32,9 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const float mfact      = 0.5; /* factor of master area size [0.05..0.95] */
+static const int nmaster      = 1; /* number of clients in master area */
+static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -56,7 +56,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "uxterm", NULL };
+static const char *termcmd[]  = { "urxvt", NULL };
 static const char *termfloatcmd[]  = { "urxvt", "-T", "floating", NULL };
 static const char *firefoxcmd[]  = { "firefox", NULL };
 static const char *chromecmd[]  = { "chromium", "--enable-sync", NULL };
@@ -68,7 +68,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_t,      spawn,          {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_w,      spawn,          {.v = termfloatcmd } },
 	{ MODKEY|ControlMask,           XK_f,      spawn,          {.v = firefoxcmd } },
-	{ MODKEY|ControlMask,           XK_b,      spawn,          {.v = chromecmd } },
+	{ MODKEY|ControlMask,           XK_c,      spawn,          {.v = chromecmd } },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -100,7 +100,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
 };
 
 /* button definitions */
