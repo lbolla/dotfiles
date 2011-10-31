@@ -172,6 +172,7 @@ if has("autocmd")
   augroup HSK
 	  au Bufenter *.hs compiler ghc
 	  autocmd FileType haskell setlocal formatoptions+=t
+          autocmd FileType haskell let b:ghc_staticoptions = '-Wall -Werror'
   augroup END 
 
   " " Switch to the directory of the current file, unless it's a help file.
