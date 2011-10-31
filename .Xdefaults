@@ -21,18 +21,18 @@ Rxvt.termName:         xterm
 Rxvt.font:             FONT
 Rxvt.scrollBar:        false
 Rxvt.meta8:            false
-Rxvt.saveLines:        256
+Rxvt.saveLines:        2048
 Rxvt.keysym.C-Left:    \033[1;5D
 Rxvt.keysym.C-Right:   \033[1;5C
 Rxvt.keysym.M-Left:    \033[1;3D
 Rxvt.keysym.M-Right:   \033[1;3C
 Rxvt.perl-ext-common:  default,matcher
 Rxvt.cutchars:         ':' '"''.'&()*,;<=>?@[]^{|}
-Rxvt.urlLauncher:      google-chrome
+Rxvt.urlLauncher:      chromium
 
 Rxvt.background:       black
 ! Rxvt.foreground:       white
-! Rxvt.cursorColor:      green
+! Rxvt.cursorColor:      red
 ! Rxvt.colorUL:          #86a2be
 ! Rxvt.colorBD:          #8ac6f2
 ! Rxvt.fading:           0
@@ -40,7 +40,8 @@ Rxvt.background:       black
 
 ! Rxvt.background             : #242424
 Rxvt.foreground             : #f6f3e8
-Rxvt.cursorColor            : #e5786d
+! Rxvt.cursorColor            : #e5786d
+Rxvt.cursorColor            : #ffffff
 Rxvt.colorBD                : #8ac6f2
 Rxvt.colorUL                : #95e454
 ! black

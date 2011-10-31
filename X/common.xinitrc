@@ -8,8 +8,7 @@ if [ -f $HOME/.Xdefaults ]; then
 fi
 
 # fonts
-xset fp+ /usr/share/fonts/100dpi
-#xset fp+ /usr/share/fonts/Proggy
+xset fp+ /usr/share/fonts/
 #xset mouse 2/1 0
 #xmodmap -e "pointer = 3 2 1"
 
