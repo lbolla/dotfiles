@@ -96,6 +96,7 @@ let g:EnhCommentifyUseBlockIndent='Yes'
 let Tlist_WinWidth = 50
 let g:netrw_altv = 1
 let g:haddock_browser = "/usr/bin/chromium"
+let g:jsl_config = $HOME . "/.jsl.conf"
 
 
 "

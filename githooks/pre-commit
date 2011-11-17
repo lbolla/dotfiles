@@ -1,0 +1,104 @@
+#!/usr/bin/python
+
+import os
+import sys
+import re
+import subprocess
+
+
+devnull = open(os.devnull, 'w')
+
+
+def call(cmd):
+    p = subprocess.Popen(cmd.split(),
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    return out, err
+
+
+def execute(cmd, silent=False):
+    if silent:
+        params = {
+                'stdout': devnull,
+                'stderr': devnull,
+                }
+    else:
+        params = {}
+
+    retcode = subprocess.call(cmd.split(), **params)
+    return retcode
+
+
+def exists(cmd):
+    return execute('which %s' % cmd, silent=True) == 0
+
+
+def get_modified(ext):
+    modified = re.compile('^ (?:M|A).(?P<name>.*\.%s)' % ext)
+    out, _ = call('git status --porcelain')
+    modifieds = []
+    for line in out.splitlines():
+        match = modified.match(line)
+        if (match):
+            modifieds.append(match.group('name'))
+    return modifieds
+
+
+def output(prg, out, err):
+    print(' * %s:\n%s\n%s' % (prg, out, err))
+
+
+def die(msg):
+    print(msg)
+    sys.exit(1)
+
+
+def check_python():
+
+    has_pep8 = exists('pep8')
+    has_pyflakes = exists('pyflakes')
+    if not (has_pep8 or has_pyflakes):
+        die('Install PEP8 and PyFlakes!')
+
+    modifieds = get_modified('py')
+    rrcode = 0
+    for file in modifieds:
+        if has_pep8:
+            out, err = call('pep8 %s' % file)
+            if out or err:
+                output('pep8', out, err)
+                rrcode = rrcode | 1
+        if has_pyflakes:
+            retcode = execute('pyflakes %s' % file)
+            rrcode = retcode | rrcode
+
+    if rrcode != 0:
+        sys.exit(rrcode)
+
+
+def check_javascript():
+
+    has_jsl = exists('gjslint')
+    if not has_jsl:
+        die('Install Closure-Lint!')
+
+    modifieds = get_modified('js')
+    rrcode = 0
+    for file in modifieds:
+        out, err = call('gjslint %s' % file)
+        if out or err:
+            output('gjslint', out, err)
+            rrcode = rrcode | 1
+
+    if rrcode != 0:
+        sys.exit(rrcode)
+
+
+def main():
+    check_python()
+    check_javascript()
+
+
+if __name__ == '__main__':
+    main()

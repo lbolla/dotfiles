@@ -5,6 +5,7 @@ nnoremap <buffer> <leader>p  :Shell pychecker %<CR><CR>
 nnoremap <buffer> <leader>gp :Shell pychecker --no-local --no-argsused --no-override --no-classattr %<CR><CR>
 nnoremap <buffer> <leader>l  :Shell pylint --output-format=parseable --reports=no %<CR><CR>
 nnoremap <buffer> <leader>gl :Shell pylint --disable-msg-cat=C,R --output-format=parseable --reports=no %<CR><CR>
+nnoremap <buffer> <leader>f  :Shell pyflakes %<CR><CR>
 nnoremap <buffer> <leader>8  :Shell pep8 %<CR><CR>
 nnoremap <buffer> <leader>r  :Shell rats .<CR><CR>
 nnoremap <buffer> <leader>gr :Shell rats -w 3 .<CR><CR>
