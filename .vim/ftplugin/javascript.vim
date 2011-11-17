@@ -1,8 +1,10 @@
 compiler jsl
 
 nnoremap <buffer> <leader>l  :Shell jslint --nojsdoc %<CR><CR>
-nnoremap <buffer> <leader>m  :Shell jscompile --compilation_level SIMPLE_OPTIMIZATIONS --js %<CR><CR>
-nnoremap <buffer> <leader>gm :Shell jscompile --compilation_level ADVANCED_OPTIMIZATIONS --js %<CR><CR>
+nnoremap <buffer> <leader>l  :Shell jslint --nojsdoc %<CR><CR>
+" nnoremap <buffer> <leader>gc :Shell jscompile --compilation_level SIMPLE_OPTIMIZATIONS --js %<CR><CR>
+nnoremap <buffer> <leader>gc :Shell jscompile --compilation_level ADVANCED_OPTIMIZATIONS --js %<CR><CR>
+nnoremap <buffer> <leader>gl :Shell gjslint %<CR><CR>
 
 setlocal tabstop=8
 setlocal shiftwidth=4
