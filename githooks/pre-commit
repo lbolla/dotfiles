@@ -17,13 +17,21 @@ def call(cmd):
     return out, err
 
 
-def execute(cmd):
-    retcode = subprocess.call(cmd.split(), stdout=devnull, stderr=devnull)
+def execute(cmd, silent=False):
+    if silent:
+        params = {
+                'stdout': devnull,
+                'stderr': devnull,
+                }
+    else:
+        params = {}
+
+    retcode = subprocess.call(cmd.split(), **params)
     return retcode
 
 
 def exists(cmd):
-    return execute('which %s' % cmd) == 0
+    return execute('which %s' % cmd, silent=True) == 0
 
 
 def get_modified(ext):
@@ -71,16 +79,16 @@ def check_python():
 
 def check_javascript():
 
-    has_jsl = exists('jsl')
+    has_jsl = exists('gjslint')
     if not has_jsl:
-        die('Install JSL!')
+        die('Install Closure-Lint!')
 
     modifieds = get_modified('js')
     rrcode = 0
     for file in modifieds:
-        out, err = call('jsl --nologo %s' % file)
+        out, err = call('gjslint %s' % file)
         if out or err:
-            output('jsl', out, err)
+            output('gjslint', out, err)
             rrcode = rrcode | 1
 
     if rrcode != 0:
