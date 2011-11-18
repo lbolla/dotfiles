@@ -157,6 +157,11 @@ if has("autocmd")
 	  autocmd BufRead,BufNewFile *.sbcl,*.sbcl_compile,*.sbcl_run set filetype=lisp
   augroup END
 
+  augroup MD
+	  au!
+	  autocmd BufRead,BufNewFile *.md set filetype=markdown
+  augroup END 
+
   augroup JS
 	  au!
 	  autocmd BufRead,BufNewFile *.jsm set filetype=javascript
