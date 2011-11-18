@@ -86,7 +86,7 @@ def check_javascript():
     modifieds = get_modified('js')
     rrcode = 0
     for file in modifieds:
-        out, err = call('gjslint %s' % file)
+        out, err = call('gjslint --nojsdoc %s' % file)
         if out or err:
             output('gjslint', out, err)
             rrcode = rrcode | 1
