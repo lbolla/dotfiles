@@ -56,12 +56,15 @@ def die(msg):
 
 def check_python():
 
+    modifieds = get_modified('py')
+    if not modifieds:
+        return
+
     has_pep8 = exists('pep8')
     has_pyflakes = exists('pyflakes')
     if not (has_pep8 or has_pyflakes):
         die('Install PEP8 and PyFlakes!')
 
-    modifieds = get_modified('py')
     rrcode = 0
     for file in modifieds:
         if has_pep8:
@@ -79,11 +82,14 @@ def check_python():
 
 def check_javascript():
 
+    modifieds = get_modified('js')
+    if not modifieds:
+        return
+
     has_jsl = exists('gjslint')
     if not has_jsl:
         die('Install Closure-Lint!')
 
-    modifieds = get_modified('js')
     rrcode = 0
     for file in modifieds:
         out, err = call('gjslint --nojsdoc %s' % file)
