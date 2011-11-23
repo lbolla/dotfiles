@@ -61,9 +61,10 @@ def check_python():
         return
 
     has_pep8 = exists('pep8')
+    has_pylint = exists('pylint')
     has_pyflakes = exists('pyflakes')
-    if not (has_pep8 or has_pyflakes):
-        die('Install PEP8 and PyFlakes!')
+    if not (has_pep8 or has_pylint or has_pyflakes):
+        die('Install PEP8, PyLint and PyFlakes!')
 
     rrcode = 0
     for file in modifieds:
@@ -72,6 +73,9 @@ def check_python():
             if out or err:
                 output('pep8', out, err)
                 rrcode = rrcode | 1
+        if has_pylint:
+            retcode = execute('pylint -f parseable -E %s' % file)
+            rrcode = retcode | rrcode
         if has_pyflakes:
             retcode = execute('pyflakes %s' % file)
             rrcode = retcode | rrcode
