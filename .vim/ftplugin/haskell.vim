@@ -17,3 +17,5 @@ setlocal expandtab
 setlocal tabstop=8
 setlocal shiftwidth=8
 setlocal textwidth=79
+
+nnoremap <buffer> <leader>l :Shell hlint %<CR><CR>
