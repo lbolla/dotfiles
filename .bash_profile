@@ -9,7 +9,7 @@
 [ -f ~/.bashrc ] && . ~/.bashrc
 
 # include other bin dirs
-for d in "~/bin/" "/opt/java/jre/bin/"; do
+for d in "~/bin/" "/opt/java/jre/bin/" "~/.cabal/bin"; do
 	[ -d $d ] && PATH="$d":"${PATH}"
 done
 
