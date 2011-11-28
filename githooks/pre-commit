@@ -14,7 +14,7 @@ def call(cmd):
                          stdout=subprocess.PIPE,
                          stderr=subprocess.PIPE)
     out, err = p.communicate()
-    return out.decode('utf-8'), err.decode('utf-8')
+    return out.decode('utf-8'), err.decode('utf-8'), p.returncode
 
 
 def execute(cmd, silent=False):
@@ -36,7 +36,7 @@ def exists(cmd):
 
 def get_modified(ext):
     modified = re.compile('^(?:M|A).(?P<name>.*\.%s)' % ext)
-    out, _ = call('git status --porcelain')
+    out, _, _ = call('git status --porcelain')
     modifieds = []
     for line in out.splitlines():
         match = modified.match(line.strip())
@@ -69,13 +69,13 @@ def check_python():
     rrcode = 0
     for file in modifieds:
         if has_pep8:
-            out, err = call('pep8 %s' % file)
+            out, err, _ = call('pep8 %s' % file)
             if out or err:
                 output('pep8', out, err)
                 rrcode = rrcode | 1
-        if has_pylint:
-            retcode = execute('pylint -f parseable -E %s' % file)
-            rrcode = retcode | rrcode
+        # if has_pylint:
+        #     retcode = execute('pylint -f parseable -E %s' % file)
+        #     rrcode = retcode | rrcode
         if has_pyflakes:
             retcode = execute('pyflakes %s' % file)
             rrcode = retcode | rrcode
@@ -96,10 +96,10 @@ def check_javascript():
 
     rrcode = 0
     for file in modifieds:
-        out, err = call('gjslint --nojsdoc %s' % file)
+        out, err, retcode = call('gjslint --nojsdoc %s' % file)
         if out or err:
             output('gjslint', out, err)
-            rrcode = rrcode | 1
+            rrcode = rrcode | retcode
 
     if rrcode != 0:
         sys.exit(rrcode)
