@@ -73,9 +73,9 @@ def check_python():
             if out or err:
                 output('pep8', out, err)
                 rrcode = rrcode | 1
-        # if has_pylint:
-        #     retcode = execute('pylint -f parseable -E %s' % file)
-        #     rrcode = retcode | rrcode
+        if has_pylint:
+            retcode = execute('pylint -f parseable -E -d E0213,E1101,E1002,E1121,E0211,E0611,E0602,E1103 %s' % file)
+            rrcode = retcode | rrcode
         if has_pyflakes:
             retcode = execute('pyflakes %s' % file)
             rrcode = retcode | rrcode
