@@ -10,6 +10,8 @@ set history=50                                    " keep 50 lines of command lin
 set ruler                                         " show the cursor position all the time
 set showcmd                                       " display incomplete commands
 set incsearch                                     " do incremental searching
+set ignorecase                                    " ignore case in search...
+set smartcase                                     " ... unless there are capital letters in search query
 set scrolloff=0                                   " number of lines below and above the cursor
 set statusline=%<%F\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set laststatus=2                                  " always show status line
