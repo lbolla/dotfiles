@@ -49,3 +49,7 @@
 [diff "mwbdiff"]
         textconv = mwb-diff
 
+[tig]
+        show-date = yes
+        tab-size = 8
+        show-refs = yes
