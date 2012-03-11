@@ -43,6 +43,7 @@ fi
 
 # virtualenv
 VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv2
 source /usr/bin/virtualenvwrapper.sh
 
 # pip
