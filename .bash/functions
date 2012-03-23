@@ -69,4 +69,9 @@ function lstree {
                 else print "-"a[1]" "a[s]; 
         }';
         #}' |less -X;
+
+function gitbr {
+	for k in `git branch | sed s/^..//`; do 
+		echo -e `git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" "$k"`\\t"$k";
+	done | sort
 }
