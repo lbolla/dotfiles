@@ -2,6 +2,6 @@
 [ -z "$PS1" ] && return
 
 BASH_ROOT=".bash"
-for config in "vars" "prompt" "aliases" "zugo"; do
+for config in "vars" "prompt" "aliases" "zugo" "functions"; do
         [ -f ${BASH_ROOT}/${config} ] && . ${BASH_ROOT}/${config}
 done
