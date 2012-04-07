@@ -3,7 +3,7 @@
 set realname="Lorenzo Bolla"
 set folder="~/mail"
 set editor='vim'
-set move=ask-yes
+set move=no
 set delete=ask-yes
 set mail_check=60
 set timeout=30
@@ -52,11 +52,18 @@ account-hook 'imaps://lbolla@imap.gmail.com/' " \
 account-hook 'imap://imap.123-reg.co.uk/' " \
         set imap_pass=`cat ~/.mutt/pispo/secret` \
             imap_user=lorenzo.bolla@pispo.co.uk "
+account-hook 'imaps://secure.emailsrvr.com/' " \
+        set imap_pass=`cat ~/.mutt/flutr/secret` \
+            imap_user=lorenzo@thesocialgamingcompany.com "
+
+set folder="imaps://lbolla@imap.gmail.com/"
+mailboxes =INBOX =[Gmail]/Drafts =[Gmail]/'Sent Mail' =[Gmail]/Spam
+folder-hook 'imaps://lbolla@imap.gmail.com/' source ~/.mutt/gmail/profile
 
 set folder="imap://imap.123-reg.co.uk/"
 mailboxes =INBOX =Drafts =Sent =Spam =Trash
 folder-hook 'imap://imap.123-reg.co.uk/' source ~/.mutt/pispo/profile
 
-set folder="imaps://lbolla@imap.gmail.com/"
-mailboxes =INBOX =[Gmail]/Drafts =[Gmail]/'Sent Mail' =[Gmail]/Spam
-folder-hook 'imaps://lbolla@imap.gmail.com/' source ~/.mutt/gmail/profile
+set folder="imaps://secure.emailsrvr.com/"
+mailboxes =INBOX =Drafts =Sent =Trash =spam
+folder-hook 'imap://secure.emailsrvr.com/' source ~/.mutt/flutr/profile
