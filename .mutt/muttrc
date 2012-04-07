@@ -1,8 +1,8 @@
-set my_cfgdir=~/.mutt
+# See manual here: http://www.mutt.org/doc/devel/manual.html
+
+set realname="Lorenzo Bolla"
 set folder="~/mail"
-set record="!INBOX"
-set postponed="+drafts"
-set editor="vi %s"
+set editor='vim'
 set move=ask-yes
 set delete=ask-yes
 set mail_check=60
@@ -12,9 +12,19 @@ set reply_to
 set abort_nosubject=no
 set hdr_format="%4C %Z %{%m/%d} %-15.15F (%4c) %s" # format of the index
 set pager_stop=yes
-set certificate_file=$my_cfgdir/certificates
 set sort_alias=alias
 set reverse_alias=yes
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+set smart_wrap = yes
+set sort = 'threads'
+set sort_aux = 'last-date-received'
+set imap_check_subscribed
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc
 
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 macro pager \cw <pipe-entry>'w3m'<enter> 'Follow links in w3m'
@@ -27,6 +37,26 @@ bind index x tag-entry
 bind pager j next-line
 bind pager k previous-line
 
-source $my_cfgdir/colors
+source ~/.mutt/colors
 source /etc/Muttrc.gpg.dist
-source $my_cfgdir/geneity/profile
+
+# Manage multiple accounts:
+# https://nixtricks.wordpress.com/2010/05/05/mutt-configure-mutt-to-receive-email-via-imap-and-send-via-smtp/
+# http://nixtricks.wordpress.com/2010/05/20/mutt-multiple-email-accounts-using-hooks/
+# Press 'y' to choose folder
+
+account-hook . 'unset imap_user imap_pass' # unset first!
+account-hook 'imaps://lbolla@imap.gmail.com/' " \
+        set imap_pass=`cat ~/.mutt/gmail/secret` \
+            imap_user=lbolla@gmail.com "
+account-hook 'imap://imap.123-reg.co.uk/' " \
+        set imap_pass=`cat ~/.mutt/pispo/secret` \
+            imap_user=lorenzo.bolla@pispo.co.uk "
+
+set folder="imap://imap.123-reg.co.uk/"
+mailboxes =INBOX =Drafts =Sent =Spam =Trash
+folder-hook 'imap://imap.123-reg.co.uk/' source ~/.mutt/pispo/profile
+
+set folder="imaps://lbolla@imap.gmail.com/"
+mailboxes =INBOX =[Gmail]/Drafts =[Gmail]/'Sent Mail' =[Gmail]/Spam
+folder-hook 'imaps://lbolla@imap.gmail.com/' source ~/.mutt/gmail/profile

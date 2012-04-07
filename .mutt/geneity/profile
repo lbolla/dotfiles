@@ -1,12 +1,11 @@
-set from="Lorenzo Bolla <lorenzo.bolla@geneity.co.uk>"
+set from="lorenzo.bolla@geneity.co.uk"
 set spoolfile="imaps://lbolla@mail:993/"
-set imap_pass="your-secret-password"
+set imap_pass="`cat ~/.mutt/geneity/secret`"
 
-set alias_file=$my_cfgdir/geneity/aliases
+set alias_file=~/.mutt/geneity/aliases
 source $alias_file
 
-mailboxes "+drafts" "+sent" "+archive_2008" "+archive_2009" "+archive_2010"
-mailboxes "!INBOX"
+mailboxes "+drafts" "+sent" "+archive_2008" "+archive_2009" "+archive_2010" "!INBOX"
 save-hook . +archive_2010
 
 subscribe all@geneity.co.uk
