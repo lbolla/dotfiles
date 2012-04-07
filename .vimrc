@@ -177,6 +177,12 @@ if has("autocmd")
 	  autocmd FileType python setlocal formatoptions=tcroql
   augroup END 
 
+  augroup TAB
+          au!
+	  au BufNewFile,BufRead *.tab set filetype=tab
+	  au FileType tab setlocal noexpandtab
+  augroup END 
+
   augroup HSK
 	  au Bufenter *.hs compiler ghc
 	  autocmd FileType haskell setlocal formatoptions+=t
