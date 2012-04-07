@@ -173,6 +173,10 @@ if has("autocmd")
 	  au BufNewFile,BufRead *.pig set filetype=pig syntax=pig 
   augroup END 
 
+  augroup TMPL
+	  au BufNewFile,BufRead *.tmpl set filetype=html syntax=xhtml
+  augroup END 
+
   augroup PY
 	  autocmd FileType python setlocal formatoptions=tcroql
   augroup END 

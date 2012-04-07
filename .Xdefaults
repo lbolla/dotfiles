@@ -1,6 +1,6 @@
 ! #define FONT 7x14
-! #define FONT fixed
-#define FONT -*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*
+#define FONT fixed
+! #define FONT -*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*
 
 xclock*Font:            FONT
 

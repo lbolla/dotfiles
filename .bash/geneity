@@ -22,4 +22,3 @@ fi;
 #export NLS_LANG=`$ORACLE_HOME/bin/nls_lang.sh`
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
 export PATH=$ORACLE_HOME/bin:$PATH
-

@@ -1,18 +1,9 @@
-### My Vars
-set my_cfgdir=~/.mutt
+# See manual here: http://www.mutt.org/doc/devel/manual.html
 
-### Monitoring Incoming Mail
+set realname="Lorenzo Bolla"
 set folder="~/mail"
-set spoolfile="imaps://lbolla@mail:993/"
-mailboxes "+drafts" "+sent" "+archive_2008" "+archive_2009" "+archive_2010"
-mailboxes "!INBOX"
-
-### Variables
-set from="Lorenzo Bolla <lorenzo.bolla@geneity.co.uk>"
-set record="!INBOX"
-set postponed="+drafts"
-set editor="vi %s"
-set move=ask-yes
+set editor='vim'
+set move=no
 set delete=ask-yes
 set mail_check=60
 set timeout=30
@@ -21,37 +12,31 @@ set reply_to
 set abort_nosubject=no
 set hdr_format="%4C %Z %{%m/%d} %-15.15F (%4c) %s" # format of the index
 set pager_stop=yes
-set certificate_file=$my_cfgdir/certificates
-#  set auto_tag
-#  set pager_index_lines=10
-#  set tmpdir=$my_cfgdir
-
-### Hooks
-save-hook . +archive_2010
-
-### Secret
-source $my_cfgdir/secret
-
-### Alias/Groups
-set alias_file=$my_cfgdir/aliases
 set sort_alias=alias
 set reverse_alias=yes
-source $alias_file
-source $my_cfgdir/groups
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+set smart_wrap = yes
+set sort = 'threads'
+set sort_aux = 'last-date-received'
+set imap_check_subscribed
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc
 
-### Mailing Lists
-subscribe all@geneity.co.uk
-subscribe betfair-support@geneity.co.uk
-subscribe bikers@geneity.co.uk
-subscribe coral-support@geneity.co.uk
-subscribe tech@geneity.co.uk
-subscribe trash@geneity.co.uk
+macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+macro pager \cw <pipe-entry>'w3m'<enter> 'Follow links in w3m'
 
-### Macros
-source $my_cfgdir/macros
+bind index G imap-fetch-mail
+bind index H help
+bind index X tag-thread
+bind index \? search-reverse
+bind index x tag-entry
+bind pager j next-line
+bind pager k previous-line
 
-### Bindings
-source $my_cfgdir/bindings
-
-### Appearance
-source $my_cfgdir/colors
+source /etc/Muttrc.gpg.dist
+source ~/.mutt/colors
+source ~/.mutt/profiles

@@ -2,3 +2,4 @@
 *.bak
 tags
 .DS_Store
+secret

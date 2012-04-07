@@ -1,0 +1,12 @@
+set from="lorenzo@thesocialgamingcompany.com"
+
+set folder="imaps://secure.emailsrvr.com/"
+set imap_user="lorenzo@thesocialgamingcompany.com"
+set imap_pass="`cat ~/.mutt/flutr/secret`"
+
+set spoolfile="+INBOX"
+set postponed="+Drafts"
+set record=+Sent
+
+set smtp_url="smtps://lorenzo@thesocialgamingcompany.com@secure.emailsrvr.com:465/"
+set smtp_pass="`cat ~/.mutt/flutr/secret`"

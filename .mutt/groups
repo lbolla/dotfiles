@@ -1,4 +1,0 @@
-group -group BF -addr .*@betfair.com
-group -group Coral -addr .*@galacoral.com
-group -group Geneity -addr .*@geneity.co.uk
-group -group SportsAlive -addr .*@sportsalive.com

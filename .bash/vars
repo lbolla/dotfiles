@@ -7,11 +7,12 @@ esac
 # don't like colors...
 # USE_COLORS=N
 
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/.cabal/bin:$PATH
 export EDITOR="vim"
 export GIT_EDITOR="vim"
 export PAGER="less -nF"
 export BROWSER="chromium"
+export RHINO_HOME=/usr/share/java
 
 # vi keybindings for bash
 # set -o vi
@@ -39,3 +40,12 @@ shopt -s checkwinsize
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
+
+# virtualenv
+VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv2
+source /usr/bin/virtualenvwrapper.sh
+
+# pip
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_RESPECT_VIRTUALENV=true
