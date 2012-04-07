@@ -1,8 +1,0 @@
-bind index G imap-fetch-mail
-bind index H help
-bind index X tag-thread
-bind index \? search-reverse
-bind index x tag-entry
-
-bind pager j next-line
-bind pager k previous-line

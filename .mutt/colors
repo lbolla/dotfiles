@@ -46,4 +46,3 @@ color index	 red	    default  ~O		#
 color index	 magenta    default  ~T		# Tagged
 color index	 yellow	    default  ~D		# Deleted
 #  color index	 brightwhite    default  ~l		# Lists
-
