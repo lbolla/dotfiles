@@ -42,6 +42,34 @@ function rc {
 	rlwrap -c -b '(){}[],+=&^%$#@"";|\' rc -l $*
 }
 
+function lstree {
+        if [ -z "$(ls)" ]; then 
+                return 0
+        fi
+        perm=""
+        d=0
+        while [ $# -gt 0 ]; do
+                if [ "$1" == "-p" ]; then
+                        perm=" [%M]"
+                        shift
+                elif [[ $1 =~ ^[0-9]+$ ]]; then
+                        d=$1
+                        shift
+                fi
+        done
+        #clear;
+        find * -maxdepth $d -printf "$perm/%p~%y\n" 2>/dev/null | awk -F\~ '{ 
+                s=split($1,a,"/"); 
+                n=s-2
+                for (i=1; i<n; i++) {
+                        printf("\t|");
+                };
+                if (n > 0) printf("\t");
+                if ($2=="d") print "+"a[1]" "a[s];
+                else print "-"a[1]" "a[s]; 
+        }';
+        #}' |less -X;
+
 function gitbr {
 	for k in `git branch | sed s/^..//`; do 
 		echo -e `git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" "$k"`\\t"$k";

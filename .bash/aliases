@@ -52,6 +52,7 @@ alias vimtags='etags -R -f ~/.vim/tags/TAGS'
 alias sup='sup-mail'
 alias gmail='mutt -f imaps://lbolla@imap.gmail.com'
 alias exact_time='curl http://tycho.usno.navy.mil/cgi-bin/timer.pl --stderr /dev/null | grep UTC | sed "s/<BR>//"'
+alias gtypist='gtypist -b -e1'
 
 # newsreader
 alias news='tin -A -r'
