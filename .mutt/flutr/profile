@@ -7,7 +7,6 @@ set imap_pass="`cat ~/.mutt/flutr/secret`"
 set spoolfile="+INBOX"
 set postponed="+Drafts"
 set record=+Sent
-mailboxes =INBOX =Drafts =Sent =Trash =spam
 
 set smtp_url="smtps://lorenzo@thesocialgamingcompany.com@secure.emailsrvr.com:465/"
 set smtp_pass="`cat ~/.mutt/flutr/secret`"

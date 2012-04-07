@@ -7,7 +7,6 @@ set imap_pass="`cat ~/.mutt/pispo/secret`"
 set spoolfile="+INBOX"
 set postponed="+Drafts"
 set record=+Sent
-mailboxes =INBOX =Drafts =Sent =Spam =Trash
 
 set smtp_url="smtps://lorenzo.bolla@pispo.co.uk@smtp.123-reg.co.uk:465/"
 set smtp_pass="`cat ~/.mutt/pispo/secret`"

@@ -7,7 +7,6 @@ set imap_pass="`cat ~/.mutt/gmail/secret`"
 set spoolfile="+INBOX"
 set postponed="+[Gmail]/Drafts"
 set record=+[Gmail]/"Sent Mail"
-mailboxes =INBOX =[Gmail]/Drafts =[Gmail]/'Sent Mail' =[Gmail]/Spam
 
 set smtp_pass="`cat ~/.mutt/gmail/secret`"
 set smtp_url = "smtp://lbolla@smtp.gmail.com:587"

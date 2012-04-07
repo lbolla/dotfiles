@@ -57,13 +57,13 @@ account-hook 'imaps://secure.emailsrvr.com/' " \
             imap_user=lorenzo@thesocialgamingcompany.com "
 
 set folder="imaps://lbolla@imap.gmail.com/"
-mailboxes =INBOX =[Gmail]/Drafts =[Gmail]/'Sent Mail' =[Gmail]/Spam
+mailboxes =INBOX
 folder-hook 'imaps://lbolla@imap.gmail.com/' source ~/.mutt/gmail/profile
 
 set folder="imap://imap.123-reg.co.uk/"
-mailboxes =INBOX =Drafts =Sent =Spam =Trash
+mailboxes =INBOX
 folder-hook 'imap://imap.123-reg.co.uk/' source ~/.mutt/pispo/profile
 
 set folder="imaps://secure.emailsrvr.com/"
-mailboxes =INBOX =Drafts =Sent =Trash =spam
+mailboxes =INBOX
 folder-hook 'imap://secure.emailsrvr.com/' source ~/.mutt/flutr/profile
