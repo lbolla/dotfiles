@@ -5,6 +5,6 @@ image/bmp; qiv '%s'; description=BMP Image; nametemplate=%s.bmp
 image/png; qiv '%s'; description=PNG Image; nametemplate=%s.png
 application/pdf; xpdf '%s'; description=pdf; nametemplate=%s.pdf
 application/doc; soffice '%s'; description=doc; nametemplate=%s.doc
-application/msword; soffice '%s'; description=doc; nametemplate=%s.doc
+application/msword; antiword %s; copiousoutput; description=doc; nametemplate=%s.doc
 application/octet-stream; soffice '%s'; description=Word; nametemplate=%s.docx
 application/octet-stream; soffice '%s'; description=Powerpoint; nametemplate=%s.pptx
