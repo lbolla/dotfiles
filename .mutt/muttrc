@@ -37,33 +37,6 @@ bind index x tag-entry
 bind pager j next-line
 bind pager k previous-line
 
-source ~/.mutt/colors
 source /etc/Muttrc.gpg.dist
-
-# Manage multiple accounts:
-# https://nixtricks.wordpress.com/2010/05/05/mutt-configure-mutt-to-receive-email-via-imap-and-send-via-smtp/
-# http://nixtricks.wordpress.com/2010/05/20/mutt-multiple-email-accounts-using-hooks/
-# Press 'y' to choose folder
-
-account-hook . 'unset imap_user imap_pass' # unset first!
-account-hook 'imaps://lbolla@imap.gmail.com/' " \
-        set imap_pass=`cat ~/.mutt/gmail/secret` \
-            imap_user=lbolla@gmail.com "
-account-hook 'imap://imap.123-reg.co.uk/' " \
-        set imap_pass=`cat ~/.mutt/pispo/secret` \
-            imap_user=lorenzo.bolla@pispo.co.uk "
-account-hook 'imaps://secure.emailsrvr.com/' " \
-        set imap_pass=`cat ~/.mutt/flutr/secret` \
-            imap_user=lorenzo@thesocialgamingcompany.com "
-
-set folder="imaps://lbolla@imap.gmail.com/"
-mailboxes =INBOX
-folder-hook 'imaps://lbolla@imap.gmail.com/' source ~/.mutt/gmail/profile
-
-set folder="imap://imap.123-reg.co.uk/"
-mailboxes =INBOX
-folder-hook 'imap://imap.123-reg.co.uk/' source ~/.mutt/pispo/profile
-
-set folder="imaps://secure.emailsrvr.com/"
-mailboxes =INBOX
-folder-hook 'imap://secure.emailsrvr.com/' source ~/.mutt/flutr/profile
+source ~/.mutt/colors
+source ~/.mutt/profiles
