@@ -1,10 +1,12 @@
 text/html; w3m -dump '%s'; copiousoutput; description=HTML Text; nametemplate=%s.html
-image/jpeg; qiv '%s'; description=JPEG Image; nametemplate=%s.jpg
-image/gif; qiv '%s'; description=GIF Image; nametemplate=%s.gif
-image/bmp; qiv '%s'; description=BMP Image; nametemplate=%s.bmp
-image/png; qiv '%s'; description=PNG Image; nametemplate=%s.png
-application/pdf; xpdf '%s'; description=pdf; nametemplate=%s.pdf
-application/doc; soffice '%s'; description=doc; nametemplate=%s.doc
+image/jpeg; qiv '%s'; description=JPEG Image; nametemplate=%s.jpg; test=is_x_running.sh
+image/gif; qiv '%s'; description=GIF Image; nametemplate=%s.gif; test=is_x_running.sh
+image/bmp; qiv '%s'; description=BMP Image; nametemplate=%s.bmp; test=is_x_running.sh
+image/png; qiv '%s'; description=PNG Image; nametemplate=%s.png; test=is_x_running.sh
+application/pdf; zathura '%s'; description=pdf; nametemplate=%s.pdf; test=is_x_running.sh
+application/pdf; pdftotext '%s' -; copiousoutput; description=pdf; nametemplate=%s.pdf;
+#application/doc; soffice '%s'; description=doc; nametemplate=%s.doc; test=is_x_running.sh
+application/doc; antiword %s; copiousoutput; description=doc; nametemplate=%s.doc
 application/msword; antiword %s; copiousoutput; description=doc; nametemplate=%s.doc
-application/octet-stream; soffice '%s'; description=Word; nametemplate=%s.docx
-application/octet-stream; soffice '%s'; description=Powerpoint; nametemplate=%s.pptx
+#application/octet-stream; soffice '%s'; description=Word; nametemplate=%s.docx; test=is_x_running.sh
+#application/octet-stream; soffice '%s'; description=Powerpoint; nametemplate=%s.pptx; test=is_x_running.sh
