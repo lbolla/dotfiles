@@ -7,6 +7,9 @@ account-hook . 'unset imap_user imap_pass' # unset first!
 account-hook 'imaps://lbolla@imap.gmail.com/' " \
         set imap_pass=`cat ~/.mutt/gmail/secret` \
             imap_user=lbolla@gmail.com "
+account-hook 'imaps://lorenzo@networkscale.co.uk@imap.gmail.com/' " \
+        set imap_pass=`cat ~/.mutt/networkscale/secret` \
+            imap_user=lorenzo@networkscale.co.uk "
 account-hook 'imap://imap.123-reg.co.uk/' " \
         set imap_pass=`cat ~/.mutt/pispo/secret` \
             imap_user=lorenzo.bolla@pispo.co.uk "
@@ -17,6 +20,10 @@ account-hook 'imaps://secure.emailsrvr.com/' " \
 set folder="imaps://lbolla@imap.gmail.com/"
 mailboxes =INBOX
 folder-hook 'imaps://lbolla@imap.gmail.com/' source ~/.mutt/gmail/profile
+
+set folder="imaps://lorenzo@networkscale.co.uk@imap.gmail.com/"
+mailboxes =INBOX
+folder-hook 'imaps://lorenzo@networkscale.co.uk@imap.gmail.com/' source ~/.mutt/networkscale/profile
 
 set folder="imap://imap.123-reg.co.uk/"
 mailboxes =INBOX
