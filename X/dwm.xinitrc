@@ -3,7 +3,8 @@
 if [ -f $HOME/img/desktop ]; then
 	xsetbg -border black -center $HOME/img/desktop
 else
-	xsetroot -solid slategray
+        # xsetroot -solid slategray
+	xsetroot -solid '#005577'
 fi
 
 # refresh dmenu cache
