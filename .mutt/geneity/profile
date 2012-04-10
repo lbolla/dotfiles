@@ -1,0 +1,21 @@
+set from="lorenzo.bolla@geneity.co.uk"
+set spoolfile="imaps://lbolla@mail:993/"
+set imap_pass="`cat ~/.mutt/geneity/secret`"
+
+set alias_file=~/.mutt/geneity/aliases
+source $alias_file
+
+mailboxes "+drafts" "+sent" "+archive_2008" "+archive_2009" "+archive_2010" "!INBOX"
+save-hook . +archive_2010
+
+subscribe all@geneity.co.uk
+subscribe betfair-support@geneity.co.uk
+subscribe bikers@geneity.co.uk
+subscribe coral-support@geneity.co.uk
+subscribe tech@geneity.co.uk
+subscribe trash@geneity.co.uk
+
+group -group BF -addr .*@betfair.com
+group -group Coral -addr .*@galacoral.com
+group -group Geneity -addr .*@geneity.co.uk
+group -group SportsAlive -addr .*@sportsalive.com

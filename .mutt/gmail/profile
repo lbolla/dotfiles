@@ -1,0 +1,23 @@
+set from="lbolla@gmail.com"
+
+set folder="imaps://lbolla@imap.gmail.com/"
+set imap_user="lbolla@gmail.com"
+set imap_pass="`cat ~/.mutt/gmail/secret`"
+
+set spoolfile="+INBOX"
+set postponed="+[Gmail]/Drafts"
+set record=+[Gmail]/"Sent Mail"
+
+set smtp_pass="`cat ~/.mutt/gmail/secret`"
+set smtp_url="smtp://lbolla@smtp.gmail.com:587"
+
+set signature="~/.mutt/signature"
+
+macro index,pager y "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
+macro index,pager d "<enter-command>set trash=\"imaps://imap.gmail.com/[Gmail]/Trash\"\n<delete-message>" "Gmail delete message"
+macro index gl "<change-folder>"
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index ga "<change-folder>=[Gmail]/\"All Mail\"<enter>" "Go to all mail"
+macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+macro index gt "<change-folder>=[Gmail]/\"Sent Mail\"<enter>" "Go to sent mail"
