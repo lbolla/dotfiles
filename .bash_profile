@@ -15,3 +15,6 @@ done
 
 # run fetchmail
 # fetchmail
+
+# Ruby stuff
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
