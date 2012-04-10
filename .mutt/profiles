@@ -37,4 +37,4 @@ folder-hook 'imap://secure.emailsrvr.com/' source ~/.mutt/flutr/profile
 
 set folder= "imap://lorenzo.bolla-mail@fw01.globrix.com/"
 mailboxes =INBOX
-folder-hook 'imap://lorenzo.bolla-mail@fw01.globrix.com/' source ~/.mutt/flutr/profile
+folder-hook 'imap://lorenzo.bolla-mail@fw01.globrix.com/' source ~/.mutt/artirix/profile
