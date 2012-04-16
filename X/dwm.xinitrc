@@ -17,8 +17,4 @@ do
 	sleep 60
 done &
 
-while true; 
-do
-	dwm
-	sleep 3
-done
+exec dwm
