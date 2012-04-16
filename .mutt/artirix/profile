@@ -1,0 +1,14 @@
+set from="lorenzo.bolla@artirix.com"
+
+set folder= "imap://lorenzo.bolla-mail@fw01.globrix.com/"
+set imap_user="lorenzo.bolla@artirix.com"
+set imap_pass="`cat ~/.mutt/artirix/secret`"
+
+set spoolfile="+INBOX"
+set postponed="+Drafts"
+set record=+Sent
+
+set signature="~/.mutt/signature"
+
+set smtp_url="smtp://lorenzo.bolla-mail@fw01.globrix.com/"
+set smtp_pass="`cat ~/.mutt/artirix/secret`"

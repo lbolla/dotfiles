@@ -1,7 +1,6 @@
 # See manual here: http://www.mutt.org/doc/devel/manual.html
 
 set realname="Lorenzo Bolla"
-set folder="~/mail"
 set editor='vim'
 set move=no
 set delete=ask-yes
@@ -14,6 +13,8 @@ set hdr_format="%4C %Z %{%m/%d} %-15.15F (%4c) %s" # format of the index
 set pager_stop=yes
 set sort_alias=alias
 set reverse_alias=yes
+set alias_file=~/.mutt/aliases
+source ~/.mutt/aliases
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates

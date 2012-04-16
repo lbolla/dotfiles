@@ -41,10 +41,21 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+# Python version
+export PYVER=2.7
+
 # virtualenv
-VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
-VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv2
-source /usr/bin/virtualenvwrapper.sh
+if [ "$PYVER" == "2.7" ]; then
+        WORKON_HOME=$HOME/.virtualenvs
+        VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+        VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+        source /usr/bin/virtualenvwrapper.sh
+else
+        WORKON_HOME=$HOME/.virtualenvs-2.6
+        VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.6
+        VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+        source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 # pip
 export PIP_REQUIRE_VIRTUALENV=true
