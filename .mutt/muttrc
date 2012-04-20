@@ -36,6 +36,10 @@ set pgp_replyencrypt=yes
 set pgp_timeout=1800
 set pgp_good_sign="^gpg: Good signature from"
 
+set followup_to=no
+set honor_followup_to=no
+subscribe beginners@haskell.org
+
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 macro pager \cw <pipe-entry>'w3m'<enter> 'Follow links in w3m'
 
