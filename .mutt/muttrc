@@ -7,7 +7,7 @@ set delete=ask-yes
 set mail_check=90
 set timeout=15
 set imap_keepalive = 300
-#  set imap_check_subscribed
+set imap_check_subscribed
 set include
 set reply_to
 set abort_nosubject=no
