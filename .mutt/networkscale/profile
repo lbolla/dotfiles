@@ -1,12 +1,8 @@
 set from="lorenzo@networkscale.co.uk"
 
-set folder="imaps://lorenzo@networkscale.co.uk@imap.gmail.com/"
-set imap_user="lorenzo@networkscale.co.uk"
-set imap_pass="`cat ~/.mutt/networkscale/secret`"
-
-set spoolfile="+INBOX"
-set postponed="+[Gmail]/Drafts"
-set record=+[Gmail]/"Sent Mail"
+set spoolfile="=INBOX"
+set postponed="=[Gmail]/Drafts"
+set record=
 
 set smtp_pass="`cat ~/.mutt/networkscale/secret`"
 set smtp_url="smtp://lorenzo@networkscale.co.uk@smtp.gmail.com:587"
