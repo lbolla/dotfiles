@@ -1,5 +1,6 @@
 set from="lorenzo@networkscale.co.uk"
 
+set folder="imaps://lorenzo@networkscale.co.uk@imap.gmail.com/"
 set spoolfile="=INBOX"
 set postponed="=[Gmail]/Drafts"
 set record=

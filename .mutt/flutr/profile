@@ -1,5 +1,6 @@
 set from="lorenzo@thesocialgamingcompany.com"
 
+set folder="imaps://secure.emailsrvr.com/"
 set spoolfile="=INBOX"
 set postponed="=Drafts"
 set record="=Sent"

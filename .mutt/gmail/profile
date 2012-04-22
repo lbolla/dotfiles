@@ -1,5 +1,6 @@
 set from="lbolla@gmail.com"
 
+set folder="imaps://lbolla@imap.gmail.com/"
 set spoolfile="=INBOX"
 set postponed="=[Gmail]/Drafts"
 # set record=+[Gmail]/"Sent Mail"  # Gmail already does this

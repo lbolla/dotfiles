@@ -6,7 +6,7 @@ set move=no
 set delete=ask-yes
 set mail_check=90
 set timeout=15
-set imap_keepalive = 300
+set imap_keepalive=60
 set imap_check_subscribed
 set include
 set reply_to

@@ -1,5 +1,6 @@
 set from="lorenzo.bolla@artirix.com"
 
+set folder= "imap://lorenzo.bolla-mail@fw01.globrix.com/"
 set spoolfile="=INBOX"
 set postponed="=Drafts"
 set record="=Sent"
