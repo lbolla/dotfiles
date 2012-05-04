@@ -41,7 +41,7 @@ set honor_followup_to=no
 subscribe beginners@haskell.org
 
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
-macro pager \cw <pipe-entry>'w3m'<enter> 'Follow links in w3m'
+macro pager \cw <pipe-entry>'w3m -T text/html'<enter> 'Follow links in w3m'
 
 bind index G imap-fetch-mail
 bind index H help

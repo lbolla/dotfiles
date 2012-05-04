@@ -16,9 +16,9 @@ account-hook 'imap://imap.123-reg.co.uk/' " \
 account-hook 'imaps://secure.emailsrvr.com/' " \
         set imap_pass=`cat ~/.mutt/flutr/secret` \
             imap_user=lorenzo@thesocialgamingcompany.com "
-account-hook 'imap://lorenzo.bolla-mail@fw01.globrix.com/' " \
-        set imap_pass=`cat ~/.mutt/artirix/secret` \
-            imap_user=lorenzo.bolla@artirix.com "
+#  account-hook 'imap://lorenzo.bolla-mail@fw01.globrix.com/' " \
+#          set imap_pass=`cat ~/.mutt/artirix/secret` \
+#              imap_user=lorenzo.bolla@artirix.com "
 
 set folder="imaps://lbolla@imap.gmail.com/"
 mailboxes =INBOX
@@ -36,6 +36,6 @@ set folder="imaps://secure.emailsrvr.com/"
 mailboxes =INBOX
 folder-hook 'imap://secure.emailsrvr.com/' source ~/.mutt/flutr/profile
 
-set folder= "imap://lorenzo.bolla-mail@fw01.globrix.com/"
-mailboxes =INBOX
-folder-hook 'imap://lorenzo.bolla-mail@fw01.globrix.com/' source ~/.mutt/artirix/profile
+#  set folder= "imap://lorenzo.bolla-mail@fw01.globrix.com/"
+#  mailboxes =INBOX
+#  folder-hook 'imap://lorenzo.bolla-mail@fw01.globrix.com/' source ~/.mutt/artirix/profile

@@ -7,7 +7,8 @@
 #     object	 foreground	background
 #
 color normal	 default	default	# normal text
-color indicator	 brightyellow	red	# actual message
+#  color indicator	 brightyellow	red	# actual message
+mono indicator	 reverse	# actual message
 color tree	 brightmagenta	default	# thread arrows
 color status	 brightgreen	blue	# status line
 color error	 brightred	default	# errors
@@ -42,7 +43,7 @@ color body	 green	    default  "(^| )_[-a-z0-9_]+_[,.?]?[ \n]"
 uncolor index *					# unset all color index entries
 color index	 brightblue default  ~F		# Flagged
 color index	 brightred  default  ~N		# New
-color index	 red	    default  ~O		#  
+color index	 red	    default  ~O		# Unread 
 color index	 magenta    default  ~T		# Tagged
 color index	 yellow	    default  ~D		# Deleted
 #  color index	 brightwhite    default  ~l		# Lists

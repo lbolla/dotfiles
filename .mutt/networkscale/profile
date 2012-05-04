@@ -8,7 +8,7 @@ set record=
 set smtp_pass="`cat ~/.mutt/networkscale/secret`"
 set smtp_url="smtp://lorenzo@networkscale.co.uk@smtp.gmail.com:587"
 
-set signature="~/.mutt/signature"
+set signature="~/.mutt/networkscale/signature"
 
 macro index,pager y "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
 macro index,pager d "<enter-command>set trash=\"imaps://imap.gmail.com/[Gmail]/Trash\"\n<delete-message>" "Gmail delete message"
