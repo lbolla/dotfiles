@@ -13,6 +13,8 @@ export GIT_EDITOR="vim"
 export PAGER="less -nF"
 export BROWSER="chromium"
 export RHINO_HOME=/usr/share/java
+# Treat well escape chars
+export LESS="-R"
 
 # vi keybindings for bash
 # set -o vi
@@ -48,7 +50,7 @@ export PYVER=2.7
 if [ "$PYVER" == "2.7" ]; then
         WORKON_HOME=$HOME/.virtualenvs
         VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
-        VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+        VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv2
         source /usr/bin/virtualenvwrapper.sh
 else
         WORKON_HOME=$HOME/.virtualenvs-2.6
