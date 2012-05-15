@@ -24,8 +24,7 @@ set wildmenu                                      " autocomplete in menubar
 set wildmode=longest:full
 set grepprg=ack\ -a
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-set tags+=$proj_dir/TAGS
-set path+=$proj_dir/**
+set tags=./TAGS;                                  " search TAGS in current dir and recursively in parent dirs
 set expandtab
 
 " if has('mouse')
@@ -66,8 +65,8 @@ nnoremap          <leader>gb :Shell git blame %<CR><CR>
 nnoremap          <leader>B  :!git gui blame % &<CR><CR>
 nnoremap <silent> <leader>l  :set invlist<CR>
 nnoremap <silent> <leader>m  :make<CR>
-nnoremap          <leader>s  :vsp 
-nnoremap          <leader>t  :tabnew 
+nnoremap          <leader>s  :vsp
+nnoremap          <leader>t  :tabnew
 nnoremap <silent> <leader>w  :%s/\s\+$//<CR>
 nnoremap <silent> <leader>x  :nohl<CR>
 nnoremap <silent> <leader>q  :!pbcopy<%<CR><CR>

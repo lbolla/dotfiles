@@ -7,10 +7,16 @@ esac
 # don't like colors...
 # USE_COLORS=N
 
-export PATH=~/bin:~/.cabal/bin:$PATH
+# git bash completion
+for git_compl in "/etc/bash_completion.d/git" "/usr/share/git/completion/git-completion.bash"; do
+        [ -f ${git_compl} ] && . ${git_compl}
+done
+
+export PATH=~/bin:~/.cabal/bin:$PATH:/usr/bin/vendor_perl
 export EDITOR="vim"
 export GIT_EDITOR="vim"
 export PAGER="less -nF"
+export GIT_PAGER="less -n"
 export BROWSER="chromium"
 export RHINO_HOME=/usr/share/java
 # Treat well escape chars
@@ -50,7 +56,11 @@ export PYVER=2.7
 if [ "$PYVER" == "2.7" ]; then
         WORKON_HOME=$HOME/.virtualenvs
         VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
-        VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv2
+        if [ -x "/usr/bin/virtualenv2" ]; then
+                VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv2
+        else
+                VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+        fi
         source /usr/bin/virtualenvwrapper.sh
 else
         WORKON_HOME=$HOME/.virtualenvs-2.6
