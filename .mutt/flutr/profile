@@ -5,7 +5,7 @@ set spoolfile="=INBOX"
 set postponed="=Drafts"
 set record="=Sent"
 
-set signature="~/.mutt/signature"
-
 set smtp_url="smtps://lorenzo@thesocialgamingcompany.com@secure.emailsrvr.com:465/"
 set smtp_pass="`cat ~/.mutt/flutr/secret`"
+
+set signature="~/.mutt/signature"
