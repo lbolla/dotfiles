@@ -66,7 +66,7 @@ nnoremap          <leader>B  :!git gui blame % &<CR><CR>
 nnoremap <silent> <leader>l  :set invlist<CR>
 nnoremap <silent> <leader>m  :make<CR>
 nnoremap          <leader>s  :vsp
-nnoremap          <leader>t  :tabnew
+nnoremap          <leader>t  :tabnew 
 nnoremap <silent> <leader>w  :%s/\s\+$//<CR>
 nnoremap <silent> <leader>x  :nohl<CR>
 nnoremap <silent> <leader>q  :!pbcopy<%<CR><CR>
@@ -98,6 +98,7 @@ let Tlist_WinWidth = 50
 let g:netrw_altv = 1
 let g:haddock_browser = "/usr/bin/chromium"
 let g:jsl_config = $HOME . "/.jsl.conf"
+let g:pylint_onwrite = 0
 
 
 "
@@ -109,7 +110,7 @@ set background=dark
 
 colorscheme lorenzo
 " colorscheme wombat
-" let g:solarized_termcolors=8
+" let g:solarized_termcolors=256
 " let g:solarized_contrast="high"
 " colorscheme solarized
 
