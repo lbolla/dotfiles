@@ -1,0 +1,11 @@
+set from="Lorenzo.Bolla@mbamfunds.com"
+
+set folder="imaps://LONMAIL.mbam.local/"
+set spoolfile="=Inbox"
+set postponed="=Drafts"
+set record="=Sent"
+
+set smtp_url="smtps://Lorenzo.Bolla@mbamfunds.com@LONMAIL.mbam.local/"
+set smtp_pass="`cat ~/.mutt/RAID/secret`"
+
+set signature="~/.mutt/RAID/signature"
