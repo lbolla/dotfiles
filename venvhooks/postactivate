@@ -9,5 +9,5 @@ if [ -d "$proj_basedir/$proj_name" ]; then
         alias cdp="cd $proj_dir"
 else
         unset proj_dir
-        unalias cdp
+        unalias cdp 2> /dev/null
 fi
