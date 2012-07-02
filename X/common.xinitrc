@@ -7,8 +7,8 @@ if [ -f $HOME/.Xdefaults ]; then
 	xrdb -merge $HOME/.Xdefaults
 fi
 
-# # fonts
-# xset fp+ /usr/share/fonts/
+# fonts
+xset fp+ /usr/share/fonts/
 
 # # keyboard
 # # Muhanken/Henkan -> Windows key
