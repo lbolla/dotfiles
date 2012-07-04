@@ -35,7 +35,7 @@ Rxvt.background:       black
 ! Rxvt.cursorColor:      red
 ! Rxvt.colorUL:          #86a2be
 ! Rxvt.colorBD:          #8ac6f2
-! Rxvt.fading:           0
+Rxvt.fading:           50
 ! Rxvt.fadeColor:        white
 
 ! Rxvt.background             : #242424
