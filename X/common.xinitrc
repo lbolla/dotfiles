@@ -6,9 +6,12 @@ ssh-add
 if [ -f $HOME/.Xdefaults ]; then
 	xrdb -merge $HOME/.Xdefaults
 fi
+if [ -f $HOME/src/solarized/xresources-colors-solarized/Xresources ]; then
+	xrdb -merge $HOME/src/solarized/xresources-colors-solarized/Xresources
+fi
 
-# # fonts
-# xset fp+ /usr/share/fonts/
+# fonts
+xset fp+ /usr/share/fonts/
 
 # # keyboard
 # # Muhanken/Henkan -> Windows key

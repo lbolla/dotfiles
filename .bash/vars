@@ -12,7 +12,7 @@ for git_compl in "/etc/bash_completion.d/git" "/usr/share/git/completion/git-com
         [ -f ${git_compl} ] && . ${git_compl}
 done
 
-export PATH=~/bin:~/.cabal/bin:$PATH:/usr/bin/vendor_perl
+export PATH=~/bin:~/.cabal/bin:$PATH:/usr/bin/vendor_perl:/opt/SenchaSDKTools-2.0.0-beta3/
 export EDITOR="vim"
 export GIT_EDITOR="vim"
 export PAGER="less -nF"
