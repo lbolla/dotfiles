@@ -36,6 +36,11 @@ set incsearch
 set hls
 set laststatus=2
 set encoding=utf-8
+set tabstop=8
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set textwidth=79
 
 let mapleader=","
 nnoremap <leader>t :tabnew 
