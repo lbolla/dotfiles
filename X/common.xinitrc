@@ -22,5 +22,6 @@ xset fp+ /usr/share/fonts/
 # # mouse
 # xmodmap -e "pointer = 3 2 1"
 # xset mouse 2/1 0
-# autocutsel -fork &
-# autocutsel -selection PRIMARY -fork &
+
+autocutsel -fork
+autocutsel -selection PRIMARY -fork
