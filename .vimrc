@@ -42,7 +42,7 @@ set softtabstop=4
 set expandtab
 set textwidth=79
 set pastetoggle=<F2>
-set colorcolumn=85
+set colorcolumn=80
 set relativenumber
 
 let mapleader=","
