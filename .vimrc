@@ -49,6 +49,7 @@ let mapleader=","
 nnoremap <leader>t :tabnew 
 nnoremap <leader>a :Ack "<C-R><C-W>"
 nnoremap <leader>l :SyntasticCheck<CR>
+nnoremap <leader>x :nohl<CR>
 
 let g:EnhCommentifyUserBindings='yes'
 vmap <silent> <leader>c <Plug>VisualComment
