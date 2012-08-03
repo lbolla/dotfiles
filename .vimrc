@@ -29,6 +29,8 @@ else
 endif
 colorscheme solarized
 
+set nobackup
+set noswapfile
 set wildmenu
 set wildignore=*.o,*.bak,*.pyc,*.swp
 set wildmode=longest:full
