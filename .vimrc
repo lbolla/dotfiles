@@ -10,12 +10,15 @@ Bundle 'gmarik/vundle'
 
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'dag/vim2hs'
 Bundle 'hrp/EnhancedCommentify'
 Bundle 'klen/python-mode'
 Bundle 'mileszs/ack.vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/syntastic'
+Bundle 'dag/vim2hs'
+Bundle 'eagletmt/ghcmod-vim'
+Bundle 'Shougo/vimproc'
+Bundle 'ujihisa/neco-ghc'
 
 filetype plugin indent on
 
@@ -29,6 +32,8 @@ else
 endif
 colorscheme solarized
 
+set nobackup
+set noswapfile
 set wildmenu
 set wildignore=*.o,*.bak,*.pyc,*.swp
 set wildmode=longest:full
@@ -49,6 +54,7 @@ let mapleader=","
 nnoremap <leader>t :tabnew 
 nnoremap <leader>a :Ack "<C-R><C-W>"
 nnoremap <leader>l :SyntasticCheck<CR>
+nnoremap <leader>x :nohl<CR>
 
 let g:EnhCommentifyUserBindings='yes'
 vmap <silent> <leader>c <Plug>VisualComment
@@ -59,6 +65,8 @@ nmap <silent> <leader>c <Plug>Comment
 nmap <silent> <leader>d <Plug>DeComment
 nmap <silent> <leader>g <Plug>Traditional
 nmap <silent> <leader>f <Plug>FirstLine
+
+let g:haskell_conceal_enumerations=0
 
 if has("autocmd")
 	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
