@@ -19,6 +19,7 @@ Bundle 'dag/vim2hs'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle 'Shougo/vimproc'
 Bundle 'ujihisa/neco-ghc'
+Bundle 'pentie/VimRepress'
 
 filetype plugin indent on
 
