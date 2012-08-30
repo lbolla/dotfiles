@@ -8,7 +8,7 @@ esac
 # USE_COLORS=N
 
 # git bash completion
-for git_compl in "/etc/bash_completion.d/git" "/usr/share/git/completion/git-completion.bash"; do
+for git_compl in "/etc/bash_completion.d/git" "/usr/share/git/completion/git-prompt.sh" "/usr/share/git/completion/git-completion.bash"; do
         [ -f ${git_compl} ] && . ${git_compl}
 done
 
