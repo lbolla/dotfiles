@@ -4,9 +4,10 @@ set realname="Lorenzo Bolla"
 set editor='vim'
 set move=no
 set delete=ask-yes
-set mail_check=90
-set timeout=15
-set imap_keepalive=600
+set mail_check=15
+set timeout=90
+set imap_keepalive=30
+set imap_idle=yes
 set imap_check_subscribed
 set include
 set reply_to
