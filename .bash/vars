@@ -24,6 +24,7 @@ export LESS="-R"
 
 # vi keybindings for bash
 # set -o vi
+export VIMRUNTIME=/usr/share/vim/vim73/
 
 # remap some keys
 [ -f ~/.xmodmap ] && xmodmap ~/.xmodmap

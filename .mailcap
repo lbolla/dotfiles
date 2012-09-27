@@ -8,5 +8,7 @@ application/pdf; pdftotext '%s' -; copiousoutput; description=pdf; nametemplate=
 #application/doc; soffice '%s'; description=doc; nametemplate=%s.doc; test=is_in_X.sh
 application/doc; antiword %s; copiousoutput; description=doc; nametemplate=%s.doc
 application/msword; antiword %s; copiousoutput; description=doc; nametemplate=%s.doc
+application/msexcel; xls2txt %s; copiousoutput; description=xls; nametemplate=%s.xls
+application/msexcel; xls2txt %s; copiousoutput; description=xls; nametemplate=%s.xlw
 #application/octet-stream; soffice '%s'; description=Word; nametemplate=%s.docx; test=is_in_X.sh
 #application/octet-stream; soffice '%s'; description=Powerpoint; nametemplate=%s.pptx; test=is_in_X.sh

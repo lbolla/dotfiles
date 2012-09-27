@@ -21,13 +21,15 @@ Bundle 'Shougo/vimproc'
 Bundle 'ujihisa/neco-ghc'
 Bundle 'pentie/VimRepress'
 
+source $VIMRUNTIME/macros/matchit.vim
+
 filetype plugin indent on
 
 syntax on
 
 set background=dark
 if has("gui_running")
-	call togglebg#map("<F5>")
+	" call togglebg#map("<F5>")
 else
 	let g:solarized_termcolors=256
 endif
@@ -68,6 +70,7 @@ nmap <silent> <leader>g <Plug>Traditional
 nmap <silent> <leader>f <Plug>FirstLine
 
 let g:haskell_conceal_enumerations=0
+let g:pymode_utils_whitespaces=0
 
 if has("autocmd")
 	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
