@@ -69,4 +69,5 @@ let g:pymode_utils_whitespaces=0
 
 if has("autocmd")
 	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
+	autocmd BufNewFile,BufRead,BufEnter *.md set filetype=markdown
 endif
