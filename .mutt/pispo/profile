@@ -10,3 +10,9 @@ set smtp_url="smtps://lorenzo.bolla@pispo.co.uk@smtp.123-reg.co.uk:465/"
 set smtp_pass="`cat ~/.mutt/pispo/secret`"
 
 set signature="~/.mutt/pispo/signature"
+
+macro index,pager y "s=INBOX/Archive<enter>" "Archive message"
+macro index gl "<change-folder>"
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index ga "<change-folder>=INBOX/Archive<enter>" "Go to Archive"
+macro index gt "<change-folder>=Sent<enter>" "Go to sent mail"
