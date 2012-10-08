@@ -45,6 +45,9 @@ set incsearch
 set hls
 set laststatus=2
 set encoding=utf-8
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set pastetoggle=<F2>
 
@@ -70,4 +73,5 @@ let g:pymode_utils_whitespaces=0
 if has("autocmd")
 	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
 	autocmd BufNewFile,BufRead,BufEnter *.md set filetype=markdown
+	autocmd BufNewFile,BufRead,BufEnter *.tmpl set filetype=html
 endif
