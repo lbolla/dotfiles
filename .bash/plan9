@@ -3,5 +3,8 @@ export PATH=$PATH:$PLAN9/bin
 export font=$PLAN9/font/fixed/unicode.7x14.font
 export altfont=$PLAN9/font/luc/unicode.8.font
 export tabstop=4
+
 #alias A="SHELL=rc 9 acme -a -f $font -F $altfont"
 alias A="9 acme -a -f $font -F $altfont"
+alias 9term='9term -s'
+alias 9t='SHELL=rc 9term -s'
