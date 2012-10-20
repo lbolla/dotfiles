@@ -19,9 +19,9 @@ xset fp+ /usr/share/fonts/
 # xmodmap -e "add mod4 = Muhenkan_Mode"
 # xmodmap -e "add mod4 = Henkan_Mode"
 
-# # mouse
-# xmodmap -e "pointer = 3 2 1"
-# xset mouse 2/1 0
+# mouse
+xmodmap -e "pointer = 3 2 1"
+xset mouse 2/1 0
 
 autocutsel -fork
 autocutsel -selection PRIMARY -fork
