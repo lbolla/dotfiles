@@ -9,9 +9,11 @@ if [ "x$USE_COLORS" = "xY" ]; then
     alias grep='grep --color=auto'
     #  alias ipython='ipython -colors Linux'
 else
-    alias ls='ls --color=never'
-    alias grep='grep --color=never'
-    #  alias ipython='ipython -colors NoColor'
+    if [ "$TERM" != "9term" ]; then
+        alias ls='ls --color=never'
+        alias grep='grep --color=never'
+    fi
+    alias ipython='ipython --colors NoColor'
 fi
 
 # ls aliases
