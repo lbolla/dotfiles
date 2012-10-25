@@ -3,7 +3,6 @@ export PATH=$PATH:$PLAN9/bin:$HOME/src/junk/acme
 export font=$PLAN9/font/fixed/unicode.6x13.font
 export altfont=$PLAN9/font/pelm/unicode.8.font
 export tabstop=4
-export ACMEMOUNTPOINT=/tmp/acme
 
 alias 9term='9term -s'
 alias 9t='SHELL=rc 9term -s'
@@ -22,5 +21,6 @@ function A {
 
     # run acme
 	# SHELL=rc
-	acme -a -f $font -F $altfont -m $ACMEMOUNTPOINT
+	# acme -a -f $font -F $altfont -m /tmp/acme
+	acme -a -f $font -F $altfont
 }
