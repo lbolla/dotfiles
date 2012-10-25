@@ -5,7 +5,22 @@ export altfont=$PLAN9/font/pelm/unicode.8.font
 export tabstop=4
 export ACMEMOUNTPOINT=/tmp/acme
 
-#alias A="SHELL=rc 9 acme -a -f $font -F $altfont"
-alias A="acme -a -f $font -F $altfont -m $ACMEMOUNTPOINT"
 alias 9term='9term -s'
 alias 9t='SHELL=rc 9term -s'
+
+function A {
+    
+    # ensure mountpoint is present
+    if [ ! -d $ACMEMOUNTPOINT ]; then
+        mkdir -p $ACMEMOUNTPOINT
+    fi
+
+    # ensure plumber is running
+	if (! `killall -0 plumber 2> /dev/null`); then
+		9 plumber
+	fi
+
+    # run acme
+	# SHELL=rc
+	acme -a -f $font -F $altfont -m $ACMEMOUNTPOINT
+}
