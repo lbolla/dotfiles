@@ -12,17 +12,16 @@ for git_compl in "/etc/bash_completion.d/git" "/usr/share/git/completion/git-pro
         [ -f ${git_compl} ] && . ${git_compl}
 done
 
+#if [ "x$USE_COLORS" = "xY" ]; then
+#	git config --global color.ui true
+#fi
+
 export PATH=~/bin:~/.cabal/bin:$PATH:/usr/bin/vendor_perl:/opt/SenchaSDKTools-2.0.0-beta3/:~/.gem/ruby/1.9.1/bin
 export EDITOR="vim"
 export GIT_EDITOR="vim"
 
-if [ "$TERM" != "9term" ]; then
-    export PAGER="less -nF"
-    export GIT_PAGER="less -n"
-else
-    export PAGER="9 cat"
-    export GIT_PAGER="9 cat"
-fi
+export PAGER="less -nF"
+export GIT_PAGER="less -n"
 
 export BROWSER="chromium"
 export RHINO_HOME=/usr/share/java

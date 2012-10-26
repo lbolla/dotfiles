@@ -20,7 +20,15 @@ function A {
 	fi
 
     # run acme
-	# SHELL=rc
 	# acme -a -f $font -F $altfont -m /tmp/acme
-	acme -a -f $font -F $altfont
+	#acme -a -f $font -F $altfont
+	SHELL=rc GIT_PAGER=cat PAGER=cat 9 acme -a -f $font -F $altfont
 }
+
+# overwrite some stuff for 9term
+if [ "$TERM" == "9term" ]; then
+    alias ls='ls --color=never'
+    alias grep='grep --color=never'
+    export PAGER=cat
+    export GIT_PAGER=cat
+fi
