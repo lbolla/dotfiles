@@ -1,0 +1,29 @@
+editor = acme
+
+# xls files to xls2txt
+type is text
+data matches '([a-zA-Z¡-0-9_\-./]+)\.xls$'
+plumb start rc -c 'xls2txt '$file' | plumb -i -d edit -a ''action=showdata filename='$file''''
+
+# doc files to antiword
+type is text
+data matches '([a-zA-Z¡-0-9_\-./]+)\.doc$'
+plumb start rc -c 'antiword '$file' | plumb -i -d edit -a ''action=showdata filename='$file''''
+
+# doc files to antiword
+type is text
+data matches '([a-zA-Z¡-0-9_\-./]+)\.docx$'
+plumb start rc -c 'antidocx '$file' | plumb -i -d edit -a ''action=showdata filename='$file''''
+
+# git commits
+type is text
+data matches 'commit ([a-zA-Z0-9]+)'
+plumb start rc -c 'cd '$wdir' && git show '$1' | plumb -i -d edit -a ''action=showdata filename=/git/'$1''''
+
+# Gerrit's ChangeIDs
+type is text
+data matches 'Change-Id: ([a-zA-Z0-9]+)'
+plumb to web
+plumb start web 'http://gerrit.raid/r/#q,'$1',n,z'
+
+include basic

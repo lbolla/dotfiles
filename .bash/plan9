@@ -1,5 +1,5 @@
 export PLAN9=$HOME/src/plan9port
-export PATH=$PATH:$PLAN9/bin:$HOME/src/junk/acme
+export PATH=$PATH:$PLAN9/bin
 export font=$PLAN9/font/fixed/unicode.6x13.font
 export altfont=$PLAN9/font/pelm/unicode.8.font
 export tabstop=4
