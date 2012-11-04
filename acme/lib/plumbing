@@ -26,4 +26,10 @@ data matches 'Change-Id: ([a-zA-Z0-9]+)'
 plumb to web
 plumb start web 'http://gerrit.raid/r/#q,'$1',n,z'
 
+# Redmine's Issues
+type is text
+data matches 'Issue ([0-9]+)'
+plumb to web
+plumb start web 'http://www.hostedredmine.com/issues/'$1
+
 include basic
