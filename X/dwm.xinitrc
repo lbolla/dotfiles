@@ -13,8 +13,9 @@ fi
 while true; 
 do 
 	DATE=`date +"%a %b %d %Y %R"`
-	NEWMAIL=`mail -e 2> /dev/null && echo 'New mail!'`
-	xsetroot -name "$NEWMAIL $DATE"
+	#NEWMAIL=`mail -e 2> /dev/null && echo 'New mail!'`
+	#xsetroot -name "$NEWMAIL $DATE"
+	xsetroot -name "$DATE"
 	sleep 60
 done &
 
