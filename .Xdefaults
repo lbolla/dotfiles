@@ -4,7 +4,7 @@
 
 XTerm.font:            FONT
 Rxvt.font:             FONT
-Rxvt.termName:         xterm-color
+Rxvt.termName:         rxvt-unicode-256color
 Rxvt.scrollBar:        false
 Rxvt.meta8:            false
 Rxvt.saveLines:        2048

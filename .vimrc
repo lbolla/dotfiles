@@ -69,6 +69,7 @@ nmap <silent> <leader>f <Plug>FirstLine
 
 let g:haskell_conceal_enumerations=0
 let g:pymode_folding=0
+let g:pymode_lint_mccabe_complexity=9
 let g:pymode_lint_write=1
 let g:pymode_motion=1
 let g:pymode_rope=0
