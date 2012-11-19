@@ -8,6 +8,9 @@ set record=
 set smtp_pass="`cat ~/.mutt/networkscale/secret`"
 set smtp_url="smtp://lorenzo@networkscale.co.uk@smtp.gmail.com:587"
 
+set imap_pass=`cat ~/.mutt/networkscale/secret`
+set imap_user=lorenzo@networkscale.co.uk
+
 set signature="~/.mutt/networkscale/signature"
 
 macro index,pager y "<enter-command>unset trash\n<delete-message>" "Gmail archive message"

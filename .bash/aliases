@@ -24,7 +24,10 @@ alias vi='vim'
 # alias jsl="jsl --conf=$HOME/.jsl.conf"
 
 alias ssh='TERM=linux ssh'
+alias mutt-gmail='MUTT_PROFILE=gmail mutt'
+alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
 alias mutt-pispo='MUTT_PROFILE=pispo mutt'
+alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 
 # grep
 alias greperr='grep -e ERROR -e CRITICAL'
