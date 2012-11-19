@@ -12,3 +12,4 @@ application/msexcel; xls2txt %s; copiousoutput; description=xls; nametemplate=%s
 application/msexcel; xls2txt %s; copiousoutput; description=xls; nametemplate=%s.xlw
 #application/octet-stream; soffice '%s'; description=Word; nametemplate=%s.docx; test=is_in_X.sh
 #application/octet-stream; soffice '%s'; description=Powerpoint; nametemplate=%s.pptx; test=is_in_X.sh
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; antidocx '%s'; copiousoutput; description=Word
