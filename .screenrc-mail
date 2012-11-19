@@ -1,0 +1,4 @@
+source $HOME/.screenrc
+screen -t gmail bash -i -c mutt-gmail
+screen -t pispo bash -i -c mutt-pispo
+screen -t networkscale bash -i -c mutt-networkscale

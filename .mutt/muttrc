@@ -52,6 +52,6 @@ bind index x tag-entry
 bind pager j next-line
 bind pager k previous-line
 
-source /etc/Muttrc.gpg.dist
+#source /etc/Muttrc.gpg.dist
 source ~/.mutt/colors
-source ~/.mutt/profiles
+source ~/.mutt/$MUTT_PROFILE/profile
