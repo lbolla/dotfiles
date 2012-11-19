@@ -1,4 +1,3 @@
-set realname="Lorenzo Bolla"
 set from="lbolla@gmail.com"
 
 set folder="imaps://lbolla@imap.gmail.com/"
@@ -10,7 +9,10 @@ set record=
 set smtp_pass="`cat ~/.mutt/gmail/secret`"
 set smtp_url="smtp://lbolla@smtp.gmail.com:587"
 
-set signature="~/.mutt/signature"
+set imap_pass=`cat ~/.mutt/gmail/secret`
+set imap_user=lbolla@gmail.com
+
+set signature="~/.mutt/gmail/signature"
 
 macro index,pager y "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
 macro index,pager d "<enter-command>set trash=\"imaps://imap.gmail.com/[Gmail]/Trash\"\n<delete-message>" "Gmail delete message"
