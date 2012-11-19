@@ -68,7 +68,12 @@ nmap <silent> <leader>g <Plug>Traditional
 nmap <silent> <leader>f <Plug>FirstLine
 
 let g:haskell_conceal_enumerations=0
+let g:pymode_folding=0
+let g:pymode_lint_write=1
+let g:pymode_motion=1
+let g:pymode_rope=0
 let g:pymode_utils_whitespaces=0
+let g:pymode_virtualenv=1
 
 if has("autocmd")
 	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
