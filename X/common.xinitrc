@@ -20,7 +20,7 @@ xset fp+ /usr/share/fonts/
 # xmodmap -e "add mod4 = Muhenkan_Mode"
 # xmodmap -e "add mod4 = Henkan_Mode"
 
-if [ `hostname` != "arch"]; then
+if [ "`hostname`" != "arch"]; then
     # mouse
     xmodmap -e "pointer = 3 2 1"
     xset mouse 2/1 0
