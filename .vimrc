@@ -29,12 +29,12 @@ filetype plugin indent on
 syntax on
 
 set background=dark
-if has("gui_running")
-	" call togglebg#map("<F5>")
-else
-	let g:solarized_termcolors=256
-endif
-colorscheme solarized
+"if has("gui_running")
+"    " call togglebg#map("<F5>")
+"else
+"    let g:solarized_termcolors=256
+"endif
+"colorscheme solarized
 
 set nobackup
 set noswapfile

@@ -15,3 +15,7 @@ Rxvt.keysym.M-Right:   \033[1;3C
 Rxvt.perl-ext-common:  default,matcher
 Rxvt.cutchars:         ':' '"''.'&()*,;<=>?@[]^{|}
 Rxvt.urlLauncher:      chromium
+*background:       black
+*foreground:       white
+*fading:           40
+*fadeColor:        black
