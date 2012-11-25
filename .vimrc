@@ -27,7 +27,7 @@ syntax on
 
 set background=dark
 "colorscheme desert256
-colorscheme redblack
+colorscheme lorenzo
 "if has("gui_running")
 "    " call togglebg#map("<F5>")
 "else
