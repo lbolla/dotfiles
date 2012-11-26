@@ -246,7 +246,7 @@ hi x255_Grey93 ctermfg=255 guifg=#eeeeee
 hi Normal         ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi Boolean        ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi Character      ctermbg=black guibg=black ctermfg=red guifg=red
-hi Comment        ctermbg=black guibg=black ctermfg=darkgrey guifg=#606060 cterm=bold
+hi Comment         ctermbg=black guibg=black ctermfg=61 guifg=#5f5faf cterm=NONE gui=NONE
 hi Condtional     ctermbg=black guibg=black ctermfg=red guifg=red
 hi Constant       ctermbg=black guibg=black ctermfg=red guifg=red
 hi Cursor         ctermbg=black guibg=white ctermfg=grey guifg=grey
@@ -261,7 +261,7 @@ hi Directory      ctermbg=black guibg=black ctermfg=white guifg=white
 hi Error          ctermbg=red guibg=red ctermfg=white guifg=white
 hi ErrorMsg       ctermbg=red guibg=red ctermfg=white guifg=white
 hi Exception      ctermbg=black guibg=black ctermfg=grey guifg=grey
-hi Float          ctermbg=black guibg=black ctermfg=red guifg=red cterm=NONE gui=NONE
+hi Float          ctermbg=black guibg=black ctermfg=white guifg=white cterm=NONE gui=NONE
 hi FoldColumn     ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi Folded         ctermbg=black guibg=black ctermfg=red guifg=red
 hi Function       ctermbg=black guibg=black ctermfg=white guifg=white
@@ -275,7 +275,7 @@ hi Macro          ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi ModeMsg        ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi MoreMsg        ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi NonText        ctermbg=black guibg=black ctermfg=darkgrey guifg=#606060 cterm=bold
-hi Number         ctermbg=black guibg=black ctermfg=red guifg=red cterm=NONE gui=NONE
+hi Number         ctermbg=black guibg=black ctermfg=white guifg=white cterm=NONE gui=NONE
 hi Operator       ctermbg=black guibg=black ctermfg=white guifg=white
 hi PreCondit      ctermbg=black guibg=black ctermfg=white guifg=white
 hi PreProc        ctermbg=black guibg=black ctermfg=white guifg=white
@@ -290,11 +290,11 @@ hi Statement      ctermbg=black guibg=black ctermfg=white guifg=white
 hi StatusLine     ctermbg=white guibg=white ctermfg=red guifg=red
 hi StatusLineNC   ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi StorageClass   ctermbg=black guibg=black ctermfg=white guifg=white
-hi String         ctermbg=black guibg=black ctermfg=250 guifg=#bcbcbc
+hi String         ctermbg=black guibg=black ctermfg=242 guifg=#6c6c6c
 hi Structure      ctermbg=black guibg=black ctermfg=white guifg=white
 hi Tag            ctermbg=black guibg=black ctermfg=red guifg=red
 hi Title          ctermbg=black guibg=black ctermfg=grey guifg=grey
-hi Todo           ctermbg=black guibg=black ctermfg=white guifg=white
+hi Todo           ctermbg=black guibg=black ctermfg=white guifg=white cterm=bold
 hi Typedef        ctermbg=black guibg=black ctermfg=white guifg=white
 hi Type           ctermbg=black guibg=black ctermfg=white guifg=white
 hi VertSplit      ctermbg=black guibg=black ctermfg=grey guifg=grey
