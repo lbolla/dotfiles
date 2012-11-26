@@ -38,7 +38,7 @@ bind l focus right
 # TERMINAL SETTINGS
 # ------------------------------------------------------------------------------
 
-term xterm-256color
+term screen-256color
 
 termcapinfo vt100 dl=5\E[M
 termcapinfo xterm*|urxvt*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
@@ -59,4 +59,3 @@ defnonblock 5
 # screen -t monkey ssh monkey
 # screen -t mail 8 mutt
 # screen -t daemon 9 tail -f /var/log/daemon.log
-

@@ -9,7 +9,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'hrp/EnhancedCommentify'
 Bundle 'klen/python-mode'
 Bundle 'mileszs/ack.vim'
@@ -21,20 +20,20 @@ Bundle 'Shougo/vimproc'
 Bundle 'ujihisa/neco-ghc'
 Bundle 'pentie/VimRepress'
 Bundle 'jnwhiteh/vim-golang'
-
-source $VIMRUNTIME/macros/matchit.vim
-
-filetype plugin indent on
+Bundle 'flazz/vim-colorschemes'
+"Bundle 'altercation/vim-colors-solarized'
 
 syntax on
 
 set background=dark
-if has("gui_running")
-	" call togglebg#map("<F5>")
-else
-	let g:solarized_termcolors=256
-endif
-colorscheme solarized
+"colorscheme desert256
+colorscheme lorenzo
+"if has("gui_running")
+"    " call togglebg#map("<F5>")
+"else
+"    let g:solarized_termcolors=256
+"endif
+"colorscheme solarized
 
 set nobackup
 set noswapfile
