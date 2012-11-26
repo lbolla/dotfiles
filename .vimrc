@@ -1,5 +1,6 @@
 set nocompatible               " be iMproved
-filetype off                   " required!
+"filetype off                   " required!
+filetype plugin indent on
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -9,31 +10,24 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'Shougo/vimproc'
+Bundle 'dag/vim2hs'
+Bundle 'eagletmt/ghcmod-vim'
+Bundle 'flazz/vim-colorschemes'
 Bundle 'hrp/EnhancedCommentify'
+Bundle 'jnwhiteh/vim-golang'
 Bundle 'klen/python-mode'
 Bundle 'mileszs/ack.vim'
 Bundle 'pangloss/vim-javascript'
-Bundle 'scrooloose/syntastic'
-Bundle 'dag/vim2hs'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'Shougo/vimproc'
-Bundle 'ujihisa/neco-ghc'
 Bundle 'pentie/VimRepress'
-Bundle 'jnwhiteh/vim-golang'
-Bundle 'flazz/vim-colorschemes'
-"Bundle 'altercation/vim-colors-solarized'
+Bundle 'scrooloose/syntastic'
+Bundle 'ujihisa/neco-ghc'
 
 syntax on
 
 set background=dark
 "colorscheme desert256
 colorscheme lorenzo
-"if has("gui_running")
-"    " call togglebg#map("<F5>")
-"else
-"    let g:solarized_termcolors=256
-"endif
-"colorscheme solarized
 
 set nobackup
 set noswapfile
