@@ -19,7 +19,6 @@ Bundle 'jnwhiteh/vim-golang'
 Bundle 'klen/python-mode'
 Bundle 'mileszs/ack.vim'
 Bundle 'pangloss/vim-javascript'
-Bundle 'pentie/VimRepress'
 Bundle 'scrooloose/syntastic'
 Bundle 'ujihisa/neco-ghc'
 
