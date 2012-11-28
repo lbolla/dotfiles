@@ -246,7 +246,8 @@ hi x255_Grey93 ctermfg=255 guifg=#eeeeee
 hi Normal         ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi Boolean        ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi Character      ctermbg=black guibg=black ctermfg=red guifg=red
-hi Comment         ctermbg=black guibg=black ctermfg=61 guifg=#5f5faf cterm=NONE gui=NONE
+hi ColorColumn    ctermfg=234 guifg=#1c1c1c
+hi Comment        ctermbg=black guibg=black ctermfg=61 guifg=#5f5faf cterm=NONE gui=NONE
 hi Condtional     ctermbg=black guibg=black ctermfg=red guifg=red
 hi Constant       ctermbg=black guibg=black ctermfg=white guifg=white cterm=NONE gui=NONE
 hi Cursor         ctermbg=black guibg=white ctermfg=grey guifg=grey
