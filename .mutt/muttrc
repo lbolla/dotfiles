@@ -14,6 +14,7 @@ set reply_to
 set abort_nosubject=no
 set hdr_format="%4C %Z %{%m/%d} %-15.15F (%4c) %s"
 set pager_stop=yes
+set pager_index_lines=6
 set sort_alias=alias
 set reverse_alias=yes
 set alias_file=~/.mutt/aliases
