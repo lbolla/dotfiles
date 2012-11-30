@@ -2,3 +2,4 @@ source $HOME/.screenrc
 screen -t gmail bash -i -c mutt-gmail
 screen -t pispo bash -i -c mutt-pispo
 screen -t networkscale bash -i -c mutt-networkscale
+screen -t chat bash -i -c centerim
