@@ -31,6 +31,7 @@ ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 auto_view text/html
 
+# Add "source /etc/Muttrc.gpg.dist" to /etc/Muttrc for Archlinux
 my_hdr X-PGP-Key: http://lbolla.info/keys/lbolla_gmail_com.asc
 set pgp_autosign=yes
 set pgp_sign_as=0xC5750E74
@@ -53,6 +54,5 @@ bind index x tag-entry
 bind pager j next-line
 bind pager k previous-line
 
-#source /etc/Muttrc.gpg.dist
 source ~/.mutt/colors
 source ~/.mutt/$MUTT_PROFILE/profile
