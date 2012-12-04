@@ -1,51 +1,102 @@
-#source ~/src/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
+# #source ~/src/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
 
-#
-# color terminals:
-# (default, white, black, green, magenta, blue, cyan, yellow, red)
-# (bright...)
-# (color1,color2,...,colorN-1)
-#
-#     object	 foreground	background
-#
-color normal	 default	default	# normal text
-#  color indicator	 brightyellow	red	# actual message
-mono indicator	 reverse	# actual message
-color tree	 brightmagenta	default	# thread arrows
-color status	 brightgreen	blue	# status line
-color error	 brightred	default	# errors
-color message	 red		default	# info messages
-color signature	 red		default	# signature
-color attachment brightyellow	red	# MIME attachments
-color search	 brightyellow	red	# search matches
-color tilde	 brightmagenta	default	# ~ at bottom of msg
-color markers	 red		default	# + at beginning of wrapped lines
-color hdrdefault blue		default	# default header lines
-color bold	 red		default	# hiliting bold patterns in body
-color underline	 green		default	# hiliting underlined patterns in body
-color quoted	 blue		default	# quoted text
-color quoted1	 magenta	default
-color quoted2	 red		default
-color quoted3	 green		default
-color quoted4	 cyan		default
-color quoted5	 blue		default
-color quoted6	 magenta	default
-color quoted7	 red		default
-color quoted8	 green		default
-color quoted9	 cyan		default
-#
-#     object	 foreground backg.   RegExp
-#
-color header	 red	    default  "^(from|subject):"
-color body	 cyan	    default  "((ftp|http|https)://|(file|news):|www\\.)[-a-z0-9_.:]*[a-z0-9](/[^][{} \t\n\r\"<>()]*[^][{} \t\n\r\"<>().,:!])?/?"
-color body	 cyan	    default  "[-a-z_0-9.+]+@[-a-z_0-9.]+"
-color body	 red	    default  "(^| )\\*[-a-z0-9*]+\\*[,.?]?[ \n]"
-color body	 green	    default  "(^| )_[-a-z0-9_]+_[,.?]?[ \n]"
+# #
+# # color terminals:
+# # (default, white, black, green, magenta, blue, cyan, yellow, red)
+# # (bright...)
+# # (color1,color2,...,colorN-1)
+# #
+# #     object	 foreground	background
+# #
+# color normal	 default	default	# normal text
+# #  color indicator	 brightyellow	red	# actual message
+# mono indicator	 reverse	# actual message
+# color tree	    brightmagenta	default	# thread arrows
+# color status	 brightgreen	blue	# status line
+# color error	     brightred	    default	# errors
+# color message	 red		    default	# info messages
+# color signature	 red		    default	# signature
+# color attachment brightyellow	red	# MIME attachments
+# color search	 brightyellow	red	# search matches
+# color tilde	     brightmagenta	default	# ~ at bottom of msg
+# color markers	 red	    	default	# + at beginning of wrapped lines
+# color hdrdefault yellow	    	default	# default header lines
+# color bold	     red	    	default	# hiliting bold patterns in body
+# color underline	 green	    	default	# hiliting underlined patterns in body
+# color quoted	 cyan	    	default	# quoted text
+# color quoted1	 magenta    	default
+# color quoted2	 red	    	default
+# color quoted3	 green	    	default
+# color quoted4	 cyan	    	default
+# color quoted5	 magenta    	default
+# color quoted6	 red            default
+# color quoted7	 green	    	default
+# color quoted8	 cyan	    	default
+# color quoted9	 magenta    	default
+# #
+# #     object	 foreground backg.   RegExp
+# #
+# color header	 red	    default  "^(from|subject):"
+# color body	     cyan	    default  "((ftp|http|https)://|(file|news):|www\\.)[-a-z0-9_.:]*[a-z0-9](/[^][{} \t\n\r\"<>()]*[^][{} \t\n\r\"<>().,:!])?/?"
+# color body	     cyan	    default  "[-a-z_0-9.+]+@[-a-z_0-9.]+"
+# color body	     red	    default  "(^| )\\*[-a-z0-9*]+\\*[,.?]?[ \n]"
+# color body	     green	    default  "(^| )_[-a-z0-9_]+_[,.?]?[ \n]"
 
-uncolor index *					# unset all color index entries
-color index	 brightblue default  ~F		# Flagged
-color index	 brightred  default  ~N		# New
-color index	 red	    default  ~O		# Unread 
-color index	 magenta    default  ~T		# Tagged
-color index	 yellow	    default  ~D		# Deleted
-#  color index	 brightwhite    default  ~l		# Lists
+# uncolor index *					# unset all color index entries
+# color index	 brightblue default  ~F		# Flagged
+# color index	 brightred  default  ~N		# New
+# color index	 red	    default  ~O		# Unread 
+# color index	 magenta    default  ~T		# Tagged
+# color index	 yellow	    default  ~D		# Deleted
+# #  color index	 brightwhite    default  ~l		# Lists
+
+
+# general-doesn't-fit stuff
+color normal white black
+color error brightred default
+color markers color242 default
+color tilde color242 default
+color status brightgreen blue
+
+# index stuff
+# color tree color124 default
+# color indicator color233 default
+color index color246 default ~A
+color index brightwhite default ~N
+color index white default ~O
+color index magenta default ~F
+color index	color238 default ~D
+
+# header stuff
+color hdrdefault brightwhite default
+# color header color246 default "^Subject"
+
+# # gpg stuff
+# color body color34 color233 "^gpg: Good signature.*"
+# color body color193 color124 "^gpg: BAD signature.*"
+# color body color142 color233 "^gpg: Can't check signature.*"
+# color body color142 color233 "^-----BEGIN PGP SIGNED MESSAGE-----"
+# color body color142 color233 "^-----BEGIN PGP SIGNATURE-----"
+# color body color142 color233 "^-----END PGP SIGNED MESSAGE-----"
+# color body color142 color233 "^-----END PGP SIGNATURE-----"
+# color body color142 color233 "^Version: GnuPG.*"
+# color body color142 color233 "^Comment: .*"
+# #color body color142 color233 "^[[:alnum:]/\+=]+[[:space:]]+$"
+
+
+# # url, email and web stuff
+# color body color111 color233 "(finger|ftp|http|https|news|telnet)://[^ >]*"
+# color body color111 color233 "<URL:[^ ]*>"
+# color body color111 color233 "www\\.[-.a-z0-9]+\\.[a-z][a-z][a-z]?([-_./~a-z0-9]+)?"
+# color body color111 color233 "mailto: *[^ ]+\(\\i?subject=[^ ]+\)?"
+# color body color111 color233 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+
+# # misc body stuff
+# color attachment color111 color233
+# color signature color142 color233
+
+# quote levels
+color quoted color242 default
+color quoted1 color240 default
+color quoted2 color238 default
+color quoted3 color236 default
