@@ -61,11 +61,11 @@ color status brightgreen blue
 # index stuff
 # color tree color124 default
 # color indicator color233 default
-color index color242 default ~A
+color index color246 default ~A
 color index brightwhite default ~N
 color index white default ~O
 color index magenta default ~F
-color index	color236 default ~D
+color index	color238 default ~D
 
 # header stuff
 color hdrdefault brightwhite default
