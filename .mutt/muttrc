@@ -29,6 +29,7 @@ ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
+alternative_order text/enriched text/plain text application/postscript image/*
 auto_view text/html
 
 # Add "source /etc/Muttrc.gpg.dist" to /etc/Muttrc for Archlinux
