@@ -269,7 +269,7 @@ hi Function       ctermbg=black guibg=black ctermfg=white guifg=white
 hi Identifier     ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi Include        ctermbg=black guibg=black ctermfg=white guifg=white
 hi IncSearch      ctermbg=green guibg=green ctermfg=darkgrey guifg=#606060
-hi Keyword        ctermbg=black guibg=black ctermfg=red guifg=red
+hi Keyword        ctermbg=black guibg=black ctermfg=white guifg=white
 hi Label          ctermbg=black guibg=black ctermfg=white guifg=white
 hi LineNr         ctermbg=black guibg=black ctermfg=darkgrey guifg=#606060 cterm=bold
 hi Macro          ctermbg=black guibg=black ctermfg=grey guifg=grey

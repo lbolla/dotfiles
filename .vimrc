@@ -72,4 +72,5 @@ if has("autocmd")
 	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
 	autocmd BufNewFile,BufRead,BufEnter *.md set filetype=markdown
 	autocmd BufNewFile,BufRead,BufEnter *.tmpl set filetype=html
+	autocmd BufNewFile,BufRead,BufEnter *.go set filetype=go
 endif
