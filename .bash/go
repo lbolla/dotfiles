@@ -1,5 +1,6 @@
 # GO
 export GOROOT=$HOME/src/go
-#export GOARCH=386
-#export GOOS=linux
 export PATH=$GOROOT/bin:$PATH
+# export GOPATH=$GOROOT
+# export GOARCH=386
+# export GOOS=linux

@@ -36,7 +36,8 @@ export VIMRUNTIME=/usr/share/vim/vim73/
 [ -f ~/.xmodmap ] && xmodmap ~/.xmodmap
 
 # enable color support of ls
-[ -x dircolors ] && eval "`dircolors -b`"
+# [ -x dircolors ] && eval "`dircolors -b`"
+eval "`dircolors ~/.bash/dir_colors`"
 
 # don't put duplicate lines in the history
 export HISTCONTROL=ignoredups
