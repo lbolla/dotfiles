@@ -74,3 +74,10 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead,BufEnter *.tmpl set filetype=html
 	autocmd BufNewFile,BufRead,BufEnter *.go set filetype=go
 endif
+
+function EnhCommentifyCallback(ft)
+    if a:ft == 'go'
+        let b:ECcommentOpen = '// '
+    endif
+endfunction
+let g:EnhCommentifyCallbackExists = 'Yes'
