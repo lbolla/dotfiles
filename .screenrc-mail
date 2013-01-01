@@ -1,5 +1,6 @@
 source $HOME/.screenrc
 screen -t gmail bash -i -c mutt-gmail
 screen -t pispo bash -i -c mutt-pispo
+screen -t pispo-cs bash -i -c mutt-pispo-customerservice
 screen -t networkscale bash -i -c mutt-networkscale
 screen -t chat bash -i -c centerim
