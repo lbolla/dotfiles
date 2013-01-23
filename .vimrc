@@ -31,6 +31,7 @@ set background=dark
 colorscheme lorenzo
 
 set nobackup
+set nowritebackup
 set noswapfile
 set wildmenu
 set wildignore=*.o,*.bak,*.pyc,*.swp
@@ -70,7 +71,7 @@ let g:pymode_lint_write=1
 let g:pymode_motion=1
 let g:pymode_rope=0
 let g:pymode_utils_whitespaces=0
-let g:pymode_virtualenv=1
+let g:pymode_virtualenv=0
 
 if has("autocmd")
 	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
