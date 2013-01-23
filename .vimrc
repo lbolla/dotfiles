@@ -22,6 +22,8 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/syntastic'
 Bundle 'ujihisa/neco-ghc'
 
+source $VIMRUNTIME/macros/matchit.vim
+
 syntax on
 
 set background=dark
@@ -50,6 +52,8 @@ nnoremap <leader>l :SyntasticCheck<CR>
 nnoremap <leader>x :nohl<CR>
 
 let g:EnhCommentifyUserBindings='yes'
+let g:EnhCommentifyRespectIndent = 'Yes'
+let g:EnhCommentifyPretty = 'Yes'
 vmap <silent> <leader>c <Plug>VisualComment
 vmap <silent> <leader>d <Plug>VisualDeComment
 vmap <silent> <leader>g <Plug>VisualTraditional
