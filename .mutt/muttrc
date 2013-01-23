@@ -4,9 +4,9 @@ set realname="Lorenzo Bolla"
 set editor='vim'
 set move=no
 set delete=ask-yes
-set mail_check=15
+set mail_check=60
 set timeout=90
-set imap_keepalive=30
+set imap_keepalive=75
 set imap_idle=yes
 set imap_check_subscribed
 set include
@@ -29,8 +29,8 @@ ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
-alternative_order text/enriched text/plain text application/postscript image/*
-auto_view text/html
+alternative_order text/html text/enriched text/plain text
+auto_view text/html application/pdf image/*
 
 # Add "source /etc/Muttrc.gpg.dist" to /etc/Muttrc for Archlinux
 my_hdr X-PGP-Key: http://lbolla.info/keys/lbolla_gmail_com.asc

@@ -1,5 +1,6 @@
-alias PISPO dario.sporeni-pispo, laura-pispo, hashim.hashim, amar.bahralolom, fabio.piccoli, cristina.racca, lorenzo-pispo
-alias PISPO-execs dario.sporeni-pispo, hashim.hashim, amar.bahralolom, fabio.piccoli
+alias PISPO dario.sporeni, laura-pispo, hashim.hashim, amar.bahralolom, fabio.piccoli, cristina.racca, lorenzo-pispo
+alias PISPO-execs dario.sporeni, hashim.hashim, amar.bahralolom, fabio.piccoli
+alias Geratherm-complaints s.jobst, r.haak
 
 alias andy.clark Andy Clark <aclark@geneity.co.uk>
 alias mark.swatton Mark Swatton <mark.swatton@betfair.com>
@@ -30,7 +31,7 @@ alias naomi.baxter Naomi Baxter <Naomi.Baxter@mbamfunds.com>
 alias neil.beddoe Neil Beddoe <Neil.Beddoe@raidllp.com>
 alias annie.ferris Annie Ferris <Annie.Ferris@paolomarchetti.com>
 alias luca.loschi \"Loschi Luca - Lameplast S.p.a.\" <Luca.Loschi@lameplast.it>
-alias dario.sporeni-pispo Dario Sporeni <dario.sporeni@pispo.co.uk>
+alias dario.sporeni Dario Sporeni <dario.sporeni@pispo.co.uk>
 alias dario.sporeni-hotmail Dario Sporeni <abcdariosporeni@hotmail.com>
 alias oliver.southgate Oliver Southgate <oliver@thesocialgamingcompany.com>
 alias ian.parry Ian Parry <ian@artirix.com>
@@ -76,3 +77,8 @@ alias cecilia.magnani Cecilia Magnani <cecilia.magnani@pispo.co.uk>
 alias antonio.cannizzaro Antonio Cannizzaro <Antonio.Cannizzaro@eurizoncapital.com>
 alias luca.vercellotti Luca Vercellotti <luca_verce@hotmail.com>
 alias livio.decet Livio De Cet <livio.decet@mondo-export.com>
+alias thomas.robst Thomas Robst <t.robst@geratherm.com>
+alias s.jobst s.jobst@geratherm.com <s.jobst@geratherm.com>
+alias r.haak r.haak@geratherm.com <r.haak@geratherm.com>
+alias tambu Giacomo Tamburi <lt.tambu@gmail.com>
+alias egon.herrnberger Egon Herrnberger <e.herrnberger@geratherm.com>
