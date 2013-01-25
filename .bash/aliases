@@ -68,3 +68,5 @@ alias bf-jabber='mcabber -f ~/.mcabber/mcabberrc.bf'
 alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
 alias db='rlwrap ~/src/junk/utils/dbclient.py'
 alias ant='/opt/java/jre/bin/java -classpath "/usr/share/java/apache-ant/ant-launcher.jar" -Dant.home="/usr/share/java/apache-ant" -Dant.library.dir="/usr/share/java/apache-ant" org.apache.tools.ant.launch.Launcher -cp ""'
+
+alias lp='lp -o fit-to-page -o media=a4'
