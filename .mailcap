@@ -1,7 +1,8 @@
-text/html; w3m -dump '%s'; copiousoutput; description=HTML Text; nametemplate=%s.html
+text/plain; cat '%s'; copiousoutput
+text/html; lynx -width 120 -dump '%s'; copiousoutput; description=HTML Text; nametemplate=%s.html
 
 image/*; qiv '%s'; test=is_in_X.sh
-image/*; anytopnm %s | pnmscale -xsize 80 | ppmtopgm | pgmtopbm | pbmtoascii; copiousoutput
+image/*; anytopnm %s 2> /dev/null | pnmscale -xsize 80 | ppmtopgm | pgmtopbm | pbmtoascii; copiousoutput
 
 application/pdf; zathura '%s'; test=is_in_X.sh
 application/pdf; pdftotext '%s' -; copiousoutput
