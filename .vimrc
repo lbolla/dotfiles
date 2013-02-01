@@ -21,6 +21,7 @@ Bundle 'mileszs/ack.vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/syntastic'
 Bundle 'ujihisa/neco-ghc'
+Bundle 'tpope/vim-abolish'
 
 source $VIMRUNTIME/macros/matchit.vim
 
