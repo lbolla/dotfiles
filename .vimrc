@@ -22,6 +22,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/syntastic'
 Bundle 'ujihisa/neco-ghc'
 Bundle 'tpope/vim-abolish'
+Bundle 'Lokaltog/vim-easymotion'
 
 source $VIMRUNTIME/macros/matchit.vim
 

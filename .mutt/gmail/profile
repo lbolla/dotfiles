@@ -16,6 +16,9 @@ set imap_user=lbolla@gmail.com
 
 set signature="~/.mutt/gmail/signature"
 
+lists beginners@haskell.org golang-nuts@googlegroups.com yesodweb@googlegroups.com python-tornado@googlegroups.com pydata@googlegroups.com
+subscribe beginners@haskell.org golang-nuts@googlegroups.com yesodweb@googlegroups.com python-tornado@googlegroups.com pydata@googlegroups.com
+
 macro index,pager y "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
 macro index,pager d "<enter-command>set trash=\"imaps://imap.gmail.com/[Gmail]/Trash\"\n<delete-message>" "Gmail delete message"
 macro index gl "<change-folder>"
