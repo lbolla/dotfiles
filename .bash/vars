@@ -67,12 +67,12 @@ if [ "$PYVER" == "2.7" ]; then
         if [ -x "/usr/bin/virtualenv2" ]; then
                 VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv2
         else
-                VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+                VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
         fi
-	if [ -f "/usr/bin/virtualenvwrapper.sh" ]; then
-		source /usr/bin/virtualenvwrapper.sh
-	else
+	if [ -f "/etc/bash_completion.d/virtualenvwrapper" ]; then
 		source /etc/bash_completion.d/virtualenvwrapper
+	else
+		source `which virtualenvwrapper.sh`
 	fi
 else
         WORKON_HOME=$HOME/.virtualenvs-2.6

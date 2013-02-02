@@ -20,8 +20,8 @@ alias lc='l -1C'
 # for safety
 alias rm='rm -i'
 
-alias vi='vim'
-alias vi-modified='vi -p `git status --short | grep M | sed s/M//`'
+#alias vi='vim'
+#alias vi-modified='vi -p `git status --short | grep M | sed s/M//`'
 # alias jsl="jsl --conf=$HOME/.jsl.conf"
 
 alias mutt-gmail='MUTT_PROFILE=gmail mutt'
