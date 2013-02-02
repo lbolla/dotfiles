@@ -21,6 +21,10 @@ Bundle 'mileszs/ack.vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/syntastic'
 Bundle 'ujihisa/neco-ghc'
+Bundle 'tpope/vim-abolish'
+Bundle 'Lokaltog/vim-easymotion'
+
+source $VIMRUNTIME/macros/matchit.vim
 
 syntax on
 
@@ -29,6 +33,7 @@ set background=dark
 colorscheme lorenzo
 
 set nobackup
+set nowritebackup
 set noswapfile
 set wildmenu
 set wildignore=*.o,*.bak,*.pyc,*.swp
@@ -50,6 +55,8 @@ nnoremap <leader>l :SyntasticCheck<CR>
 nnoremap <leader>x :nohl<CR>
 
 let g:EnhCommentifyUserBindings='yes'
+let g:EnhCommentifyRespectIndent = 'Yes'
+let g:EnhCommentifyPretty = 'Yes'
 vmap <silent> <leader>c <Plug>VisualComment
 vmap <silent> <leader>d <Plug>VisualDeComment
 vmap <silent> <leader>g <Plug>VisualTraditional
@@ -66,7 +73,7 @@ let g:pymode_lint_write=1
 let g:pymode_motion=1
 let g:pymode_rope=0
 let g:pymode_utils_whitespaces=0
-let g:pymode_virtualenv=1
+let g:pymode_virtualenv=0
 
 if has("autocmd")
 	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif

@@ -6,6 +6,8 @@ set postponed="=[Gmail]/Drafts"
 # set record=+[Gmail]/"Sent Mail"  # Gmail already does this
 set record=
 
+unmailboxes =Trash "=[Gmail]/All Mail" =[Gmail]/Important "=[Gmail]/Sent Mail" =[Gmail]/Spam =[Gmail]/Trash
+
 set smtp_pass="`cat ~/.mutt/gmail/secret`"
 set smtp_url="smtp://lbolla@smtp.gmail.com:587"
 
@@ -13,6 +15,9 @@ set imap_pass=`cat ~/.mutt/gmail/secret`
 set imap_user=lbolla@gmail.com
 
 set signature="~/.mutt/gmail/signature"
+
+lists beginners@haskell.org golang-nuts@googlegroups.com yesodweb@googlegroups.com python-tornado@googlegroups.com pydata@googlegroups.com
+subscribe beginners@haskell.org golang-nuts@googlegroups.com yesodweb@googlegroups.com python-tornado@googlegroups.com pydata@googlegroups.com
 
 macro index,pager y "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
 macro index,pager d "<enter-command>set trash=\"imaps://imap.gmail.com/[Gmail]/Trash\"\n<delete-message>" "Gmail delete message"

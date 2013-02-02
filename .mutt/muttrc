@@ -4,7 +4,7 @@ set realname="Lorenzo Bolla"
 set editor='vim'
 set move=no
 set delete=ask-yes
-set mail_check=15
+set mail_check=60
 set timeout=90
 set imap_keepalive=30
 set imap_idle=yes
@@ -29,7 +29,7 @@ ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
-alternative_order text/enriched text/plain text application/postscript image/*
+alternative_order text/plain text/html text
 auto_view text/html
 
 # Add "source /etc/Muttrc.gpg.dist" to /etc/Muttrc for Archlinux
@@ -42,7 +42,6 @@ set pgp_good_sign="^gpg: Good signature from"
 
 set followup_to=no
 set honor_followup_to=no
-subscribe beginners@haskell.org
 
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 macro pager \cw <pipe-entry>'w3m -T text/html'<enter> 'Follow links in w3m'

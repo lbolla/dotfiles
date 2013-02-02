@@ -59,6 +59,9 @@ fi
 
 # Python version
 export PYVER=2.7
+if [ -f "$HOME/.pyrc" ]; then
+    export PYTHONSTARTUP="$HOME/.pyrc"
+fi
 
 # virtualenv
 if [ "$PYVER" == "2.7" ]; then
