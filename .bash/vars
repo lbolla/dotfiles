@@ -30,7 +30,7 @@ export LESS="-R"
 
 # vi keybindings for bash
 # set -o vi
-export VIMRUNTIME=/usr/share/vim/vim73/
+export VIMRUNTIME=/usr/share/vim/vimcurrent/
 
 # remap some keys
 [ -f ~/.xmodmap ] && xmodmap ~/.xmodmap
@@ -66,7 +66,7 @@ fi
 # virtualenv
 if [ "$PYVER" == "2.7" ]; then
         WORKON_HOME=$HOME/.virtualenvs
-        VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+        VIRTUALENVWRAPPER_PYTHON=`which python2`
         if [ -x "/usr/bin/virtualenv2" ]; then
                 VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv2
         else
@@ -74,7 +74,7 @@ if [ "$PYVER" == "2.7" ]; then
         fi
 	if [ -f "/etc/bash_completion.d/virtualenvwrapper" ]; then
 		source /etc/bash_completion.d/virtualenvwrapper
-	else
+	elif [ `which virtualenvwrapper.sh` ]; then
 		source `which virtualenvwrapper.sh`
 	fi
 else

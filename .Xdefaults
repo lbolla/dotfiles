@@ -3,8 +3,11 @@
 #define FONT -*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*
 
 XTerm.font:            FONT
+XTerm.termName:        xterm-256color
+
 Rxvt.font:             FONT
-Rxvt.termName:         rxvt-unicode-256color
+! Rxvt.termName:         rxvt-unicode-256color
+Rxvt.termName:         rxvt-256color
 Rxvt.scrollBar:        false
 Rxvt.meta8:            false
 Rxvt.saveLines:        2048
