@@ -20,6 +20,7 @@ alias lc='l -1C'
 # for safety
 alias rm='rm -i'
 
+alias e='vim'
 #alias vi='vim'
 #alias vi-modified='vi -p `git status --short | grep M | sed s/M//`'
 # alias jsl="jsl --conf=$HOME/.jsl.conf"

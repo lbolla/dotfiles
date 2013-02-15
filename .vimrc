@@ -23,6 +23,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'ujihisa/neco-ghc'
 Bundle 'tpope/vim-abolish'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Valloric/YouCompleteMe'
 
 source $VIMRUNTIME/macros/matchit.vim
 
@@ -74,6 +75,7 @@ let g:pymode_motion=1
 let g:pymode_rope=0
 let g:pymode_utils_whitespaces=0
 let g:pymode_virtualenv=0
+let g:ycm_key_detailed_diagnostics = '<leader>q'
 
 if has("autocmd")
 	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
