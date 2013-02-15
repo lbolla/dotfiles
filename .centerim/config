@@ -12,7 +12,7 @@ protocolormode
 sort_by_status_and_activity
 left_panel_width	58
 log_panel_height	19
-chat_panel_height	14
+chat_panel_height	4
 defaultauthmessage	Please accept my authorization to add you to my contact list.
 
 jab_nick	lbolla@gmail.com
