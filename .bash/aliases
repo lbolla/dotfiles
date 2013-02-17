@@ -29,6 +29,7 @@ alias mutt-gmail='MUTT_PROFILE=gmail mutt'
 alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
 alias mutt-pispo='MUTT_PROFILE=pispo mutt'
 alias mutt-pispo-customerservice='MUTT_PROFILE=pispo-customerservice mutt'
+alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
 alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 
 # grep

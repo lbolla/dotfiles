@@ -1,0 +1,26 @@
+set from="lbolla@reddeer.gb.com"
+
+set folder="imaps://lbolla@reddeer.gb.com@imap.gmail.com/"
+set spoolfile="=INBOX"
+set postponed="=[Gmail]/Drafts"
+# set record=+[Gmail]/"Sent Mail"  # Gmail already does this
+set record=
+
+unmailboxes =Trash "=[Gmail]/All Mail" =[Gmail]/Important "=[Gmail]/Sent Mail" =[Gmail]/Spam =[Gmail]/Trash
+
+set smtp_pass="`cat ~/.mutt/reddeer/secret`"
+set smtp_url="smtp://lbolla@reddeer.gb.com@smtp.gmail.com:587"
+
+set imap_pass=`cat ~/.mutt/reddeer/secret`
+set imap_user=lbolla@reddeer.gb.com
+
+set signature="~/.mutt/reddeer/signature"
+
+macro index,pager y "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
+macro index,pager d "<enter-command>set trash=\"imaps://imap.gmail.com/[Gmail]/Trash\"\n<delete-message>" "Gmail delete message"
+macro index gl "<change-folder>"
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index ga "<change-folder>=[Gmail]/\"All Mail\"<enter>" "Go to all mail"
+macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+macro index gt "<change-folder>=[Gmail]/\"Sent Mail\"<enter>" "Go to sent mail"
