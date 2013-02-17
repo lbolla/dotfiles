@@ -42,8 +42,8 @@ alias pycheck='pychecker -e Style --no-shadow'
 alias pydoc='python -m pydoc' # to workaround virtualenv
 
 # rlwrap
-alias sqlplus='rlwrap --multi-line sqlplus'
-alias sbcl='rlwrap --multi-line sbcl'
+#  alias sqlplus='rlwrap --multi-line sqlplus'
+#  alias sbcl='rlwrap --multi-line sbcl'
 
 #  alias screen='screen -T vt100'
 #  alias f='find'

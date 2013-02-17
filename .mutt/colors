@@ -61,7 +61,7 @@ color status brightgreen blue
 # index stuff
 # color tree color124 default
 # color indicator color233 default
-color index color246 default ~A
+color index color242 default ~A
 color index brightwhite default ~N
 color index white default ~O
 color index magenta default ~F
@@ -69,7 +69,7 @@ color index	color238 default ~D
 
 # header stuff
 color hdrdefault brightwhite default
-# color header color246 default "^Subject"
+# color header color244 default "^Subject"
 
 # # gpg stuff
 # color body color34 color233 "^gpg: Good signature.*"
