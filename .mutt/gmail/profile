@@ -6,6 +6,14 @@ set postponed="=[Gmail]/Drafts"
 # set record=+[Gmail]/"Sent Mail"  # Gmail already does this
 set record=
 
+# Add "source /etc/Muttrc.gpg.dist" to /etc/Muttrc for Archlinux
+my_hdr X-PGP-Key: http://lbolla.info/keys/lbolla_gmail_com.asc
+set pgp_autosign=yes
+set pgp_sign_as=0xC5750E74
+set pgp_replyencrypt=yes
+set pgp_timeout=1800
+set pgp_good_sign="^gpg: Good signature from"
+
 unmailboxes =Trash "=[Gmail]/All Mail" =[Gmail]/Important "=[Gmail]/Sent Mail" =[Gmail]/Spam =[Gmail]/Trash
 
 set smtp_pass="`cat ~/.mutt/gmail/secret`"
