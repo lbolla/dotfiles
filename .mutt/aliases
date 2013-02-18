@@ -1,86 +1,92 @@
-alias PISPO dario.sporeni, laura-pispo, hashim.hashim, amar.bahralolom, fabio.piccoli, cristina.racca, lorenzo-pispo
-alias PISPO-execs dario.sporeni, hashim.hashim, amar.bahralolom, fabio.piccoli
 alias Geratherm-complaints s.jobst, r.haak
+alias PISPO dario.sporeni, laura-pispo, hashim.hashim, amar.bahralolom, fabio.piccoli, cristina.racca, lbolla-pispo
+alias PISPO-execs dario.sporeni, hashim.hashim, amar.bahralolom, fabio.piccoli
+alias reddeer neil.beddoe, tej.tagar
 
+alias alex-dem Alex Marchant <alex@deepeastmusic.com>
+alias amar.bahralolom Amar Bahralolom <amar.bahralolom@pispo.co.uk>
 alias andy.clark Andy Clark <aclark@geneity.co.uk>
-alias mark.swatton Mark Swatton <mark.swatton@betfair.com>
+alias andy.olliver Andy Olliver <andy.olliver@artirix.com>
+alias annie.ferris Annie Ferris <Annie.Ferris@paolomarchetti.com>
+alias antonio.cannizzaro Antonio Cannizzaro <Antonio.Cannizzaro@eurizoncapital.com>
+alias artirix.office Artirix Office <theoffice@artirix.com>
+alias barnaby.gray Barnaby Gray <barnaby@artirix.com>
+alias becky-dem Becky Henderson <becky@deepeastmusic.com>
+alias bertrand.steinmetz Bertrand Steinmetz <bstenm@hotmail.com>
+alias cecilia.magnani Cecilia Magnani <cecilia.magnani@pispo.co.uk>
+alias chris-networkscale Chris Morgan <chris@networkscale.co.uk>
+alias chris.j.morgan Chris Morgan <chris.j.morgan@gmail.com>
+alias christian.gili Christian <bula2001@libero.it>
+alias ciaran-dem Ciaran McNeaney <ciaran@deepeastmusic.com>
+alias cristina.racca Cristina Racca <cristina.racca@pispo.co.uk>
+alias dan.ohuiginn Dan O\'Huiginn <daniel@ohuiginn.net>
+alias dario.sporeni Dario Sporeni <dario.sporeni@pispo.co.uk>
+alias dario.sporeni-hotmail Dario Sporeni <abcdariosporeni@hotmail.com>
 alias david.sprigings David Sprigings <dave.sprigings@geneity.co.uk>
+alias davide.duran Davide Duran <davide.duran@gmail.com>
+alias debu Debu Chakraborty <debu81@hotmail.com>
+alias egon.herrnberger Egon Herrnberger <e.herrnberger@geratherm.com>
+alias emanuele.zattin Emanuele Zattin <emanuelez@libero.it>
+alias emanuelez Emanuele Zattin <emanuelez@gmail.com>
+alias fabio.piccoli Fabio Piccoli <fabio.piccoli@pispo.co.uk>
+alias fabrizio.giglioli Fabrizio Giglioli <gigliolif@tsnet.it>
+alias giuseppe.rea Giuseppe Rea <giuppe23@yahoo.it>
+alias gups Gurpreet Singh <gurpreet.singh@pispo.co.uk>
+alias gups-gmail Gups <gups999@gmail.com>
+alias hashim.hashim Hashim Hashim <hashim.hashim@pispo.co.uk>
+alias haskell.beginners Haskell Beginners <beginners@haskell.org>
+alias houston.lawrence Houston Lawrence <HelplineHLMStaff@houstonlawrence.com>
+alias ian.parry Ian Parry <ian@artirix.com>
 alias jason.foote Jason Foote <jason.foote@geneity.co.uk>
+alias jp Jean Paul Dal Monte <jpdalmonte@gmail.com>
+alias jp-pispo Jean Paul Dal Monte <jeanpaul.dalmonte@pispo.co.uk>
+alias kim.dack Kim Dack HSBC <kim.dack@hsbc.com>
+alias laura Laura Montanari <montanari.laura@gmail.com>
+alias laura-pispo Laura Montanari <laura.montanari@pispo.co.uk>
+alias laura-takeda \"Montanari, Laura (TGRD)\" <laura.montanari@takeda.com>
+alias laura-work Laura Montanari <Laura.Montanari@martindalepharma.co.uk>
+alias lbolla Lorenzo Bolla <lbolla@gmail.com>
+alias lbolla-networkscale Lorenzo Bolla <lorenzo@networkscale.co.uk>
+alias lbolla-pispo Lorenzo Bolla <lorenzo.bolla@pispo.co.uk>
+alias lbolla-reddeer Lorenzo Bolla <lbolla@reddeer.gb.com>
+alias livio.decet Livio De Cet <livio.decet@mondo-export.com>
+alias liz.bushby Liz Bushby <liz.bushby@geneity.co.uk>
+alias louise.hutt Louise Hutt <louise.hutt@artirix.com>
+alias luca.loschi \"Loschi Luca - Lameplast S.p.a.\" <Luca.Loschi@lameplast.it>
+alias luca.vercellotti Luca Vercellotti <luca_verce@hotmail.com>
 alias mark.lee Mark Lee <mark@geneity.co.uk>
 alias mark.steward Mark Steward <mark.steward@geneity.co.uk>
+alias mark.swatton Mark Swatton <mark.swatton@betfair.com>
+alias martina.bolla Martina Bolla <martina.bolla@gmail.com>
+alias michal Michal Wieja <michal.wieja@gmail.com>
+alias mustafa.saai Mustafa Saai <mustafa.saai@pispo.co.uk>
+alias naomi.baxter Naomi Baxter <Naomi.Baxter@mbamfunds.com>
+alias neil.beddoe Neil Beddoe <nbeddoe@reddeer.gb.com>
+alias neil.beddoe-raid Neil Beddoe <Neil.Beddoe@raidllp.com>
+alias nico.bolla Nico Bolla <nicobol@libero.it>
+alias niko.tzevelokos Nikos Tzevelekos <nikost@eecs.qmul.ac.uk>
+alias office.artirix The Office <theoffice@artirix.com>
+alias oliver.southgate Oliver Southgate <oliver@thesocialgamingcompany.com>
 alias paul.jefferson Paul Jefferson <paul.jefferson@geneity.co.uk>
 alias phil.slater Philip Slater <philip.slater@geneity.co.uk>
 alias phil.taylor Phillip Taylor <phillip.taylor@geneity.co.uk>
-alias swan.center Reception <reception@swan-centre.co.uk>
-alias rob.clark Robert Clark <rclark@geneity.co.uk>
-alias russ.olivant Russ Olivant <russ.olivant@geneity.co.uk>
-alias tim.lui Timothy Lui <tim@geneity.co.uk>
-alias will.slater Will Slater <will.slater@geneity.co.uk>
-alias will.frost Will Frost <will.frost@geneity.co.uk>
-alias liz.bushby Liz Bushby <liz.bushby@geneity.co.uk>
-alias stelios.bounanos Stelios Bounanos <stelios@geneity.co.uk>
-alias barnaby.gray Barnaby Gray <barnaby@artirix.com>
-alias andy.olliver Andy Olliver <andy.olliver@artirix.com>
-alias louise.hutt Louise Hutt <louise.hutt@artirix.com>
 alias piers-work Pietro Chiavegato <pietrochiavegato@longo-rossetti.it>
-alias laura-gmail Laura Montanari <montanari.laura@gmail.com>
-alias laura-work Laura Montanari <Laura.Montanari@martindalepharma.co.uk>
-alias laura-pispo Laura Montanari <laura.montanari@pispo.co.uk>
-alias lorenzo-pispo Lorenzo Bolla <lorenzo.bolla@pispo.co.uk>
-alias naomi.baxter Naomi Baxter <Naomi.Baxter@mbamfunds.com>
-alias neil.beddoe-raid Neil Beddoe <Neil.Beddoe@raidllp.com>
-alias annie.ferris Annie Ferris <Annie.Ferris@paolomarchetti.com>
-alias luca.loschi \"Loschi Luca - Lameplast S.p.a.\" <Luca.Loschi@lameplast.it>
-alias dario.sporeni Dario Sporeni <dario.sporeni@pispo.co.uk>
-alias dario.sporeni-hotmail Dario Sporeni <abcdariosporeni@hotmail.com>
-alias oliver.southgate Oliver Southgate <oliver@thesocialgamingcompany.com>
-alias ian.parry Ian Parry <ian@artirix.com>
-alias office.artirix The Office <theoffice@artirix.com>
-alias martina.bolla Martina Bolla <martina.bolla@gmail.com>
-alias amar.bahralolom Amar Bahralolom <amar.bahralolom@pispo.co.uk>
-alias hashim.hashim Hashim Hashim <hashim.hashim@pispo.co.uk>
-alias nico.bolla Nico Bolla <nicobol@libero.it>
-alias yusuf.bahraluloom Yusuf Bahraluloom <yusuf.bahraluloom@pispo.co.uk>
-alias trinity-mews Trinity Mews <trinity-mews@googlegroups.com>
-alias fabio.piccoli Fabio Piccoli <fabio.piccoli@pispo.co.uk>
-alias chris.j.morgan Chris Morgan <chris.j.morgan@gmail.com>
-alias emanuele.zattin Emanuele Zattin <emanuelez@libero.it>
-alias robin.hughes Robin Hughes <robin.hughes@globrix.com>
-alias haskell.beginners Haskell Beginners <beginners@haskell.org>
-alias cristina.racca Cristina Racca <cristina.racca@pispo.co.uk>
-alias houston.lawrence Houston Lawrence <HelplineHLMStaff@houstonlawrence.com>
-alias artirix.office Artirix Office <theoffice@artirix.com>
-alias kim.dack Kim Dack HSBC <kim.dack@hsbc.com>
-alias giuseppe.rea Giuseppe Rea <giuppe23@yahoo.it>
-alias bertrand.steinmetz Bertrand Steinmetz <bstenm@hotmail.com>
-alias debu Debu Chakraborty <debu81@hotmail.com>
-alias emanuelez Emanuele Zattin <emanuelez@gmail.com>
-alias christian.gili Christian <bula2001@libero.it>
-alias jp Jean Paul Dal Monte <jpdalmonte@gmail.com>
-alias niko.tzevelokos Nikos Tzevelekos <nikost@eecs.qmul.ac.uk>
-alias toni.prug Toni Prug <toni.prug@gmail.com>
-alias suckless dev mail list <dev@suckless.org>
-alias jeanpaul.dalmonte Jean Paul Dal Monte <jeanpaul.dalmonte@pispo.co.uk>
-alias chris-networkscale Chris Morgan <chris@networkscale.co.uk>
-alias laura-takeda \"Montanari, Laura (TGRD)\" <laura.montanari@takeda.com>
-alias michal Michal Wieja <michal.wieja@gmail.com>
-alias gups Gurpreet Singh <gurpreet.singh@pispo.co.uk>
-alias mustafa.saai Mustafa Saai <mustafa.saai@pispo.co.uk>
-alias ciaran-dem Ciaran McNeaney <ciaran@deepeastmusic.com>
-alias alex-dem Alex Marchant <alex@deepeastmusic.com>
-alias becky-dem Becky Henderson <becky@deepeastmusic.com>
-alias gups-gmail Gups <gups999@gmail.com>
-alias shantys Shantys Pharmacy <shantyspharmacy@gmail.com>
-alias dan.ohuiginn Dan O\'Huiginn <daniel@ohuiginn.net>
-alias davide.duran Davide Duran <davide.duran@gmail.com>
-alias cecilia.magnani Cecilia Magnani <cecilia.magnani@pispo.co.uk>
-alias antonio.cannizzaro Antonio Cannizzaro <Antonio.Cannizzaro@eurizoncapital.com>
-alias luca.vercellotti Luca Vercellotti <luca_verce@hotmail.com>
-alias livio.decet Livio De Cet <livio.decet@mondo-export.com>
-alias thomas.robst Thomas Robst <t.robst@geratherm.com>
-alias s.jobst s.jobst@geratherm.com <s.jobst@geratherm.com>
 alias r.haak r.haak@geratherm.com <r.haak@geratherm.com>
+alias rob.clark Robert Clark <rclark@geneity.co.uk>
+alias robin.hughes Robin Hughes <robin.hughes@globrix.com>
+alias russ.olivant Russ Olivant <russ.olivant@geneity.co.uk>
+alias s.jobst s.jobst@geratherm.com <s.jobst@geratherm.com>
+alias shantys Shantys Pharmacy <shantyspharmacy@gmail.com>
+alias stelios.bounanos Stelios Bounanos <stelios@geneity.co.uk>
+alias suckless dev mail list <dev@suckless.org>
+alias swan.center Reception <reception@swan-centre.co.uk>
 alias tambu Giacomo Tamburi <lt.tambu@gmail.com>
-alias egon.herrnberger Egon Herrnberger <e.herrnberger@geratherm.com>
-alias fabrizio.giglioli Fabrizio Giglioli <gigliolif@tsnet.it>
-alias neil.beddoe-reddeer Neil Beddoe <nbeddoe@reddeer.gb.com>
+alias tej.tagar Tej Tagar <ttagar@reddeer.gb.com>
+alias tej.tagar-mbam Tej Tagar <Tejinder.Tagar@mbamfunds.com>
+alias thomas.robst Thomas Robst <t.robst@geratherm.com>
+alias tim.lui Timothy Lui <tim@geneity.co.uk>
+alias toni.prug Toni Prug <toni.prug@gmail.com>
+alias trinity-mews Trinity Mews <trinity-mews@googlegroups.com>
+alias will.frost Will Frost <will.frost@geneity.co.uk>
+alias will.slater Will Slater <will.slater@geneity.co.uk>
+alias yusuf.bahraluloom Yusuf Bahraluloom <yusuf.bahraluloom@pispo.co.uk>
