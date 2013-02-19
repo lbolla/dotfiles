@@ -25,6 +25,7 @@ set certificate_file=~/.mutt/certificates
 set smart_wrap = yes
 set sort = 'threads'
 set sort_aux = 'last-date-received'
+unset markers
 ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
