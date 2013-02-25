@@ -5,5 +5,5 @@ setlocal textwidth=79
 if exists('+colorcolumn')
     setlocal colorcolumn=80
 endif
-"setlocal relativenumber
+" setlocal relativenumber
 setlocal expandtab

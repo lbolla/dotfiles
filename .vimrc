@@ -23,8 +23,10 @@ Bundle 'scrooloose/syntastic'
 Bundle 'ujihisa/neco-ghc'
 Bundle 'tpope/vim-abolish'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
+if version > 7.3.584 && exists('+python')
+    Bundle 'Valloric/YouCompleteMe'
+endif
 
 source $VIMRUNTIME/macros/matchit.vim
 

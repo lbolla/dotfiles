@@ -1,31 +1,20 @@
-set from="lbolla@gmail.com"
+set from="lbolla@reddeer.gb.com"
 
-set folder="imaps://lbolla@imap.gmail.com/"
+set folder="imaps://lbolla@reddeer.gb.com@imap.gmail.com/"
 set spoolfile="=INBOX"
 set postponed="=[Gmail]/Drafts"
 # set record=+[Gmail]/"Sent Mail"  # Gmail already does this
 set record=
 
-# Add "source /etc/Muttrc.gpg.dist" to /etc/Muttrc for Archlinux
-my_hdr X-PGP-Key: http://lbolla.info/keys/lbolla_gmail_com.asc
-set pgp_autosign=yes
-set pgp_sign_as=0xC5750E74
-set pgp_replyencrypt=yes
-set pgp_timeout=1800
-set pgp_good_sign="^gpg: Good signature from"
-
 unmailboxes "=[Gmail]/All Mail" =[Gmail]/Important "=[Gmail]/Sent Mail" =[Gmail]/Spam =[Gmail]/Trash
 
-set smtp_pass="`cat ~/.mutt/gmail/secret`"
-set smtp_url="smtp://lbolla@smtp.gmail.com:587"
+set smtp_pass="`cat ~/.mutt/reddeer/secret`"
+set smtp_url="smtp://lbolla@reddeer.gb.com@smtp.gmail.com:587"
 
-set imap_pass=`cat ~/.mutt/gmail/secret`
-set imap_user=lbolla@gmail.com
+set imap_pass=`cat ~/.mutt/reddeer/secret`
+set imap_user=lbolla@reddeer.gb.com
 
-set signature="~/.mutt/gmail/signature"
-
-lists beginners@haskell.org golang-nuts@googlegroups.com yesodweb@googlegroups.com python-tornado@googlegroups.com pydata@googlegroups.com
-subscribe beginners@haskell.org golang-nuts@googlegroups.com yesodweb@googlegroups.com python-tornado@googlegroups.com pydata@googlegroups.com
+set signature="~/.mutt/reddeer/signature"
 
 macro index,pager y "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
 macro index,pager d "<enter-command>set trash=\"imaps://imap.gmail.com/[Gmail]/Trash\"\n<delete-message>" "Gmail delete message"

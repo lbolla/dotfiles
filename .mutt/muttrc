@@ -25,20 +25,13 @@ set certificate_file=~/.mutt/certificates
 set smart_wrap = yes
 set sort = 'threads'
 set sort_aux = 'last-date-received'
+unset markers
 ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 alternative_order text/plain text/html text
 auto_view text/html
-
-# Add "source /etc/Muttrc.gpg.dist" to /etc/Muttrc for Archlinux
-my_hdr X-PGP-Key: http://lbolla.info/keys/lbolla_gmail_com.asc
-set pgp_autosign=yes
-set pgp_sign_as=0xC5750E74
-set pgp_replyencrypt=yes
-set pgp_timeout=1800
-set pgp_good_sign="^gpg: Good signature from"
 
 set followup_to=no
 set honor_followup_to=no

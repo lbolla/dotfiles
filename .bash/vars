@@ -7,6 +7,10 @@ esac
 # don't like colors...
 # USE_COLORS=N
 
+if [ -n "$DISPLAY" -a "$COLORTERM" == "gnome-terminal" ]; then
+    export TERM=xterm-256color
+fi
+
 # git bash completion
 for git_compl in "/etc/bash_completion.d/git" "/usr/share/git/completion/git-prompt.sh" "/usr/share/git/completion/git-completion.bash"; do
         [ -f ${git_compl} ] && . ${git_compl}
