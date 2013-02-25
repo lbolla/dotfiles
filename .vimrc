@@ -1,5 +1,5 @@
 set nocompatible               " be iMproved
-"filetype off                   " required!
+" filetype off                   " required!
 filetype plugin indent on
 
 set rtp+=~/.vim/bundle/vundle/
@@ -24,7 +24,7 @@ Bundle 'ujihisa/neco-ghc'
 Bundle 'tpope/vim-abolish'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'kien/ctrlp.vim'
-if version > 7.3.584 && exists('+python')
+if v:version >= 703 && has('patch584') && has('python')
     Bundle 'Valloric/YouCompleteMe'
 endif
 
@@ -33,7 +33,7 @@ source $VIMRUNTIME/macros/matchit.vim
 syntax on
 
 set background=dark
-"colorscheme desert256
+" colorscheme desert256
 colorscheme lorenzo
 
 set nobackup
