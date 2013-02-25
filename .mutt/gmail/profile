@@ -14,7 +14,7 @@ set pgp_replyencrypt=yes
 set pgp_timeout=1800
 set pgp_good_sign="^gpg: Good signature from"
 
-unmailboxes =Trash "=[Gmail]/All Mail" =[Gmail]/Important "=[Gmail]/Sent Mail" =[Gmail]/Spam =[Gmail]/Trash
+unmailboxes "=[Gmail]/All Mail" =[Gmail]/Important "=[Gmail]/Sent Mail" =[Gmail]/Spam =[Gmail]/Trash
 
 set smtp_pass="`cat ~/.mutt/gmail/secret`"
 set smtp_url="smtp://lbolla@smtp.gmail.com:587"

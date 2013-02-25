@@ -6,7 +6,7 @@ set postponed="=[Gmail]/Drafts"
 # set record=+[Gmail]/"Sent Mail"  # Gmail already does this
 set record=
 
-unmailboxes =Trash "=[Gmail]/All Mail" =[Gmail]/Important "=[Gmail]/Sent Mail" =[Gmail]/Spam =[Gmail]/Trash
+unmailboxes "=[Gmail]/All Mail" =[Gmail]/Important "=[Gmail]/Sent Mail" =[Gmail]/Spam =[Gmail]/Trash
 
 set smtp_pass="`cat ~/.mutt/reddeer/secret`"
 set smtp_url="smtp://lbolla@reddeer.gb.com@smtp.gmail.com:587"
