@@ -24,6 +24,7 @@ Bundle 'ujihisa/neco-ghc'
 Bundle 'tpope/vim-abolish'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'kien/ctrlp.vim'
 
 source $VIMRUNTIME/macros/matchit.vim
 
@@ -48,6 +49,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set pastetoggle=<F2>
+set backspace=indent,eol,start
 
 let mapleader=","
 nnoremap <leader>t :tabnew 
@@ -78,10 +80,10 @@ let g:pymode_virtualenv=0
 let g:ycm_key_detailed_diagnostics = '<leader>q'
 
 if has("autocmd")
-	autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
-	autocmd BufNewFile,BufRead,BufEnter *.md set filetype=markdown
-	autocmd BufNewFile,BufRead,BufEnter *.tmpl set filetype=html
-	autocmd BufNewFile,BufRead,BufEnter *.go set filetype=go
+    autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
+    autocmd BufNewFile,BufRead,BufEnter *.md set filetype=markdown
+    autocmd BufNewFile,BufRead,BufEnter *.tmpl set filetype=html
+    autocmd BufNewFile,BufRead,BufEnter *.go set filetype=go
 endif
 
 function EnhCommentifyCallback(ft)
