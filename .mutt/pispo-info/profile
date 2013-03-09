@@ -1,0 +1,15 @@
+set realname="PISPO Customer Service"
+set from="info@pispo.co.uk"
+
+set folder="imap://imap.123-reg.co.uk/"
+set spoolfile="=INBOX"
+set postponed="=Drafts"
+set record="=Sent"
+
+set imap_pass=`cat ~/.mutt/pispo-info/secret`
+set imap_user=info@pispo.co.uk
+
+set smtp_url="smtps://info@pispo.co.uk@smtp.123-reg.co.uk:465/"
+set smtp_pass="`cat ~/.mutt/pispo-info/secret`"
+
+set signature="~/.mutt/pispo-info/signature"
