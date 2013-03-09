@@ -12,6 +12,7 @@ application/doc; antiword %s; copiousoutput
 
 application/msword; antiword %s; copiousoutput
 application/msexcel; xls2txt %s; copiousoutput
+application/vnd.ms-excel; xls2txt %s; copiousoutput
 
 application/octet-stream; soffice '%s'; nametemplate=%s.docx; test=is_in_X.sh
 application/octet-stream; antidocx '%s'; copiousoutput; nametemplate=%s.docx
