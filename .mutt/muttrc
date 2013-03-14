@@ -18,7 +18,8 @@ set pager_index_lines=6
 set sort_alias=alias
 set reverse_alias=yes
 set alias_file=~/.mutt/aliases
-source ~/.mutt/aliases
+#  source ~/.mutt/aliases
+source "gpg -qd ~/.mutt/aliases.gpg|"
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
