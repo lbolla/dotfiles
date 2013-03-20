@@ -1,3 +1,4 @@
+hideoffline
 mailcheck
 screensocketpath	/var/run/screen
 chatmode icq yahoo msn aim irc jab gg
@@ -12,7 +13,7 @@ protocolormode
 sort_by_status_and_activity
 left_panel_width	58
 log_panel_height	19
-chat_panel_height	4
+chat_panel_height	7
 defaultauthmessage	Please accept my authorization to add you to my contact list.
 
 jab_nick	lbolla@gmail.com
@@ -22,8 +23,8 @@ jab_prio	4
 jab_ssl	1
 jab_status	o
 
-icq_uin	672033577
-icq_server	login.icq.com:5190
-icq_pgpkey	0DF83D43C5750E74
-icq_status	o
-icq_webaware	1
+# icq_uin	672033577
+# icq_server	login.icq.com:5190
+# icq_pgpkey	0DF83D43C5750E74
+# icq_status	_
+# icq_webaware	1

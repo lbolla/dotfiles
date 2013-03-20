@@ -27,7 +27,10 @@ export GIT_EDITOR="vim"
 export PAGER="less -nF"
 export GIT_PAGER="less -n"
 
-export BROWSER="chromium"
+if [ `which chromium` ]; then
+    export BROWSER="chromium"
+fi
+
 export RHINO_HOME=/usr/share/java
 # Treat well escape chars
 export LESS="-R"
