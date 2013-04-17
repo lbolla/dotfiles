@@ -1,3 +1,4 @@
 auto-reload yes
 reload-time 30
 confirm-exit yes
+unbind-key Q

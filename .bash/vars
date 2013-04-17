@@ -20,7 +20,7 @@ if [ "x$USE_COLORS" = "xY" ]; then
 	git config --global color.ui true
 fi
 
-export PATH=$HOME/bin:$HOME/src/cmd:$HOME/.cabal/bin:/usr/local/pgsql/bin/:/usr/bin/vendor_perl:/opt/SenchaSDKTools-2.0.0-beta3/:$PATH
+export PATH=$HOME/bin:$HOME/src/cmd:$HOME/.cabal/bin:/usr/bin/site_perl:/usr/local/pgsql/bin/:/usr/bin/vendor_perl:/opt/SenchaSDKTools-2.0.0-beta3/:$PATH
 export EDITOR="vim"
 export GIT_EDITOR="vim"
 

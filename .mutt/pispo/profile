@@ -12,3 +12,4 @@ set smtp_url="smtps://lorenzo.bolla@pispo.co.uk@smtp.123-reg.co.uk:465/"
 set smtp_pass="`cat ~/.mutt/pispo/secret`"
 
 set signature="~/.mutt/pispo/signature"
+set sig_on_top=yes
