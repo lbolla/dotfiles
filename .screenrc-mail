@@ -2,8 +2,8 @@ source $HOME/.screenrc
 screen -t gmail bash -i -c mutt-gmail
 screen -t pispo bash -i -c mutt-pispo
 screen -t pispo-cs bash -i -c mutt-pispo-customerservice
-screen -t pispo-info bash -i -c mutt-pispo-info
+#screen -t pispo-info bash -i -c mutt-pispo-info
 screen -t networkscale bash -i -c mutt-networkscale
 screen -t reddeer bash -i -c mutt-reddeer
 screen -t chat bash -i -c centerim
-screen -t news bash -i -c newsbeuter
+#screen -t news bash -i -c newsbeuter
