@@ -58,8 +58,10 @@
 \alias :r='\buf-load -a !*'
 
 \set keyword_completion=smart
-\alias g='\go !* | less'
-\alias t='\go -mpretty'
-\alias p='\go -mbcp'
-\alias h='\history'
-\alias q='\exit'
+\set colsep='| '
+\alias h='\go -m horiz | more'
+\alias w='\go -m pretty | more'
+\alias v='\go -m vert | more'
+\alias m='\go -m meta | more'
+\alias b='\go -m bcp | more'
+\alias t='\go -m html | (cat > /tmp/sqsh.html; ${BROWSER} file:///tmp/sqsh.html)'
