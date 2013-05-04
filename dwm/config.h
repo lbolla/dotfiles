@@ -28,6 +28,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
         // { "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
+    { "Gnome-panel", NULL,    NULL,       1 << 7,       True,        -1 },
 	{ NULL,       NULL,       "floating", 0,            True,        -1 },
 };
 
@@ -61,6 +62,9 @@ static const char *termfloatcmd[]  = { "urxvt", "-T", "floating", NULL };
 static const char *firefoxcmd[]  = { "firefox", NULL };
 static const char *chromecmd[]  = { "chromium", "--enable-sync", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
+static const char *powercmd[] = { "gnome-session-save", "--shutdown-dialog", NULL };
+static const char *logoutcmd[]= { "gnome-session-save", "--logout-dialog", NULL };
+
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -101,6 +105,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
+    { MODKEY|ShiftMask,             XK_l,      spawn,          {.v = logoutcmd } },
+    { MODKEY|ShiftMask,             XK_q,      spawn,          {.v = powercmd } },
 };
 
 /* button definitions */

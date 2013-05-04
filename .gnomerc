@@ -1,0 +1,2 @@
+gconftool-2 --type bool --set /apps/nautilus/preferences/show_desktop False
+export WINDOW_MANAGER=dwm
