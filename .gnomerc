@@ -1,2 +1,14 @@
 gconftool-2 --type bool --set /apps/nautilus/preferences/show_desktop False
+
+setxkbmap us
+eval `ssh-agent -s`
+ssh-add
+
+while true; 
+do 
+        DATE=`date +"%a %b %d %Y %R"`
+        xsetroot -name "$DATE"
+        sleep 60
+done &
+
 export WINDOW_MANAGER=dwm
