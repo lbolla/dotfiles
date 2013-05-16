@@ -1,20 +1,26 @@
 /* See LICENSE file for copyright and license details. */
 
+
 /* appearance */
-// static const char font[]            = "-*-terminus-medium-r-normal-7-14-*-*-*-*-*-*-*";
-static const char font[]            = "-*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*";
+static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
+// static const char font[]            = "-*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*";
 
-#define BLACK "#242424"
-#define WHITE "#f6f3e8"
-#define BLUE  "#8ac6f2"
+static const char normbordercolor[] = "#444444";
+static const char normbgcolor[]     = "#222222";
+static const char normfgcolor[]     = "#bbbbbb";
+static const char selbordercolor[]  = "#005577";
+static const char selbgcolor[]      = "#005577";
+static const char selfgcolor[]      = "#eeeeee";
 
-static const char normbordercolor[] = BLACK;
-static const char normbgcolor[]     = WHITE;
-static const char normfgcolor[]     = BLACK;
-
-static const char selbordercolor[]  = BLUE;
-static const char selbgcolor[]      = BLUE;
-static const char selfgcolor[]      = BLACK;
+// #define BLACK "#242424"
+// #define WHITE "#f6f3e8"
+// #define BLUE  "#8ac6f2"
+// static const char normbordercolor[] = BLACK;
+// static const char normbgcolor[]     = WHITE;
+// static const char normfgcolor[]     = BLACK;
+// static const char selbordercolor[]  = BLUE;
+// static const char selbgcolor[]      = BLUE;
+// static const char selfgcolor[]      = BLACK;
 
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -25,15 +31,19 @@ static const Bool topbar            = True;     /* False means bottom bar */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
+	/* xprop(1):
+	 *	WM_CLASS(STRING) = instance, class
+	 *	WM_NAME(STRING) = title
+	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
-        // { "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
-	{ NULL,       NULL,       "floating", 0,            True,        -1 },
+    // { "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
+    { "Gnome-panel", NULL,    NULL,       1 << 8,       True,        -1 },
 };
 
 /* layout(s) */
-static const float mfact      = 0.5; /* factor of master area size [0.05..0.95] */
-static const int nmaster      = 1; /* number of clients in master area */
+static const float mfact      = 0.50; /* factor of master area size [0.05..0.95] */
+static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
@@ -44,7 +54,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -56,20 +66,14 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "urxvt", NULL };
-static const char *termfloatcmd[]  = { "urxvt", "-T", "floating", NULL };
-static const char *firefoxcmd[]  = { "firefox", NULL };
-static const char *chromecmd[]  = { "chromium", "--enable-sync", NULL };
-static const char *lockcmd[]  = { "slock", NULL };
+static const char *termcmd[]  = { "xterm", NULL };
+static const char *powercmd[] = { "gnome-session-save", "--shutdown-dialog", NULL };
+static const char *logoutcmd[]= { "gnome-session-save", "--logout-dialog", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ControlMask,           XK_t,      spawn,          {.v = termcmd } },
-	{ MODKEY|ControlMask,           XK_w,      spawn,          {.v = termfloatcmd } },
-	{ MODKEY|ControlMask,           XK_f,      spawn,          {.v = firefoxcmd } },
-	{ MODKEY|ControlMask,           XK_c,      spawn,          {.v = chromecmd } },
-	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockcmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -100,7 +104,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
+    { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
+    { MODKEY|ShiftMask,             XK_l,      spawn,          {.v = logoutcmd } },
+    { MODKEY|ShiftMask,             XK_q,      spawn,          {.v = powercmd } },
 };
 
 /* button definitions */
