@@ -72,6 +72,7 @@ nmap <silent> <leader>g <Plug>Traditional
 nmap <silent> <leader>f <Plug>FirstLine
 
 let g:haskell_conceal_enumerations=0
+let g:hpaste_author = 'Lorenzo Bolla'
 let g:pymode_folding=0
 let g:pymode_lint_mccabe_complexity=9
 let g:pymode_lint_write=1
