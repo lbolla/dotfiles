@@ -52,7 +52,8 @@ alias -s doc=$DOCVIEWER
 #{{{ Prompt
 source ~/.git-prompt.sh
 GIT_PS1_SHOWDIRTYSTATE=true
-export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F{${1:-green}}%~%f > '
+#  export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F{${1:-green}}%~%f > '
+export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F%B%~%f%b > '
 export RPROMPT='$(__git_ps1 " (%s)")'
 #}}}
 
