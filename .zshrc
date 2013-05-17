@@ -19,6 +19,7 @@ setopt SHARE_HISTORY
 #}}}
 
 #{{{ Variables
+export PATH=$HOME/bin:$PATH
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
@@ -40,7 +41,7 @@ fi
 alias ls='ls --color'
 alias l='ls -l --color'
 alias ll='ls -la --color'
-alias e=vi
+alias e=vim
 alias lbollash='ssh lbolla.info'
 alias lbollafs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
 alias pg='ps aux | grep'
@@ -48,6 +49,13 @@ alias -g G='| grep'
 alias -g L='| less'
 alias -s pdf=$PDFVIEWER
 alias -s doc=$DOCVIEWER
+alias mutt-gmail='MUTT_PROFILE=gmail mutt'
+alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
+alias mutt-pispo='MUTT_PROFILE=pispo mutt'
+alias mutt-pispo-customerservice='MUTT_PROFILE=pispo-customerservice mutt'
+alias mutt-pispo-info='MUTT_PROFILE=pispo-info mutt'
+alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
+alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 #}}}
 
 #{{{ Prompt
