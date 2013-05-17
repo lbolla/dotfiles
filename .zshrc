@@ -1,9 +1,10 @@
 # See http://stackoverflow.com/questions/171563/whats-in-your-zshrc
 
 #{{{ ZSH Modules
-autoload -Uz promptinit compinit
+autoload -Uz promptinit compinit colors
 promptinit
 compinit
+colors
 #}}}
 
 #{{{ Options
@@ -51,10 +52,17 @@ alias -s doc=$DOCVIEWER
 
 #{{{ Prompt
 source ~/.git-prompt.sh
+function __venv_ps1 {
+    if [ "x$VIRTUAL_ENV" != "x" ]; then
+        echo "[`basename $VIRTUAL_ENV`]"
+    else
+        echo ""
+    fi
+}
+
 GIT_PS1_SHOWDIRTYSTATE=true
-#  export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F{${1:-green}}%~%f > '
-export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F%B%~%f%b > '
-export RPROMPT='$(__git_ps1 " (%s)")'
+export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F%B%{$fg[yellow]%}%~%f%{$reset_color%}%b % > '
+export RPROMPT='%B$(__git_ps1 " (%s)")%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
 #}}}
 
 #{{{ Bindings
@@ -62,9 +70,12 @@ bindkey -e
 #}}}
 
 #{{{ External scripts
-source /usr/local/bin/virtualenvwrapper.sh
-export PIP_REQUIRE_VIRTUALENV=true
-export PIP_RESPECT_VIRTUALENV=true
+if [[ -x `which virtualenvwrapper.sh` ]]; then
+    source `which virtualenvwrapper.sh`
+    export PIP_REQUIRE_VIRTUALENV=true
+    export PIP_RESPECT_VIRTUALENV=true
+    export VIRTUAL_ENV_DISABLE_PROMPT=true
+fi
 #}}}
 
 #{{{ Styles
