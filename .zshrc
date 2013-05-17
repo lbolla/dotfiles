@@ -75,8 +75,6 @@ export RPROMPT='%B$(__git_ps1 " (%s)")%b %{$fg[green]%}$(__venv_ps1)%{$reset_col
 
 #{{{ Bindings
 bindkey -e
-bindkey '^b' backward-word
-bindkey '^f' forward-word
 #}}}
 
 #{{{ External scripts
