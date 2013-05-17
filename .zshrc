@@ -9,11 +9,12 @@ compinit
 #{{{ Options
 setopt AUTO_CD
 setopt AUTO_PUSHD
-setopt RM_STAR_WAIT
-setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
-setopt EXTENDED_HISTORY
+setopt PROMPT_SUBST
+setopt RM_STAR_WAIT
+setopt SHARE_HISTORY
 #}}}
 
 #{{{ Variables
@@ -49,7 +50,10 @@ alias -s doc=$DOCVIEWER
 #}}}
 
 #{{{ Prompt
-prompt walters
+source ~/.git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=1
+export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F{${1:-green}}%~%f > '
+export RPROMPT='$(__git_ps1 " (%s)")'
 #}}}
 
 #{{{ Bindings
