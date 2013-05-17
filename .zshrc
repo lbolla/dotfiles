@@ -51,13 +51,19 @@ alias -s doc=$DOCVIEWER
 
 #{{{ Prompt
 source ~/.git-prompt.sh
-GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWDIRTYSTATE=true
 export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F{${1:-green}}%~%f > '
 export RPROMPT='$(__git_ps1 " (%s)")'
 #}}}
 
 #{{{ Bindings
 bindkey -e
+#}}}
+
+#{{{ External scripts
+source /usr/local/bin/virtualenvwrapper.sh
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_RESPECT_VIRTUALENV=true
 #}}}
 
 #{{{ Styles
