@@ -10,6 +10,7 @@ colors
 #{{{ Options
 setopt AUTO_CD
 setopt AUTO_PUSHD
+unsetopt MENU_COMPLETE
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
@@ -19,7 +20,7 @@ setopt SHARE_HISTORY
 #}}}
 
 #{{{ Variables
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$PATH
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
@@ -38,6 +39,7 @@ fi
 #}}}
 
 #{{{ Aliases
+alias rm='rm -i'
 alias ls='ls --color'
 alias l='ls -l --color'
 alias ll='ls -la --color'
