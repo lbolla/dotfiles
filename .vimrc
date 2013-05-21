@@ -11,8 +11,6 @@ Bundle 'gmarik/vundle'
 
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Shougo/vimproc'
-Bundle 'dag/vim2hs'
-Bundle 'eagletmt/ghcmod-vim'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'hrp/EnhancedCommentify'
 Bundle 'jnwhiteh/vim-golang'
@@ -24,8 +22,14 @@ Bundle 'ujihisa/neco-ghc'
 Bundle 'tpope/vim-abolish'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'kien/ctrlp.vim'
-if v:version >= 703 && has('patch584') && has('python')
-    Bundle 'Valloric/YouCompleteMe'
+if v:version >= 703
+    Bundle 'dag/vim2hs'
+    if has('patch584') && has('python')
+        Bundle 'Valloric/YouCompleteMe'
+    endif
+endif
+if executable('ghc-mod')
+    Bundle 'eagletmt/ghcmod-vim'
 endif
 
 source $VIMRUNTIME/macros/matchit.vim

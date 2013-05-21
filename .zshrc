@@ -36,6 +36,7 @@ if [[ -x `which soffice` ]]; then
 elif [[ -x `which evince` ]]; then
     DOCVIEWER=abiword
 fi
+IMAGEVIEWER=qiv
 #}}}
 
 #{{{ Aliases
@@ -51,6 +52,10 @@ alias -g G='| grep'
 alias -g L='| less'
 alias -s pdf=$PDFVIEWER
 alias -s doc=$DOCVIEWER
+alias -s docx=$DOCVIEWER
+alias -s jpg=$IMAGEVIEWER
+alias -s png=$IMAGEVIEWER
+alias -s gif=$IMAGEVIEWER
 alias mutt-gmail='MUTT_PROFILE=gmail mutt'
 alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
 alias mutt-pispo='MUTT_PROFILE=pispo mutt'
