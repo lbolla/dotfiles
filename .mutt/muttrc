@@ -25,7 +25,7 @@ set certificate_file=~/.mutt/certificates
 set smart_wrap = yes
 set sort = 'threads'
 set sort_aux = 'last-date-received'
-set index_format="%4C %Z %{%b %d} %-19.19L (%4l) %s"
+set index_format="%4C %Z %{%b %d} %-25.25L (%4l) %s"
 
 unset markers
 ignore "Authentication-Results:"
