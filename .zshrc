@@ -10,16 +10,17 @@ colors
 #{{{ Options
 setopt AUTO_CD
 setopt AUTO_PUSHD
+unsetopt MENU_COMPLETE
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt PROMPT_SUBST
 setopt RM_STAR_WAIT
-setopt SHARE_HISTORY
+unsetopt SHARE_HISTORY
 #}}}
 
 #{{{ Variables
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$PATH
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
@@ -43,6 +44,7 @@ alias rm='rm -i'
 alias ls='ls --color'
 alias l='ls -l --color'
 alias ll='ls -la --color'
+alias lp='lp -o fit-to-page -o media=a4'
 alias e=vim
 alias linodesh='ssh lbolla.info'
 alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
