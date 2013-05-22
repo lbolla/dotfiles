@@ -39,6 +39,7 @@ IMAGEVIEWER=qiv
 #}}}
 
 #{{{ Aliases
+alias rm='rm -i'
 alias ls='ls --color'
 alias l='ls -l --color'
 alias ll='ls -la --color'
