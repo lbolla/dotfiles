@@ -56,6 +56,7 @@ set softtabstop=4
 set expandtab
 set pastetoggle=<F2>
 set backspace=indent,eol,start
+set foldlevelstart=99
 
 let mapleader=","
 nnoremap <leader>t :tabnew 
