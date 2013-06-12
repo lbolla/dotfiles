@@ -4,6 +4,10 @@ setxkbmap us
 eval `ssh-agent -s`
 ssh-add
 
+nm-applet &
+dropbox start &
+xmodmap -e "pointer = 3 2 1"
+
 while true; 
 do 
         DATE=`date +"%a %b %d %Y %R"`

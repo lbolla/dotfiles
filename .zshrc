@@ -57,6 +57,7 @@ alias -s docx=$DOCVIEWER
 alias -s jpg=$IMAGEVIEWER
 alias -s png=$IMAGEVIEWER
 alias -s gif=$IMAGEVIEWER
+alias -s hs=runhaskell
 alias mutt-gmail='MUTT_PROFILE=gmail mutt'
 alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
 alias mutt-pispo='MUTT_PROFILE=pispo mutt'
