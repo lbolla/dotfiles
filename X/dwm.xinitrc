@@ -7,6 +7,9 @@ else
 	xsetroot -solid '#005577'
 fi
 
+nm-applet &
+dropbox start &
+
 # refresh dmenu cache
 #dmenu_path 2&> /dev/null
 
