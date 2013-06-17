@@ -20,7 +20,7 @@ unsetopt SHARE_HISTORY
 #}}}
 
 #{{{ Variables
-export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:$PATH
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
