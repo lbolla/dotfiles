@@ -7,8 +7,10 @@ else
 	xsetroot -solid '#005577'
 fi
 
+# Poor man's session
 nm-applet &
 dropbox start &
+gnome-keyring-daemon &
 
 # refresh dmenu cache
 #dmenu_path 2&> /dev/null
