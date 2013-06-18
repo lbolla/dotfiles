@@ -90,10 +90,12 @@ bindkey -e
 #{{{ External scripts
 if [[ -x `which virtualenvwrapper.sh` ]]; then
     source `which virtualenvwrapper.sh`
-    export PIP_REQUIRE_VIRTUALENV=true
-    export PIP_RESPECT_VIRTUALENV=true
-    export VIRTUAL_ENV_DISABLE_PROMPT=true
+elif [[ -f /etc/bash_completion.d/virtualenvwrapper ]]; then
+    source /etc/bash_completion.d/virtualenvwrapper
 fi
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_RESPECT_VIRTUALENV=true
+export VIRTUAL_ENV_DISABLE_PROMPT=true
 #}}}
 
 #{{{ Styles
