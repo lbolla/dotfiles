@@ -20,7 +20,7 @@ unsetopt SHARE_HISTORY
 #}}}
 
 #{{{ Variables
-export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:$PATH
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
@@ -48,6 +48,7 @@ alias lp='lp -o fit-to-page -o media=a4'
 alias e=vim
 alias linodesh='ssh -X lbolla.info'
 alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
+alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias pg='ps aux | grep'
 alias -g G='| grep'
 alias -g L='| less'
