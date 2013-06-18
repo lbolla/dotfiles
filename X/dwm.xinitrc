@@ -10,7 +10,7 @@ fi
 # Poor man's session
 nm-applet &
 dropbox start &
-gnome-keyring-daemon &
+eval $(gnome-keyring-daemon --start)
 
 # refresh dmenu cache
 #dmenu_path 2&> /dev/null
