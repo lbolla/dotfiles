@@ -9,7 +9,7 @@ colors
 
 #{{{ Options
 setopt AUTO_CD
-setopt AUTO_PUSHD
+unsetopt AUTO_PUSHD
 unsetopt MENU_COMPLETE
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
@@ -20,7 +20,7 @@ unsetopt SHARE_HISTORY
 #}}}
 
 #{{{ Variables
-export PATH=$HOME/bin:$HOME/.cabal/bin:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:$PATH
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
@@ -46,8 +46,9 @@ alias l='ls -l --color'
 alias ll='ls -la --color'
 alias lp='lp -o fit-to-page -o media=a4'
 alias e=vim
-alias linodesh='ssh lbolla.info'
+alias linodesh='ssh -X lbolla.info'
 alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
+alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias pg='ps aux | grep'
 alias -g G='| grep'
 alias -g L='| less'
@@ -57,6 +58,7 @@ alias -s docx=$DOCVIEWER
 alias -s jpg=$IMAGEVIEWER
 alias -s png=$IMAGEVIEWER
 alias -s gif=$IMAGEVIEWER
+alias -s hs=runhaskell
 alias mutt-gmail='MUTT_PROFILE=gmail mutt'
 alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
 alias mutt-pispo='MUTT_PROFILE=pispo mutt'
@@ -64,6 +66,7 @@ alias mutt-pispo-customerservice='MUTT_PROFILE=pispo-customerservice mutt'
 alias mutt-pispo-info='MUTT_PROFILE=pispo-info mutt'
 alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
 alias screen-mail='screen -S mail -c ~/.screenrc-mail'
+alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
 #}}}
 
 #{{{ Prompt
@@ -88,10 +91,12 @@ bindkey -e
 #{{{ External scripts
 if [[ -x `which virtualenvwrapper.sh` ]]; then
     source `which virtualenvwrapper.sh`
-    export PIP_REQUIRE_VIRTUALENV=true
-    export PIP_RESPECT_VIRTUALENV=true
-    export VIRTUAL_ENV_DISABLE_PROMPT=true
+elif [[ -f /etc/bash_completion.d/virtualenvwrapper ]]; then
+    source /etc/bash_completion.d/virtualenvwrapper
 fi
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_RESPECT_VIRTUALENV=true
+export VIRTUAL_ENV_DISABLE_PROMPT=true
 #}}}
 
 #{{{ Styles

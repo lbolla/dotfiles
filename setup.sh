@@ -5,6 +5,6 @@ function link {
 }
 
 # for x in .bash .bashrc .vim .vimrc .Xdefaults .inputrc; do
-for x in .vim .vimrc .Xdefaults .zshrc .git-prompt.sh; do
+for x in .vim .vimrc .Xdefaults .zshrc .git-prompt.sh .gitconfig; do
 	link $x
 done
