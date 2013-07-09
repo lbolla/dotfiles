@@ -20,7 +20,7 @@ set reverse_alias=yes
 #  set alias_file=~/.mutt/aliases
 #  source "~/.mutt/aliases"
 source "tr a-zA-Z n-za-mN-ZA-M < ~/.mutt/aliases.rot13 |"
-set display_filter=~/.mutt/auto-add-alias.sh
+#  set display_filter=~/.mutt/auto-add-alias.sh
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
