@@ -17,10 +17,10 @@ set pager_stop=yes
 set pager_index_lines=6
 set sort_alias=alias
 set reverse_alias=yes
-#  set alias_file=~/.mutt/aliases
+set alias_file=~/.mutt/aliases
 #  source "~/.mutt/aliases"
 source "tr a-zA-Z n-za-mN-ZA-M < ~/.mutt/aliases.rot13 |"
-set display_filter=~/.mutt/auto-add-alias.sh
+#  set display_filter=~/.mutt/auto-add-alias.sh
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
@@ -43,6 +43,7 @@ set honor_followup_to=no
 macro index \ca ':source "tr a-zA-Z n-za-mN-ZA-M < ~/.mutt/aliases.rot13 |"'\n
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 macro pager \cw <pipe-entry>'w3m -T text/html'<enter> 'Follow links in w3m'
+#  macro index,pager  a "<pipe-message>~/.mutt/auto-add-alias.py<return>" "Add to address book"
 
 bind index G imap-fetch-mail
 bind index H help
