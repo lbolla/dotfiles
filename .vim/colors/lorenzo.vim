@@ -303,3 +303,6 @@ hi Visual         ctermbg=187 guibg=#d7d7af ctermfg=grey guifg=grey
 hi VisualNOS      ctermbg=187 guibg=#d7d7af ctermfg=grey guifg=grey
 hi WarningMsg     ctermbg=black guibg=black ctermfg=red guifg=red
 hi WildMenu       ctermbg=white guibg=white ctermfg=darkgrey guifg=#606060
+
+hi clear SpellBad
+hi SpellBad cterm=underline
