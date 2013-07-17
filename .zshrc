@@ -50,6 +50,7 @@ alias linodesh='ssh -X lbolla.info'
 alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias pg='ps aux | grep'
+alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 alias -g G='| grep'
 alias -g L='| less'
 alias -s pdf=$PDFVIEWER
