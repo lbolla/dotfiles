@@ -68,6 +68,7 @@ alias mutt-pispo-info='MUTT_PROFILE=pispo-info mutt'
 alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
 alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
+alias cdrip='ripit'
 #}}}
 
 #{{{ Prompt
