@@ -71,6 +71,8 @@ vmap <silent> <leader>c <Plug>VisualComment
 vmap <silent> <leader>d <Plug>VisualDeComment
 vmap <silent> <leader>g <Plug>VisualTraditional
 vmap <silent> <leader>f <Plug>VisualFirstLine
+vmap <silent> <leader><Space> :s/\ *$//g<CR>
+nmap <silent> <leader><Space> :%s/\ *$//g<CR>
 nmap <silent> <leader>c <Plug>Comment
 nmap <silent> <leader>d <Plug>DeComment
 nmap <silent> <leader>g <Plug>Traditional
