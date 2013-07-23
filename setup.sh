@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function link {
-	ln -sf $HOME/src/dotfiles/$1 $HOME/$1
+	ln -sf $HOME/src/dotfiles/$1 $HOME/
 }
 
 # for x in .bash .bashrc .vim .vimrc .Xdefaults .inputrc; do
