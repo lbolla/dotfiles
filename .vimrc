@@ -40,23 +40,24 @@ set background=dark
 " colorscheme desert256
 colorscheme lorenzo
 
-set nobackup
-set nowritebackup
-set noswapfile
-set wildmenu
-set wildignore=*.o,*.bak,*.pyc,*.swp
-set wildmode=longest:full
-set incsearch
-set hls
-set laststatus=2
+set backspace=indent,eol,start
 set encoding=utf-8
-set tabstop=4
+set expandtab
+set foldlevelstart=99
+set hls
+set incsearch
+set laststatus=2
+set mouse=a
+set nobackup
+set noswapfile
+set nowritebackup
+set pastetoggle=<F2>
 set shiftwidth=4
 set softtabstop=4
-set expandtab
-set pastetoggle=<F2>
-set backspace=indent,eol,start
-set foldlevelstart=99
+set tabstop=4
+set wildignore=*.o,*.bak,*.pyc,*.swp
+set wildmenu
+set wildmode=longest:full
 
 let mapleader=","
 nnoremap <leader>t :tabnew 
@@ -88,6 +89,9 @@ let g:pymode_rope=0
 let g:pymode_utils_whitespaces=0
 let g:pymode_virtualenv=0
 let g:ycm_key_detailed_diagnostics = '<leader>q'
+if executable('ag')
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
 
 if has("autocmd")
     autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
