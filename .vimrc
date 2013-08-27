@@ -1,12 +1,8 @@
 set nocompatible               " be iMproved
-" filetype off                   " required!
-filetype plugin indent on
 
+filetype off                   " required by vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
-" let Vundle manage Vundle
-" required! 
 Bundle 'gmarik/vundle'
 
 Bundle 'Lokaltog/vim-powerline'
@@ -22,6 +18,7 @@ Bundle 'ujihisa/neco-ghc'
 Bundle 'tpope/vim-abolish'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'kien/ctrlp.vim'
+Bundle 'JuliaLang/julia-vim'
 if v:version >= 703
     Bundle 'dag/vim2hs'
     if has('patch584') && has('python')
@@ -34,6 +31,7 @@ endif
 
 source $VIMRUNTIME/macros/matchit.vim
 
+filetype plugin indent on
 syntax on
 
 set background=dark
@@ -79,6 +77,7 @@ nmap <silent> <leader>d <Plug>DeComment
 nmap <silent> <leader>g <Plug>Traditional
 nmap <silent> <leader>f <Plug>FirstLine
 
+let fortran_free_source=1
 let g:haskell_conceal_enumerations=0
 let g:hpaste_author = 'Lorenzo Bolla'
 let g:pymode_folding=0
