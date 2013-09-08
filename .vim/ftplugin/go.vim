@@ -1,1 +1,1 @@
-nnoremap <buffer> <F5> :!gofmt -w %<CR>:e<CR>
+nnoremap <buffer> <F5> :Fmt<CR>
