@@ -33,8 +33,10 @@ elif [[ -x `which evince` ]]; then
 fi
 if [[ -x `which soffice` ]]; then
     DOCVIEWER=soffice
+    PPTVIEWER=soffice
 elif [[ -x `which evince` ]]; then
     DOCVIEWER=abiword
+    PPTVIEWER=abiword
 fi
 IMAGEVIEWER=qiv
 #}}}
@@ -56,6 +58,8 @@ alias -g L='| less'
 alias -s pdf=$PDFVIEWER
 alias -s doc=$DOCVIEWER
 alias -s docx=$DOCVIEWER
+alias -s ppt=$PPTVIEWER
+alias -s pptx=$PPTVIEWER
 alias -s jpg=$IMAGEVIEWER
 alias -s png=$IMAGEVIEWER
 alias -s gif=$IMAGEVIEWER
@@ -69,6 +73,7 @@ alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
 alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
 alias cdrip='ripit'
+alias rdesktop='rdesktop -r clipboard:PRIMARYCLIPBOARD -g 1280x1024'
 #}}}
 
 #{{{ Prompt
