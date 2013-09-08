@@ -40,7 +40,7 @@ colorscheme lorenzo
 
 set backspace=indent,eol,start
 set encoding=utf-8
-set expandtab
+set noexpandtab
 set foldlevelstart=99
 set hls
 set incsearch
