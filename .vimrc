@@ -5,7 +5,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'Shougo/vimproc'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'hrp/EnhancedCommentify'
@@ -28,6 +27,9 @@ endif
 if executable('ghc-mod')
     Bundle 'eagletmt/ghcmod-vim'
 endif
+if &term != 'linux'
+	Bundle 'Lokaltog/vim-powerline'
+endif
 
 source $VIMRUNTIME/macros/matchit.vim
 
@@ -35,8 +37,9 @@ filetype plugin indent on
 syntax on
 
 set background=dark
-" colorscheme desert256
-colorscheme lorenzo
+if &term != 'linux'
+	colorscheme lorenzo
+endif
 
 set backspace=indent,eol,start
 set encoding=utf-8

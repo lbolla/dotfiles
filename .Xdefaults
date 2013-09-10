@@ -1,6 +1,7 @@
 ! #define FONT 7x14
 #define FONT fixed
 ! #define FONT -*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*
+! #define FONT -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 
 XTerm.font:            FONT
 XTerm.termName:        xterm-256color
