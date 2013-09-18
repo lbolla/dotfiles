@@ -36,6 +36,10 @@ source $VIMRUNTIME/macros/matchit.vim
 filetype plugin indent on
 syntax on
 
+if $COLORTERM == 'gnome-terminal'
+	set t_Co=256
+endif
+
 set background=dark
 if &term != 'linux'
 	colorscheme lorenzo
