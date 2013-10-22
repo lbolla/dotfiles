@@ -1,12 +1,12 @@
 gconftool-2 --type bool --set /apps/nautilus/preferences/show_desktop False
 
-setxkbmap us
-eval `ssh-agent -s`
-ssh-add
-
-nm-applet &
-dropbox start &
-xmodmap -e "pointer = 3 2 1"
+#setxkbmap us
+#eval `ssh-agent -s`
+#ssh-add
+#
+#nm-applet &
+#dropbox start &
+#xmodmap -e "pointer = 3 2 1"
 
 while true; 
 do 
@@ -15,4 +15,4 @@ do
         sleep 60
 done &
 
-export WINDOW_MANAGER=dwm
+#export WINDOW_MANAGER=dwm

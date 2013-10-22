@@ -20,7 +20,7 @@ unsetopt SHARE_HISTORY
 #}}}
 
 #{{{ Variables
-export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$PATH
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
@@ -38,7 +38,11 @@ elif [[ -x `which evince` ]]; then
     DOCVIEWER=abiword
     PPTVIEWER=abiword
 fi
-IMAGEVIEWER=qiv
+if [[ -x `which eog` ]]; then
+	IMAGEVIEWER=eog
+elif [[ -x `which qiv` ]]; then
+	IMAGEVIEWER=qiv
+fi
 #}}}
 
 #{{{ Aliases
@@ -48,6 +52,7 @@ alias l='ls -l --color'
 alias ll='ls -la --color'
 alias lp='lp -o fit-to-page -o media=a4'
 alias e=vim
+alias t='tmux -2'
 alias linodesh='ssh -X lbolla.info'
 alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
@@ -76,6 +81,11 @@ alias cdrip='ripit'
 alias rdesktop='rdesktop -r clipboard:PRIMARYCLIPBOARD -g 1280x1024'
 #}}}
 
+#{{{ YouGov
+alias mongo-mvdemo='mongo vdev-bix.paix.yougov.local/livedb4'
+alias mongo-prod='mongo vbixmgo.paix.yougov.local/livedb'
+#}}}
+
 #{{{ Prompt
 source ~/.git-prompt.sh
 function __venv_ps1 {
@@ -93,6 +103,7 @@ export RPROMPT='%B$(__git_ps1 " (%s)")%b %{$fg[green]%}$(__venv_ps1)%{$reset_col
 
 #{{{ Bindings
 bindkey -e
+bindkey \^U backward-kill-line
 #}}}
 
 #{{{ External scripts
@@ -104,6 +115,7 @@ fi
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
 export VIRTUAL_ENV_DISABLE_PROMPT=true
+export LESS="-R"
 #}}}
 
 #{{{ Styles

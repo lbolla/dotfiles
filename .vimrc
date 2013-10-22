@@ -63,6 +63,7 @@ set tabstop=4
 set wildignore=*.o,*.bak,*.pyc,*.swp
 set wildmenu
 set wildmode=longest:full
+set guioptions-=T
 
 let mapleader=","
 nnoremap <leader>t :tabnew 
@@ -95,6 +96,7 @@ let g:pymode_rope=0
 let g:pymode_utils_whitespaces=0
 let g:pymode_virtualenv=0
 let g:ycm_key_detailed_diagnostics = '<leader>q'
+
 if executable('ag')
     let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
