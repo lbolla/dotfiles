@@ -68,6 +68,7 @@ alias -s pptx=$PPTVIEWER
 alias -s jpg=$IMAGEVIEWER
 alias -s png=$IMAGEVIEWER
 alias -s gif=$IMAGEVIEWER
+alias -s json='python -m json.tool'
 alias -s hs=runhaskell
 alias mutt-gmail='MUTT_PROFILE=gmail mutt'
 alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
@@ -79,6 +80,9 @@ alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
 alias cdrip='ripit'
 alias rdesktop='rdesktop -r clipboard:PRIMARYCLIPBOARD -g 1280x1024'
+alias psz="ps aux | awk '{ print \$8 \" \" \$2 }' | grep Z"
+alias psp="ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:28,comm"
+alias ygcheese="python setup.py register -r yg sdist upload -r yg"
 #}}}
 
 #{{{ YouGov
