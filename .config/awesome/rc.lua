@@ -46,6 +46,8 @@ editor_cmd = terminal .. " -e " .. editor
 lock = "gnome-screensaver-command --lock"
 logout = "gnome-session-quit --logout"
 poweroff = "gnome-session-quit --power-off"
+screenshot = "gnome-screenshot -i" 
+control_panel = "gnome-control-center" 
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -103,8 +105,9 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "open terminal", terminal },
-                                    { "control panel", "gnome-control-center" },
-                                    { "vpn", "vpnui" },
+                                    { "control panel", control_panel},
+                                    { "screenshot", screenshot },
+                                    { "vpn", "/opt/cisco/anyconnect/bin/vpnui" },
 								    { "lock", lock },
 								    { "logout", logout },
 								    { "quit", poweroff }
@@ -247,25 +250,32 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "b",      function () awful.util.spawn("firefox") end),
     awful.key({ modkey,           }, "c",      function () awful.util.spawn("google-chrome") end),
-    awful.key({ modkey, "Control" }, "r", awesome.restart),
-	-- awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-    awful.key({ modkey, "Shift"   }, "s",     function () awful.util.spawn(lock) end),
-    awful.key({ modkey, "Shift"   }, "q",     function () awful.util.spawn(poweroff) end),
-
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
-    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey,           }, "t",      function () awful.util.spawn("gnome-system-monitor") end),
+	-- awful.key({ modkey, "Control" }, "r",      awesome.restart),
+	awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
+	awful.key({ modkey, "Shift"   }, "s",      function () awful.util.spawn(lock) end),
+    awful.key({ modkey, "Shift"   }, "q",      function () awful.util.spawn(poweroff) end),
+    awful.key({ modkey,           }, "F1",     function () awful.util.spawn(control_panel) end),
+    awful.key({ modkey,           }, "F10",    function () awful.util.spawn("nautilus") end),
+    awful.key({ modkey,           }, "F12",    function () awful.util.spawn(screenshot) end),
+                                               
+    awful.key({ modkey,           }, "l",      function () awful.tag.incmwfact( 0.05)    end),
+    awful.key({ modkey,           }, "h",      function () awful.tag.incmwfact(-0.05)    end),
+    awful.key({ modkey, "Shift"   }, "h",      function () awful.tag.incnmaster( 1)      end),
+    awful.key({ modkey, "Shift"   }, "l",      function () awful.tag.incnmaster(-1)      end),
+    awful.key({ modkey, "Control" }, "h",      function () awful.tag.incncol( 1)         end),
+    awful.key({ modkey, "Control" }, "l",      function () awful.tag.incncol(-1)         end),
+    awful.key({ modkey,           }, "space",  function () awful.layout.inc(layouts,  1) end),
+    awful.key({ modkey, "Shift"   }, "space",  function () awful.layout.inc(layouts, -1) end),
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+	-- Overwrite Mod-p which changes resolution by default
+    awful.key({ modkey },            "p",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -399,5 +409,6 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- }}}
 
 -- {{{ Autorun
-awful.util.spawn(terminal)
+-- awful.util.spawn(terminal)
+awful.util.spawn("empathy -hn")
 --- }}}
