@@ -85,9 +85,8 @@ alias psp="ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:28,comm"
 alias ygcheese="python setup.py register -r yg sdist upload -r yg"
 #}}}
 
-#{{{ YouGov
-alias mongo-mvdemo='mongo vdev-bix.paix.yougov.local/livedb4'
-alias mongo-prod='mongo vbixmgo.paix.yougov.local/livedb'
+#{{{ Private
+[[ -f ~/.zsh_private ]] && source ~/.zsh_private
 #}}}
 
 #{{{ Prompt

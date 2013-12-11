@@ -68,7 +68,8 @@ set wildmode=longest:full
 set guioptions-=T
 
 let mapleader=","
-nnoremap <leader>t :tabnew
+nnoremap <leader>t :tabnew<Space>
+nnoremap <leader>v :vsp<Space>
 nnoremap <leader>a :Ack "<C-R><C-W>"
 nnoremap <leader>l :SyntasticCheck<CR>
 nnoremap <leader>x :nohl<CR>
