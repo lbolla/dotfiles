@@ -45,6 +45,16 @@ elif [[ -x `which qiv` ]]; then
 fi
 #}}}
 
+#{{{ Go
+export GOROOT=$HOME/src/go
+export PATH=$PATH:$GOROOT/bin
+#}}}
+
+#{{{ Plan9
+export PLAN9=/home/lbolla/src/plan9port
+export PATH=$PATH:$PLAN9/bin
+#}}}
+
 #{{{ Aliases
 alias rm='rm -i'
 alias ls='ls --color'
@@ -58,8 +68,8 @@ alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias pg='ps aux | grep'
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
-alias -g G='| grep'
-alias -g L='| less'
+#  alias -g G='| grep'
+#  alias -g L='| less'
 alias -s pdf=$PDFVIEWER
 alias -s doc=$DOCVIEWER
 alias -s docx=$DOCVIEWER
