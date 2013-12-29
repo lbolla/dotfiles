@@ -7,7 +7,7 @@ Bundle 'gmarik/vundle'
 
 Bundle 'Shougo/vimproc'
 Bundle 'flazz/vim-colorschemes'
-Bundle 'hrp/EnhancedCommentify'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'klen/python-mode'
 Bundle 'mileszs/ack.vim'
@@ -48,14 +48,17 @@ if &term != 'linux'
 endif
 
 set backspace=indent,eol,start
+set cursorline
 set encoding=utf-8
-set noexpandtab
 set foldlevelstart=99
+set guioptions-=T
 set hls
+set path=.,/usr/local/include,/usr/include,,
 set incsearch
 set laststatus=2
 set mouse=a
 set nobackup
+set noexpandtab
 set noswapfile
 set nowritebackup
 set pastetoggle=<F2>
@@ -65,28 +68,18 @@ set tabstop=4
 set wildignore=*.o,*.bak,*.pyc,*.swp
 set wildmenu
 set wildmode=longest:full
-set guioptions-=T
 
 let mapleader=","
 nnoremap <leader>t :tabnew<Space>
 nnoremap <leader>v :vsp<Space>
 nnoremap <leader>a :Ack "<C-R><C-W>"
+nnoremap <leader>gg :Ggrep "<C-R><C-W>"
+nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>l :SyntasticCheck<CR>
 nnoremap <leader>x :nohl<CR>
 
-let g:EnhCommentifyUserBindings='yes'
-let g:EnhCommentifyRespectIndent = 'Yes'
-let g:EnhCommentifyPretty = 'Yes'
-vmap <silent> <leader>c <Plug>VisualComment
-vmap <silent> <leader>d <Plug>VisualDeComment
-vmap <silent> <leader>g <Plug>VisualTraditional
-vmap <silent> <leader>f <Plug>VisualFirstLine
 vmap <silent> <leader><Space> :s/\ *$//g<CR>
 nmap <silent> <leader><Space> :%s/\ *$//g<CR>
-nmap <silent> <leader>c <Plug>Comment
-nmap <silent> <leader>d <Plug>DeComment
-nmap <silent> <leader>g <Plug>Traditional
-nmap <silent> <leader>f <Plug>FirstLine
 
 let fortran_free_source=1
 let g:html_indent_inctags="html,body,head,tbody"
@@ -103,6 +96,7 @@ let g:pymode_utils_whitespaces=0
 let g:pymode_virtualenv=0
 let g:syntastic_javascript_checkers = ['jsl']
 let g:ycm_key_detailed_diagnostics = '<leader>q'
+let NERDSpaceDelims = 1
 
 " airline
 if !exists('g:airline_symbols')
