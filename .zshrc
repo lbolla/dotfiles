@@ -26,6 +26,7 @@ SAVEHIST=1000
 HISTFILE=~/.zsh_history
 export EDITOR=vim
 export PAGER=less
+export BROWSER=google-chrome
 if [[ -x `which mupdf` ]]; then
     PDFVIEWER=mupdf
 elif [[ -x `which evince` ]]; then
@@ -53,45 +54,50 @@ export PATH=$PATH:$GOROOT/bin
 #{{{ Plan9
 export PLAN9=/home/lbolla/src/plan9port
 export PATH=$PATH:$PLAN9/bin
+function 9acme {
+	mkdir -p /tmp/font
+	pkill -0 fontsrv || fontsrv -m /tmp/font &
+	pkill -0 plumber || plumber &
+	SHELL=rc 9 acme -a -f /tmp/font/Ubuntu\ Mono/11a/font
+}
 #}}}
 
 #{{{ Aliases
-alias rm='rm -i'
-alias ls='ls --color'
-alias l='ls -l --color'
-alias ll='ls -la --color'
-alias lp='lp -o fit-to-page -o media=a4'
-alias e=vim
-alias t='tmux -2'
-alias linodesh='ssh -X lbolla.info'
-alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
-alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
-alias pg='ps aux | grep'
-alias rot13='tr a-zA-Z n-za-mN-ZA-M'
-#  alias -g G='| grep'
-#  alias -g L='| less'
-alias -s pdf=$PDFVIEWER
 alias -s doc=$DOCVIEWER
 alias -s docx=$DOCVIEWER
+alias -s gif=$IMAGEVIEWER
+alias -s hs=runhaskell
+alias -s jpg=$IMAGEVIEWER
+alias -s json='python -m json.tool'
+alias -s pdf=$PDFVIEWER
+alias -s png=$IMAGEVIEWER
 alias -s ppt=$PPTVIEWER
 alias -s pptx=$PPTVIEWER
-alias -s jpg=$IMAGEVIEWER
-alias -s png=$IMAGEVIEWER
-alias -s gif=$IMAGEVIEWER
-alias -s json='python -m json.tool'
-alias -s hs=runhaskell
-alias mutt-gmail='MUTT_PROFILE=gmail mutt'
-alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
-alias mutt-pispo='MUTT_PROFILE=pispo mutt'
-alias mutt-pispo-customerservice='MUTT_PROFILE=pispo-customerservice mutt'
-alias mutt-pispo-info='MUTT_PROFILE=pispo-info mutt'
-alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
-alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
 alias cdrip='ripit'
-alias rdesktop='rdesktop -r clipboard:PRIMARYCLIPBOARD -g 1280x1024'
-alias psz="ps aux | awk '{ print \$8 \" \" \$2 }' | grep Z"
+alias cindent='indent -kr -cli0 -nut'
+alias e=vim
+alias l='ls -l --color'
+alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
+alias linodesh='ssh -X lbolla.info'
+alias ll='ls -la --color'
+alias lp='lp -o fit-to-page -o media=a4'
+alias ls='ls --color'
+alias mutt-gmail='MUTT_PROFILE=gmail mutt'
+alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
+alias mutt-pispo-customerservice='MUTT_PROFILE=pispo-customerservice mutt'
+alias mutt-pispo-info='MUTT_PROFILE=pispo-info mutt'
+alias mutt-pispo='MUTT_PROFILE=pispo mutt'
+alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
+alias pg='ps aux | grep'
 alias psp="ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:28,comm"
+alias psz="ps aux | awk '{ print \$8 \" \" \$2 }' | grep Z"
+alias rdesktop='rdesktop -r clipboard:PRIMARYCLIPBOARD -g 1280x1024'
+alias rm='rm -i'
+alias rot13='tr a-zA-Z n-za-mN-ZA-M'
+alias screen-mail='screen -S mail -c ~/.screenrc-mail'
+alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
+alias t='tmux -2'
 alias ygcheese="python setup.py register -r yg sdist upload -r yg"
 #}}}
 
