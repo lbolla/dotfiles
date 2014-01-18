@@ -17,3 +17,5 @@ setlocal textwidth=79
 if exists('+colorcolumn')
     setlocal colorcolumn=80
 endif
+
+let g:syntastic_c_checkers = ['ycm', 'splint']

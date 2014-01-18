@@ -30,7 +30,7 @@ if executable('ghc-mod')
     Bundle 'eagletmt/ghcmod-vim'
 endif
 if &term != 'linux'
-	Bundle 'bling/vim-airline'
+    Bundle 'bling/vim-airline'
 endif
 
 source $VIMRUNTIME/macros/matchit.vim
@@ -53,7 +53,7 @@ set encoding=utf-8
 set foldlevelstart=99
 set guioptions-=T
 set hls
-set path=.,/usr/local/include,/usr/include,,
+set path=.,/usr/local/include,/usr/include,/usr/include/linux,/usr/include/x86_64-linux-gnu,,
 set incsearch
 set laststatus=2
 set mouse=a
@@ -95,12 +95,14 @@ let g:pymode_rope=0
 let g:pymode_utils_whitespaces=0
 let g:pymode_virtualenv=0
 let g:syntastic_javascript_checkers = ['jsl']
+let g:syntastic_c_checkers = ['splint']
+let g:ycm_register_as_syntastic_checker = 0
 let g:ycm_key_detailed_diagnostics = '<leader>q'
 let NERDSpaceDelims = 1
 
 " airline
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
@@ -112,6 +114,7 @@ endif
 if has("autocmd")
     autocmd BufEnter * if &ft != 'help' | silent! cd %:p:h | endif
     autocmd BufNewFile,BufRead,BufEnter *.md set filetype=markdown
+    autocmd BufNewFile,BufRead,BufEnter README set filetype=markdown
     autocmd BufNewFile,BufRead,BufEnter *.tmpl set filetype=html
     autocmd BufNewFile,BufRead,BufEnter *.go set filetype=go
 endif
