@@ -20,6 +20,7 @@ Bundle 'tpope/vim-abolish'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'kien/ctrlp.vim'
 Bundle 'JuliaLang/julia-vim'
+Bundle 'chrisbra/csv.vim'
 if v:version >= 703
     Bundle 'dag/vim2hs'
     if v:version >= 704 || (has('patch584') && has('python'))
@@ -82,9 +83,11 @@ vmap <silent> <leader><Space> :s/\ *$//g<CR>
 nmap <silent> <leader><Space> :%s/\ *$//g<CR>
 
 let fortran_free_source=1
+let g:csv_no_conceal = 1
 let g:html_indent_inctags="html,body,head,tbody"
 let g:haskell_conceal_enumerations=0
 let g:hpaste_author = 'Lorenzo Bolla'
+" let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT'
 let g:pymode_folding=0
 " let g:pymode_lint_checker="pyflakes,pep8" " pylint, mccabe, pep257
 let g:pymode_lint_ignore="R0201,R0914,R0912,C0110,C0302,C0110,C901,C0301,W0511,W0201,W0703,W0603,W0632,E0611,F0401,W0212"

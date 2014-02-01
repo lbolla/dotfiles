@@ -307,3 +307,8 @@ hi WildMenu       ctermbg=white guibg=white ctermfg=darkgrey guifg=#606060
 
 hi clear SpellBad
 hi SpellBad cterm=underline
+
+hi CSVColumnOdd ctermbg=black guibg=black ctermfg=grey guifg=grey
+hi CSVColumnEven ctermbg=black guibg=black ctermfg=242 guifg=#6c6c6c
+hi CSVDelimiter ctermbg=black guibg=black ctermfg=red guifg=#ff0000
+
