@@ -21,6 +21,8 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'kien/ctrlp.vim'
 Bundle 'JuliaLang/julia-vim'
 Bundle 'chrisbra/csv.vim'
+Bundle 'kovisoft/slimv'
+Bundle 'elzr/vim-json'
 if v:version >= 703
     Bundle 'dag/vim2hs'
     if v:version >= 704 || (has('patch584') && has('python'))
@@ -87,16 +89,18 @@ let g:csv_no_conceal = 1
 let g:html_indent_inctags="html,body,head,tbody"
 let g:haskell_conceal_enumerations=0
 let g:hpaste_author = 'Lorenzo Bolla'
-" let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT'
 let g:pymode_folding=0
-" let g:pymode_lint_checker="pyflakes,pep8" " pylint, mccabe, pep257
-let g:pymode_lint_ignore="R0201,R0914,R0912,C0110,C0302,C0110,C901,C0301,W0511,W0201,W0703,W0603,W0632,E0611,F0401,W0212"
+let g:pymode_lint_ignore="R0201,R0914,R0912,C0110,C0111,C0302,C0325,C0110,C901,C0301,W0511,W0201,W0703,W0603,W0632,E0611,F0401,W0212"
 " let g:pymode_lint_mccabe_complexity=8
 let g:pymode_lint_write=1
 let g:pymode_motion=1
 let g:pymode_rope=0
 let g:pymode_utils_whitespaces=0
 let g:pymode_virtualenv=0
+" let g:lisp_rainbow = 1
+let g:slimv_leader = ';'
+let g:paredit_leader = ';'
+let g:slimv_repl_split = 4
 let g:syntastic_javascript_checkers = ['jsl']
 let g:syntastic_c_checkers = ['splint']
 let g:ycm_register_as_syntastic_checker = 0

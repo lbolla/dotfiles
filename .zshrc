@@ -97,7 +97,7 @@ alias rm='rm -i'
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
-alias t='tmux -2'
+alias tmux='tmux -2'
 alias ygcheese="python setup.py register -r yg sdist upload -r yg"
 #}}}
 
