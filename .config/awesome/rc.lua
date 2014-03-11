@@ -6,6 +6,8 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
+-- Fancy widgets
+require("vicious")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -46,8 +48,8 @@ editor_cmd = terminal .. " -e " .. editor
 lock = "gnome-screensaver-command --lock"
 logout = "gnome-session-quit --logout"
 poweroff = "gnome-session-quit --power-off"
-screenshot = "gnome-screenshot -i" 
-control_panel = "gnome-control-center" 
+screenshot = "gnome-screenshot -i"
+control_panel = "gnome-control-center"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -61,13 +63,13 @@ layouts =
 {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
+    -- awful.layout.suit.tile.left,
+	awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
     awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier
@@ -104,9 +106,11 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal },
                                     { "control panel", control_panel},
+                                    { "keepass2", "keepass2" },
                                     { "screenshot", screenshot },
+                                    { "spotify", "spotify" },
+                                    { "terminal", terminal },
                                     { "vpn", "/opt/cisco/anyconnect/bin/vpnui" },
 								    { "lock", lock },
 								    { "logout", logout },
@@ -124,6 +128,31 @@ mytextclock = awful.widget.textclock({ align = "right" })
 
 -- Create a systray
 mysystray = widget({ type = "systray" })
+
+-- More widgets
+cpuwidget = awful.widget.graph()
+cpuwidget:set_width(50)
+cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_color("#FF5656")
+cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+
+batwidget = awful.widget.progressbar()
+batwidget:set_width(8)
+batwidget:set_vertical(true)
+batwidget:set_background_color("#000000")
+batwidget:set_border_color(nil)
+batwidget:set_color("#00bfff")
+vicious.register(batwidget, vicious.widgets.bat, "$2", 120, "BAT0")
+
+memwidget = awful.widget.progressbar()
+memwidget:set_width(8)
+memwidget:set_vertical(true)
+memwidget:set_background_color("#494B4F")
+memwidget:set_border_color(nil)
+memwidget:set_color("#AECF96")
+memwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -196,6 +225,9 @@ for s = 1, screen.count() do
         {
             mylauncher,
             mytaglist[s],
+			s == 1 and batwidget or nil,
+			s == 1 and memwidget or nil,
+			s == 1 and cpuwidget or nil,
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
@@ -261,7 +293,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F2",     function () awful.util.spawn("gnome-system-monitor") end),
     awful.key({ modkey,           }, "F10",    function () awful.util.spawn("nautilus") end),
     awful.key({ modkey,           }, "F12",    function () awful.util.spawn(screenshot) end),
-                                               
+
     awful.key({ modkey,           }, "l",      function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",      function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",      function () awful.tag.incnmaster( 1)      end),

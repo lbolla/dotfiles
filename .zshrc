@@ -99,6 +99,7 @@ alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias tmux='tmux -2'
 alias ygcheese="python setup.py register -r yg sdist upload -r yg"
+alias clojure="rlwrap java -cp $HOME/src/clojure-1.5.1/clojure-1.5.1.jar clojure.main"
 #}}}
 
 #{{{ Private
