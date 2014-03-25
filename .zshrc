@@ -111,8 +111,12 @@ source ~/.git-prompt.sh
 
 function __hg_ps1 {
 	hgbranch=`hg branch 2> /dev/null | awk '{print $1}'`
+	hgdirty=""
 	if [ -n "$hgbranch" ]; then
-		echo "(HG:$hgbranch)"
+		if [ -n "`hg -q diff`" ]; then
+			hgdirty=" *"
+		fi
+		echo "(HG:$hgbranch$hgdirty)"
 	fi
 }
 
