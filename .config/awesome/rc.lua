@@ -112,10 +112,10 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "spotify", "spotify" },
                                     { "terminal", terminal },
                                     { "vpn", "/opt/cisco/anyconnect/bin/vpnui" },
-								    { "lock", lock },
-								    { "logout", logout },
-								    { "quit", poweroff }
-                                  }
+		  		    { "lock", lock },
+				    { "logout", logout },
+				    { "quit", poweroff }
+                                    }
                         })
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
@@ -284,10 +284,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,           }, "b",      function () awful.util.spawn("firefox") end),
     awful.key({ modkey,           }, "c",      function () awful.util.spawn("google-chrome") end),
+    awful.key({ modkey,           }, "e",      function () awful.util.spawn("emacs") end),
     awful.key({ modkey,           }, "t",      function () awful.util.spawn("thunderbird") end),
-	-- awful.key({ modkey, "Control" }, "r",      awesome.restart),
-	awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
-	awful.key({ modkey, "Shift"   }, "s",      function () awful.util.spawn(lock) end),
+    -- awful.key({ modkey, "Control" }, "r",      awesome.restart),
+    awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
+    awful.key({ modkey, "Shift"   }, "s",      function () awful.util.spawn(lock) end),
     awful.key({ modkey, "Shift"   }, "q",      function () awful.util.spawn(poweroff) end),
     awful.key({ modkey,           }, "F1",     function () awful.util.spawn(control_panel) end),
     awful.key({ modkey,           }, "F2",     function () awful.util.spawn("gnome-system-monitor") end),
