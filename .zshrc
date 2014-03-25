@@ -108,6 +108,14 @@ alias clojure="rlwrap java -cp $HOME/src/clojure-1.5.1/clojure-1.5.1.jar clojure
 
 #{{{ Prompt
 source ~/.git-prompt.sh
+
+function __hg_ps1 {
+	hgbranch=`hg branch 2> /dev/null | awk '{print $1}'`
+	if [ -n "$hgbranch" ]; then
+		echo "(HG:$hgbranch)"
+	fi
+}
+
 function __venv_ps1 {
     if [ "x$VIRTUAL_ENV" != "x" ]; then
         echo "[`basename $VIRTUAL_ENV`]"
@@ -118,7 +126,7 @@ function __venv_ps1 {
 
 GIT_PS1_SHOWDIRTYSTATE=true
 export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F%B%{$fg[yellow]%}%~%f%{$reset_color%}%b % > '
-export RPROMPT='%B$(__git_ps1 " (%s)")%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
+export RPROMPT='%B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
 #}}}
 
 #{{{ Bindings
