@@ -1,3 +1,7 @@
 [ui]
 # username = Lorenzo Bolla <lbolla@gmail.com>
 username = Lorenzo Bolla <lorenzo.bolla@yougov.com>
+
+[extensions]
+color =
+pager =
