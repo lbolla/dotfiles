@@ -21,7 +21,7 @@ unsetopt SHARE_HISTORY
 
 #{{{ Variables
 export TERM=xterm-256color
-# PATH set in .zshenv
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/emacs-24.3/src:$HOME/src/emacs-24.3/lib-src:$PATH
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
