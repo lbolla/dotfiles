@@ -22,6 +22,7 @@ unsetopt SHARE_HISTORY
 #{{{ Variables
 export TERM=xterm-256color
 export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$PATH
+export PYTHONSTARTUP="$HOME/.pyrc"
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
