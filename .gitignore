@@ -6,3 +6,4 @@ secret
 aliases
 .centerim/*
 .vim/bundle
+.emacs.d/private.el
