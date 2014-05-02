@@ -26,39 +26,11 @@
  '(default ((t (:inherit nil :stipple nil :background "black" :foreground "light gray" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "unknown" :family "Ubuntu Mono")))))
 
 (load-file "~/.emacs.d/private.el")
+(load-file "~/.emacs.d/util.el")
+(load-file "~/.emacs.d/yg.el")
+
 (global-set-key "\C-x\C-b" 'buffer-menu)
 (load-theme 'lorenzo)
-
-(defun zsh ()
-  "Run a zsh."
-  (interactive)
-  (ansi-term "/usr/bin/zsh"))
-
-(defun chomp (str)
-  "Chomp leading and tailing whitespace from STR."
-  (replace-regexp-in-string (rx (or (: bos (* (any " \t\n")))
-				    (: (* (any " \t\n")) eos)))
-			    ""
-			    str))
-
-(defun read-file-in-string (fn)
-  "Read FN and return its content as a string."
-  (with-temp-buffer
-    (insert-file-contents fn)
-    (buffer-string)))
-
-(defmacro timeit (what &rest body)
-  "Time WHAT and run BODY and report real time taken to do so."
-  `(let ((start-time (float-time)))
-     (progn ,@body)
-     (let ((elapsed-time (- (float-time) start-time)))
-       (message "Completed %s in %.4f seconds" ,what elapsed-time)
-       elapsed-time)))
-
-(defmacro hook-into-modes (func modes)
-  "Add FUNC to MODES hooks."
-  `(dolist (mode-hook ,modes)
-     (add-hook mode-hook ,func)))
 
 ;;; Packages
 (require 'package)
@@ -340,8 +312,11 @@
 		     (lambda ()
 		       (set (make-local-variable 'scroll-conservatively) 8192)
 		       (rcirc-track-minor-mode t)
+		       ;; (rcirc-omit-mode)
 		       (flyspell-mode t)))
-	   (setq rcirc-server-alist '(yg-rcirc-server))
+	   (setq rcirc-server-alist '())
+	   (add-to-list 'rcirc-server-alist yg-rcirc-server)
+	   (add-to-list 'rcirc-server-alist freenode-rcirc-server)
 	   (defun-rcirc-command reconnect (arg)
 	     "Reconnect the server process."
 	     (interactive "i")
