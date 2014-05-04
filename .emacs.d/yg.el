@@ -30,7 +30,11 @@
   (interactive)
   (yg-paste-browse (thing-at-point 'word)))
 
-;; TODO See go-play-region
+(defun yg-paste-buffer ()
+  "Like `yg-paste-region', but acts on the entire buffer."
+  (interactive)
+  (yg-paste-region (point-min) (point-max)))
+
 (defun yg-paste-region (start end)
   "Create a YG Paste of the selected region between START and END."
   (interactive "r")
@@ -83,15 +87,19 @@
 		   '(lambda (status)
 		      (save-match-data
 			(search-forward-regexp "Paste \\(.....\\)")
-			(let ((pasteid (match-string 1)))
-			  (with-current-buffer (get-buffer-create "*YG Paste*")
-			    (let ((url (concat yg-paste-base-url pasteid)))
-			      (goto-char (point-max))
-			      (insert "Region pasted to ")
-			      (insert-button pasteid
-					     'action (lambda (x) (browse-url (button-get x 'url)))
-					     'url url)
-			      (insert "\n"))
-			    (switch-to-buffer-other-window (current-buffer))))))))))
+			(let* ((pasteid (match-string 1))
+			       (url (url-encode-url (concat yg-paste-base-url pasteid))))
+			  (kill-new url)
+			  (message url)
+			  ;; ;; Insert link in another buffer
+			  ;; (with-current-buffer (get-buffer-create "*YG Paste*")
+			  ;;   (goto-char (point-max))
+			  ;;   (insert "Region pasted to ")
+			  ;;   (insert-button pasteid
+			  ;; 		     'action (lambda (x) (browse-url (button-get x 'url)))
+			  ;; 		     'url url)
+			  ;;   (insert "\n")
+			  ;;   (switch-to-buffer-other-window (current-buffer)))
+			  )))))))
 
 ;;; yg.el ends here

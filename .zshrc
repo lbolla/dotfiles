@@ -50,6 +50,7 @@ fi
 
 #{{{ Go
 export GOROOT=$HOME/src/go
+export GOPATH=$HOME/junk/go
 export PATH=$PATH:$GOROOT/bin
 #}}}
 
