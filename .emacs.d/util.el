@@ -38,11 +38,11 @@
 (defmacro with-basic-http-auth (&rest body)
   "Execute BODY with basic http auth."
   `(let ((url-request-extra-headers
-	  `(("Authorization" . ,(concat "Basic "
-					(base64-encode-string
-					 (concat (read-string "Username: " "lorenzo.bolla")
-						 ":"
-						 (read-passwd "Password: "))))))))
+	  (cons `("Authorization" . ,(concat "Basic "
+					    (base64-encode-string
+					     (concat (read-string "Username: " "lorenzo.bolla")
+						     ":"
+						     (read-passwd "Password: "))))) url-request-extra-headers)))
      (progn ,@body)))
 
 ;;; util.el ends here
