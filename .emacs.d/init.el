@@ -25,8 +25,9 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "black" :foreground "light gray" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "unknown" :family "Ubuntu Mono")))))
 
-(load-file "~/.emacs.d/private.el")
 (load-file "~/.emacs.d/util.el")
+(load-file "~/.emacs.d/custom.el")
+(load-file "~/.emacs.d/private.el")
 (load-file "~/.emacs.d/yg.el")
 
 (global-set-key "\C-x\C-b" 'buffer-menu)
@@ -82,8 +83,11 @@
 	 (define-key evil-normal-state-map (kbd "gt") 'next-tab)
 	 (define-key evil-normal-state-map (kbd "gT") 'previous-tab)
 	 (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
-	 (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
-	 (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
+	 (define-key evil-normal-state-map (kbd ",G") 'rgrep)
+	 (define-key evil-normal-state-map (kbd ",m") 'menu-bar-mode)
+	 (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
+	 (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
+	 (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
 
 (use-package paredit
   :ensure t
@@ -130,7 +134,7 @@
 
 (use-package menu-bar
   :init (progn
-	  (menu-bar-mode t)))
+	  (menu-bar-mode -1)))
 
 (use-package frame
   :init (progn
@@ -270,6 +274,7 @@
   :init (progn
 	  (add-hook 'js-mode-hook
 		    (lambda ()
+                      (setq indent-tabs-mode nil)
 		      (modify-syntax-entry ?\_ "w")))))
 
 (use-package sql
@@ -296,7 +301,12 @@
 		  smtpmail-stream-type 'starttls)))
 
 (use-package markdown-mode
-  :defer t)
+  :mode ("\\.md\\'" . markdown-mode))
+
+(use-package sgml-mode
+  :mode ("\\.tmpl\\'" . html-mode)
+  :config (progn
+	    (sgml-guess-indent)))
 
 (use-package cider
   :commands cider-jack-in)
@@ -308,11 +318,10 @@
 	   "RCIRC"
 	   (defun my-rcirc-print-hook (process sender response target text)
 	     "In PROCESS, if SENDER is not self, ignore RESPONSE and TARGET, beep when TEXT equals current nick."
-	     (let ((alert "/usr/share/sounds/gnome/default/alerts/glass.ogg"))
-	       (when (and (string-match (regexp-quote (rcirc-nick process)) text)
-			  (not (string= (rcirc-nick process) sender))
-			  (not (string= (rcirc-server-name process) sender)))
-		 (start-process "beep" nil "mplayer" (expand-file-name alert)))))
+	     (when (and (string-match (regexp-quote (rcirc-nick process)) text)
+			(not (string= (rcirc-nick process) sender))
+			(not (string= (rcirc-server-name process) sender)))
+	       (beep)))
 	   (add-hook 'rcirc-print-functions 'my-rcirc-print-hook)
 	   (add-hook 'rcirc-mode-hook
 		     (lambda ()
@@ -344,7 +353,10 @@
 	       (rcirc-connect server port nick
 			      rcirc-default-user-name
 			      rcirc-default-full-name
-			      channels)))))
+			      channels
+			      ;; TODO password
+			      ;; TODO encryption
+			      )))))
 
 (provide '.emacs)
 ;;; .emacs ends here

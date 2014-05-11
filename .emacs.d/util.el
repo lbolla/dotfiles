@@ -22,6 +22,16 @@
     (insert-file-contents fn)
     (buffer-string)))
 
+(defun beep ()
+  "Play an alert sound."
+  (let ((alert "/usr/share/sounds/gnome/default/alerts/glass.ogg"))
+    (start-process "beep" nil "mplayer" (expand-file-name alert))))
+
+(defun cycle (lst)
+  "Cycle elements of LST."
+  (let ((item (pop lst)))
+    (append lst `(,item))))
+
 (defmacro timeit (what &rest body)
   "Time WHAT and run BODY and report real time taken to do so."
   `(let ((start-time (float-time)))
