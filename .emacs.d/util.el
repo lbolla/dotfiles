@@ -22,7 +22,7 @@
     (insert-file-contents fn)
     (buffer-string)))
 
-(defun beep ()
+(defun my-beep ()
   "Play an alert sound."
   (let ((alert "/usr/share/sounds/gnome/default/alerts/glass.ogg"))
     (start-process "beep" nil "mplayer" (expand-file-name alert))))

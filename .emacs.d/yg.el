@@ -12,12 +12,23 @@
   "Browse YG FogBugz ticket FBID."
   (interactive "nFB#")
   (let ((url (concat yg-fogbugz-base-url (number-to-string fbid))))
-    (browse-url url)))
+    (browse-url url)
+    (message "Browsing to %s" url)))
+
+(defun yg-fogbugz-get-id-at-point ()
+  "Get the FogBugz id at point."
+  (save-excursion
+    (beginning-of-thing 'symbol)
+    (search-forward-regexp "\\([[:digit:]]\\{5\\}\\)")
+    (let ((id (string-to-number (match-string 1))))
+      (if (> id 0)
+	  id
+	nil))))
 
 (defun yg-fogbugz-browse-at-point ()
   "Browse YG FogBugz ticket at point."
   (interactive)
-  (yg-fogbugz-browse (thing-at-point 'number)))
+  (yg-fogbugz-browse (yg-fogbugz-get-id-at-point)))
 
 (defun yg-paste-browse (pasteid)
   "Browse YG Paste PASTEID in a new Emacs window."
