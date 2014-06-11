@@ -11,12 +11,13 @@
 (let ((class '((class color) (min-colors 10)))
       (black "black")
       (white "white")
-      (green "green")
+      (green "spring green")
       (yellow "yellow")
       (lyellow "gold")
-      (lgreen "pale green")
-      (red "red")
-      (vdgray "#333")
+      (lgreen "lime green")
+      (red "firebrick2")
+      (vdgray "gray20")
+      (vvdgray "gray15")
       (lgray "light gray")
       (dgray "dim gray")
       (sgray "light slate gray"))
@@ -31,7 +32,7 @@
    `(fringe ((,class (:background ,vdgray))))
    `(highlight ((,class (:background ,vdgray))))
    `(region ((,class (:foreground ,black :background ,lyellow))))
-   `(secondary-selection ((,class (:foreground: ,black :background ,sgray))))
+   `(secondary-selection ((,class (:foreground: ,white :background ,vvdgray))))
    `(isearch ((,class (:foreground ,black :background ,green))))
    `(lazy-highlight ((,class (:foreground ,black :background ,lgreen))))
    `(linum ((,class (:foreground ,dgray :slant italic))))
@@ -65,7 +66,7 @@
    `(font-lock-type-face ((,class (:weight bold :foreground ,lgray))))
    ;; `(font-lock-variable-name-face ((,class (:weight bold :foreground ,sgray))))
    `(font-lock-variable-name-face ((,class (:foreground ,lgray))))
-   `(font-lock-warning-face ((,class (:foreground "yellow"))))
+   `(font-lock-warning-face ((,class (:foreground ,lyellow))))
 
    ;; Button and link faces
    `(link ((,class (:underline t :foreground ,lgray))))
@@ -147,22 +148,31 @@
    `(eshell-ls-symlink ((,class (:inherit eshell-ls-unreadable))))
 
    ;; Org-mode
-   `(org-level-1 ((t (:bold t :foreground ,lgray :height 1.5))))
-   `(org-level-2 ((t (:bold nil :foreground ,lgray :height 1.2))))
-   `(org-level-3 ((t (:bold t :foreground ,lgray :height 1.0))))
-   `(org-level-4 ((t (:bold nil :foreground ,lgray :height 1.0))))
+   `(org-level-1 ((t (:bold t :foreground "gray100"))))
+   `(org-level-2 ((t (:bold t :foreground "gray80"))))
+   `(org-level-3 ((t (:bold t :foreground "gray60"))))
+   `(org-level-4 ((t (:bold t :foreground "gray40"))))
    `(org-link ((t (:foreground ,sgray :underline t))))
    `(org-todo ((t (:bold t :foreground ,red))))
    `(org-done ((t (:bold t :foreground ,lgreen))))
 
+   ;; mu4e
+   `(mu4e-unread-face ((,class (:foreground ,white))))
+   `(mu4e-flagged-face ((,class (:foreground ,sgray))))
+   `(mu4e-trashed-face ((,class (:foreground ,vdgray))))
+   `(mu4e-highlight-face ((,class (:foreground ,sgray :weight bold))))
+   `(mu4e-header-highlight-face ((,class (:inherit highlight :underline nil :weight normal))))
+   `(mu4e-cited-1-face ((,class (:foreground "gray70"))))
+   `(mu4e-cited-2-face ((,class (:foreground "gray60"))))
+   `(mu4e-cited-3-face ((,class (:foreground "gray50"))))
+   `(mu4e-cited-4-face ((,class (:foreground "gray40"))))
+   `(mu4e-cited-5-face ((,class (:foreground "gray30"))))
+   `(mu4e-cited-6-face ((,class (:foreground "gray20"))))
+   `(mu4e-cited-7-face ((,class (:foreground "gray10"))))
+
    ;; helm
    `(helm-header ((t (:foreground ,dgray :background ,black :underline nil :box nil))))
-   `(helm-source-header
-     ((t (:foreground ,white
-                      :background ,black
-                      :underline nil
-                      :weight bold
-                      :box (:line-width 1 :style released-button)))))
+   `(helm-source-header ((t (:foreground ,white :background ,black :underline nil :weight bold :box (:line-width 1 :style released-button)))))
    `(helm-selection ((t (:background ,lgray :underline t :foreground ,black))))
    `(helm-selection-line ((t (:background ,black))))
    `(helm-visible-mark ((t (:foreground ,black :background ,white))))
@@ -198,10 +208,8 @@
    `(helm-mu-contacts-name-face ((t (:foreground ,lgray :background ,black))))
 
    ;; Flyspell
-   `(flyspell-duplicate ((,class (:weight unspecified :foreground unspecified
-				  :slant unspecified :underline ,lgray))))
-   `(flyspell-incorrect ((,class (:weight unspecified :foreground unspecified
-				  :slant unspecified :underline ,lgray)))))
+   `(flyspell-duplicate ((,class (:weight unspecified :foreground unspecified :slant unspecified :underline ,lgray))))
+   `(flyspell-incorrect ((,class (:weight unspecified :foreground unspecified :slant unspecified :underline ,lgray)))))
 
   (custom-theme-set-variables
    'lorenzo
