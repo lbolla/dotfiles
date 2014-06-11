@@ -117,10 +117,11 @@ function __hg_ps1 {
 	hgbranch=`hg branch 2> /dev/null | awk '{print $1}'`
 	hgdirty=""
 	if [ -n "$hgbranch" ]; then
+		hgbook=`hg bookmarks | awk '/\*/{print $2}'`
 		if [ -n "`hg -q diff`" ]; then
 			hgdirty=" *"
 		fi
-		echo "(HG:$hgbranch$hgdirty)"
+		echo "(HG:$hgbranch:%{$fg[blue]%}$hgbook%{$reset_color%}%$hgdirty)"
 	fi
 }
 
