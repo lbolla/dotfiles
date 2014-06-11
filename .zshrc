@@ -68,6 +68,7 @@ function 9acme {
 #{{{ Aliases
 alias -s doc=$DOCVIEWER
 alias -s docx=$DOCVIEWER
+alias -s odt=$DOCVIEWER
 alias -s gif=$IMAGEVIEWER
 alias -s hs=runhaskell
 alias -s jpg=$IMAGEVIEWER
