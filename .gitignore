@@ -17,3 +17,4 @@ aliases
 /.emacs.d/eshell/
 /.emacs.d/projectile-bookmarks.eld
 /.emacs.d/url/
+/.emacs.d/flycheck_private.el
