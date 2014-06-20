@@ -11,12 +11,15 @@
  ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
  '(column-number-mode t)
- '(custom-safe-themes (quote ("b905f1a2ee4653ea1bfbc0184d3338122782acf03d7104123c07670a8fab9bff" default)))
+ '(custom-safe-themes (quote ("c4bdf654f62e0de639da577ad68283484b15c0937129bcfb7ecec43314d1b154" default)))
  '(delete-old-versions t)
  '(evil-emacs-state-modes (quote (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-commit-mode magit-diff-mode magit-key-mode magit-log-mode magit-mode magit-reflog-mode magit-show-branches-mode magit-branch-manager-mode magit-stash-mode magit-status-mode magit-wazzup-mode magit-process-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode occur-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode rebase-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode)))
  '(font-use-system-font t)
+ '(inhibit-startup-screen t)
+ '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(user-full-name "Lorenzo Bolla"))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -35,6 +38,8 @@
 (global-set-key (kbd "C-c j") 'windmove-down)
 (global-set-key (kbd "C-c k") 'windmove-up)
 (global-set-key (kbd "C-c l") 'windmove-right)
+(global-set-key (kbd "C-c t") 'ansi-term)
+(global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 
 (load-theme 'lorenzo)
 
@@ -102,6 +107,7 @@
 	  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
 	  (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
 	  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+	  (add-hook 'haskell-mode-hook          #'enable-paredit-mode)
 	  (add-hook 'inferior-lisp-mode-hook    #'enable-paredit-mode)
 	  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 	  (add-hook 'clojure-mode-hook          #'enable-paredit-mode)
@@ -249,7 +255,7 @@
 		   'electric-indent-ignore-python)))
 
 (use-package python
-  :mode ("\\.pyx\\'" . python-mode)
+  :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
   :init (progn
 	  (defun python-insert-breakpoint ()
@@ -261,7 +267,14 @@
   :config (timeit
 	 "PYTHON"
 
-	 (defun python-pytest ()
+	 (defun python-current-function ()
+	   (save-excursion
+	     (end-of-line)
+	     (beginning-of-defun)
+	     (search-forward-regexp " *def \\(\\w+\\)")
+	     (message (match-string-no-properties 1))))
+
+	 (defun python-pytest-current-file ()
 	   (interactive)
 	   (async-shell-command
 	    (concat
@@ -277,6 +290,15 @@
 	     " -k "
 	     (thing-at-point 'word))))
 
+	 (defun python-pytest-current-function ()
+	   (interactive)
+	   (async-shell-command
+	    (concat
+	     "py.test -v "
+	     (buffer-file-name)
+	     " -k "
+	     (python-current-function))))
+
 	 (font-lock-add-keywords
 	   'python-mode
 	   '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)
@@ -290,16 +312,34 @@
 		      (jedi:setup)
 		      ;; Keybidings
 		      (define-key evil-normal-state-map (kbd ",b") 'python-insert-breakpoint)
-		      (define-key evil-normal-state-map (kbd ",t") 'python-pytest-at-point)
-		      (define-key evil-normal-state-map (kbd ",T") 'python-pytest)
+		      (define-key evil-normal-state-map (kbd ",t") 'python-pytest-current-function)
+		      (define-key evil-normal-state-map (kbd ",T") 'python-pytest-current-file)
 		      ;; Enter key executes newline-and-indent
 		      (local-set-key (kbd "RET") 'newline-and-indent)))))
+
+(use-package magit
+  :ensure t
+  :config (progn
+	    (define-key evil-normal-state-map (kbd ",gb") 'magit-blame-mode)
+	    (global-set-key (kbd "C-x G") 'magit-status)))
+
+(use-package cython-mode
+  :ensure t
+  :defer t
+  :config (progn
+	    (defun cython-show-annotated ()
+	      (interactive)
+	      (browse-url (concat "file://" (replace-regexp-in-string "\.pyx$" ".html" (buffer-file-name)))))
+	    (define-key evil-normal-state-map (kbd ",a") 'cython-show-annotated)))
 
 (use-package js
   :init (progn
 	  (add-hook 'js-mode-hook
 		    (lambda ()
-                      (setq indent-tabs-mode nil)
+					(setq indent-tabs-mode nil
+                ;; evil-shift-width 2
+                ;; tab-width 2
+                js-indent-level 2)
 		      (modify-syntax-entry ?\_ "w")))))
 
 (use-package sql
@@ -317,24 +357,42 @@
 	 (setq whitespace-line-column 79)
 	 (setq whitespace-style '(face lines-tail))))
 
-(use-package smtpmail
-  :config (progn
-	    (setq send-mail-function 'smtpmail-send-it
-		  smtpmail-smtp-server yg-smtp-server
-		  smtpmail-smtp-service yg-smtp-port
-		  smtpmail-mail-address yg-smtp-mail-address
-		  smtpmail-stream-type 'starttls)))
-
 (use-package markdown-mode
-  :mode ("\\.md\\'" . markdown-mode))
+  :mode ("\\.md\\'" . markdown-mode)
+  :config (progn
+	    (setq indent-tabs-mode nil)
+	    (setq evil-shift-width 2)
+	    (setq tab-width 2)))
+
+(use-package org
+  :init (progn
+	    (global-set-key (kbd "C-c o a") 'org-agenda)
+	    (global-set-key (kbd "C-c o c") 'org-capture)
+	    (global-set-key (kbd "C-c o l") 'org-store-link)
+	    (setq org-log-done 'time
+		  org-log-into-drawer t
+		  org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)"))
+		  org-todo-keyword-faces '(("TODO" . org-todo) ("WAIT" . "yellow")
+					   ("CANCELED" . "gray") ("DONE" . org-done))
+		  org-agenda-files '("~/org/")
+		  org-link-abbrev-alist '(("google"    . "http://www.google.com/search?q=")
+					  ("gmap"      . "http://maps.google.com/maps?q=%s")))))
 
 (use-package sgml-mode
   :mode ("\\.tmpl\\'" . html-mode)
   :config (progn
-	    (sgml-guess-indent)))
+	    (sgml-guess-indent)
+	    (modify-syntax-entry ?\_ "w")
+	    (modify-syntax-entry ?\- "w")))
 
 (use-package cider
   :commands cider-jack-in)
+
+(use-package haskell-mode
+  :defer t
+  :config (progn
+	    (haskell-doc-mode t)
+	    (haskell-indent-mode t)))
 
 (use-package rcirc
   :ensure t
@@ -346,7 +404,7 @@
 	     (when (and (string-match (regexp-quote (rcirc-nick process)) text)
 			(not (string= (rcirc-nick process) sender))
 			(not (string= (rcirc-server-name process) sender)))
-	       (beep)))
+	       (my-beep)))
 	   (add-hook 'rcirc-print-functions 'my-rcirc-print-hook)
 	   (add-hook 'rcirc-mode-hook
 		     (lambda ()
@@ -356,7 +414,7 @@
 		       (flyspell-mode t)))
 	   (setq rcirc-server-alist '())
 	   (add-to-list 'rcirc-server-alist yg-rcirc-server)
-	   (add-to-list 'rcirc-server-alist freenode-rcirc-server)
+	   ;; (add-to-list 'rcirc-server-alist freenode-rcirc-server)
 	   (defun-rcirc-command reconnect (arg)
 	     "Reconnect the server process."
 	     (interactive "i")
@@ -382,6 +440,136 @@
 			      ;; TODO password
 			      ;; TODO encryption
 			      )))))
+
+(use-package mu4e
+  :load-path "/usr/local/share/emacs/site-lisp/mu4e"
+  :init (progn
+	  ;; default
+	  (setq mu4e-maildir "/home/lbolla/Mail")
+
+	  ;; (setq mu4e-drafts-folder "/Networkscale/[Gmail].Drafts")
+	  ;; (setq mu4e-sent-folder   "/Networkscale/[Gmail].Sent Mail")
+	  ;; (setq mu4e-trash-folder  "/Networkscale/[Gmail].Bin")
+
+	  ;; ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+	  ;; (setq mu4e-sent-messages-behavior 'delete)
+
+	  ;; (setq mu4e-maildir-shortcuts
+	  ;; 	'(("/Networkscale/INBOX"               . ?i)
+	  ;; 	  ("/Networkscale/[Gmail].Sent Mail"   . ?s)
+	  ;; 	  ("/Networkscale/[Gmail].Bin"         . ?t)
+	  ;; 	  ("/Networkscale/[Gmail].All Mail"    . ?a)))
+
+	  ;; ;; something about ourselves
+	  ;; (setq
+	  ;;  user-mail-address "lorenzo@networkscale.co.uk"
+	  ;;  user-full-name  "Lorenzo Bolla"
+	  ;;  message-signature
+	  ;;  (concat
+	  ;;   "Lorenzo Bolla, Director\n"
+	  ;;   "Networkscale Ltd.\n"))
+
+	  (defvar mu4e-my-accounts-alist
+	    `(("Personal"
+	       (mu4e-sent-folder . "/Personal/[Gmail].Sent Mail")
+	       (mu4e-drafts-folder . "/Personal/[Gmail].Drafts")
+	       (mu4e-trash-folder . "/Personal/[Gmail].Bin")
+	       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+	       (mu4e-sent-messages-behavior . delete)
+	       (mu4e-maildir-shortcuts . (("/Personal/INBOX"               . ?i)
+					  ("/Personal/[Gmail].Sent Mail"   . ?s)
+					  ("/Personal/[Gmail].Bin"         . ?t)
+					  ("/Personal/[Gmail].All Mail"    . ?a)))
+	       (message-signature . "Lorenzo Bolla\nhttp://lbolla.info")
+	       (user-mail-address . ,personal-smtp-mail-address)
+	       (smtpmail-smtp-user . ,personal-smtp-mail-address)
+	       (smtpmail-smtp-server . ,personal-smtp-server)
+	       (smtpmail-smtp-service . ,personal-smtp-port)
+	       (smtpmail-stream-type . starttls))
+	      ("Networkscale"
+	       (mu4e-sent-folder . "/Networkscale/[Gmail].Sent Mail")
+	       (mu4e-drafts-folder . "/Networkscale/[Gmail].Drafts")
+	       (mu4e-trash-folder . "/Networkscale/[Gmail].Bin")
+	       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+	       (mu4e-sent-messages-behavior . delete)
+	       (mu4e-maildir-shortcuts . (("/Networkscale/INBOX"               . ?i)
+					  ("/Networkscale/[Gmail].Sent Mail"   . ?s)
+					  ("/Networkscale/[Gmail].Bin"         . ?t)
+					  ("/Networkscale/[Gmail].All Mail"    . ?a)))
+	       (message-signature . "Lorenzo Bolla, Director\nNetworkscale Ltd.")
+	       (user-mail-address . ,ns-mail-address)
+	       (smtpmail-smtp-user . ,ns-smtp-user)
+	       (smtpmail-smtp-server . ,ns-smtp-server)
+	       (smtpmail-smtp-service . ,ns-smtp-port)
+	       (smtpmail-stream-type . starttls))
+	      ("YG"
+	       ;; (mu4e-sent-folder . "/YG/[Gmail].Sent Mail")
+	       ;; (mu4e-drafts-folder . "/YG/[Gmail].Drafts")
+	       ;; (mu4e-trash-folder . "/YG/[Gmail].Bin")
+	       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+	       ;; (mu4e-sent-messages-behavior . delete)
+	       ;; (mu4e-maildir-shortcuts . (("/YG/INBOX"               . ?i)))
+	       (message-signature . "Lorenzo Bolla")
+	       (user-mail-address . ,yg-smtp-mail-address)
+	       (smtpmail-smtp-user . ,yg-smtp-mail-address)
+	       (smtpmail-smtp-server . ,yg-smtp-server)
+	       (smtpmail-smtp-service . ,yg-smtp-port)
+	       (smtpmail-stream-type . starttls))))
+
+	  (defun mu4e-set-my-account (&optional acct)
+	    "Set the account for composing a message."
+	    (let* ((account
+	  	    (if acct
+	  		acct
+	  	      (if mu4e-compose-parent-message
+	  		  (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+	  		    (string-match "/\\(.*?\\)/" maildir)
+	  		    (match-string 1 maildir))
+	  		(completing-read (format "Compose with account: (%s) "
+	  					 (mapconcat #'(lambda (var) (car var)) mu4e-my-accounts-alist "/"))
+	  				 (mapcar #'(lambda (var) (car var)) mu4e-my-accounts-alist)
+	  				 nil t nil nil (caar mu4e-my-accounts-alist)))))
+	  	    (account-vars (cdr (assoc account mu4e-my-accounts-alist))))
+	      (if account-vars
+	  	  (mapc #'(lambda (var)
+	  		    (set (car var) (cdr var)))
+	  		account-vars)
+	  	(error "No email account found"))))
+
+	  ;; Pick a default account
+	  (mu4e-set-my-account "Networkscale")
+	  (add-hook 'mu4e-compose-pre-hook 'mu4e-set-my-account)
+
+	  ;; Global keybinding
+	  (global-set-key (kbd "C-c m") 'mu4e)
+	  (setq
+	   ;; Default MUA
+	   mail-user-agent 'mu4e-user-agent
+	   ;; I like UTF-8
+	   mu4e-use-fancy-chars nil
+	   ;; allow for updating mail using 'U' in the main view:
+	   mu4e-get-mail-command "offlineimap"
+	   ;; Update every 5  minutes
+	   mu4e-update-interval 300
+	   ;; convert html msgs to txt
+	   mu4e-html2text-command "html2text -utf8 -width 72"
+	   ;; don't keep message buffers around
+	   message-kill-buffer-on-exit t
+	   ;; skip duplicates introduced by gmail and offlineimap
+	   mu4e-headers-skip-duplicates t)))
+
+;; (use-package smtpmail
+;;   :config (progn
+;; 	    (setq send-mail-function 'smtpmail-send-it
+
+;; 		  ;; smtpmail-smtp-server yg-smtp-server
+;; 		  ;; smtpmail-smtp-service yg-smtp-port
+;; 		  ;; smtpmail-mail-address yg-smtp-mail-address
+;; 		  smtpmail-default-smtp-server "smtp.gmail.com"
+;; 		  smtpmail-smtp-server "smtp.gmail.com"
+;; 		  smtpmail-smtp-service 587
+
+;; 		  smtpmail-stream-type 'starttls)))
 
 (provide '.emacs)
 ;;; .emacs ends here
