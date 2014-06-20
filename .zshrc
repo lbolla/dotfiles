@@ -118,10 +118,9 @@ function __hg_ps1 {
 	hgdirty=""
 	if [ -n "$hgbranch" ]; then
 		hgbook=`hg bookmarks | awk '/\*/{print $2}'`
-		if [ -n "`hg -q diff`" ]; then
-			hgdirty=" *"
-		fi
-		echo "(HG:$hgbranch:%{$fg[blue]%}$hgbook%{$reset_color%}%$hgdirty)"
+		[ -n "$hgbook" ] && hgbook=":%{$fg[blue]%}$hgbook%{$reset_color%}%"
+		[ -n "`hg -q diff`" ] && hgdirty=" *"
+		echo "(HG:$hgbranch$hgbook$hgdirty)"
 	fi
 }
 
@@ -133,9 +132,20 @@ function __venv_ps1 {
     fi
 }
 
+function cabal_sandbox_info() {
+    cabal_files=(*.cabal(N))
+    if [ $#cabal_files -gt 0 ]; then
+        if [ -f cabal.sandbox.config ]; then
+            echo "%{$fg[green]%}(HS:sandboxed)%{$reset_color%}"
+        else
+            echo "%{$fg[red]%}(HS:not-sandboxed)%{$reset_color%}"
+        fi
+    fi
+}
+
 GIT_PS1_SHOWDIRTYSTATE=true
 export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F%B%{$fg[yellow]%}%~%f%{$reset_color%}%b % > '
-export RPROMPT='%B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
+export RPROMPT='%B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)$(cabal_sandbox_info)%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
 #}}}
 
 #{{{ Bindings
