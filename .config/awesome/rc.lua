@@ -81,8 +81,9 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-	-- tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
-    tags[s] = awful.tag({"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"}, s, layouts[1])
+    -- tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    -- tags[s] = awful.tag({"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"}, s, layouts[2])
+    tags[s] = awful.tag({"一", "二", "三", "四", "五", "六", "七", "八", "九"}, s, layouts[2])
 end
 -- }}}
 
@@ -110,6 +111,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "keepass2", "keepass2" },
                                     { "screenshot", screenshot },
                                     { "spotify", "spotify" },
+                                    { "startup apps", "gnome-session-properties"},
                                     { "terminal", terminal },
                                     { "vpn", "/opt/cisco/anyconnect/bin/vpnui" },
 		  		    { "lock", lock },
@@ -221,22 +223,22 @@ for s = 1, screen.count() do
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
     -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = {
-        {
-            mylauncher,
-            mytaglist[s],
+	mywibox[s].widgets = {
+		{
+			mylauncher,
+			mytaglist[s],
 			s == 1 and batwidget or nil,
 			s == 1 and memwidget or nil,
 			s == 1 and cpuwidget or nil,
-            mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright
-        },
-        mylayoutbox[s],
-        mytextclock,
-        s == 1 and mysystray or nil,
-        mytasklist[s],
-        layout = awful.widget.layout.horizontal.rightleft
-    }
+			mypromptbox[s],
+			layout = awful.widget.layout.horizontal.leftright
+		},
+		mylayoutbox[s],
+		mytextclock,
+		s == 1 and mysystray or nil,
+		mytasklist[s],
+		layout = awful.widget.layout.horizontal.rightleft
+	}
 end
 -- }}}
 
