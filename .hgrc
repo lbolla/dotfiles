@@ -5,3 +5,4 @@ username = Lorenzo Bolla <lorenzo.bolla@yougov.com>
 [extensions]
 color =
 pager =
+graphlog =
