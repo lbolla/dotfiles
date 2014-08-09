@@ -13,7 +13,7 @@
  '(column-number-mode t)
  '(custom-safe-themes (quote ("c4bdf654f62e0de639da577ad68283484b15c0937129bcfb7ecec43314d1b154" default)))
  '(delete-old-versions t)
- '(evil-emacs-state-modes (quote (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-commit-mode magit-diff-mode magit-key-mode magit-log-mode magit-mode magit-reflog-mode magit-show-branches-mode magit-branch-manager-mode magit-stash-mode magit-status-mode magit-wazzup-mode magit-process-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode occur-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode rebase-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode)))
+ '(evil-emacs-state-modes (quote (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-commit-mode magit-diff-mode magit-key-mode magit-log-mode magit-mode magit-reflog-mode magit-show-branches-mode magit-branch-manager-mode magit-stash-mode magit-status-mode magit-wazzup-mode magit-process-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode occur-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode rebase-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode)))
  '(font-use-system-font t)
  '(inhibit-startup-screen t)
  '(send-mail-function (quote smtpmail-send-it))
@@ -96,6 +96,9 @@
 	 (define-key evil-normal-state-map (kbd ",G") 'rgrep)
 	 (define-key evil-normal-state-map (kbd ",m") 'menu-bar-mode)
 	 (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
+	 (define-key evil-normal-state-map (kbd ",a") 'ace-jump-mode)
+	 (define-key evil-normal-state-map (kbd ",yf") 'yg-fogbugz-browse-at-point)
+	 (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)
 	 (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
 	 (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
 
@@ -121,6 +124,12 @@
 	 (add-hook 'after-init-hook #'global-flycheck-mode)
 	 (setq flycheck-highlighting-mode 'lines)
 	 (setq python-check-function "flake8")))
+
+(use-package flycheck-haskell
+  :ensure t
+  :init (progn
+	 (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
+	 (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
 
 (use-package ido
   :ensure t
@@ -274,30 +283,32 @@
 	     (search-forward-regexp " *def \\(\\w+\\)")
 	     (message (match-string-no-properties 1))))
 
+	 (defmacro venv-pytest (&rest what)
+	   `(async-shell-command
+	     (concat
+	      "cd "
+	      (venv-get-proj-dir)
+	      " && "
+	      "py.test -v "
+	      ,@what)))
+
 	 (defun python-pytest-current-file ()
 	   (interactive)
-	   (async-shell-command
-	    (concat
-	     "py.test -v "
-	     (buffer-file-name))))
+	   (venv-pytest (buffer-file-name)))
 
 	 (defun python-pytest-at-point ()
 	   (interactive)
-	   (async-shell-command
-	    (concat
-	     "py.test -v "
-	     (buffer-file-name)
-	     " -k "
-	     (thing-at-point 'word))))
+	   (venv-pytest
+	    (buffer-file-name)
+	    " -k "
+	    (thing-at-point 'word)))
 
 	 (defun python-pytest-current-function ()
 	   (interactive)
-	   (async-shell-command
-	    (concat
-	     "py.test -v "
-	     (buffer-file-name)
-	     " -k "
-	     (python-current-function))))
+	   (venv-pytest
+	    (buffer-file-name)
+	    " -k "
+	    (python-current-function)))
 
 	 (font-lock-add-keywords
 	   'python-mode
@@ -336,10 +347,10 @@
   :init (progn
 	  (add-hook 'js-mode-hook
 		    (lambda ()
-					(setq indent-tabs-mode nil
-                ;; evil-shift-width 2
-                ;; tab-width 2
-                js-indent-level 2)
+		      (setq indent-tabs-mode nil
+			    ;; evil-shift-width 2
+			    ;; tab-width 2
+			    js-indent-level 4)
 		      (modify-syntax-entry ?\_ "w")))))
 
 (use-package sql
@@ -369,8 +380,13 @@
 	    (global-set-key (kbd "C-c o a") 'org-agenda)
 	    (global-set-key (kbd "C-c o c") 'org-capture)
 	    (global-set-key (kbd "C-c o l") 'org-store-link)
+	    (add-hook 'org-mode-hook
+		      (lambda ()
+			(auto-fill-mode t)
+			(flyspell-mode t)))
 	    (setq org-log-done 'time
 		  org-log-into-drawer t
+		  org-agenda-include-diary t
 		  org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)"))
 		  org-todo-keyword-faces '(("TODO" . org-todo) ("WAIT" . "yellow")
 					   ("CANCELED" . "gray") ("DONE" . org-done))
@@ -391,8 +407,33 @@
 (use-package haskell-mode
   :defer t
   :config (progn
-	    (haskell-doc-mode t)
-	    (haskell-indent-mode t)))
+	    (add-hook
+	     'haskell-mode-hook
+	     (lambda ()
+	       (turn-on-haskell-decl-scan)
+	       (turn-on-haskell-doc-mode t)
+	       (turn-on-haskell-indentation)
+	       (setq haskell-compile-cabal-build-command "cd %s && ~/.cabal/bin/cabal build --ghc-options=-ferror-spans")
+	       (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile)
+	       (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-file)
+	       (define-key haskell-mode-map (kbd "C-c C-b") 'haskell-process-load-or-reload)))))
+
+(use-package haskell-cabal
+  :mode ("\\.cabal\\'" . haskell-cabal-mode)
+  :config (progn
+	    (add-hook 'haskell-cabal-mode-hook
+		      (lambda ()
+			(setq indent-tabs-mode nil)))))
+
+(use-package auto-revert-tail-mode
+  :mode ("\\.log\\'" . auto-revert-tail-mode))
+
+(use-package csv-mode
+  :mode ("\\.csv\\'" . csv-mode))
+
+(use-package ace-jump-mode
+  :ensure t
+  :defer t)
 
 (use-package rcirc
   :ensure t
