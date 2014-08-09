@@ -104,6 +104,7 @@ alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias tmux='tmux -2'
 alias ygcheese="python setup.py register -r yg sdist upload -r yg"
+alias csvtable="column -s, -t | less -#2 -N -S"
 #}}}
 
 #{{{ Private
