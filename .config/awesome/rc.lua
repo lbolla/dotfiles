@@ -147,6 +147,9 @@ batwidget:set_border_color(nil)
 batwidget:set_color("#00bfff")
 vicious.register(batwidget, vicious.widgets.bat, "$2", 120, "BAT0")
 
+-- batwidget = widget({type = "textbox"})
+-- vicious.register(batwidget, vicious.widgets.bat, "BAT: $1 $2% [$3]", 120, "BAT0")
+
 memwidget = awful.widget.progressbar()
 memwidget:set_width(8)
 memwidget:set_vertical(true)
