@@ -55,4 +55,12 @@
 						     (read-passwd "Password: "))))) url-request-extra-headers)))
      (progn ,@body)))
 
+(defun set-indent (size)
+  "Set indent equal to SIZE."
+  (interactive "p")
+  (setq indent-tabs-mode nil
+        evil-shift-width size
+	js-indent-level size
+        tab-width size))
+
 ;;; util.el ends here
