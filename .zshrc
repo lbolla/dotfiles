@@ -82,18 +82,19 @@ alias cdrip='ripit'
 alias cindent='indent -kr -nut'
 alias e=vim
 alias em='emacs -nw'
+alias E='emacsclient'
 alias l='ls -l --color'
 alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
 alias linodesh='ssh -X lbolla.info'
 alias ll='ls -la --color'
 alias lp='lp -o fit-to-page -o media=a4'
 alias ls='ls --color'
-alias mutt-gmail='MUTT_PROFILE=gmail mutt'
-alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
-alias mutt-pispo-customerservice='MUTT_PROFILE=pispo-customerservice mutt'
-alias mutt-pispo-info='MUTT_PROFILE=pispo-info mutt'
-alias mutt-pispo='MUTT_PROFILE=pispo mutt'
-alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
+# alias mutt-gmail='MUTT_PROFILE=gmail mutt'
+# alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
+# alias mutt-pispo-customerservice='MUTT_PROFILE=pispo-customerservice mutt'
+# alias mutt-pispo-info='MUTT_PROFILE=pispo-info mutt'
+# alias mutt-pispo='MUTT_PROFILE=pispo mutt'
+# alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
 alias pg='ps aux | grep'
 alias psp="ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:28,comm"
 alias psz="ps aux | awk '{ print \$8 \" \" \$2 }' | grep Z"
@@ -185,4 +186,11 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+#}}}
+
+#{{{ Custom competions
+_paver_tasks () {
+    reply=( $(paver help | awk '/^  ([a-zA-Z_]+).+-/{print $1}') )
+}
+compctl -K _paver_tasks paver
 #}}}
