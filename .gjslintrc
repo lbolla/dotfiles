@@ -1,0 +1,3 @@
+--strict
+--jslint_error=all
+--nojsdoc
