@@ -13,21 +13,24 @@
  '(column-number-mode t)
  '(custom-safe-themes (quote ("c4bdf654f62e0de639da577ad68283484b15c0937129bcfb7ecec43314d1b154" default)))
  '(delete-old-versions t)
+ '(display-time-world-list (quote (("UTC" "UTC") ("America/Los_Angeles" "Palo Alto") ("America/New_York" "New York") ("Europe/London" "London") ("Europe/Rome" "Rome") ("Asia/Shanghai" "Shanghai") ("Asia/Tokyo" "Tokyo"))))
  '(evil-emacs-state-modes (quote (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-commit-mode magit-diff-mode magit-key-mode magit-log-mode magit-mode magit-reflog-mode magit-show-branches-mode magit-branch-manager-mode magit-stash-mode magit-status-mode magit-wazzup-mode magit-process-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode occur-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode rebase-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode)))
  '(font-use-system-font t)
  '(ido-ignore-files (quote ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.egg-info/")))
  '(inhibit-startup-screen t)
+ '(mouse-autoselect-window t)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
- '(user-full-name "Lorenzo Bolla"))
+ '(user-full-name "Lorenzo Bolla")
+ '(vc-follow-symlinks nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "light gray" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "unknown" :family "Terminus")))))
+ '(default ((t (:inherit nil :stipple nil :background "black" :foreground "light gray" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 119 :width normal :foundry "unknown" :family "Terminus")))))
 
 (load-file "~/.emacs.d/util.el")
 (load-file "~/.emacs.d/custom.el")
@@ -241,7 +244,7 @@
   :mode ("\\.ya?ml\\'" . yaml-mode))
 
 (use-package text-mode
-  :mode "README"
+  :mode "\\README\\'"
   :init (progn
 	  (add-hook 'text-mode-hook
 		    (lambda ()
@@ -359,7 +362,7 @@
 	  (add-hook 'js-mode-hook
 		    (lambda ()
 		      (setq indent-tabs-mode nil
-			    js-indent-level 4)
+			    js-indent-level 2)
 		      (modify-syntax-entry ?\_ "w")))))
 
 (use-package sql
@@ -404,7 +407,8 @@
 					  ("gmap"      . "http://maps.google.com/maps?q=%s")))))
 
 (use-package sgml-mode
-  :mode ("\\.tmpl\\'" . html-mode)
+  :mode (("\\.html\\'" . html-mode)
+	 ("\\.tmpl\\'" . html-mode))
   :config (progn
 	    (sgml-guess-indent)
 	    (modify-syntax-entry ?\_ "w")
@@ -432,7 +436,7 @@
 		evil-shift-width 2
 		tab-width 2
 		js-indent-level 2
-		haskell-compile-cabal-build-command "cd %s && ~/.cabal/bin/cabal build --ghc-options=-ferror-spans"
+		haskell-compile-cabal-build-command "cd %s && ~/.cabal/bin/cabal build -v --ghc-options=-ferror-spans"
 		haskell-process-suggest-remove-import-lines t
 		haskell-process-auto-import-loaded-modules t
 		haskell-process-type 'cabal-repl
