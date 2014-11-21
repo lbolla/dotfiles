@@ -72,7 +72,7 @@ layouts =
     -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+ -- awful.layout.suit.magnifier
 }
 -- }}}
 
@@ -449,5 +449,5 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 
 -- {{{ Autorun
 -- awful.util.spawn(terminal)
-awful.util.spawn("empathy -hn")
+-- awful.util.spawn("empathy -hn")
 --- }}}
