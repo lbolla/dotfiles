@@ -21,7 +21,7 @@ unsetopt SHARE_HISTORY
 
 #{{{ Variables
 export TERM=xterm-256color
-export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/go/bin:$HOME/src/emacs-24.3/src:$HOME/src/emacs-24.3/lib-src:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/go/bin:$HOME/src/emacs-24.4/src:$HOME/src/emacs-24.4/lib-src:$PATH
 export PYTHONSTARTUP="$HOME/.pyrc"
 HISTSIZE=1000
 SAVEHIST=1000
@@ -37,9 +37,11 @@ fi
 if [[ -x `which soffice` ]]; then
     DOCVIEWER=soffice
     PPTVIEWER=soffice
-elif [[ -x `which evince` ]]; then
+    XLSVIEWER=soffice
+elif [[ -x `which abiword` ]]; then
     DOCVIEWER=abiword
     PPTVIEWER=abiword
+    XLSVIEWER=abiword
 fi
 if [[ -x `which eog` ]]; then
 	IMAGEVIEWER=eog
@@ -69,6 +71,8 @@ function 9acme {
 alias -s doc=$DOCVIEWER
 alias -s docx=$DOCVIEWER
 alias -s odt=$DOCVIEWER
+alias -s xls=$XLSVIEWER
+alias -s xlsx=$XLSVIEWER
 alias -s gif=$IMAGEVIEWER
 alias -s hs=runhaskell
 alias -s jpg=$IMAGEVIEWER
@@ -135,14 +139,14 @@ function __venv_ps1 {
 }
 
 function cabal_sandbox_info() {
-    cabal_files=(*.cabal(N))
-    if [ $#cabal_files -gt 0 ]; then
-        if [ -f cabal.sandbox.config ]; then
-            echo "%{$fg[green]%}(HS:sandboxed)%{$reset_color%}"
-        else
-            echo "%{$fg[red]%}(HS:not-sandboxed)%{$reset_color%}"
-        fi
-    fi
+	cabal_files=(*.cabal(N))
+	if [ $#cabal_files -gt 0 ]; then
+		if [ -f cabal.sandbox.config ]; then
+			echo "%{$fg[green]%}(HS:sandboxed)%{$reset_color%}"
+		else
+			echo "%{$fg[red]%}(HS:not-sandboxed)%{$reset_color%}"
+		fi
+	fi
 }
 
 GIT_PS1_SHOWDIRTYSTATE=true
