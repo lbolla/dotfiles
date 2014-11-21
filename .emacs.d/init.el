@@ -498,7 +498,8 @@ See URL `http://flowtype.org/'."
 	   "RCIRC"
 	   (defun my-rcirc-print-hook (process sender response target text)
 	     "In PROCESS, if SENDER is not self, ignore RESPONSE and TARGET, beep when TEXT equals current nick."
-	     (when (and (string-match (regexp-quote (rcirc-nick process)) text)
+	     ;; (when (and (string-match (regexp-quote (rcirc-nick process)) text)
+	     (when (and (string-match (concat "@?" (rcirc-nick process)) text)
 			(not (string= (rcirc-nick process) sender))
 			(not (string= (rcirc-server-name process) sender)))
 	       (my-beep)))
@@ -510,7 +511,8 @@ See URL `http://flowtype.org/'."
 		       ;; (rcirc-omit-mode)
 		       (flyspell-mode t)))
 	   (setq rcirc-server-alist '())
-	   (add-to-list 'rcirc-server-alist yg-rcirc-server)
+	   ;; (add-to-list 'rcirc-server-alist yg-rcirc-server)
+	   (add-to-list 'rcirc-server-alist yg-slack-rcirc-server)
 	   ;; (add-to-list 'rcirc-server-alist freenode-rcirc-server)
 	   (defun-rcirc-command reconnect (arg)
 	     "Reconnect the server process."
