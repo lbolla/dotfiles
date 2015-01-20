@@ -197,4 +197,8 @@ _paver_tasks () {
     reply=( $(paver help | awk '/^  ([a-zA-Z_]+).+-/{print $1}') )
 }
 compctl -K _paver_tasks paver
+_vagrant_cmds () {
+    reply=( $(vagrant help | awk '/^     /{print $1}') )
+}
+compctl -K _vagrant_cmds vagrant
 #}}}
