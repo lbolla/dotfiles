@@ -10,15 +10,53 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
+ '(c-default-style
+   (quote
+    ((c-mode . "linux")
+     (java-mode . "java")
+     (awk-mode . "awk")
+     (other . "gnu"))))
  '(column-number-mode t)
- '(custom-safe-themes (quote ("c4bdf654f62e0de639da577ad68283484b15c0937129bcfb7ecec43314d1b154" default)))
+ '(custom-safe-themes
+   (quote
+    ("c4bdf654f62e0de639da577ad68283484b15c0937129bcfb7ecec43314d1b154" default)))
  '(delete-old-versions t)
- '(display-time-world-list (quote (("UTC" "UTC") ("America/Los_Angeles" "Palo Alto") ("America/New_York" "New York") ("America/Sao_Paulo" "Sao Paulo") ("Europe/London" "London") ("Europe/Rome" "Rome") ("Asia/Shanghai" "Shanghai") ("Asia/Tokyo" "Tokyo"))))
- '(evil-emacs-state-modes (quote (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-commit-mode magit-diff-mode magit-key-mode magit-log-mode magit-mode magit-reflog-mode magit-show-branches-mode magit-branch-manager-mode magit-stash-mode magit-status-mode magit-wazzup-mode magit-process-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode occur-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode rebase-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode)))
+ '(display-time-world-list
+   (quote
+    (("UTC" "UTC")
+     ("America/Los_Angeles" "Palo Alto")
+     ("America/Mexico_City" "Mexico City")
+     ("America/New_York" "New York")
+     ("America/Lima" "Lima")
+     ("America/Sao_Paulo" "Sao Paulo")
+     ("Europe/London" "London")
+     ("Europe/Rome" "Rome")
+     ("Asia/Jakarta" "Jakarta")
+     ("Asia/Bangkok" "Bangkok")
+     ("Asia/Singapore" "Singapore")
+     ("Asia/Kuala_Lumpur" "Kuala Lumpur")
+     ("Asia/Shanghai" "Shanghai")
+     ("Asia/Tokyo" "Tokyo"))))
+ '(evil-emacs-state-modes
+   (quote
+    (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-commit-mode magit-diff-mode magit-key-mode magit-log-mode magit-mode magit-reflog-mode magit-show-branches-mode magit-branch-manager-mode magit-stash-mode magit-status-mode magit-wazzup-mode magit-process-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode rebase-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode)))
+ '(flycheck-clang-include-path
+   (quote
+    ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include")))
+ '(flycheck-cppcheck-checks (quote ("all")))
  '(font-use-system-font t)
- '(ido-ignore-files (quote ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.egg-info/")))
+ '(ido-ignore-files
+   (quote
+    ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.egg-info/")))
  '(inhibit-startup-screen t)
- '(mouse-autoselect-window t)
+ '(mouse-autoselect-window nil)
+ '(mouse-yank-at-point t)
+ '(org-agenda-sorting-strategy
+   (quote
+    ((agenda habit-down deadline-up time-up todo-state-down priority-down category-keep tag-up)
+     (todo priority-down category-keep)
+     (tags priority-down category-keep)
+     (search category-keep))))
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
@@ -47,6 +85,7 @@
 (global-set-key (kbd "C-c l") 'windmove-right)
 (global-set-key (kbd "C-c t") 'ansi-term)
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+(global-set-key (kbd "<f5>") 'compile)
 
 (load-theme 'lorenzo)
 (server-start)
@@ -92,7 +131,10 @@
 	   (other-frame -1))
 
 	 (use-package evil-nerd-commenter
-	   :ensure t)
+	   :ensure t
+	   :init (progn
+		   (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
+		   (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
 
 	 (use-package evil-matchit
 	   :ensure t
@@ -100,7 +142,18 @@
 		    (global-evil-matchit-mode 1)))
 
 	 (evil-mode t)
-	 ;; (define-key evil-normal-state-map (kbd ",t") 'new-tab)
+
+	 ;; Start in "emacs mode"
+	 (evil-set-initial-state 'eshell-mode 'emacs)
+	 (evil-set-initial-state 'term-mode 'emacs)
+	 (evil-set-initial-state 'comint-mode 'emacs)
+	 (evil-set-initial-state 'occur-mode 'emacs)
+	 (evil-set-initial-state 'sql-interactive-mode 'emacs)
+
+	 ;; Mercurial keybindings for VC
+	 (define-key evil-normal-state-map (kbd ",hb") 'vc-annotate)
+
+	 (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
 	 (define-key evil-normal-state-map (kbd "C-w t") 'new-tab)
 	 (define-key evil-normal-state-map (kbd "C-w x") 'delete-tab)
 	 (define-key evil-normal-state-map (kbd "gt") 'next-tab)
@@ -109,11 +162,9 @@
 	 (define-key evil-normal-state-map (kbd ",G") 'rgrep)
 	 (define-key evil-normal-state-map (kbd ",m") 'menu-bar-mode)
 	 (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
-	 (define-key evil-normal-state-map (kbd ",a") 'ace-jump-mode)
+	 (define-key evil-normal-state-map (kbd ",j") 'ace-jump-mode)
 	 (define-key evil-normal-state-map (kbd ",yf") 'yg-fogbugz-browse-at-point)
-	 (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)
-	 (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
-	 (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
+	 (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)))
 
 (use-package paredit
   :ensure t
@@ -149,13 +200,14 @@ See URL `http://flowtype.org/'."
 	   	   ":"
 	   	   line
 	   	   ":"
-	   	   (minimal-match (one-or-more (not (any ":"))))
+	   	   (minimal-match (one-or-more not-newline))
 	   	   ": "
 	   	   (message (minimal-match (and (one-or-more anything) "\n")))
 	   	   line-end))
 	   :modes js-mode)
 	 (add-to-list 'flycheck-checkers 'javascript-flow t)
-	 (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)))
+	 (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)
+	 (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
 
 (use-package flycheck-haskell
   :ensure t
@@ -381,6 +433,13 @@ See URL `http://flowtype.org/'."
 		    (lambda ()
 		      (setq indent-tabs-mode nil
 			    js-indent-level 2)
+		      (local-set-key (kbd "RET") 'newline-and-indent)
+		      (modify-syntax-entry ?\_ "w")))))
+
+(use-package cc-mode
+  :init (progn
+	  (add-hook 'c-mode-hook
+		    (lambda ()
 		      (modify-syntax-entry ?\_ "w")))))
 
 (use-package sql
@@ -395,34 +454,65 @@ See URL `http://flowtype.org/'."
 	 "WHITESPACE"
 	 (hook-into-modes 'whitespace-mode '(python-mode-hook))
 	 ;; Highlight portion of lines >79
-	 (setq whitespace-line-column 79)
-	 (setq whitespace-style '(face lines-tail))))
+	 (setq whitespace-line-column 79
+	       whitespace-style '(face lines-tail))))
 
 (use-package markdown-mode
   :mode ("\\.md\\'" . markdown-mode)
   :config (progn
-	    (setq indent-tabs-mode nil)
-	    (setq evil-shift-width 2)
-	    (setq tab-width 2)))
+	    (add-hook 'markdown-mode-hook
+		      (lambda ()
+			(set-indent 2)))))
 
 (use-package org
   :init (progn
 	    (global-set-key (kbd "C-c o a") 'org-agenda)
-	    (global-set-key (kbd "C-c o c") 'org-capture)
+	    (global-set-key (kbd "C-c o k") 'org-capture)
 	    (global-set-key (kbd "C-c o l") 'org-store-link)
 	    (add-hook 'org-mode-hook
 		      (lambda ()
 			(auto-fill-mode t)
 			(flyspell-mode t)))
-	    (setq org-log-done 'time
-		  org-log-into-drawer t
+	    (setq org-agenda-files '("~/org/")
 		  org-agenda-include-diary t
-		  org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)"))
-		  org-todo-keyword-faces '(("TODO" . org-todo) ("WAIT" . "yellow")
-					   ("CANCELED" . "gray") ("DONE" . org-done))
-		  org-agenda-files '("~/org/")
-		  org-link-abbrev-alist '(("google"    . "http://www.google.com/search?q=")
-					  ("gmap"      . "http://maps.google.com/maps?q=%s")))))
+		  org-agenda-start-on-weekday nil
+		  org-agenda-ndays 7
+		  org-agenda-custom-commands (quote (("d" todo "DELG" nil)
+						     ("c" todo "DONE|DEFR|CANC" nil)
+						     ("w" todo "WAIT" nil)
+						     ("W" agenda "21 days" ((org-agenda-ndays 21)))
+						     ("A" agenda "Today's #A priority"
+						      ((org-agenda-skip-function
+							(lambda nil
+							  (org-agenda-skip-entry-if (quote notregexp) "\\=.*\\[#A\\]")))
+						       (org-agenda-ndays 1)
+						       (org-agenda-overriding-header "Today's Priority #A tasks: ")))
+						     ("u" alltodo "Unscheduled TODO"
+						      ((org-agenda-skip-function
+							(lambda nil
+							  (org-agenda-skip-entry-if (quote scheduled) (quote deadline)
+										    (quote regexp) "\n]+>")))
+						       (org-agenda-overriding-header "Unscheduled TODO entries: ")))))
+		  org-capture-templates
+		  '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks") "* TODO %?\n  %i\n  %a")
+		    ("j" "Journal" entry (file+datetree "~/org/todo.org") "* %?\nEntered on %U\n  %i\n  %a"))
+		  org-default-notes-file "~/org/todo.org" 
+		  org-fast-tag-selection-single-key t
+		  org-link-abbrev-alist '(("FB" . "https://yougov.fogbugz.com/f/cases/%s")
+					  ("google" . "http://www.google.com/search?q=")
+					  ("gmap" . "http://maps.google.com/maps?q=%s"))
+		  org-log-done 'time
+		  org-log-into-drawer t
+		  ;; org-todo-keywords '((sequence "TODO(t)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELLED(c@)"))
+		  org-todo-keyword-faces
+		  '(("TODO" . org-todo)
+		    ("STRT" . "orange")
+		    ("WAIT" . "yellow")
+		    ("DELG" . "blue")
+		    ("APPT" . "cyan")
+		    ("CANC" . "darkgray")
+		    ("DEFR" . "purple")
+		    ("DONE" . org-done)))))
 
 (use-package css-mode
   :mode (("\\.scss\\'" . css-mode)))
@@ -431,9 +521,12 @@ See URL `http://flowtype.org/'."
   :mode (("\\.html\\'" . html-mode)
 	 ("\\.tmpl\\'" . html-mode))
   :config (progn
-	    (sgml-guess-indent)
-	    (modify-syntax-entry ?\_ "w")
-	    (modify-syntax-entry ?\- "w")))
+	    (add-hook 'html-mode-hook
+		      (lambda ()
+			(sgml-guess-indent)
+			(set-indent 2)
+			(modify-syntax-entry ?\_ "w")
+			(modify-syntax-entry ?\- "w")))))
 
 (use-package cider
   :commands cider-jack-in)
