@@ -2,6 +2,9 @@
 # username = Lorenzo Bolla <lbolla@gmail.com>
 username = Lorenzo Bolla <lorenzo.bolla@yougov.com>
 
+[alias]
+show = log --color=always -pr
+
 [extensions]
 color =
 pager =
