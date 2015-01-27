@@ -61,7 +61,8 @@
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(user-full-name "Lorenzo Bolla")
- '(vc-follow-symlinks nil))
+ '(vc-follow-symlinks nil)
+ '(vc-log-show-limit 50))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -291,7 +292,10 @@ See URL `http://flowtype.org/'."
 	    (interactive "i")
 	    (venv-workon venv)
 	    (venv-cdproject)
-	    (dired default-directory))
+	    (dired default-directory)
+	    (revert-buffer)
+	    (projectile-vc)
+	    (other-window 1))
 
 	  (define-key evil-normal-state-map ",w" 'venv-workon-and-cdproject))
 
