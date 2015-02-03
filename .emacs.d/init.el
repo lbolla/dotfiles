@@ -243,7 +243,7 @@ See URL `http://flowtype.org/'."
 
 (use-package frame
   :init (progn
-	  (blink-cursor-mode)))
+	  (blink-cursor-mode 1)))
 
 (use-package paren
   :init (progn
@@ -527,7 +527,8 @@ See URL `http://flowtype.org/'."
   :config (progn
 	    (add-hook 'html-mode-hook
 		      (lambda ()
-			(sgml-guess-indent)
+			;; (sgml-guess-indent)
+			(setq sgml-basic-offset 2)
 			(set-indent 2)
 			(modify-syntax-entry ?\_ "w")
 			(modify-syntax-entry ?\- "w")))))
