@@ -39,6 +39,7 @@ end
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 -- beautiful.init("/usr/share/awesome/themes/sky/theme.lua")
 beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+-- beautiful.init(awful.util.getdir("config") .. "themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -292,7 +293,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "c",      function () awful.util.spawn("google-chrome --incognito") end),
     awful.key({ modkey,           }, "e",      function () awful.util.spawn("emacs") end),
     awful.key({ modkey,           }, "t",      function () awful.util.spawn("thunderbird") end),
-    -- awful.key({ modkey, "Control" }, "r",      awesome.restart),
     awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
     awful.key({ modkey, "Shift"   }, "s",      function () awful.util.spawn(lock) end),
     awful.key({ modkey, "Shift"   }, "q",      function () awful.util.spawn(poweroff) end),
@@ -313,9 +313,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
-	-- Overwrite Mod-p which changes resolution by default
-    awful.key({ modkey },            "p",     function () mypromptbox[mouse.screen]:run() end),
+    -- awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey },            "r",     function () awful.util.spawn("gmrun") end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -402,18 +401,28 @@ awful.rules.rules = {
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = true,
-					 size_hints_honor = false,
+		     size_hints_honor = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
+    -- Floating apps
     { rule = { class = "MPlayer" },
-      properties = { floating = true } },
-    { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    -- Open app with [name|class] (use xprop) on screen [x] and tag [y]
+    { rule = { class = "Emacs", instance = "emacs" },
+      properties = { tag = tags[2][1] } },
+    { rule = { class = "Virtualbox" },
+      properties = { floating = true,
+                     tag = tags[2][5] } },
+    { rule = { class = "Filezilla", instance = "filezilla" },
+      properties = { tag = tags[2][3] } },
+    { rule = { name = "p.kdbx - KeePass Password Safe" },
+      properties = { tag = tags[2][5] } },
+    { rule = { class = "Thunderbird" },
+      properties = { tag = tags[2][6] } },
+    { rule = { class = "Google-chrome", name = "brandindex | YouGov Slack - Google Chrome" },
+      properties = { tag = tags[1][1] } },
 }
 -- }}}
 
