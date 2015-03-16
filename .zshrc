@@ -1,7 +1,7 @@
 # See http://stackoverflow.com/questions/171563/whats-in-your-zshrc
 
 #{{{ ZSH Modules
-autoload -Uz promptinit compinit colors
+autoload -Uz promptinit compinit colors parameter
 promptinit
 compinit
 colors
@@ -109,7 +109,7 @@ alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias tmux='tmux -2'
 alias ygcheese="python setup.py register -r yg sdist upload -r yg"
-alias csvtable="column -s, -t | less -#2 -N -S"
+alias csvtable="sed 's/,,/, ,/g;s/,,/, ,/g' | column -s, -t | less -#2 -FNSX"
 #}}}
 
 #{{{ Private
@@ -131,7 +131,7 @@ function __hg_ps1 {
 }
 
 function __venv_ps1 {
-    if [ "x$VIRTUAL_ENV" != "x" ]; then
+    if [ -n "$VIRTUAL_ENV" ]; then
         echo "[`basename $VIRTUAL_ENV`]"
     else
         echo ""
@@ -160,10 +160,12 @@ bindkey \^U backward-kill-line
 #}}}
 
 #{{{ External scripts
-if [[ -x `which virtualenvwrapper.sh` ]]; then
-    source `which virtualenvwrapper.sh`
-elif [[ -f /etc/bash_completion.d/virtualenvwrapper ]]; then
-    source /etc/bash_completion.d/virtualenvwrapper
+if [[ -z "$VIRTUAL_ENV" ]]; then
+    if [[ -x `which virtualenvwrapper.sh` ]]; then
+	source `which virtualenvwrapper.sh`
+    elif [[ -f /etc/bash_completion.d/virtualenvwrapper ]]; then
+	source /etc/bash_completion.d/virtualenvwrapper
+    fi
 fi
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
@@ -201,4 +203,19 @@ _vagrant_cmds () {
     reply=( $(vagrant help | awk '/^     /{print $1}') )
 }
 compctl -K _vagrant_cmds vagrant
+_alembic_cmds () {
+    reply=( $(alembic 2>&1 | grep "{branches" | sed -e 's/^\ *//' -e 's/[{}]//g' -e 's/,/\n/g') )
+}
+compctl -K _alembic_cmds alembic
+#}}}
+
+#{{{ Window title, but not inside Emacs
+if [[ "x$EMACS" == "x" ]]; then
+    case $TERM in
+      termite|*xterm*|rxvt|rxvt-unicode|rxvt-256color|rxvt-unicode-256color|(dt|k|E)term)
+	precmd() { print -Pn "\e]0;%m:%~\a" }
+	preexec () { print -Pn "\e]0;$1\a" }
+	;;
+    esac
+fi
 #}}}
