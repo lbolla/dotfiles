@@ -395,6 +395,8 @@ root.keys(globalkeys)
 -- }}}
 
 -- {{{ Rules
+one_screen = 1
+other_screen = screen.count()
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -407,22 +409,24 @@ awful.rules.rules = {
     -- Floating apps
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
-    { rule = { class = "gimp" },
+    { rule = { class = "gimp.*" },
       properties = { floating = true } },
     -- Open app with [name|class] (use xprop) on screen [x] and tag [y]
+    { rule = { class = "Google-chrome", name = ".*YouGov Slack.*" },
+      properties = { tag = tags[one_screen][1] } },
+    { rule = { class = "Update-manager" },
+      properties = { tag = tags[one_screen][2] } },
     { rule = { class = "Emacs", instance = "emacs" },
-      properties = { tag = tags[2][1] } },
+      properties = { tag = tags[other_screen][1] } },
+    { rule = { class = "Filezilla", instance = "filezilla" },
+      properties = { tag = tags[other_screen][4] } },
+    { rule = { name = ".*p.kdbx.*" },
+      properties = { tag = tags[other_screen][4] } },
     { rule = { class = "Virtualbox" },
       properties = { floating = true,
-                     tag = tags[2][5] } },
-    { rule = { class = "Filezilla", instance = "filezilla" },
-      properties = { tag = tags[2][3] } },
-    { rule = { name = "p.kdbx - KeePass Password Safe" },
-      properties = { tag = tags[2][5] } },
+                     tag = tags[other_screen][5] } },
     { rule = { class = "Thunderbird" },
-      properties = { tag = tags[2][6] } },
-    { rule = { class = "Google-chrome", name = "brandindex | YouGov Slack - Google Chrome" },
-      properties = { tag = tags[1][1] } },
+      properties = { tag = tags[other_screen][6] } },
 }
 -- }}}
 
