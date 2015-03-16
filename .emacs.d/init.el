@@ -24,6 +24,7 @@
  '(display-time-world-list
    (quote
     (("UTC" "UTC")
+     ("GMT" "GMT")
      ("America/Los_Angeles" "Palo Alto")
      ("America/Mexico_City" "Mexico City")
      ("America/New_York" "New York")
@@ -40,6 +41,7 @@
  '(evil-emacs-state-modes
    (quote
     (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-commit-mode magit-diff-mode magit-key-mode magit-log-mode magit-mode magit-reflog-mode magit-show-branches-mode magit-branch-manager-mode magit-stash-mode magit-status-mode magit-wazzup-mode magit-process-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode rebase-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode)))
+ '(explicit-shell-file-name "/usr/bin/zsh")
  '(flycheck-clang-include-path
    (quote
     ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include")))
@@ -48,13 +50,14 @@
  '(ido-ignore-files
    (quote
     ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.egg-info/")))
+ '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
  '(org-agenda-sorting-strategy
    (quote
-    ((agenda habit-down deadline-up time-up todo-state-down priority-down category-keep tag-up)
-     (todo priority-down category-keep)
+    ((agenda habit-down deadline-up time-up todo-state-down alpha-up priority-down category-keep tag-up)
+     (todo priority-down category-keep alpha-up)
      (tags priority-down category-keep)
      (search category-keep))))
  '(send-mail-function (quote smtpmail-send-it))
@@ -84,7 +87,7 @@
 (global-set-key (kbd "C-c j") 'windmove-down)
 (global-set-key (kbd "C-c k") 'windmove-up)
 (global-set-key (kbd "C-c l") 'windmove-right)
-(global-set-key (kbd "C-c t") 'ansi-term)
+(global-set-key (kbd "C-c t") 'zsh)
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 (global-set-key (kbd "<f5>") 'compile)
 
@@ -177,9 +180,11 @@
 	  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
 	  ;; (add-hook 'haskell-mode-hook          #'enable-paredit-mode)
 	  (add-hook 'inferior-lisp-mode-hook    #'enable-paredit-mode)
+	  (add-hook 'slime-repl-mode-hook       #'enable-paredit-mode)
 	  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 	  (add-hook 'clojure-mode-hook          #'enable-paredit-mode)
 	  (add-hook 'cider-repl-mode-hook       #'enable-paredit-mode)
+	  (add-hook 'comint-mode-hook           #'enable-paredit-mode)
 	  (add-hook 'scheme-mode-hook           #'enable-paredit-mode)))
 
 (use-package flycheck
@@ -352,7 +357,8 @@ See URL `http://flowtype.org/'."
 		   'electric-indent-ignore-python)))
 
 (use-package python
-  :mode ("\\.py\\'" . python-mode)
+  :mode (("\\.py\\'" . python-mode)
+	 ("\\.mk\\'" . python-mode)) ;; check-mk config files
   :interpreter ("python" . python-mode)
   :init (progn
 	  (defun python-insert-breakpoint ()
@@ -648,6 +654,20 @@ See URL `http://flowtype.org/'."
 		      (electric-indent-mode 0)
 		      (hl-line-mode 0)
 		      (structured-haskell-mode)))))
+
+(use-package slime
+  :ensure t
+  :init (progn
+	  (setq inferior-lisp-program "/usr/local/bin/sbcl --noinform")
+	  (require 'slime-autoloads)
+	  (add-to-list 'slime-contribs 'slime-fancy)
+	  ;; (add-to-list 'slime-contribs 'slime-highlight-edits)
+	  (slime-setup)
+	  (add-hook 'slime-mode-hook
+		    (lambda ()
+		      ;; (slime-highlight-edits-mode t)
+		      (unless (slime-connected-p)
+			(save-excursion (slime)))))))
 
 (use-package mu4e
   :load-path "/usr/local/share/emacs/site-lisp/mu4e"
