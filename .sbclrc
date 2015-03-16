@@ -1,4 +1,4 @@
-(sb-ext:restrict-compiler-policy 'debug 3)
+;;; (sb-ext:restrict-compiler-policy 'debug 3)
 
 ;;; The following lines added by ql:add-to-init-file:
 #-quicklisp
