@@ -6,7 +6,7 @@ secret
 aliases
 .centerim/*
 .vim/bundle
-.emacs.d/private.el
+/.emacs.d/private.el
 /.emacs.d/.python-environments/
 /.emacs.d/ac-comphist.dat
 /.emacs.d/auto-save-list/
@@ -19,3 +19,4 @@ aliases
 /.emacs.d/url/
 /.emacs.d/flycheck_private.el
 /.emacs.d/tramp
+/.emacs.d/session.*
