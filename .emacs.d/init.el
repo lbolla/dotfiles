@@ -10,6 +10,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
+ '(browse-url-browser-function (quote w3m))
  '(c-default-style
    (quote
     ((c-mode . "linux")
@@ -60,6 +61,7 @@
      (todo priority-down category-keep alpha-up)
      (tags priority-down category-keep)
      (search category-keep))))
+ '(python-shell-interpreter "ipython")
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
@@ -111,64 +113,63 @@
 
 (use-package evil
   :ensure t
-  :init (timeit
-	 "EVIL"
+  :init (progn
 
-	 (defun new-tab ()
-	   "Open file in new tab."
-	   (interactive)
-	   (ido-find-file-other-frame))
+	  (evil-mode t)
 
-	 (defun delete-tab ()
-	   "Delete current tab."
-	   (interactive)
-	   (delete-frame))
+	  (defun new-tab ()
+	    "Open file in new tab."
+	    (interactive)
+	    (ido-find-file-other-frame))
 
-	 (defun next-tab ()
-	   "Switch to next tab."
-	   (interactive)
-	   (other-frame 1))
+	  (defun delete-tab ()
+	    "Delete current tab."
+	    (interactive)
+	    (delete-frame))
 
-	 (defun previous-tab ()
-	   "Switch to previous tab."
-	   (interactive)
-	   (other-frame -1))
+	  (defun next-tab ()
+	    "Switch to next tab."
+	    (interactive)
+	    (other-frame 1))
 
-	 (use-package evil-nerd-commenter
-	   :ensure t
-	   :init (progn
-		   (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
-		   (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
+	  (defun previous-tab ()
+	    "Switch to previous tab."
+	    (interactive)
+	    (other-frame -1))
 
-	 (use-package evil-matchit
-	   :ensure t
-	   :init (progn
-		    (global-evil-matchit-mode 1)))
+	  (use-package evil-nerd-commenter
+	    :ensure t
+	    :init (progn
+	  	    (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
+	  	    (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
 
-	 (evil-mode t)
+	  (use-package evil-matchit
+	    :ensure t
+	    :init (progn
+	  	    (global-evil-matchit-mode 1)))
 
-	 ;; Start in "emacs mode"
-	 (evil-set-initial-state 'eshell-mode 'emacs)
-	 (evil-set-initial-state 'term-mode 'emacs)
-	 (evil-set-initial-state 'comint-mode 'emacs)
-	 (evil-set-initial-state 'occur-mode 'emacs)
-	 (evil-set-initial-state 'sql-interactive-mode 'emacs)
+	  ;; Start in "emacs mode"
+	  (evil-set-initial-state 'eshell-mode 'emacs)
+	  (evil-set-initial-state 'term-mode 'emacs)
+	  (evil-set-initial-state 'comint-mode 'emacs)
+	  (evil-set-initial-state 'occur-mode 'emacs)
+	  (evil-set-initial-state 'sql-interactive-mode 'emacs)
 
-	 ;; Mercurial keybindings for VC
-	 (define-key evil-normal-state-map (kbd ",hb") 'vc-annotate)
+	  ;; Mercurial keybindings for VC
+	  (define-key evil-normal-state-map (kbd ",hb") 'vc-annotate)
 
-	 (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
-	 (define-key evil-normal-state-map (kbd "C-w t") 'new-tab)
-	 (define-key evil-normal-state-map (kbd "C-w x") 'delete-tab)
-	 (define-key evil-normal-state-map (kbd "gt") 'next-tab)
-	 (define-key evil-normal-state-map (kbd "gT") 'previous-tab)
-	 (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
-	 (define-key evil-normal-state-map (kbd ",G") 'rgrep)
-	 (define-key evil-normal-state-map (kbd ",m") 'menu-bar-mode)
-	 (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
-	 (define-key evil-normal-state-map (kbd ",j") 'ace-jump-mode)
-	 (define-key evil-normal-state-map (kbd ",yf") 'yg-fogbugz-browse-at-point)
-	 (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)))
+	  (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
+	  (define-key evil-normal-state-map (kbd "C-w t") 'new-tab)
+	  (define-key evil-normal-state-map (kbd "C-w x") 'delete-tab)
+	  (define-key evil-normal-state-map (kbd "gt") 'next-tab)
+	  (define-key evil-normal-state-map (kbd "gT") 'previous-tab)
+	  (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
+	  (define-key evil-normal-state-map (kbd ",G") 'ag)
+	  (define-key evil-normal-state-map (kbd ",m") 'menu-bar-mode)
+	  (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
+	  (define-key evil-normal-state-map (kbd ",j") 'ace-jump-mode)
+	  (define-key evil-normal-state-map (kbd ",yf") 'yg-fogbugz-browse-at-point)
+	  (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)))
 
 (use-package paredit
   :ensure t
@@ -178,57 +179,58 @@
 	  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
 	  (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
 	  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-	  ;; (add-hook 'haskell-mode-hook          #'enable-paredit-mode)
 	  (add-hook 'inferior-lisp-mode-hook    #'enable-paredit-mode)
 	  (add-hook 'slime-repl-mode-hook       #'enable-paredit-mode)
 	  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 	  (add-hook 'clojure-mode-hook          #'enable-paredit-mode)
 	  (add-hook 'cider-repl-mode-hook       #'enable-paredit-mode)
-	  (add-hook 'comint-mode-hook           #'enable-paredit-mode)
-	  (add-hook 'scheme-mode-hook           #'enable-paredit-mode)))
+	  (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+	  ;; (add-hook 'comint-mode-hook           #'enable-paredit-mode)
+	  ;; (add-hook 'haskell-mode-hook          #'disable-paredit-mode)
+	  ;; (add-hook 'inferior-python-mode-hook  #'disable-paredit-mode)
+	  ))
 
 (use-package flycheck
   :ensure t
-  :init (timeit
-	 "FLYCHECK"
-	 (add-hook 'after-init-hook #'global-flycheck-mode)
-	 (setq flycheck-highlighting-mode 'lines)
-	 (setq flycheck-ghc-language-extensions ())
-	 (setq python-check-function "flake8")
-	 (flycheck-define-checker javascript-flow
-	   "A JavaScript syntax and style checker using Flow.
+  :init (progn
+	  (add-hook 'after-init-hook #'global-flycheck-mode))
+  :config (progn
+	    (setq flycheck-highlighting-mode 'lines)
+	    (setq flycheck-ghc-language-extensions ())
+	    (setq python-check-function "flake8")
+	    (flycheck-define-checker javascript-flow
+	      "A JavaScript syntax and style checker using Flow.
 
 See URL `http://flowtype.org/'."
-	   :command ("flow" source-original)
-	   :error-patterns
-	   ((error line-start
-	   	   (file-name)
-	   	   ":"
-	   	   line
-	   	   ":"
-	   	   (minimal-match (one-or-more not-newline))
-	   	   ": "
-	   	   (message (minimal-match (and (one-or-more anything) "\n")))
-	   	   line-end))
-	   :modes js-mode)
-	 (add-to-list 'flycheck-checkers 'javascript-flow t)
-	 (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)
-	 (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
+	      :command ("flow" source-original)
+	      :error-patterns
+	      ((error line-start
+		      (file-name)
+		      ":"
+		      line
+		      ":"
+		      (minimal-match (one-or-more not-newline))
+		      ": "
+		      (message (minimal-match (and (one-or-more anything) "\n")))
+		      line-end))
+	      :modes js-mode)
+	    (add-to-list 'flycheck-checkers 'javascript-flow t)
+	    (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)
+	    (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
 
 (use-package flycheck-haskell
   :ensure t
   :init (progn
-	 (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
-	 (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
+	  (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
+	  (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
 
 (use-package ido
   :ensure t
-  :init (timeit
-	 "IDO"
-	 (ido-mode t)
-	 (ido-everywhere t)
-	 (setq ido-enable-flex-matching t)
-	 (setq ido-file-extensions-order '(".py" ".js" ".emacs" t))))
+  :init (progn
+	  (ido-mode t)
+	  (ido-everywhere t)
+	  (setq ido-enable-flex-matching t)
+	  (setq ido-file-extensions-order '(".py" ".js" ".emacs" t))))
 
 (use-package tool-bar
   :init (progn
@@ -256,24 +258,20 @@ See URL `http://flowtype.org/'."
 
 (use-package xclip
   :ensure t
-  :init (timeit
-	 "XCLIP"
-	 (xclip-mode t)))
+  :init (xclip-mode t))
 
 (use-package projectile
   :ensure t
-  :init (timeit
-	 "PROJECTILE"
+  :init (progn
 	  (projectile-global-mode)
 	  (define-key evil-normal-state-map "\C-p" 'projectile-find-file)))
 
 (use-package go-mode
   :ensure t
   :mode ("\\.go\\'" . go-mode)
-  :init (timeit
-	   "GO-MODE"
-	   (add-hook 'before-save-hook 'gofmt-before-save)
-	   (add-hook 'go-mode-hook 'auto-complete-mode)))
+  :init (progn
+	  (add-hook 'before-save-hook 'gofmt-before-save)
+	  (add-hook 'go-mode-hook 'auto-complete-mode)))
 
 (use-package virtualenvwrapper
   :ensure t
@@ -304,10 +302,9 @@ See URL `http://flowtype.org/'."
 
 	  (define-key evil-normal-state-map ",w" 'venv-workon-and-cdproject))
 
-  :config (timeit
-	   "VENV"
-	   (venv-initialize-interactive-shells)
-	   (venv-initialize-eshell)))
+  :config (progn
+	    (venv-initialize-interactive-shells)
+	    (venv-initialize-eshell)))
 
 (use-package w3m
   :ensure t
@@ -338,23 +335,21 @@ See URL `http://flowtype.org/'."
 (use-package jedi
   :ensure t
   :commands jedi:setup
-  :config (timeit
-	   "JEDI"
-	   (setq jedi:complete-on-dot t)
-	   (setq jedi:tooltip-method nil)))
+  :config (progn
+	    (setq jedi:complete-on-dot t)
+	    (setq jedi:tooltip-method nil)))
 
 (use-package electric
-  :init (timeit
-	 "ELECTRIC"
-	 ;; Ignoring electric indentation
-	 (defun electric-indent-ignore-python (char)
-	   "Ignore electric indentation for 'python-mode' after CHAR."
-	   (if (equal major-mode 'python-mode)
-	       `no-indent'
-	     nil))
-	 (electric-indent-mode t)
-	 (add-hook 'electric-indent-functions
-		   'electric-indent-ignore-python)))
+  :init (progn
+	  ;; Ignoring electric indentation
+	  (defun electric-indent-ignore-python (char)
+	    "Ignore electric indentation for 'python-mode' after CHAR."
+	    (if (equal major-mode 'python-mode)
+		`no-indent'
+	      nil))
+	  (electric-indent-mode t)
+	  (add-hook 'electric-indent-functions
+		    'electric-indent-ignore-python)))
 
 (use-package python
   :mode (("\\.py\\'" . python-mode)
@@ -367,64 +362,70 @@ See URL `http://flowtype.org/'."
 	    (evil-open-above 1)
 	    (insert "import ipdb; ipdb.set_trace()  # BREAKPOINT")
 	    (evil-normal-state)))
-  :config (timeit
-	 "PYTHON"
+  :config (progn
+	    (defun python-current-function ()
+	      (save-excursion
+		(end-of-line)
+		(beginning-of-defun)
+		(search-forward-regexp " *def \\(\\w+\\)")
+		(message (match-string-no-properties 1))))
 
-	 (defun python-current-function ()
-	   (save-excursion
-	     (end-of-line)
-	     (beginning-of-defun)
-	     (search-forward-regexp " *def \\(\\w+\\)")
-	     (message (match-string-no-properties 1))))
+	    (defmacro venv-pytest (&rest what)
+	      `(async-shell-command
+		(concat
+		 "cd "
+		 (venv-get-proj-dir)
+		 " && "
+		 "py.test -v "
+		 ,@what)))
 
-	 (defmacro venv-pytest (&rest what)
-	   `(async-shell-command
-	     (concat
-	      "cd "
-	      (venv-get-proj-dir)
-	      " && "
-	      "py.test -v "
-	      ,@what)))
+	    (defun python-pytest-current-file ()
+	      (interactive)
+	      (venv-pytest (buffer-file-name)))
 
-	 (defun python-pytest-current-file ()
-	   (interactive)
-	   (venv-pytest (buffer-file-name)))
+	    (defun python-pytest-at-point ()
+	      (interactive)
+	      (venv-pytest
+	       (buffer-file-name)
+	       " -k "
+	       (thing-at-point 'word)))
 
-	 (defun python-pytest-at-point ()
-	   (interactive)
-	   (venv-pytest
-	    (buffer-file-name)
-	    " -k "
-	    (thing-at-point 'word)))
+	    (defun python-pytest-current-function ()
+	      (interactive)
+	      (venv-pytest
+	       (buffer-file-name)
+	       " -k "
+	       (python-current-function)))
 
-	 (defun python-pytest-current-function ()
-	   (interactive)
-	   (venv-pytest
-	    (buffer-file-name)
-	    " -k "
-	    (python-current-function)))
+	    (defun python-pyformat-buffer ()
+	      "Run pyformat on current buffer."
+	      (interactive)
+	      (shell-command (concat "pyformat --in-place " (buffer-name)))
+	      (revert-buffer :noconfirm t))
 
-	 (font-lock-add-keywords
-	   'python-mode
-	   '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)
-	     ("\\<\\(FIXME\\)\\>" 1 font-lock-warning-face t)))
+	    (font-lock-add-keywords
+	     'python-mode
+	     '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)
+	       ("\\<\\(FIXME\\)\\>" 1 font-lock-warning-face t)))
 
-	  (add-hook 'python-mode-hook
-		    (lambda ()
-		      ;; Underscore part of word in Python
-		      (modify-syntax-entry ?\_ "w" python-mode-syntax-table)
-		      ;; Autocompletion
-		      (jedi:setup)
-		      ;; Keybidings
-		      (define-key evil-normal-state-map (kbd ",b") 'python-insert-breakpoint)
-		      (define-key evil-normal-state-map (kbd ",t") 'python-pytest-current-function)
-		      (define-key evil-normal-state-map (kbd ",T") 'python-pytest-current-file)
-		      ;; Enter key executes newline-and-indent
-		      (local-set-key (kbd "RET") 'newline-and-indent)))))
+	    (add-hook 'python-mode-hook
+		      (lambda ()
+			;; Underscore part of word in Python
+			(modify-syntax-entry ?\_ "w" python-mode-syntax-table)
+			;; Autocompletion
+			(jedi:setup)
+			;; Keybidings
+			(define-key evil-normal-state-map (kbd ",b") 'python-insert-breakpoint)
+			(define-key evil-normal-state-map (kbd ",t") 'python-pytest-current-function)
+			(define-key evil-normal-state-map (kbd ",T") 'python-pytest-current-file)
+			(define-key evil-normal-state-map (kbd ",pf") 'python-pyformat-buffer)
+			;; Enter key executes newline-and-indent
+			(local-set-key (kbd "RET") 'newline-and-indent)))))
 
 (use-package magit
   :ensure t
   :config (progn
+	    (setq magit-last-seen-setup-instructions "1.4.0")
 	    (define-key evil-normal-state-map (kbd ",gb") 'magit-blame-mode)
 	    (global-set-key (kbd "C-x G") 'magit-status)))
 
@@ -460,12 +461,11 @@ See URL `http://flowtype.org/'."
 
 (use-package whitespace
   :ensure t
-  :init (timeit
-	 "WHITESPACE"
-	 (hook-into-modes 'whitespace-mode '(python-mode-hook))
-	 ;; Highlight portion of lines >79
-	 (setq whitespace-line-column 79
-	       whitespace-style '(face lines-tail))))
+  :init (progn
+	  (hook-into-modes 'whitespace-mode '(python-mode-hook))
+	  ;; Highlight portion of lines >79
+	  (setq whitespace-line-column 79
+		whitespace-style '(face lines-tail))))
 
 (use-package markdown-mode
   :mode ("\\.md\\'" . markdown-mode)
@@ -476,53 +476,53 @@ See URL `http://flowtype.org/'."
 
 (use-package org
   :init (progn
-	    (global-set-key (kbd "C-c o a") 'org-agenda)
-	    (global-set-key (kbd "C-c o k") 'org-capture)
-	    (global-set-key (kbd "C-c o l") 'org-store-link)
-	    (add-hook 'org-mode-hook
-		      (lambda ()
-			(auto-fill-mode t)
-			(flyspell-mode t)))
-	    (setq org-agenda-files '("~/org/")
-		  org-agenda-include-diary t
-		  org-agenda-start-on-weekday nil
-		  org-agenda-ndays 7
-		  org-agenda-custom-commands (quote (("d" todo "DELG" nil)
-						     ("c" todo "DONE|DEFR|CANC" nil)
-						     ("w" todo "WAIT" nil)
-						     ("W" agenda "21 days" ((org-agenda-ndays 21)))
-						     ("A" agenda "Today's #A priority"
-						      ((org-agenda-skip-function
-							(lambda nil
-							  (org-agenda-skip-entry-if (quote notregexp) "\\=.*\\[#A\\]")))
-						       (org-agenda-ndays 1)
-						       (org-agenda-overriding-header "Today's Priority #A tasks: ")))
-						     ("u" alltodo "Unscheduled TODO"
-						      ((org-agenda-skip-function
-							(lambda nil
-							  (org-agenda-skip-entry-if (quote scheduled) (quote deadline)
-										    (quote regexp) "\n]+>")))
-						       (org-agenda-overriding-header "Unscheduled TODO entries: ")))))
-		  org-capture-templates
-		  '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks") "* TODO %?\n  %i\n  %a")
-		    ("j" "Journal" entry (file+datetree "~/org/todo.org") "* %?\nEntered on %U\n  %i\n  %a"))
-		  org-default-notes-file "~/org/todo.org" 
-		  org-fast-tag-selection-single-key t
-		  org-link-abbrev-alist '(("FB" . "https://yougov.fogbugz.com/f/cases/%s")
-					  ("google" . "http://www.google.com/search?q=")
-					  ("gmap" . "http://maps.google.com/maps?q=%s"))
-		  org-log-done 'time
-		  org-log-into-drawer t
-		  ;; org-todo-keywords '((sequence "TODO(t)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELLED(c@)"))
-		  org-todo-keyword-faces
-		  '(("TODO" . org-todo)
-		    ("STRT" . "orange")
-		    ("WAIT" . "yellow")
-		    ("DELG" . "blue")
-		    ("APPT" . "cyan")
-		    ("CANC" . "darkgray")
-		    ("DEFR" . "purple")
-		    ("DONE" . org-done)))))
+	  (global-set-key (kbd "C-c o a") 'org-agenda)
+	  (global-set-key (kbd "C-c o k") 'org-capture)
+	  (global-set-key (kbd "C-c o l") 'org-store-link)
+	  (add-hook 'org-mode-hook
+		    (lambda ()
+		      (auto-fill-mode t)
+		      (flyspell-mode t)))
+	  (setq org-agenda-files '("~/org/")
+		org-agenda-include-diary t
+		org-agenda-start-on-weekday nil
+		org-agenda-ndays 7
+		org-agenda-custom-commands (quote (("d" todo "DELG" nil)
+						   ("c" todo "DONE|DEFR|CANC" nil)
+						   ("w" todo "WAIT" nil)
+						   ("W" agenda "21 days" ((org-agenda-ndays 21)))
+						   ("A" agenda "Today's #A priority"
+						    ((org-agenda-skip-function
+						      (lambda nil
+							(org-agenda-skip-entry-if (quote notregexp) "\\=.*\\[#A\\]")))
+						     (org-agenda-ndays 1)
+						     (org-agenda-overriding-header "Today's Priority #A tasks: ")))
+						   ("u" alltodo "Unscheduled TODO"
+						    ((org-agenda-skip-function
+						      (lambda nil
+							(org-agenda-skip-entry-if (quote scheduled) (quote deadline)
+										  (quote regexp) "\n]+>")))
+						     (org-agenda-overriding-header "Unscheduled TODO entries: ")))))
+		org-capture-templates
+		'(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks") "* TODO %?\n  %i\n  %a")
+		  ("j" "Journal" entry (file+datetree "~/org/todo.org") "* %?\nEntered on %U\n  %i\n  %a"))
+		org-default-notes-file "~/org/todo.org" 
+		org-fast-tag-selection-single-key t
+		org-link-abbrev-alist '(("FB" . "https://yougov.fogbugz.com/f/cases/%s")
+					("google" . "http://www.google.com/search?q=")
+					("gmap" . "http://maps.google.com/maps?q=%s"))
+		org-log-done 'time
+		org-log-into-drawer t
+		;; org-todo-keywords '((sequence "TODO(t)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELLED(c@)"))
+		org-todo-keyword-faces
+		'(("TODO" . org-todo)
+		  ("STRT" . "orange")
+		  ("WAIT" . "yellow")
+		  ("DELG" . "blue")
+		  ("APPT" . "cyan")
+		  ("CANC" . "darkgray")
+		  ("DEFR" . "purple")
+		  ("DONE" . org-done)))))
 
 (use-package css-mode
   :mode (("\\.scss\\'" . css-mode)))
@@ -599,51 +599,50 @@ See URL `http://flowtype.org/'."
 (use-package rcirc
   :ensure t
   :defer t
-  :config (timeit
-	   "RCIRC"
-	   (defun my-rcirc-print-hook (process sender response target text)
-	     "In PROCESS, if SENDER is not self, ignore RESPONSE and TARGET, beep when TEXT equals current nick."
-	     ;; (when (and (string-match (regexp-quote (rcirc-nick process)) text)
-	     (when (and (string-match (concat "@?" (rcirc-nick process)) text)
-			(not (string= (rcirc-nick process) sender))
-			(not (string= (rcirc-server-name process) sender)))
-	       (my-beep)))
-	   (add-hook 'rcirc-print-functions 'my-rcirc-print-hook)
-	   (add-hook 'rcirc-mode-hook
-		     (lambda ()
-		       (set (make-local-variable 'scroll-conservatively) 8192)
-		       (rcirc-track-minor-mode t)
-		       ;; (rcirc-omit-mode)
-		       (flyspell-mode t)))
-	   (setq rcirc-server-alist '())
-	   ;; (add-to-list 'rcirc-server-alist yg-rcirc-server)
-	   (add-to-list 'rcirc-server-alist yg-slack-rcirc-server)
-	   ;; (add-to-list 'rcirc-server-alist freenode-rcirc-server)
-	   (defun-rcirc-command reconnect (arg)
-	     "Reconnect the server process."
-	     (interactive "i")
-	     (unless process
-	       (error "There's no process for this target"))
-	     (let* ((server (car (process-contact process)))
-		    (port (process-contact process :service))
-		    (nick (rcirc-nick process))
-		    channels query-buffers)
-	       (dolist (buf (buffer-list))
-		 (with-current-buffer buf
-		   (when (eq process (rcirc-buffer-process))
-		     (remove-hook 'change-major-mode-hook
-				  'rcirc-change-major-mode-hook)
-		     (if (rcirc-channel-p rcirc-target)
-			 (setq channels (cons rcirc-target channels))
-		       (setq query-buffers (cons buf query-buffers))))))
-	       (delete-process process)
-	       (rcirc-connect server port nick
-			      rcirc-default-user-name
-			      rcirc-default-full-name
-			      channels
-			      ;; TODO password
-			      ;; TODO encryption
-			      )))))
+  :config (progn
+	    (defun my-rcirc-print-hook (process sender response target text)
+	      "In PROCESS, if SENDER is not self, ignore RESPONSE and TARGET, beep when TEXT equals current nick."
+	      ;; (when (and (string-match (regexp-quote (rcirc-nick process)) text)
+	      (when (and (string-match (concat "@?" (rcirc-nick process)) text)
+			 (not (string= (rcirc-nick process) sender))
+			 (not (string= (rcirc-server-name process) sender)))
+		(my-beep)))
+	    (add-hook 'rcirc-print-functions 'my-rcirc-print-hook)
+	    (add-hook 'rcirc-mode-hook
+		      (lambda ()
+			(set (make-local-variable 'scroll-conservatively) 8192)
+			(rcirc-track-minor-mode t)
+			;; (rcirc-omit-mode)
+			(flyspell-mode t)))
+	    (setq rcirc-server-alist '())
+	    ;; (add-to-list 'rcirc-server-alist yg-rcirc-server)
+	    ;; (add-to-list 'rcirc-server-alist yg-slack-rcirc-server)
+	    (add-to-list 'rcirc-server-alist freenode-rcirc-server)
+	    (defun-rcirc-command reconnect (arg)
+	      "Reconnect the server process."
+	      (interactive "i")
+	      (unless process
+		(error "There's no process for this target"))
+	      (let* ((server (car (process-contact process)))
+		     (port (process-contact process :service))
+		     (nick (rcirc-nick process))
+		     channels query-buffers)
+		(dolist (buf (buffer-list))
+		  (with-current-buffer buf
+		    (when (eq process (rcirc-buffer-process))
+		      (remove-hook 'change-major-mode-hook
+				   'rcirc-change-major-mode-hook)
+		      (if (rcirc-channel-p rcirc-target)
+			  (setq channels (cons rcirc-target channels))
+			(setq query-buffers (cons buf query-buffers))))))
+		(delete-process process)
+		(rcirc-connect server port nick
+			       rcirc-default-user-name
+			       rcirc-default-full-name
+			       channels
+			       ;; TODO password
+			       ;; TODO encryption
+			       )))))
 
 (use-package shm
   :disabled t
@@ -659,6 +658,8 @@ See URL `http://flowtype.org/'."
   :ensure t
   :init (progn
 	  (setq inferior-lisp-program "/usr/local/bin/sbcl --noinform")
+	  ;; Using (ql:quickload "clhs")
+	  (load "/home/lbolla/quicklisp/clhs-use-local.el" t)
 	  (require 'slime-autoloads)
 	  (add-to-list 'slime-contribs 'slime-fancy)
 	  ;; (add-to-list 'slime-contribs 'slime-highlight-edits)
@@ -668,6 +669,9 @@ See URL `http://flowtype.org/'."
 		      ;; (slime-highlight-edits-mode t)
 		      (unless (slime-connected-p)
 			(save-excursion (slime)))))))
+
+(use-package ag
+  :ensure t)
 
 (use-package mu4e
   :load-path "/usr/local/share/emacs/site-lisp/mu4e"
@@ -757,7 +761,7 @@ See URL `http://flowtype.org/'."
 	  					 (mapconcat #'(lambda (var) (car var)) mu4e-my-accounts-alist "/"))
 	  				 (mapcar #'(lambda (var) (car var)) mu4e-my-accounts-alist)
 	  				 nil t nil nil (caar mu4e-my-accounts-alist)))))
-	  	    (account-vars (cdr (assoc account mu4e-my-accounts-alist))))
+		   (account-vars (cdr (assoc account mu4e-my-accounts-alist))))
 	      (if account-vars
 	  	  (mapc #'(lambda (var)
 	  		    (set (car var) (cdr var)))
