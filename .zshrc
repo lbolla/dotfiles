@@ -21,7 +21,7 @@ unsetopt SHARE_HISTORY
 
 #{{{ Variables
 export TERM=xterm-256color
-export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/go/bin:$HOME/src/emacs-24.4/src:$HOME/src/emacs-24.4/lib-src:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/go/bin:$HOME/src/emacs-24.5/src:$HOME/src/emacs-24.5/lib-src:$PATH
 export PYTHONSTARTUP="$HOME/.pyrc"
 HISTSIZE=1000
 SAVEHIST=1000
@@ -110,6 +110,14 @@ alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias tmux='tmux -2'
 alias ygcheese="python setup.py register -r yg sdist upload -r yg"
 alias csvtable="sed 's/,,/, ,/g;s/,,/, ,/g' | column -s, -t | less -#2 -FNSX"
+alias diff2='diff -y --suppress-common-lines'
+#}}}
+
+#{{{ Functions
+function diff2 {
+    # Side-by-side diff
+    diff -y -W $COLUMNS $1 $2
+}
 #}}}
 
 #{{{ Private
