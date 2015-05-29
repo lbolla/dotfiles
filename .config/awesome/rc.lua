@@ -418,6 +418,8 @@ awful.rules.rules = {
       properties = { tag = tags[one_screen][2] } },
     { rule = { class = "Emacs", instance = "emacs" },
       properties = { tag = tags[other_screen][1] } },
+    { rule = { name = "PyCharm" },
+      properties = { tag = tags[other_screen][1] } },
     { rule = { class = "Filezilla", instance = "filezilla" },
       properties = { tag = tags[other_screen][4] } },
     { rule = { name = ".*p.kdbx.*" },
