@@ -111,6 +111,10 @@ alias tmux='tmux -2'
 alias ygcheese="python setup.py register -r yg sdist upload -r yg"
 alias csvtable="sed 's/,,/, ,/g;s/,,/, ,/g' | column -s, -t | less -#2 -FNSX"
 alias diff2='diff -y --suppress-common-lines'
+alias remove_dups="awk 'NF && !(\$1 in a){a[\$1];p=\$1;print (getline == 0) ? p : p}'"
+alias google-chrome-def="google-chrome --profile-directory=Default"
+alias google-chrome-fun="google-chrome --profile-directory=\"Profile 2\""
+alias google-chrome-inc="google-chrome --incognito"
 #}}}
 
 #{{{ Functions
