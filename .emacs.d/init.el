@@ -9,6 +9,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ag-ignore-list (quote ("TAGS")))
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
  '(browse-url-browser-function (quote w3m))
  '(c-default-style
@@ -164,7 +165,10 @@
 	  (define-key evil-normal-state-map (kbd "gt") 'next-tab)
 	  (define-key evil-normal-state-map (kbd "gT") 'previous-tab)
 	  (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
-	  (define-key evil-normal-state-map (kbd ",G") 'ag)
+	  (define-key evil-normal-state-map (kbd ",gt") 'tags-search)
+	  ;; (define-key evil-normal-state-map (kbd ",G") 'ag)
+	  ;; (define-key evil-normal-state-map (kbd ",G") 'ag-venv-project-at-point)
+	  (define-key evil-normal-state-map (kbd ",G") 'ag-project-at-point)
 	  (define-key evil-normal-state-map (kbd ",m") 'menu-bar-mode)
 	  (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
 	  (define-key evil-normal-state-map (kbd ",j") 'ace-jump-mode)
@@ -197,7 +201,7 @@
   :config (progn
 	    (setq flycheck-highlighting-mode 'lines)
 	    (setq flycheck-ghc-language-extensions ())
-	    (setq python-check-function "flake8")
+
 	    (flycheck-define-checker javascript-flow
 	      "A JavaScript syntax and style checker using Flow.
 
@@ -215,7 +219,39 @@ See URL `http://flowtype.org/'."
 		      line-end))
 	      :modes js-mode)
 	    (add-to-list 'flycheck-checkers 'javascript-flow t)
+
+	    (flycheck-define-checker erlang-dialyzer
+	      "Erlang syntax checker based on dialyzer."
+	      :command ("dialyzer" source-original)
+	      :error-patterns
+	      ((error line-start
+		      (file-name)
+		      ":"
+		      line
+		      ":"
+		      (message)
+		      line-end))
+	      :modes erlang-mode)
+	    (add-to-list 'flycheck-checkers 'erlang-dialyzer t)
+
+	    (flycheck-define-checker python-mypy
+	      "Mypy syntax checker."
+	      :command ("mypy" source-original)
+	      :error-patterns
+	      ((error line-start
+		      (file-name)
+		      ", line "
+		      line
+		      ":"
+		      (message)
+		      line-end))
+	      :modes python-mode)
+	    (add-to-list 'flycheck-checkers 'python-mypy t)
+
+	    (flycheck-add-next-checker 'python-flake8 'python-pylint)
+	    ;; (flycheck-add-next-checker 'python-pylint 'python-mypy)
 	    (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)
+	    (flycheck-add-next-checker 'erlang 'erlang-dialyzer)
 	    (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
 
 (use-package flycheck-haskell
@@ -291,10 +327,23 @@ See URL `http://flowtype.org/'."
 	      (if dir
 		  (cd dir))))
 
+	  (defun venv-build-python-etags ()
+	    (interactive)
+	    (let ((dir (venv-get-proj-dir)))
+	      (shell-command
+	       (concat "find " dir " -name \"*.py\" | xargs etags -f " dir "/TAGS")
+	       nil nil)
+	      (setq tags-file-name (concat dir "/TAGS"))))
+
+	  (defun ag-venv-project-at-point ()
+	    (interactive)
+	    (ag (thing-at-point 'word) (venv-get-proj-dir)))
+
 	  (defun venv-workon-and-cdproject (venv)
 	    (interactive "i")
 	    (venv-workon venv)
 	    (venv-cdproject)
+	    (venv-build-python-etags)
 	    (dired default-directory)
 	    (revert-buffer)
 	    (projectile-vc)
@@ -361,6 +410,12 @@ See URL `http://flowtype.org/'."
 	    (interactive)
 	    (evil-open-above 1)
 	    (insert "import ipdb; ipdb.set_trace()  # BREAKPOINT")
+	    (evil-normal-state))
+	  (defun python-insert-pylint-ignore ()
+	    "Insert pylint ignore comment."
+	    (interactive)
+	    (evil-open-above 1)
+	    (insert "# pylint: disable=")
 	    (evil-normal-state)))
   :config (progn
 	    (defun python-current-function ()
@@ -419,6 +474,7 @@ See URL `http://flowtype.org/'."
 			(define-key evil-normal-state-map (kbd ",t") 'python-pytest-current-function)
 			(define-key evil-normal-state-map (kbd ",T") 'python-pytest-current-file)
 			(define-key evil-normal-state-map (kbd ",pf") 'python-pyformat-buffer)
+			(define-key evil-normal-state-map (kbd ",pi") 'python-insert-pylint-ignore)
 			;; Enter key executes newline-and-indent
 			(local-set-key (kbd "RET") 'newline-and-indent)))))
 
@@ -458,6 +514,11 @@ See URL `http://flowtype.org/'."
 	  (add-hook 'sql-mode-hook
 		    (lambda ()
 		      (modify-syntax-entry ?\_ "w")))))
+
+(use-package erlang
+  :ensure t
+  :init (progn
+	  (setq erlang-root-dir "/usr/lib/erlang")))
 
 (use-package whitespace
   :ensure t
