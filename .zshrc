@@ -21,7 +21,7 @@ unsetopt SHARE_HISTORY
 
 #{{{ Variables
 export TERM=xterm-256color
-export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/go/bin:$HOME/src/emacs-24.5/src:$HOME/src/emacs-24.5/lib-src:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/go/bin:$HOME/src/emacs-24.5/src:$HOME/src/emacs-24.5/lib-src:$HOME/node_modules/.bin/:$PATH
 export PYTHONSTARTUP="$HOME/.pyrc"
 HISTSIZE=1000
 SAVEHIST=1000
@@ -53,7 +53,7 @@ fi
 #{{{ Go
 export GOROOT=$HOME/src/go
 export GOPATH=$HOME/junk/go
-export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 #}}}
 
 #{{{ Plan9
