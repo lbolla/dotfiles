@@ -9,3 +9,4 @@ show = log --color=always -pr
 color =
 pager =
 graphlog =
+rebase =
