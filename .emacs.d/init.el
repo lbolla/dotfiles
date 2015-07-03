@@ -1,4 +1,4 @@
-;;; package --- lbolla init.el file
+;; package --- lbolla init.el file
 ;;; Commentary:
 ;;; 14 March 2014
 
@@ -63,6 +63,7 @@
      (todo priority-down category-keep alpha-up)
      (tags priority-down category-keep)
      (search category-keep))))
+ '(org-fontify-whole-heading-line t)
  '(python-shell-interpreter "ipython")
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
@@ -70,13 +71,6 @@
  '(user-full-name "Lorenzo Bolla")
  '(vc-follow-symlinks nil)
  '(vc-log-show-limit 50))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "light gray" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 119 :width normal :foundry "unknown" :family "Terminus")))))
 
 (load-file "~/.emacs.d/util.el")
 (load-file "~/.emacs.d/custom.el")
@@ -95,7 +89,18 @@
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 (global-set-key (kbd "<f5>") 'compile)
 
-(load-theme 'lorenzo)
+;; Dark bg
+;; (load-theme 'lorenzo)
+;; Light bg
+(load-theme 'leuven)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 119 :width normal :foundry "unknown" :family "Terminus")))))
+
 (server-start)
 
 ;;; Packages
@@ -543,6 +548,8 @@ See URL `http://flowtype.org/'."
 	  (global-set-key (kbd "C-c o l") 'org-store-link)
 	  (add-hook 'org-mode-hook
 		    (lambda ()
+		      ;; For leuven theme
+		      (set-face-attribute 'org-checkbox nil :foreground "#CCCCCC")
 		      (auto-fill-mode t)
 		      (flyspell-mode t)))
 	  (setq org-agenda-files '("~/org/")
@@ -650,6 +657,9 @@ See URL `http://flowtype.org/'."
 (use-package csv-mode
   :mode ("\\.csv\\'" . csv-mode))
 
+(use-package restclient
+  :mode ("\\.http\\'" . restclient-mode))
+
 (use-package lua-mode
   :ensure t
   :defer t)
@@ -731,6 +741,9 @@ See URL `http://flowtype.org/'."
 		      ;; (slime-highlight-edits-mode t)
 		      (unless (slime-connected-p)
 			(save-excursion (slime)))))))
+
+(use-package pass
+  :ensure t)
 
 (use-package ag
   :ensure t)
