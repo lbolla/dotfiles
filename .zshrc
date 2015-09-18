@@ -21,7 +21,7 @@ unsetopt SHARE_HISTORY
 
 #{{{ Variables
 export TERM=xterm-256color
-export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/go/bin:$HOME/src/emacs-24.5/src:$HOME/src/emacs-24.5/lib-src:$HOME/node_modules/.bin/:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/opt/flow:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/go/bin:$HOME/src/emacs-24.5/src:$HOME/src/emacs-24.5/lib-src:$HOME/node_modules/.bin/:$PATH
 export PYTHONSTARTUP="$HOME/.pyrc"
 HISTSIZE=1000
 SAVEHIST=1000
@@ -51,8 +51,8 @@ fi
 #}}}
 
 #{{{ Go
-export GOROOT=$HOME/src/go
-export GOPATH=$HOME/junk/go
+export GOROOT=/opt/go
+export GOPATH=$HOME/src/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 #}}}
 
@@ -108,7 +108,6 @@ alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias tmux='tmux -2'
-alias ygcheese="python setup.py register -r yg sdist upload -r yg"
 alias csvtable="sed 's/,,/, ,/g;s/,,/, ,/g' | column -s, -t | less -#2 -FNSX"
 alias diff2='diff -y --suppress-common-lines'
 alias remove_dups="awk 'NF && !(\$1 in a){a[\$1];p=\$1;print (getline == 0) ? p : p}'"
@@ -116,6 +115,8 @@ alias google-chrome-def="google-chrome --profile-directory=Default --explicitly-
 alias google-chrome-fun="google-chrome --profile-directory=\"Profile 2\""
 alias google-chrome-netflix="google-chrome --profile-directory=\"Profile 2\" --proxy-server=\"socks://localhost:9999\""
 alias google-chrome-inc="google-chrome --incognito"
+alias ttyrec="script -t 2> /tmp/timingfile"
+alias ttyplay="scriptreplay /tmp/timingfile"
 #}}}
 
 #{{{ Functions
@@ -173,6 +174,7 @@ bindkey \^U backward-kill-line
 #}}}
 
 #{{{ External scripts
+VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 if [[ -z "$VIRTUAL_ENV" ]]; then
     if [[ -x `which virtualenvwrapper.sh` ]]; then
 	source `which virtualenvwrapper.sh`
@@ -220,6 +222,10 @@ _alembic_cmds () {
     reply=( $(alembic 2>&1 | grep "{branches" | sed -e 's/^\ *//' -e 's/[{}]//g' -e 's/,/\n/g') )
 }
 compctl -K _alembic_cmds alembic
+_devpi_cmds () {
+    reply=( $(devpi -h | grep '  {' | sed 's/[ {}]//g' | sed 's/,/\n/g' ) )
+}
+compctl -K _devpi_cmds devpi
 #}}}
 
 #{{{ Window title, but not inside Emacs
