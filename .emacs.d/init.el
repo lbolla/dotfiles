@@ -21,7 +21,7 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("c4bdf654f62e0de639da577ad68283484b15c0937129bcfb7ecec43314d1b154" default)))
+    ("1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
  '(delete-old-versions t)
  '(display-time-world-list
    (quote
@@ -43,7 +43,7 @@
      ("Asia/Tokyo" "Tokyo"))))
  '(evil-emacs-state-modes
    (quote
-    (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-commit-mode magit-diff-mode magit-key-mode magit-log-mode magit-mode magit-reflog-mode magit-show-branches-mode magit-branch-manager-mode magit-stash-mode magit-status-mode magit-wazzup-mode magit-process-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode rebase-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode)))
+    (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-blame-mode magit-diff-mode magit-process-mode magit-refs-mode magit-revision-mode magit-reflog-mode magit-log-mode magit-status-mode magit-popup-mode magit-popup-sequence-mode magit-log-select-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode pass-mode)))
  '(explicit-shell-file-name "/usr/bin/zsh")
  '(flycheck-clang-include-path
    (quote
@@ -55,6 +55,7 @@
     ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.egg-info/")))
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
+ '(magit-push-always-verify nil)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
  '(org-agenda-sorting-strategy
@@ -89,11 +90,6 @@
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 (global-set-key (kbd "<f5>") 'compile)
 
-;; Dark bg
-;; (load-theme 'lorenzo)
-;; Light bg
-(load-theme 'leuven)
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -117,6 +113,12 @@
 ;; See https://github.com/jwiegley/dot-emacs/blob/master/init.el
 ;;     https://github.com/jordonbiondo/.emacs.d/blob/master/init.el
 (require 'use-package)
+
+(use-package custom
+  :init
+  (load-theme 'quasi-monochrome)
+  ;; (load-theme 'leuven)
+  )
 
 (use-package evil
   :ensure t
@@ -208,56 +210,22 @@
 	    (setq flycheck-highlighting-mode 'lines)
 	    (setq flycheck-ghc-language-extensions ())
 
-	    (flycheck-define-checker javascript-flow
-	      "A JavaScript syntax and style checker using Flow.
-
-See URL `http://flowtype.org/'."
-	      :command ("flow" source-original)
-	      :error-patterns
-	      ((error line-start
-		      (file-name)
-		      ":"
-		      line
-		      ":"
-		      (minimal-match (one-or-more not-newline))
-		      ": "
-		      (message (minimal-match (and (one-or-more anything) "\n")))
-		      line-end))
-	      :modes js-mode)
-	    (add-to-list 'flycheck-checkers 'javascript-flow t)
-
-	    (flycheck-define-checker erlang-dialyzer
-	      "Erlang syntax checker based on dialyzer."
-	      :command ("dialyzer" source-original)
-	      :error-patterns
-	      ((error line-start
-		      (file-name)
-		      ":"
-		      line
-		      ":"
-		      (message)
-		      line-end))
-	      :modes erlang-mode)
-	    (add-to-list 'flycheck-checkers 'erlang-dialyzer t)
-
-	    (flycheck-define-checker python-mypy
-	      "Mypy syntax checker."
-	      :command ("mypy" source-original)
-	      :error-patterns
-	      ((error line-start
-		      (file-name)
-		      ", line "
-		      line
-		      ":"
-		      (message)
-		      line-end))
-	      :modes python-mode)
-	    (add-to-list 'flycheck-checkers 'python-mypy t)
+	    ;; (flycheck-define-checker erlang-dialyzer
+	    ;;   "Erlang syntax checker based on dialyzer."
+	    ;;   :command ("dialyzer" source-original)
+	    ;;   :error-patterns
+	    ;;   ((error line-start
+	    ;; 	      (file-name)
+	    ;; 	      ":"
+	    ;; 	      line
+	    ;; 	      ":"
+	    ;; 	      (message)
+	    ;; 	      line-end))
+	    ;;   :modes erlang-mode)
+	    ;; (add-to-list 'flycheck-checkers 'erlang-dialyzer t)
+	    ;; (flycheck-add-next-checker 'erlang 'erlang-dialyzer)
 
 	    (flycheck-add-next-checker 'python-flake8 'python-pylint)
-	    ;; (flycheck-add-next-checker 'python-pylint 'python-mypy)
-	    (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)
-	    (flycheck-add-next-checker 'erlang 'erlang-dialyzer)
 	    (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
 
 (use-package flycheck-haskell
@@ -265,6 +233,17 @@ See URL `http://flowtype.org/'."
   :init (progn
 	  (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
 	  (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
+
+(use-package flycheck-mypy
+  :ensure t
+  :disabled t
+  :config (progn
+  	  (flycheck-add-next-checker 'python-pylint 'python-mypy)))
+
+(use-package flycheck-flow
+:ensure t
+:config (progn
+	    (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)))
 
 (use-package ido
   :ensure t
@@ -487,9 +466,8 @@ See URL `http://flowtype.org/'."
 (use-package magit
   :ensure t
   :config (progn
-	    (setq magit-last-seen-setup-instructions "1.4.0")
-	    (define-key evil-normal-state-map (kbd ",gb") 'magit-blame-mode)
-	    (global-set-key (kbd "C-x G") 'magit-status)))
+  	    (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
+  	    (global-set-key (kbd "C-x G") 'magit-status)))
 
 (use-package cython-mode
   :ensure t
@@ -508,6 +486,9 @@ See URL `http://flowtype.org/'."
 			    js-indent-level 2)
 		      (local-set-key (kbd "RET") 'newline-and-indent)
 		      (modify-syntax-entry ?\_ "w")))))
+
+(use-package js2-mode
+  :mode (("\\.js\\'" . js2-mode)))
 
 (use-package cc-mode
   :init (progn
@@ -535,7 +516,7 @@ See URL `http://flowtype.org/'."
 		whitespace-style '(face lines-tail))))
 
 (use-package markdown-mode
-  :mode ("\\.md\\'" . markdown-mode)
+  :mode (("\\.md\\'" . markdown-mode))
   :config (progn
 	    (add-hook 'markdown-mode-hook
 		      (lambda ()
@@ -741,6 +722,9 @@ See URL `http://flowtype.org/'."
 		      ;; (slime-highlight-edits-mode t)
 		      (unless (slime-connected-p)
 			(save-excursion (slime)))))))
+
+(use-package monky
+  :ensure t)
 
 (use-package pass
   :ensure t)
