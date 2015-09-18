@@ -275,11 +275,11 @@ c.TerminalInteractiveShell.readline_parse_and_bind = ['tab: complete', '"\\C-l":
 # less than 20, it is reset to 0 and a warning is issued).  This limit is
 # defined because otherwise you'll spend more time re-flushing a too small cache
 # than working
-# c.TerminalInteractiveShell.cache_size = 1000
+c.TerminalInteractiveShell.cache_size = 1000
 
 # 'all', 'last', 'last_expr' or 'none', specifying which nodes should be run
 # interactively (displaying output from expressions).
-# c.TerminalInteractiveShell.ast_node_interactivity = 'last_expr'
+c.TerminalInteractiveShell.ast_node_interactivity = 'last_expr'
 
 # Automatically call the pdb debugger after every exception.
 # c.TerminalInteractiveShell.pdb = False
