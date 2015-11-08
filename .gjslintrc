@@ -1,3 +1,5 @@
 # --strict
 # --jslint_error=all
 --nojsdoc
+# 0131 Single-quoted string preferred over double-quoted string.
+--disable 0131
