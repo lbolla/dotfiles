@@ -11,10 +11,10 @@
  ;; If there is more than one, they won't work right.
  '(ag-ignore-list (quote ("TAGS")))
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
- '(browse-url-browser-function (quote w3m))
+ '(browse-url-browser-function (quote browse-url-default-browser))
  '(c-default-style
    (quote
-    ((c-mode . "linux")
+    ((c-mode . "k&r-wikipedia")
      (java-mode . "java")
      (awk-mode . "awk")
      (other . "gnu"))))
@@ -55,6 +55,7 @@
     ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.egg-info/")))
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
+ '(magit-branch-arguments nil)
  '(magit-push-always-verify nil)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
@@ -210,20 +211,22 @@
 	    (setq flycheck-highlighting-mode 'lines)
 	    (setq flycheck-ghc-language-extensions ())
 
-	    ;; (flycheck-define-checker erlang-dialyzer
-	    ;;   "Erlang syntax checker based on dialyzer."
-	    ;;   :command ("dialyzer" source-original)
-	    ;;   :error-patterns
-	    ;;   ((error line-start
-	    ;; 	      (file-name)
-	    ;; 	      ":"
-	    ;; 	      line
-	    ;; 	      ":"
-	    ;; 	      (message)
-	    ;; 	      line-end))
-	    ;;   :modes erlang-mode)
-	    ;; (add-to-list 'flycheck-checkers 'erlang-dialyzer t)
-	    ;; (flycheck-add-next-checker 'erlang 'erlang-dialyzer)
+	    ;; TODO
+	    (flycheck-define-checker cython
+	      "Cython checker"
+	      :command ("cython" "-Wextra" source-original)
+	      :error-patterns
+	      ((error line-start
+		      (file-name)
+		      ":"
+		      line
+		      ":"
+		      column
+		      ":"
+		      (message)
+		      line-end))
+	      :modes cython-mode)
+	    (add-to-list 'flycheck-checkers 'cython-mode t)
 
 	    (flycheck-add-next-checker 'python-flake8 'python-pylint)
 	    (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
@@ -239,6 +242,11 @@
   :disabled t
   :config (progn
   	  (flycheck-add-next-checker 'python-pylint 'python-mypy)))
+
+(use-package flycheck-dialyzer
+  :ensure t
+  :config (progn
+	    (flycheck-add-next-checker 'erlang 'erlang-dialyzer)))
 
 (use-package flycheck-flow
 :ensure t
@@ -385,6 +393,10 @@
 	  (add-hook 'electric-indent-functions
 		    'electric-indent-ignore-python)))
 
+(use-package erlang
+  :mode (("\\.erl\\'" . erlang-mode)
+	 ("\\rebar.config\\'" . erlang-mode)))
+
 (use-package python
   :mode (("\\.py\\'" . python-mode)
 	 ("\\.mk\\'" . python-mode)) ;; check-mk config files
@@ -473,8 +485,10 @@
   :ensure t
   :defer t
   :config (progn
+	    (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
 	    (defun cython-show-annotated ()
 	      (interactive)
+	      (shell-command (concat "cython -a " (buffer-file-name)))
 	      (browse-url (concat "file://" (replace-regexp-in-string "\.pyx$" ".html" (buffer-file-name)))))
 	    (define-key evil-normal-state-map (kbd ",a") 'cython-show-annotated)))
 
@@ -492,6 +506,84 @@
 
 (use-package cc-mode
   :init (progn
+	  ;; From https://en.wikipedia.org/wiki/Indent_style#K.26R_style
+	  (c-add-style "k&r-wikipedia"
+		       '("k&r"
+			 (c-basic-offset . 4)	; Guessed value
+			 (c-offsets-alist
+			  (block-close . 0)	; Guessed value
+			  (defun-block-intro . +)	; Guessed value
+			  (defun-close . 0)	; Guessed value
+			  (defun-open . 0)	; Guessed value
+			  (else-clause . 0)	; Guessed value
+			  (statement . 0)		; Guessed value
+			  (statement-block-intro . +) ; Guessed value
+			  (substatement . +)	; Guessed value
+			  (topmost-intro . 0)	; Guessed value
+			  (access-label . -)
+			  (annotation-top-cont . 0)
+			  (annotation-var-cont . +)
+			  (arglist-close . c-lineup-close-paren)
+			  (arglist-cont c-lineup-gcc-asm-reg 0)
+			  (arglist-cont-nonempty . c-lineup-arglist)
+			  (arglist-intro . +)
+			  (block-open . 0)
+			  (brace-entry-open . 0)
+			  (brace-list-close . 0)
+			  (brace-list-entry . 0)
+			  (brace-list-intro . +)
+			  (brace-list-open . 0)
+			  (c . c-lineup-C-comments)
+			  (case-label . 0)
+			  (catch-clause . 0)
+			  (class-close . 0)
+			  (class-open . 0)
+			  (comment-intro . c-lineup-comment)
+			  (composition-close . 0)
+			  (composition-open . 0)
+			  (cpp-define-intro c-lineup-cpp-define +)
+			  (cpp-macro . -1000)
+			  (cpp-macro-cont . +)
+			  (do-while-closure . 0)
+			  (extern-lang-close . 0)
+			  (extern-lang-open . 0)
+			  (friend . 0)
+			  (func-decl-cont . +)
+			  (inclass . +)
+			  (incomposition . +)
+			  (inexpr-class . +)
+			  (inexpr-statement . +)
+			  (inextern-lang . +)
+			  (inher-cont . c-lineup-multi-inher)
+			  (inher-intro . +)
+			  (inlambda . c-lineup-inexpr-block)
+			  (inline-close . 0)
+			  (inline-open . +)
+			  (inmodule . +)
+			  (innamespace . +)
+			  (knr-argdecl . 0)
+			  (knr-argdecl-intro . +)
+			  (label . 2)
+			  (lambda-intro-cont . +)
+			  (member-init-cont . c-lineup-multi-inher)
+			  (member-init-intro . +)
+			  (module-close . 0)
+			  (module-open . 0)
+			  (namespace-close . 0)
+			  (namespace-open . 0)
+			  (objc-method-args-cont . c-lineup-ObjC-method-args)
+			  (objc-method-call-cont c-lineup-ObjC-method-call-colons c-lineup-ObjC-method-call +)
+			  (objc-method-intro .
+					     [0])
+			  (statement-case-intro . +)
+			  (statement-case-open . 0)
+			  (statement-cont . +)
+			  (stream-op . c-lineup-streamop)
+			  (string . -1000)
+			  (substatement-label . 2)
+			  (substatement-open . +)
+			  (template-args-cont c-lineup-template-args +)
+			  (topmost-intro-cont . c-lineup-topmost-intro-cont))))
 	  (add-hook 'c-mode-hook
 		    (lambda ()
 		      (modify-syntax-entry ?\_ "w")))))
