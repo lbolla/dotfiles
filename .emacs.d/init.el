@@ -366,6 +366,7 @@
   :init (progn
 	  (add-hook 'text-mode-hook
 		    (lambda ()
+		      (modify-syntax-entry ?\_ "w")
 		      (flyspell-mode t)))))
 
 (use-package help-mode
@@ -462,8 +463,6 @@
 
 	    (add-hook 'python-mode-hook
 		      (lambda ()
-			;; Underscore part of word in Python
-			(modify-syntax-entry ?\_ "w" python-mode-syntax-table)
 			;; Autocompletion
 			(jedi:setup)
 			;; Keybidings
@@ -475,11 +474,18 @@
 			;; Enter key executes newline-and-indent
 			(local-set-key (kbd "RET") 'newline-and-indent)))))
 
+(use-package prog-mode
+  :config (progn
+	    (add-hook 'prog-mode-hook
+		      (lambda ()
+			;; Underscore is part of a word
+			(modify-syntax-entry ?\_ "w")))))
+
 (use-package magit
   :ensure t
   :config (progn
   	    (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
-  	    (global-set-key (kbd "C-x G") 'magit-status)))
+  	    (define-key evil-normal-state-map (kbd ",gB") 'magit-blame-quit)))
 
 (use-package cython-mode
   :ensure t
@@ -498,8 +504,7 @@
 		    (lambda ()
 		      (setq indent-tabs-mode nil
 			    js-indent-level 2)
-		      (local-set-key (kbd "RET") 'newline-and-indent)
-		      (modify-syntax-entry ?\_ "w")))))
+		      (local-set-key (kbd "RET") 'newline-and-indent)))))
 
 (use-package js2-mode
   :mode (("\\.js\\'" . js2-mode)))
@@ -583,16 +588,7 @@
 			  (substatement-label . 2)
 			  (substatement-open . +)
 			  (template-args-cont c-lineup-template-args +)
-			  (topmost-intro-cont . c-lineup-topmost-intro-cont))))
-	  (add-hook 'c-mode-hook
-		    (lambda ()
-		      (modify-syntax-entry ?\_ "w")))))
-
-(use-package sql
-  :init (progn
-	  (add-hook 'sql-mode-hook
-		    (lambda ()
-		      (modify-syntax-entry ?\_ "w")))))
+			  (topmost-intro-cont . c-lineup-topmost-intro-cont))))))
 
 (use-package erlang
   :ensure t
