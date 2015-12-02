@@ -20,3 +20,4 @@ aliases
 /.emacs.d/flycheck_private.el
 /.emacs.d/tramp
 /.emacs.d/session.*
+.emacs.d/.cask/
