@@ -67,7 +67,6 @@
      (search category-keep))))
  '(org-fontify-whole-heading-line t)
  '(python-shell-interpreter "ipython")
- '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(user-full-name "Lorenzo Bolla")
@@ -89,6 +88,7 @@
 (global-set-key (kbd "C-c l") 'windmove-right)
 (global-set-key (kbd "C-c t") 'zsh)
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 (global-set-key (kbd "<f5>") 'compile)
 
 (custom-set-faces
@@ -114,6 +114,7 @@
 ;; See https://github.com/jwiegley/dot-emacs/blob/master/init.el
 ;;     https://github.com/jordonbiondo/.emacs.d/blob/master/init.el
 (require 'use-package)
+; (setq use-package-always-ensure t)
 
 (use-package custom
   :init
@@ -122,7 +123,6 @@
   )
 
 (use-package evil
-  :ensure t
   :init (progn
 
 	  (evil-mode t)
@@ -148,13 +148,11 @@
 	    (other-frame -1))
 
 	  (use-package evil-nerd-commenter
-	    :ensure t
 	    :init (progn
 	  	    (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
 	  	    (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
 
 	  (use-package evil-matchit
-	    :ensure t
 	    :init (progn
 	  	    (global-evil-matchit-mode 1)))
 
@@ -178,14 +176,14 @@
 	  ;; (define-key evil-normal-state-map (kbd ",G") 'ag)
 	  ;; (define-key evil-normal-state-map (kbd ",G") 'ag-venv-project-at-point)
 	  (define-key evil-normal-state-map (kbd ",G") 'ag-project-at-point)
+	  (define-key evil-normal-state-map (kbd ",F") 'ag-files)
 	  (define-key evil-normal-state-map (kbd ",m") 'menu-bar-mode)
 	  (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
-	  (define-key evil-normal-state-map (kbd ",j") 'ace-jump-mode)
+	  (define-key evil-normal-state-map (kbd ", SPC") 'ace-jump-mode)
 	  (define-key evil-normal-state-map (kbd ",yf") 'yg-fogbugz-browse-at-point)
 	  (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)))
 
 (use-package paredit
-  :ensure t
   :init (progn
 	  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 	  (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
@@ -204,7 +202,6 @@
 	  ))
 
 (use-package flycheck
-  :ensure t
   :init (progn
 	  (add-hook 'after-init-hook #'global-flycheck-mode))
   :config (progn
@@ -232,29 +229,25 @@
 	    (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
 
 (use-package flycheck-haskell
-  :ensure t
   :init (progn
 	  (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
 	  (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
 
 (use-package flycheck-mypy
-  :ensure t
-  :disabled t
-  :config (progn
-  	  (flycheck-add-next-checker 'python-pylint 'python-mypy)))
+  ;; :disabled t
+  ;; :config (progn
+  ;; 	  (flycheck-add-next-checker 'python-pylint 'python-mypy))
+)
 
 (use-package flycheck-dialyzer
-  :ensure t
   :config (progn
 	    (flycheck-add-next-checker 'erlang 'erlang-dialyzer)))
 
 (use-package flycheck-flow
-:ensure t
 :config (progn
 	    (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)))
 
 (use-package ido
-  :ensure t
   :init (progn
 	  (ido-mode t)
 	  (ido-everywhere t)
@@ -286,24 +279,20 @@
 	  (show-paren-mode)))
 
 (use-package xclip
-  :ensure t
   :init (xclip-mode t))
 
 (use-package projectile
-  :ensure t
   :init (progn
 	  (projectile-global-mode)
 	  (define-key evil-normal-state-map "\C-p" 'projectile-find-file)))
 
 (use-package go-mode
-  :ensure t
   :mode ("\\.go\\'" . go-mode)
   :init (progn
 	  (add-hook 'before-save-hook 'gofmt-before-save)
 	  (add-hook 'go-mode-hook 'auto-complete-mode)))
 
 (use-package virtualenvwrapper
-  :ensure t
   :defer t
   :init (progn
 
@@ -349,16 +338,13 @@
 	    (venv-initialize-eshell)))
 
 (use-package w3m
-  :ensure t
   :defer t)
 
 (use-package xclip
   :disabled t
-  :ensure t
   :defer t)
 
 (use-package yaml-mode
-  :ensure t
   :mode ("\\.ya?ml\\'" . yaml-mode))
 
 (use-package text-mode
@@ -376,7 +362,6 @@
 		      (evil-motion-state 0)))))
 
 (use-package jedi
-  :ensure t
   :commands jedi:setup
   :config (progn
 	    (setq jedi:complete-on-dot t)
@@ -482,13 +467,11 @@
 			(modify-syntax-entry ?\_ "w")))))
 
 (use-package magit
-  :ensure t
   :config (progn
   	    (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
   	    (define-key evil-normal-state-map (kbd ",gB") 'magit-blame-quit)))
 
 (use-package cython-mode
-  :ensure t
   :defer t
   :config (progn
 	    (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
@@ -591,12 +574,10 @@
 			  (topmost-intro-cont . c-lineup-topmost-intro-cont))))))
 
 (use-package erlang
-  :ensure t
   :init (progn
 	  (setq erlang-root-dir "/usr/lib/erlang")))
 
 (use-package whitespace
-  :ensure t
   :init (progn
 	  (hook-into-modes 'whitespace-mode '(python-mode-hook))
 	  ;; Highlight portion of lines >79
@@ -665,17 +646,16 @@
 (use-package css-mode
   :mode (("\\.scss\\'" . css-mode)))
 
-(use-package sgml-mode
-  :mode (("\\.html\\'" . html-mode)
-	 ("\\.tmpl\\'" . html-mode))
+(use-package web-mode
+  :mode (("\\.html\\'" . web-mode)
+	 ("\\.tmpl\\'" . web-mode))
   :config (progn
-	    (add-hook 'html-mode-hook
+	    (add-hook 'web-mode-hook
 		      (lambda ()
-			;; (sgml-guess-indent)
-			(setq sgml-basic-offset 2)
-			(set-indent 2)
-			(modify-syntax-entry ?\_ "w")
-			(modify-syntax-entry ?\- "w")))))
+			(setq web-mode-markup-indent-offset 4)
+			(setq web-mode-css-indent-offset 4)
+			(setq web-mode-code-indent-offset 4)
+			(setq web-mode-indent-style 4)))))
 
 (use-package cider
   :commands cider-jack-in)
@@ -730,15 +710,12 @@
   :mode ("\\.http\\'" . restclient-mode))
 
 (use-package lua-mode
-  :ensure t
   :defer t)
 
 (use-package ace-jump-mode
-  :ensure t
   :defer t)
 
 (use-package rcirc
-  :ensure t
   :defer t
   :config (progn
 	    (defun my-rcirc-print-hook (process sender response target text)
@@ -796,7 +773,6 @@
 		      (structured-haskell-mode)))))
 
 (use-package slime
-  :ensure t
   :init (progn
 	  (setq inferior-lisp-program "/usr/local/bin/sbcl --noinform")
 	  ;; Using (ql:quickload "clhs")
@@ -811,144 +787,57 @@
 		      (unless (slime-connected-p)
 			(save-excursion (slime)))))))
 
-(use-package monky
-  :ensure t)
+(use-package monky)
 
-(use-package pass
-  :ensure t)
+(use-package pass)
 
-(use-package ag
-  :ensure t)
+(use-package ag)
 
 (use-package mu4e
   :load-path "/usr/local/share/emacs/site-lisp/mu4e"
   :init (progn
-	  ;; default
-	  (setq mu4e-maildir "/home/lbolla/Mail")
-
-	  ;; (setq mu4e-drafts-folder "/Networkscale/[Gmail].Drafts")
-	  ;; (setq mu4e-sent-folder   "/Networkscale/[Gmail].Sent Mail")
-	  ;; (setq mu4e-trash-folder  "/Networkscale/[Gmail].Bin")
-
-	  ;; ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-	  ;; (setq mu4e-sent-messages-behavior 'delete)
-
-	  ;; (setq mu4e-maildir-shortcuts
-	  ;; 	'(("/Networkscale/INBOX"               . ?i)
-	  ;; 	  ("/Networkscale/[Gmail].Sent Mail"   . ?s)
-	  ;; 	  ("/Networkscale/[Gmail].Bin"         . ?t)
-	  ;; 	  ("/Networkscale/[Gmail].All Mail"    . ?a)))
-
-	  ;; ;; something about ourselves
-	  ;; (setq
-	  ;;  user-mail-address "lorenzo@networkscale.co.uk"
-	  ;;  user-full-name  "Lorenzo Bolla"
-	  ;;  message-signature
-	  ;;  (concat
-	  ;;   "Lorenzo Bolla, Director\n"
-	  ;;   "Networkscale Ltd.\n"))
-
-	  (defvar mu4e-my-accounts-alist
-	    `(("Personal"
-	       (mu4e-sent-folder . "/Personal/[Gmail].Sent Mail")
-	       (mu4e-drafts-folder . "/Personal/[Gmail].Drafts")
-	       (mu4e-trash-folder . "/Personal/[Gmail].Bin")
-	       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-	       (mu4e-sent-messages-behavior . delete)
-	       (mu4e-maildir-shortcuts . (("/Personal/INBOX"               . ?i)
-					  ("/Personal/[Gmail].Sent Mail"   . ?s)
-					  ("/Personal/[Gmail].Bin"         . ?t)
-					  ("/Personal/[Gmail].All Mail"    . ?a)))
-	       (message-signature . "Lorenzo Bolla\nhttp://lbolla.info")
-	       (user-mail-address . ,personal-smtp-mail-address)
-	       (smtpmail-smtp-user . ,personal-smtp-mail-address)
-	       (smtpmail-smtp-server . ,personal-smtp-server)
-	       (smtpmail-smtp-service . ,personal-smtp-port)
-	       (smtpmail-stream-type . starttls))
-	      ("Networkscale"
-	       (mu4e-sent-folder . "/Networkscale/[Gmail].Sent Mail")
-	       (mu4e-drafts-folder . "/Networkscale/[Gmail].Drafts")
-	       (mu4e-trash-folder . "/Networkscale/[Gmail].Bin")
-	       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-	       (mu4e-sent-messages-behavior . delete)
-	       (mu4e-maildir-shortcuts . (("/Networkscale/INBOX"               . ?i)
-					  ("/Networkscale/[Gmail].Sent Mail"   . ?s)
-					  ("/Networkscale/[Gmail].Bin"         . ?t)
-					  ("/Networkscale/[Gmail].All Mail"    . ?a)))
-	       (message-signature . "Lorenzo Bolla, Director\nNetworkscale Ltd.")
-	       (user-mail-address . ,ns-mail-address)
-	       (smtpmail-smtp-user . ,ns-smtp-user)
-	       (smtpmail-smtp-server . ,ns-smtp-server)
-	       (smtpmail-smtp-service . ,ns-smtp-port)
-	       (smtpmail-stream-type . starttls))
-	      ("YG"
-	       ;; (mu4e-sent-folder . "/YG/[Gmail].Sent Mail")
-	       ;; (mu4e-drafts-folder . "/YG/[Gmail].Drafts")
-	       ;; (mu4e-trash-folder . "/YG/[Gmail].Bin")
-	       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-	       ;; (mu4e-sent-messages-behavior . delete)
-	       ;; (mu4e-maildir-shortcuts . (("/YG/INBOX"               . ?i)))
-	       (message-signature . "Lorenzo Bolla")
-	       (user-mail-address . ,yg-smtp-mail-address)
-	       (smtpmail-smtp-user . ,yg-smtp-mail-address)
-	       (smtpmail-smtp-server . ,yg-smtp-server)
-	       (smtpmail-smtp-service . ,yg-smtp-port)
-	       (smtpmail-stream-type . starttls))))
-
-	  (defun mu4e-set-my-account (&optional acct)
-	    "Set the account for composing a message."
-	    (let* ((account
-	  	    (if acct
-	  		acct
-	  	      (if mu4e-compose-parent-message
-	  		  (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-	  		    (string-match "/\\(.*?\\)/" maildir)
-	  		    (match-string 1 maildir))
-	  		(completing-read (format "Compose with account: (%s) "
-	  					 (mapconcat #'(lambda (var) (car var)) mu4e-my-accounts-alist "/"))
-	  				 (mapcar #'(lambda (var) (car var)) mu4e-my-accounts-alist)
-	  				 nil t nil nil (caar mu4e-my-accounts-alist)))))
-		   (account-vars (cdr (assoc account mu4e-my-accounts-alist))))
-	      (if account-vars
-	  	  (mapc #'(lambda (var)
-	  		    (set (car var) (cdr var)))
-	  		account-vars)
-	  	(error "No email account found"))))
-
-	  ;; Pick a default account
-	  (mu4e-set-my-account "Networkscale")
-	  (add-hook 'mu4e-compose-pre-hook 'mu4e-set-my-account)
-
-	  ;; Global keybinding
 	  (global-set-key (kbd "C-c m") 'mu4e)
 	  (setq
+	   ;; who am I?
+	   user-mail-address yg-smtp-user
+	   user-full-name  "Lorenzo Bolla"
+	   ;; Maildirs
+	   mu4e-maildir "/home/lbolla/Mail"
+	   mu4e-drafts-folder "/YG/Drafts"
+	   mu4e-sent-folder "/YG/Sent Items"
+	   mu4e-trash-folder "/YG/Trash"
+	   ;; Shortcuts
+	   mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
+				    ("/YG/Errors" . ?e)
+				    ("/YG/Tickets" . ?t))
+	   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+	   ;; mu4e-sent-messages-behavior 'delete
 	   ;; Default MUA
 	   mail-user-agent 'mu4e-user-agent
 	   ;; I like UTF-8
 	   mu4e-use-fancy-chars nil
 	   ;; allow for updating mail using 'U' in the main view:
 	   mu4e-get-mail-command "offlineimap"
-	   ;; Update every 5  minutes
+	   ;; Update every 5 minutes
 	   mu4e-update-interval 300
 	   ;; convert html msgs to txt
 	   mu4e-html2text-command "html2text -utf8 -width 72"
 	   ;; don't keep message buffers around
 	   message-kill-buffer-on-exit t
+	   ;; don't show next message when scrolling with SPC
+	   mu4e-view-scroll-to-next nil
+	   ;; where to save attachments
+	   mu4e-attachment-dir "/tmp"
 	   ;; skip duplicates introduced by gmail and offlineimap
 	   mu4e-headers-skip-duplicates t)))
 
-;; (use-package smtpmail
-;;   :config (progn
-;; 	    (setq send-mail-function 'smtpmail-send-it
-
-;; 		  ;; smtpmail-smtp-server yg-smtp-server
-;; 		  ;; smtpmail-smtp-service yg-smtp-port
-;; 		  ;; smtpmail-mail-address yg-smtp-mail-address
-;; 		  smtpmail-default-smtp-server "smtp.gmail.com"
-;; 		  smtpmail-smtp-server "smtp.gmail.com"
-;; 		  smtpmail-smtp-service 587
-
-;; 		  smtpmail-stream-type 'starttls)))
+(use-package smtpmail
+  :init (progn
+	    (setq send-mail-function 'smtpmail-send-it
+		  smtpmail-smtp-server yg-smtp-server
+		  smtpmail-smtp-service yg-smtp-port
+		  smtpmail-mail-address yg-smtp-user
+		  smtpmail-stream-type 'starttls)))
 
 (provide '.emacs)
 ;;; .emacs ends here
