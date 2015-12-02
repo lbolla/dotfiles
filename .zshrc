@@ -21,14 +21,14 @@ unsetopt SHARE_HISTORY
 
 #{{{ Variables
 export TERM=xterm-256color
-export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:/opt/firefox:/opt/flow:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:$HOME/src/go/bin:$HOME/src/emacs-24.5/src:$HOME/src/emacs-24.5/lib-src:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH
+export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/src/go/bin:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH
 export PYTHONSTARTUP="$HOME/.pyrc"
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 export EDITOR=vim
 export PAGER=less
-export BROWSER=firefox
+export BROWSER=google-chrome
 if [[ -x `which mupdf` ]]; then
     PDFVIEWER=mupdf
 elif [[ -x `which evince` ]]; then
