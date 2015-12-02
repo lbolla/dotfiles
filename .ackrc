@@ -1,3 +1,4 @@
 --nogroup
 --ignore-dir=build
 --ignore-dir=dist
+--ignore-dir=.eggs
