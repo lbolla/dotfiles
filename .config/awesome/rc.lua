@@ -420,12 +420,12 @@ awful.rules.rules = {
       properties = { tag = tags[one_screen][2] } },
     { rule = { class = "Emacs", instance = "emacs" },
       properties = { tag = tags[other_screen][1] } },
-    { rule = { name = "PyCharm" },
-      properties = { tag = tags[other_screen][1] } },
-    { rule = { class = "Filezilla", instance = "filezilla" },
-      properties = { tag = tags[other_screen][4] } },
-    { rule = { name = ".*p.kdbx.*" },
-      properties = { tag = tags[other_screen][4] } },
+    -- { rule = { name = "PyCharm" },
+      -- properties = { tag = tags[other_screen][1] } },
+    -- { rule = { class = "Filezilla", instance = "filezilla" },
+      -- properties = { tag = tags[other_screen][3] } },
+    -- { rule = { name = ".*p.kdbx.*" },
+      -- properties = { tag = tags[other_screen][4] } },
     { rule = { class = "Virtualbox" },
       properties = { floating = true,
                      tag = tags[other_screen][5] } },
@@ -466,6 +466,7 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- }}}
 
 -- {{{ Autorun
+-- awful.util.spawn("gsettings set org.gnome.desktop.background picture-uri file:///home/lbolla/Firefox_wallpaper.png")
 -- awful.util.spawn(terminal)
 -- awful.util.spawn("empathy -hn")
 --- }}}
