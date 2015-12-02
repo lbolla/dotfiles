@@ -10,3 +10,4 @@ color =
 pager =
 graphlog =
 rebase =
+onsub = /home/lbolla/src/onsub/onsub.py
