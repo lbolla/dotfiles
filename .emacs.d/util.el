@@ -63,4 +63,14 @@
 	js-indent-level size
         tab-width size))
 
+(defun c-indent ()
+  "Run `indent` on current buffer."
+  (interactive)
+  (when (eq major-mode 'c-mode)
+    (let ((temp-point (point)))
+      ;; Use $HOME/.indent.pro to specify indent options
+      (shell-command-on-region (point-min) (point-max) "indent" nil t)
+      (save-buffer)
+      (goto-char temp-point))))
+
 ;;; util.el ends here

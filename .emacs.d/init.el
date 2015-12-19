@@ -71,7 +71,12 @@
  '(tool-bar-mode nil)
  '(user-full-name "Lorenzo Bolla")
  '(vc-follow-symlinks nil)
- '(vc-log-show-limit 50))
+ '(vc-log-show-limit 50)
+ '(yas-indent-line (quote none))
+ '(yas-prompt-functions
+   (quote
+    (yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-no-prompt)))
+ '(yas-snippet-dirs (quote (yas-installed-snippets-dir))))
 
 (load-file "~/.emacs.d/util.el")
 (load-file "~/.emacs.d/custom.el")
@@ -96,7 +101,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 119 :width normal :foundry "unknown" :family "Terminus")))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 119 :width normal :foundry "unknown" :family "Terminus"))))
+ '(mu4e-flagged-face ((t (:inherit font-lock-constant-face :foreground "firebrick" :weight bold)))))
 
 (server-start)
 
@@ -117,10 +123,12 @@
 ; (setq use-package-always-ensure t)
 
 (use-package custom
-  :init
-  (load-theme 'quasi-monochrome)
-  ;; (load-theme 'leuven)
-  )
+  :init (if (eq window-system 'x)
+	    (load-theme 'quasi-monochrome)
+	    ;; (load-theme 'leuven)
+	  ;; Turn font coloring off on textual terminals
+	  ;; (global-font-lock-mode 0)
+	  ))
 
 (use-package evil
   :init (progn
@@ -180,6 +188,7 @@
 	  (define-key evil-normal-state-map (kbd ",m") 'menu-bar-mode)
 	  (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
 	  (define-key evil-normal-state-map (kbd ", SPC") 'ace-jump-mode)
+	  (define-key evil-normal-state-map (kbd ",=") 'c-indent)
 	  (define-key evil-normal-state-map (kbd ",yf") 'yg-fogbugz-browse-at-point)
 	  (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)))
 
@@ -379,10 +388,6 @@
 	  (add-hook 'electric-indent-functions
 		    'electric-indent-ignore-python)))
 
-(use-package erlang
-  :mode (("\\.erl\\'" . erlang-mode)
-	 ("\\rebar.config\\'" . erlang-mode)))
-
 (use-package python
   :mode (("\\.py\\'" . python-mode)
 	 ("\\.mk\\'" . python-mode)) ;; check-mk config files
@@ -494,6 +499,10 @@
 
 (use-package cc-mode
   :init (progn
+
+	  ;; Run indent on save
+	  ;; (add-hook 'before-save-hook 'c-indent)
+
 	  ;; From https://en.wikipedia.org/wiki/Indent_style#K.26R_style
 	  (c-add-style "k&r-wikipedia"
 		       '("k&r"
@@ -574,6 +583,8 @@
 			  (topmost-intro-cont . c-lineup-topmost-intro-cont))))))
 
 (use-package erlang
+  :mode (("\\.erl\\'" . erlang-mode)
+	 ("\\rebar.config\\'" . erlang-mode))
   :init (progn
 	  (setq erlang-root-dir "/usr/lib/erlang")))
 
@@ -658,12 +669,14 @@
 			(setq web-mode-indent-style 4)))))
 
 (use-package cider
+  :disabled t
   :commands cider-jack-in)
 
 (use-package gnuplot
   :defer t)
 
 (use-package haskell-mode
+  :disabled t
   :defer t
   :config (progn
 	    (add-hook
@@ -694,6 +707,7 @@
 	       (define-key haskell-mode-map (kbd "C-c `") 'haskell-interactive-bring)))))
 
 (use-package haskell-cabal
+  :disabled t
   :mode ("\\.cabal\\'" . haskell-cabal-mode)
   :config (progn
 	    (add-hook 'haskell-cabal-mode-hook
@@ -716,6 +730,7 @@
   :defer t)
 
 (use-package rcirc
+  :disabled t
   :defer t
   :config (progn
 	    (defun my-rcirc-print-hook (process sender response target text)
@@ -773,6 +788,7 @@
 		      (structured-haskell-mode)))))
 
 (use-package slime
+  :disabled t
   :init (progn
 	  (setq inferior-lisp-program "/usr/local/bin/sbcl --noinform")
 	  ;; Using (ql:quickload "clhs")
@@ -808,8 +824,13 @@
 	   mu4e-trash-folder "/YG/Trash"
 	   ;; Shortcuts
 	   mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
-				    ("/YG/Errors" . ?e)
-				    ("/YG/Tickets" . ?t))
+				    ("/YG/Sent Items" . ?s))
+	   ;; Bookmarks
+	   mu4e-bookmarks '(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+			    ("date:today..now" "Today's messages" ?t)
+			    ("date:7d..now" "Last 7 days" ?w)
+			    ("mime:image/*" "Messages with images" ?p)
+			    ("flag:flagged" "Flagged messages" ?f))
 	   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 	   ;; mu4e-sent-messages-behavior 'delete
 	   ;; Default MUA
@@ -817,7 +838,9 @@
 	   ;; I like UTF-8
 	   mu4e-use-fancy-chars nil
 	   ;; allow for updating mail using 'U' in the main view:
-	   mu4e-get-mail-command "offlineimap"
+	   ;; mu4e-get-mail-command "offlineimap"
+	   ;; use crontab to call offlineimap
+	   mu4e-get-mail-command "true"
 	   ;; Update every 5 minutes
 	   mu4e-update-interval 300
 	   ;; convert html msgs to txt
@@ -831,6 +854,12 @@
 	   ;; skip duplicates introduced by gmail and offlineimap
 	   mu4e-headers-skip-duplicates t)))
 
+(use-package mu4e-alert
+  :init (progn
+	  (mu4e-alert-set-default-style 'libnotify)
+	  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+	  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)))
+
 (use-package smtpmail
   :init (progn
 	    (setq send-mail-function 'smtpmail-send-it
@@ -838,6 +867,10 @@
 		  smtpmail-smtp-service yg-smtp-port
 		  smtpmail-mail-address yg-smtp-user
 		  smtpmail-stream-type 'starttls)))
+
+(use-package yasnippet
+  :disabled t
+  :init (yas-global-mode 1))
 
 (provide '.emacs)
 ;;; .emacs ends here
