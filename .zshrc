@@ -20,9 +20,18 @@ unsetopt SHARE_HISTORY
 #}}}
 
 #{{{ Variables
-export TERM=xterm-256color
+
+if [[ -z $XDG_CURRENT_DESKTOP ]]; then
+    # Terminal
+    export TERM=linux
+else
+    # Inside X
+    export TERM=xterm-256color
+fi
+
 export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/src/go/bin:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH
 export PYTHONSTARTUP="$HOME/.pyrc"
+export MAIL=$HOME/Mail/YG/INBOX/
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
