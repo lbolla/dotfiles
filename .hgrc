@@ -1,6 +1,8 @@
 [ui]
 # username = Lorenzo Bolla <lbolla@gmail.com>
 username = Lorenzo Bolla <lorenzo.bolla@yougov.com>
+# http://stackoverflow.com/questions/6097578/mercurial-diff-merge-what-tool-is-this-and-how-do-i-use-it
+merge=internal:merge
 
 [alias]
 show = log --color=always -pr
