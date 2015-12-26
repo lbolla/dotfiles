@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+;;; Variables
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -18,6 +20,9 @@
      (java-mode . "java")
      (awk-mode . "awk")
      (other . "gnu"))))
+ '(cc-search-directories
+   (quote
+    ("." "/usr/include" "/usr/local/include/*" "../deps" "../../deps")))
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
@@ -47,12 +52,13 @@
  '(explicit-shell-file-name "/usr/bin/zsh")
  '(flycheck-clang-include-path
    (quote
-    ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include")))
+    ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps")))
  '(flycheck-cppcheck-checks (quote ("all")))
  '(font-use-system-font t)
  '(ido-ignore-files
    (quote
     ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.egg-info/")))
+ '(indent-tabs-mode nil)
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
  '(magit-branch-arguments nil)
@@ -78,8 +84,6 @@
     (yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-no-prompt)))
  '(yas-snippet-dirs (quote (yas-installed-snippets-dir))))
 
-(load-file "~/.emacs.d/util.el")
-(load-file "~/.emacs.d/custom.el")
 (load-file "~/.emacs.d/private.el")
 (load-file "~/.emacs.d/yg.el")
 
@@ -94,6 +98,9 @@
 (global-set-key (kbd "C-c t") 'zsh)
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-0") (lambda () (interactive) (text-scale-set 0)))
 (global-set-key (kbd "<f5>") 'compile)
 
 (custom-set-faces
@@ -101,12 +108,93 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 119 :width normal :foundry "unknown" :family "Terminus"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :foundry "unknown" :family "Monoid" :height 90))))
  '(mu4e-flagged-face ((t (:inherit font-lock-constant-face :foreground "firebrick" :weight bold)))))
 
 (server-start)
 
+;;; Functions
+
+(defun zsh ()
+  "Run a zsh."
+  (interactive)
+  (ansi-term "/usr/bin/zsh"))
+
+(defun chomp (str)
+  "Chomp leading and tailing whitespace from STR."
+  (replace-regexp-in-string (rx (or (: bos (* (any " \t\n")))
+				    (: (* (any " \t\n")) eos)))
+			    ""
+			    str))
+
+(defun read-file-in-string (fn)
+  "Read FN and return its content as a string."
+  (with-temp-buffer
+    (insert-file-contents fn)
+    (buffer-string)))
+
+(defun my-beep ()
+  "Play an alert sound."
+  (let ((alert "/usr/share/sounds/gnome/default/alerts/glass.ogg"))
+    (start-process "beep" nil "mplayer" (expand-file-name alert))))
+
+(defun cycle (lst)
+  "Cycle elements of LST."
+  (let ((item (pop lst)))
+    (append lst `(,item))))
+
+(defmacro timeit (what &rest body)
+  "Time WHAT and run BODY and report real time taken to do so."
+  `(let ((start-time (float-time)))
+     (progn ,@body)
+     (let ((elapsed-time (- (float-time) start-time)))
+       (message "Completed %s in %.4f seconds" ,what elapsed-time)
+       elapsed-time)))
+
+(defmacro hook-into-modes (func modes)
+  "Add FUNC to MODES hooks."
+  `(dolist (mode-hook ,modes)
+     (add-hook mode-hook ,func)))
+
+(defmacro with-basic-http-auth (&rest body)
+  "Execute BODY with basic http auth."
+  `(let ((url-request-extra-headers
+	  (cons `("Authorization" . ,(concat "Basic "
+					    (base64-encode-string
+					     (concat (read-string "Username: " "lorenzo.bolla")
+						     ":"
+						     (read-passwd "Password: "))))) url-request-extra-headers)))
+     (progn ,@body)))
+
+(defun set-indent (size)
+  "Set indent equal to SIZE."
+  (interactive "p")
+  (setq evil-shift-width size
+	js-indent-level size
+        tab-width size))
+
+(defun c-indent ()
+  "Run `indent` on current buffer."
+  (interactive)
+  (when (eq major-mode 'c-mode)
+    (let ((temp-point (point)))
+      ;; Use $HOME/.indent.pro to specify indent options
+      (shell-command-on-region (point-min) (point-max) "indent" nil t)
+      (save-buffer)
+      (goto-char temp-point))))
+
+(defcustom my-fonts '("Terminus-12" "Ubuntu Mono-12" "ProggyCleanTT-12" "Monoid-9" "IBM 3270 Narrow-12")
+  "List of fonts I like." :group 'local)
+
+(defun cycle-fonts ()
+  "Cycle between the fonts I like."
+  (interactive)
+  (set-frame-font (car my-fonts))
+  (message "Using font %s" (car my-fonts))
+  (setq my-fonts (cycle my-fonts)))
+
 ;;; Packages
+
 (require 'package)
 
 ;; Repositories
@@ -371,10 +459,8 @@
 		      (evil-motion-state 0)))))
 
 (use-package jedi
-  :commands jedi:setup
-  :config (progn
-	    (setq jedi:complete-on-dot t)
-	    (setq jedi:tooltip-method nil)))
+  :disabled t
+  :defer t)
 
 (use-package electric
   :init (progn
@@ -455,6 +541,10 @@
 		      (lambda ()
 			;; Autocompletion
 			(jedi:setup)
+                        ;; Turn off AC and use company instead
+                        (auto-complete-mode -1)
+                        (add-to-list 'company-backends 'company-jedi)
+
 			;; Keybidings
 			(define-key evil-normal-state-map (kbd ",b") 'python-insert-breakpoint)
 			(define-key evil-normal-state-map (kbd ",t") 'python-pytest-current-function)
@@ -490,8 +580,7 @@
   :init (progn
 	  (add-hook 'js-mode-hook
 		    (lambda ()
-		      (setq indent-tabs-mode nil
-			    js-indent-level 2)
+		      (setq js-indent-level 2)
 		      (local-set-key (kbd "RET") 'newline-and-indent)))))
 
 (use-package js2-mode
@@ -502,6 +591,11 @@
 
 	  ;; Run indent on save
 	  ;; (add-hook 'before-save-hook 'c-indent)
+
+          (add-hook 'c-mode-hook
+                    (lambda ()
+                      (add-to-list 'ffap-c-path "../deps")
+                      (add-to-list 'ffap-c-path "../../deps")))
 
 	  ;; From https://en.wikipedia.org/wiki/Indent_style#K.26R_style
 	  (c-add-style "k&r-wikipedia"
@@ -708,11 +802,7 @@
 
 (use-package haskell-cabal
   :disabled t
-  :mode ("\\.cabal\\'" . haskell-cabal-mode)
-  :config (progn
-	    (add-hook 'haskell-cabal-mode-hook
-		      (lambda ()
-			(setq indent-tabs-mode nil)))))
+  :mode ("\\.cabal\\'" . haskell-cabal-mode))
 
 (use-package auto-revert-tail-mode
   :mode ("\\.log\\'" . auto-revert-tail-mode))
@@ -871,6 +961,11 @@
 (use-package yasnippet
   :disabled t
   :init (yas-global-mode 1))
+
+(use-package company
+  :defer t
+  :init (progn
+          (add-hook 'after-init-hook 'global-company-mode)))
 
 (provide '.emacs)
 ;;; .emacs ends here
