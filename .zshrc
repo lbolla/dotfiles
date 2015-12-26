@@ -90,6 +90,7 @@ alias -s pdf=$PDFVIEWER
 alias -s png=$IMAGEVIEWER
 alias -s ppt=$PPTVIEWER
 alias -s pptx=$PPTVIEWER
+alias -s html=$BROWSER
 alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
 alias cdrip='ripit'
 alias cindent='indent -kr -nut'
