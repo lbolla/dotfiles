@@ -1,4 +1,6 @@
 /* K&R style */
--kr
+--k-and-r-style
 /* Put the type of a procedure on the line before its name. */
--psl
+--procnames-start-lines
+/* Don't use tabs */
+--no-tabs
