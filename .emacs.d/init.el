@@ -46,10 +46,11 @@
      ("Asia/Kuala_Lumpur" "Kuala Lumpur")
      ("Asia/Shanghai" "Shanghai")
      ("Asia/Tokyo" "Tokyo"))))
+ '(ediff-split-window-function (quote split-window-horizontally))
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(evil-emacs-state-modes
    (quote
     (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-blame-mode magit-diff-mode magit-process-mode magit-refs-mode magit-revision-mode magit-reflog-mode magit-log-mode magit-status-mode magit-popup-mode magit-popup-sequence-mode magit-log-select-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode pass-mode)))
- '(explicit-shell-file-name "/usr/bin/zsh")
  '(flycheck-clang-include-path
    (quote
     ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps")))
@@ -65,6 +66,7 @@
  '(magit-push-always-verify nil)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
+ '(mu4e-headers-include-related t)
  '(org-agenda-sorting-strategy
    (quote
     ((agenda habit-down deadline-up time-up todo-state-down alpha-up priority-down category-keep tag-up)
@@ -72,6 +74,11 @@
      (tags priority-down category-keep)
      (search category-keep))))
  '(org-fontify-whole-heading-line t)
+ '(org-stuck-projects
+   (quote
+    ("+LEVEL=2/-DONE"
+     ("TODO" "NEXT" "NEXTACTION" "CANC")
+     nil "")))
  '(python-shell-interpreter "ipython")
  '(show-paren-mode t)
  '(tool-bar-mode nil)
@@ -87,21 +94,21 @@
 (load-file "~/.emacs.d/private.el")
 (load-file "~/.emacs.d/yg.el")
 
-(setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
-(add-to-list 'exec-path "~/.cabal/bin")
-
 (global-set-key "\C-x\C-b" 'buffer-menu)
 (global-set-key (kbd "C-c h") 'windmove-left)
 (global-set-key (kbd "C-c j") 'windmove-down)
 (global-set-key (kbd "C-c k") 'windmove-up)
 (global-set-key (kbd "C-c l") 'windmove-right)
-(global-set-key (kbd "C-c t") 'zsh)
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "C-0") (lambda () (interactive) (text-scale-set 0)))
 (global-set-key (kbd "<f5>") 'compile)
+(global-set-key (kbd "<f6>") 'gdb)
+(global-set-key (kbd "<f7>") 'async-shell-command)
+(global-set-key (kbd "C-c b b") 'browse-url-at-point)
+(global-set-key (kbd "C-c b w") 'w3m-goto-url)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -114,11 +121,6 @@
 (server-start)
 
 ;;; Functions
-
-(defun zsh ()
-  "Run a zsh."
-  (interactive)
-  (ansi-term "/usr/bin/zsh"))
 
 (defun chomp (str)
   "Chomp leading and tailing whitespace from STR."
@@ -193,8 +195,6 @@
   (message "Using font %s" (car my-fonts))
   (setq my-fonts (cycle my-fonts)))
 
-;;; Packages
-
 (require 'package)
 
 ;; Repositories
@@ -203,6 +203,10 @@
 
 ;; Load all downloaded packages
 (package-initialize)
+;; TODO
+; (package-initialize t)
+; (let ((default-directory "~/.emacs.d/elpa"))
+  ; (normal-top-level-add-subdirs-to-load-path))
 
 ;; Package management
 ;; See https://github.com/jwiegley/dot-emacs/blob/master/init.el
@@ -211,12 +215,13 @@
 ; (setq use-package-always-ensure t)
 
 (use-package custom
-  :init (if (eq window-system 'x)
-	    (load-theme 'quasi-monochrome)
-	    ;; (load-theme 'leuven)
-	  ;; Turn font coloring off on textual terminals
-	  ;; (global-font-lock-mode 0)
-	  ))
+  :if window-system
+  :init (progn
+          (load-theme 'quasi-monochrome)
+          ;; (load-theme 'leuven)
+          ;; Turn font coloring off on textual terminals
+          ;; (global-font-lock-mode 0)
+          ))
 
 (use-package evil
   :init (progn
@@ -277,7 +282,8 @@
 	  (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
 	  (define-key evil-normal-state-map (kbd ", SPC") 'ace-jump-mode)
 	  (define-key evil-normal-state-map (kbd ",=") 'c-indent)
-	  (define-key evil-normal-state-map (kbd ",yf") 'yg-fogbugz-browse-at-point)
+	  (define-key evil-normal-state-map (kbd ",yff") 'yg-fogbugz-cli)
+	  (define-key evil-normal-state-map (kbd ",yfo") 'yg-fogbugz-browse-at-point)
 	  (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)))
 
 (use-package paredit
@@ -302,8 +308,15 @@
   :init (progn
 	  (add-hook 'after-init-hook #'global-flycheck-mode))
   :config (progn
-	    (setq flycheck-highlighting-mode 'lines)
-	    (setq flycheck-ghc-language-extensions ())
+            (setq flycheck-highlighting-mode 'lines
+                  flycheck-ghc-language-extensions ()
+                  flycheck-error-list-format
+                  [("Line" 4 flycheck-error-list-entry-< :right-align t)
+                   ("Col" 3 nil :right-align t)
+                   ("Level" 8 flycheck-error-list-entry-level-<)
+                   ("ID" 16 t)
+                   ("Message" 0 t)
+                   (" (Checker)" 8 t)])
 
 	    ;; TODO
 	    (flycheck-define-checker cython
@@ -345,11 +358,22 @@
 	    (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)))
 
 (use-package ido
+  :disabled t
   :init (progn
 	  (ido-mode t)
 	  (ido-everywhere t)
 	  (setq ido-enable-flex-matching t)
-	  (setq ido-file-extensions-order '(".py" ".js" ".emacs" t))))
+	  (setq ido-file-extensions-order '(".py" ".js" ".html" ".css" t))))
+
+(use-package swiper
+  :init (progn
+          (ivy-mode t)
+          ;; (swiper-from-isearch)
+          ;; TODO search-forward/backward evil-search
+          (global-set-key (kbd "C-s") 'swiper)
+          (setq ivy-use-virtual-buffers t
+                magit-completing-read-function 'ivy-completing-read
+                projectile-completion-system 'ivy)))
 
 (use-package tool-bar
   :init (progn
@@ -381,13 +405,15 @@
 (use-package projectile
   :init (progn
 	  (projectile-global-mode)
-	  (define-key evil-normal-state-map "\C-p" 'projectile-find-file)))
+	  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)))
 
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
   :init (progn
-	  (add-hook 'before-save-hook 'gofmt-before-save)
-	  (add-hook 'go-mode-hook 'auto-complete-mode)))
+          (setq godef-command "/home/lbolla/src/go/bin/godef")
+	  (define-key evil-normal-state-map "K" 'godoc)
+          (auto-complete-mode -1)
+	  (add-hook 'before-save-hook 'gofmt-before-save)))
 
 (use-package virtualenvwrapper
   :defer t
@@ -429,6 +455,7 @@
 	    (other-window 1))
 
 	  (define-key evil-normal-state-map ",w" 'venv-workon-and-cdproject))
+	  (global-set-key (kbd "C-c v w") 'venv-workon-and-cdproject)
 
   :config (progn
 	    (venv-initialize-interactive-shells)
@@ -586,16 +613,16 @@
 (use-package js2-mode
   :mode (("\\.js\\'" . js2-mode)))
 
+(use-package ffap
+  :config (progn
+          (add-to-list 'ffap-c-path "../deps")
+          (add-to-list 'ffap-c-path "../../deps")))
+
 (use-package cc-mode
   :init (progn
 
 	  ;; Run indent on save
 	  ;; (add-hook 'before-save-hook 'c-indent)
-
-          (add-hook 'c-mode-hook
-                    (lambda ()
-                      (add-to-list 'ffap-c-path "../deps")
-                      (add-to-list 'ffap-c-path "../../deps")))
 
 	  ;; From https://en.wikipedia.org/wiki/Indent_style#K.26R_style
 	  (c-add-style "k&r-wikipedia"
@@ -696,57 +723,164 @@
 		      (lambda ()
 			(set-indent 2)))))
 
+(use-package rst
+  :init (progn
+          (add-hook 'rst-mode-hook
+                    (lambda ()
+		      (auto-fill-mode t)))))
+
+;; http://doc.norang.ca/org-mode.html#GettingStarted
 (use-package org
   :init (progn
 	  (global-set-key (kbd "C-c o a") 'org-agenda)
+	  (global-set-key (kbd "C-c o b") 'org-iswitchb)
 	  (global-set-key (kbd "C-c o k") 'org-capture)
-	  (global-set-key (kbd "C-c o l") 'org-store-link)
+	  (global-set-key (kbd "C-c o l s") 'org-store-link)
+	  (global-set-key (kbd "C-c o l i") 'org-insert-link)
+	  (global-set-key (kbd "C-c o l o") 'org-open-at-point)
+	  (global-set-key (kbd "<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a SPC"))))
+
+          (defun bh/skip-non-archivable-tasks ()
+            "Skip trees that are not available for archiving"
+            (save-restriction
+              (widen)
+              ;; Consider only tasks with done todo headings as archivable candidates
+              (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
+                    (subtree-end (save-excursion (org-end-of-subtree t))))
+                (if (member (org-get-todo-state) org-todo-keywords-1)
+                    (if (member (org-get-todo-state) org-done-keywords)
+                        (let* ((daynr (string-to-number (format-time-string "%d" (current-time))))
+                               (a-month-ago (* 60 60 24 (+ daynr 1)))
+                               (last-month (format-time-string "%Y-%m-" (time-subtract (current-time) (seconds-to-time a-month-ago))))
+                               (this-month (format-time-string "%Y-%m-" (current-time)))
+                               (subtree-is-current (save-excursion
+                                                     (forward-line 1)
+                                                     (and (< (point) subtree-end)
+                                                          (re-search-forward (concat last-month "\\|" this-month) subtree-end t)))))
+                          (if subtree-is-current
+                              subtree-end ; Has a date in this month or last month, skip it
+                            nil))  ; available to archive
+                      (or subtree-end (point-max)))
+                  next-headline))))
+
 	  (add-hook 'org-mode-hook
 		    (lambda ()
 		      ;; For leuven theme
 		      (set-face-attribute 'org-checkbox nil :foreground "#CCCCCC")
+                      (org-indent-mode t)
 		      (auto-fill-mode t)
 		      (flyspell-mode t)))
-	  (setq org-agenda-files '("~/org/")
-		org-agenda-include-diary t
-		org-agenda-start-on-weekday nil
-		org-agenda-ndays 7
-		org-agenda-custom-commands (quote (("d" todo "DELG" nil)
-						   ("c" todo "DONE|DEFR|CANC" nil)
-						   ("w" todo "WAIT" nil)
-						   ("W" agenda "21 days" ((org-agenda-ndays 21)))
-						   ("A" agenda "Today's #A priority"
-						    ((org-agenda-skip-function
-						      (lambda nil
-							(org-agenda-skip-entry-if (quote notregexp) "\\=.*\\[#A\\]")))
-						     (org-agenda-ndays 1)
-						     (org-agenda-overriding-header "Today's Priority #A tasks: ")))
-						   ("u" alltodo "Unscheduled TODO"
-						    ((org-agenda-skip-function
-						      (lambda nil
-							(org-agenda-skip-entry-if (quote scheduled) (quote deadline)
-										  (quote regexp) "\n]+>")))
-						     (org-agenda-overriding-header "Unscheduled TODO entries: ")))))
-		org-capture-templates
-		'(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks") "* TODO %?\n  %i\n  %a")
-		  ("j" "Journal" entry (file+datetree "~/org/todo.org") "* %?\nEntered on %U\n  %i\n  %a"))
-		org-default-notes-file "~/org/todo.org" 
+
+          (org-babel-do-load-languages
+           (quote org-babel-load-languages)
+           (quote ((emacs-lisp . t)
+                   (dot . t)
+                   ;; (ditaa . t)
+                   (R . t)
+                   (python . t)
+                   (ruby . t)
+                   (gnuplot . t)
+                   (clojure . t)
+                   (sh . t)
+                   (ledger . t)
+                   (org . t)
+                   ;; (plantuml . t)
+                   (latex . t))))
+
+          (setq org-agenda-files '("~/org/")
+                org-agenda-include-diary t
+                org-agenda-start-on-weekday nil
+		org-agenda-span 1
+		org-default-notes-file "~/org/refile.org"
 		org-fast-tag-selection-single-key t
-		org-link-abbrev-alist '(("FB" . "https://yougov.fogbugz.com/f/cases/%s")
+                org-treat-S-cursor-todo-selection-as-state-change nil
+
+                ;; Commands
+                org-agenda-custom-commands
+                '((" " "Agenda"
+                   ((agenda "" nil)
+                    (tags "REFILE"
+                          ((org-agenda-overriding-header "Tasks to Refile")
+                           (org-tags-match-list-sublevels nil)))
+                    (tags "-REFILE/"
+                          ((org-agenda-overriding-header "Tasks to Archive")
+                           (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                           (org-tags-match-list-sublevels nil)))))
+                  ("n" "Notes" tags "NOTE"
+                   ((org-agenda-overriding-header "Notes")
+                    (org-tags-match-list-sublevels t)))
+                  ("A" agenda "Priority #A tasks"
+                   ((org-agenda-skip-function
+                     (lambda nil
+                       (org-agenda-skip-entry-if 'notregexp "\\=.*\\[#A\\]")))
+                    (org-agenda-overriding-header "Priority #A tasks")))
+                  ("u" alltodo "Unscheduled TODO"
+                   ((org-agenda-skip-function
+                     (lambda nil
+                       (org-agenda-skip-entry-if 'scheduled 'deadline 'regexp "\n]+>")))
+                    (org-agenda-overriding-header "Unscheduled TODO")))
+                  ;; ("d" todo "DELG" nil)
+                  ;; ("c" todo "DONE|DEFR|CANC" nil)
+                  ;; ("w" todo "WAIT" nil)
+                  ;; ("W" agenda "21 days" ((org-agenda-ndays 21)))
+                  )
+
+                ;; Archiving
+                org-archive-location "%s_archive::* Archived Tasks"
+
+                ;; Tags
+                org-agenda-tags-column -110
+                org-tag-alist
+                '((:startgroup)
+                  ("@family" . ?f)
+                  ("@home" . ?h)
+                  ("@work" . ?w)
+                  (:endgroup)
+                  ("NOTE" . ?n)
+                  ("MEET" . ?m)
+                  ("PHON" . ?p)
+                  ("FLAGGED" . ?+))
+
+                ;; Templates
+                org-capture-templates
+                '(("t" "Todo" entry (file "~/org/refile.org") "* TODO %?\n  %i\n  %a")
+                  ("m" "Meeting" entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
+                  ("p" "Phone" entry (file "~/org/refile.org") "* TODO Phone %? :PHON: \n%U")
+                  ("n" "Note" entry (file "~/org/refile.org") "* %? :NOTE:\n%U\n%a\n")
+		  ("j" "Journal" entry (file+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a"))
+
+                ;; Abbreviations
+		org-link-abbrev-alist '(("FB" . (concat yg-fogbugz-url "/f/cases/%s"))
 					("google" . "http://www.google.com/search?q=")
 					("gmap" . "http://maps.google.com/maps?q=%s"))
-		org-log-done 'time
-		org-log-into-drawer t
-		;; org-todo-keywords '((sequence "TODO(t)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELLED(c@)"))
-		org-todo-keyword-faces
-		'(("TODO" . org-todo)
+                ;; Refiling
+                org-refile-targets
+                '((nil :maxlevel . 9)
+                  (org-agenda-files :maxlevel . 9))
+                org-refile-use-outline-path t
+                org-outline-path-complete-in-steps nil
+                org-refile-allow-creating-parent-nodes 'confirm
+
+                ;; Clocking
+                org-clock-out-remove-zero-time-clocks t
+                org-clock-out-when-done t
+
+                ;; Todos
+                org-todo-keywords
+                '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")
+                  (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "CANC(c@)" "MEET(m@)" "PHON(p@)"))
+                org-todo-keyword-faces
+                '(("TODO" . org-todo)
 		  ("STRT" . "orange")
 		  ("WAIT" . "yellow")
 		  ("DELG" . "blue")
-		  ("APPT" . "cyan")
+		  ("MEET" . "cyan")
+		  ("PHONE" . "cyan")
 		  ("CANC" . "darkgray")
 		  ("DEFR" . "purple")
-		  ("DONE" . org-done)))))
+		  ("DONE" . org-done))
+                org-log-done 'time
+		org-log-into-drawer t)))
 
 (use-package css-mode
   :mode (("\\.scss\\'" . css-mode)))
@@ -762,7 +896,10 @@
 			(setq web-mode-code-indent-offset 4)
 			(setq web-mode-indent-style 4)))))
 
-(use-package cider
+(use-package clojure-mode
+  :disabled t)
+
+(use-package cider-mode
   :disabled t
   :commands cider-jack-in)
 
@@ -802,7 +939,10 @@
 
 (use-package haskell-cabal
   :disabled t
-  :mode ("\\.cabal\\'" . haskell-cabal-mode))
+  :mode ("\\.cabal\\'" . haskell-cabal-mode)
+  :config (progn
+            (setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
+            (add-to-list 'exec-path "~/.cabal/bin")))
 
 (use-package auto-revert-tail-mode
   :mode ("\\.log\\'" . auto-revert-tail-mode))
@@ -902,16 +1042,20 @@
 (use-package mu4e
   :load-path "/usr/local/share/emacs/site-lisp/mu4e"
   :init (progn
-	  (global-set-key (kbd "C-c m") 'mu4e)
+	  (global-set-key (kbd "C-c mm") 'mu4e)
+          (require 'org-mu4e)
 	  (setq
+
 	   ;; who am I?
 	   user-mail-address yg-smtp-user
 	   user-full-name  "Lorenzo Bolla"
+
 	   ;; Maildirs
 	   mu4e-maildir "/home/lbolla/Mail"
 	   mu4e-drafts-folder "/YG/Drafts"
 	   mu4e-sent-folder "/YG/Sent Items"
 	   mu4e-trash-folder "/YG/Trash"
+
 	   ;; Shortcuts
 	   mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
 				    ("/YG/Sent Items" . ?s))
@@ -921,6 +1065,13 @@
 			    ("date:7d..now" "Last 7 days" ?w)
 			    ("mime:image/*" "Messages with images" ?p)
 			    ("flag:flagged" "Flagged messages" ?f))
+
+           ;; Actions
+           mu4e-view-actions '(("capture message" . mu4e-action-capture-message)
+                               ("view as pdf" . mu4e-action-view-as-pdf)
+                               ("show this thread" . mu4e-action-show-thread)
+                               ("browse" . mu4e-action-view-in-browser))
+
 	   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 	   ;; mu4e-sent-messages-behavior 'delete
 	   ;; Default MUA
@@ -934,7 +1085,11 @@
 	   ;; Update every 5 minutes
 	   mu4e-update-interval 300
 	   ;; convert html msgs to txt
-	   mu4e-html2text-command "html2text -utf8 -width 72"
+	   ;; mu4e-html2text-command "html2text -utf8 -width 72"
+           mu4e-html2text-command "w3m -dump -cols 80 -T text/html"
+           ;; mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain | iconv -f utf-8 | fold"
+           ;; when to prefer html over text
+           mu4e-view-html-plaintext-ratio-heuristic 20
 	   ;; don't keep message buffers around
 	   message-kill-buffer-on-exit t
 	   ;; don't show next message when scrolling with SPC
@@ -947,6 +1102,7 @@
 (use-package mu4e-alert
   :init (progn
 	  (mu4e-alert-set-default-style 'libnotify)
+	  (global-set-key (kbd "C-c mu") 'mu4e-alert-view-unread-mails)
 	  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 	  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)))
 
@@ -967,5 +1123,12 @@
   :init (progn
           (add-hook 'after-init-hook 'global-company-mode)))
 
-(provide '.emacs)
-;;; .emacs ends here
+(use-package multi-term
+  :init (progn
+          (global-set-key (kbd "C-c t") 'multi-term)))
+
+(use-package sh-script
+  :mode (("\\`\\.zsh" . shell-script-mode)))
+
+(provide 'init)
+;;; init.el ends here

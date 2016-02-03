@@ -5,13 +5,31 @@
 ;;; Code:
 
 ;; Defined in private.el
-(defvar yg-fogbugz-base-url)
+(defvar yg-fogbugz-cli-buffer-name)
+(defvar yg-fogbugz-url)
+(defvar yg-fogbugz-user)
+(defvar yg-fogbugz-password)
 (defvar yg-paste-base-url)
+
+(defun yg-fogbugz-cli ()
+  "Open FogBugz command line interface."
+  (interactive)
+  (let ((b (get-buffer (concat "*" yg-fogbugz-cli-buffer-name "<1>*")))
+        (multi-term-program "fb")
+        (multi-term-buffer-name yg-fogbugz-cli-buffer-name))
+    (if b
+        (switch-to-buffer b)
+      (progn
+        (setenv "EDITOR" "emacsclient")
+        (setenv "FBURL" yg-fogbugz-url)
+        (setenv "FBUSER" yg-fogbugz-user)
+        (setenv "FBPASS" yg-fogbugz-password)
+        (multi-term)))))
 
 (defun yg-fogbugz-browse (fbid)
   "Browse YG FogBugz ticket FBID."
   (interactive "nFB#")
-  (let ((url (concat yg-fogbugz-base-url (number-to-string fbid))))
+  (let ((url (concat yg-fogbugz-url "/f/cases/" (number-to-string fbid))))
     (browse-url url)
     (message "Browsing to %s" url)))
 
