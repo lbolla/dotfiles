@@ -1,4 +1,5 @@
 # See http://stackoverflow.com/questions/171563/whats-in-your-zshrc
+# Some system-wide vars are set in .profile so that gnome-session can set them.
 
 #{{{ ZSH Modules
 autoload -Uz promptinit compinit colors parameter
@@ -21,15 +22,6 @@ unsetopt SHARE_HISTORY
 
 #{{{ Variables
 
-if [[ -z $XDG_CURRENT_DESKTOP ]]; then
-    # Terminal
-    export TERM=linux
-else
-    # Inside X
-    export TERM=xterm-256color
-fi
-
-export PATH=$HOME/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/src/go/bin:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH
 export PYTHONSTARTUP="$HOME/.pyrc"
 export MAIL=$HOME/Mail/YG/INBOX/
 HISTSIZE=1000
@@ -59,15 +51,7 @@ elif [[ -x `which qiv` ]]; then
 fi
 #}}}
 
-#{{{ Go
-export GOROOT=/opt/go
-export GOPATH=$HOME/src/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-#}}}
-
 #{{{ Plan9
-export PLAN9=/home/lbolla/src/plan9port
-export PATH=$PATH:$PLAN9/bin
 function 9acme {
 	mkdir -p /tmp/font
 	pkill -0 fontsrv || fontsrv -m /tmp/font &
@@ -85,18 +69,27 @@ alias -s xlsx=$XLSVIEWER
 alias -s gif=$IMAGEVIEWER
 alias -s hs=runhaskell
 alias -s jpg=$IMAGEVIEWER
+alias -s JPG=$IMAGEVIEWER
 alias -s json='python -m json.tool'
 alias -s pdf=$PDFVIEWER
 alias -s png=$IMAGEVIEWER
 alias -s ppt=$PPTVIEWER
 alias -s pptx=$PPTVIEWER
 alias -s html=$BROWSER
+alias -s vcs='vcal -all'
+alias E='emacsclient -n'
+alias bc='bc -ql'
 alias capture='import -window `xwininfo |grep "Window id:" |cut -d" " -f4` /tmp/capture.jpg'
 alias cdrip='ripit'
 alias cindent='indent -kr -nut'
+alias csvtable="sed 's/,,/, ,/g;s/,,/, ,/g' | column -s, -t | less -#2 -FNSX"
+alias diff2='diff -y --suppress-common-lines'
 alias e=vim
 alias em='emacs -nw'
-alias E='emacsclient -n'
+alias google-chrome-def="google-chrome --profile-directory=Default --explicitly-allowed-ports=6000"
+alias google-chrome-fun="google-chrome --profile-directory=\"Profile 2\""
+alias google-chrome-inc="google-chrome --incognito"
+alias google-chrome-netflix="google-chrome --profile-directory=\"Profile 2\" --proxy-server=\"socks://localhost:9999\""
 alias l='ls -l --color'
 alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
 alias linodesh='ssh -X lbolla.info'
@@ -113,26 +106,23 @@ alias pg='ps aux | grep'
 alias psp="ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:28,comm"
 alias psz="ps aux | awk '{ print \$8 \" \" \$2 }' | grep Z"
 alias rdesktop='rdesktop -r clipboard:PRIMARYCLIPBOARD -g 1280x1024'
+alias remove_dups="awk 'NF && !(\$1 in a){a[\$1];p=\$1;print (getline == 0) ? p : p}'"
 alias rm='rm -i'
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias tmux='tmux -2'
-alias csvtable="sed 's/,,/, ,/g;s/,,/, ,/g' | column -s, -t | less -#2 -FNSX"
-alias diff2='diff -y --suppress-common-lines'
-alias remove_dups="awk 'NF && !(\$1 in a){a[\$1];p=\$1;print (getline == 0) ? p : p}'"
-alias google-chrome-def="google-chrome --profile-directory=Default --explicitly-allowed-ports=6000"
-alias google-chrome-fun="google-chrome --profile-directory=\"Profile 2\""
-alias google-chrome-netflix="google-chrome --profile-directory=\"Profile 2\" --proxy-server=\"socks://localhost:9999\""
-alias google-chrome-inc="google-chrome --incognito"
-alias ttyrec="script -t 2> /tmp/timingfile"
 alias ttyplay="scriptreplay /tmp/timingfile"
+alias ttyrec="script -t 2> /tmp/timingfile"
 #}}}
 
 #{{{ Functions
 function diff2 {
     # Side-by-side diff
     diff -y -W $COLUMNS $1 $2
+}
+function mccabe-find {
+	find $1 -name "*.py" -exec mccabe -m 10 {} \; | sed "s/[(),]//g" | awk "{print \$3, \$1, \$2}" | sort -n
 }
 #}}}
 
