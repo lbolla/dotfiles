@@ -16,10 +16,6 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+if [ -f "$HOME/.zshenv" ]; then
+    . "$HOME/.zshenv"
 fi
-
-# More PATH
-PATH=/opt/emacs/src:/opt/emacs/lib-src:/usr/local/pgsql/bin:/opt/cisco/anyconnect/bin:/opt/firefox:/opt/flow:$PATH
