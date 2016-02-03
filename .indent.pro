@@ -4,3 +4,5 @@
 --procnames-start-lines
 /* Don't use tabs */
 --no-tabs
+/* Remove useless blank lines */
+--swallow-optional-blank-lines
