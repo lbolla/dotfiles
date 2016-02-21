@@ -17,5 +17,5 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 if [ -f "$HOME/.zshenv" ]; then
-    . "$HOME/.zshenv"
+	. "$HOME/.zshenv"
 fi
