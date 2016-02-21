@@ -214,18 +214,26 @@ _paver_tasks () {
     reply=( $(paver help | awk '/^  ([a-zA-Z_]+).+-/{print $1}') )
 }
 compctl -K _paver_tasks paver
+
 _vagrant_cmds () {
     reply=( $(vagrant help | awk '/^     /{print $1}') )
 }
 compctl -K _vagrant_cmds vagrant
+
 _alembic_cmds () {
     reply=( $(alembic 2>&1 | grep "{branches" | sed -e 's/^\ *//' -e 's/[{}]//g' -e 's/,/\n/g') )
 }
 compctl -K _alembic_cmds alembic
+
 _devpi_cmds () {
     reply=( $(devpi -h | grep '  {' | sed 's/[ {}]//g' | sed 's/,/\n/g' ) )
 }
 compctl -K _devpi_cmds devpi
+
+_rebar3_cmds () {
+	reply=( $(rebar3 2> /dev/null | grep -e "^[a-z]" | grep -ve "<task>" | cut -d ' ' -f 1) )
+}
+compctl -K _rebar3_cmds rebar3
 #}}}
 
 #{{{ Window title, but not inside Emacs
