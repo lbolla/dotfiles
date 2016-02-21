@@ -1,4 +1,4 @@
-;; package --- lbolla init.el file
+;;; package --- lbolla init.el file
 ;;; Commentary:
 ;;; 14 March 2014
 
@@ -26,7 +26,7 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
+    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
  '(delete-old-versions t)
  '(display-time-world-list
    (quote
@@ -115,12 +115,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :foundry "unknown" :family "Monoid" :height 90))))
- '(mu4e-flagged-face ((t (:inherit font-lock-constant-face :foreground "firebrick" :weight bold)))))
+ '(default ((t (:family "Terminus" :foundry "xos4" :width normal :height 120 :weight normal :slant normal :underline nil :overline nil :strike-through nil :box nil :inverse-video nil :foreground "light gray" :background "black" :stipple nil :inherit nil))))
+ '(hl-line ((t (:background "grey20"))))
+ '(magit-section-highlight ((t (:background "gray20"))))
+ '(mu4e-flagged-face ((t (:inherit font-lock-constant-face :foreground "firebrick" :weight bold))))
+ '(mu4e-replied-face ((t (:inherit font-lock-comment-face :weight normal)))))
 
 (server-start)
 
 ;;; Functions
+
+(defun insert-x-primary-selection ()
+  "Insert selection from X primary clipboard."
+  (interactive)
+  (insert (x-get-selection-value)))
 
 (defun chomp (str)
   "Chomp leading and tailing whitespace from STR."
@@ -214,77 +222,85 @@
 (require 'use-package)
 ; (setq use-package-always-ensure t)
 
+(use-package cyberpunk-theme)
+(use-package quasi-monochrome-theme)
 (use-package custom
-  :if window-system
   :init (progn
-          (load-theme 'quasi-monochrome)
-          ;; (load-theme 'leuven)
-          ;; Turn font coloring off on textual terminals
-          ;; (global-font-lock-mode 0)
-          ))
+          (if (display-graphic-p)
+              (load-theme
+               'cyberpunk
+               ;; 'leuven
+               ;; 'quasi-monochrome
+               )
+            ;; Turn font coloring off on textual terminals
+            (add-to-list 'default-frame-alist '(tty-color-mode  . never))))
 
-(use-package evil
-  :init (progn
+  (use-package evil
+    :init (progn
 
-	  (evil-mode t)
+            (evil-mode t)
 
-	  (defun new-tab ()
-	    "Open file in new tab."
-	    (interactive)
-	    (ido-find-file-other-frame))
+            (defun new-tab ()
+              "Open file in new tab."
+              (interactive)
+              (ido-find-file-other-frame))
 
-	  (defun delete-tab ()
-	    "Delete current tab."
-	    (interactive)
-	    (delete-frame))
+            (defun delete-tab ()
+              "Delete current tab."
+              (interactive)
+              (delete-frame))
 
-	  (defun next-tab ()
-	    "Switch to next tab."
-	    (interactive)
-	    (other-frame 1))
+            (defun next-tab ()
+              "Switch to next tab."
+              (interactive)
+              (other-frame 1))
 
-	  (defun previous-tab ()
-	    "Switch to previous tab."
-	    (interactive)
-	    (other-frame -1))
+            (defun previous-tab ()
+              "Switch to previous tab."
+              (interactive)
+              (other-frame -1))
 
-	  (use-package evil-nerd-commenter
-	    :init (progn
-	  	    (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
-	  	    (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
+            (use-package evil-nerd-commenter
+              :init (progn
+                      (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
+                      (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
 
-	  (use-package evil-matchit
-	    :init (progn
-	  	    (global-evil-matchit-mode 1)))
+            (use-package evil-matchit
+              :init (progn
+                      (global-evil-matchit-mode 1)))
 
-	  ;; Start in "emacs mode"
-	  (evil-set-initial-state 'eshell-mode 'emacs)
-	  (evil-set-initial-state 'term-mode 'emacs)
-	  (evil-set-initial-state 'comint-mode 'emacs)
-	  (evil-set-initial-state 'occur-mode 'emacs)
-	  (evil-set-initial-state 'sql-interactive-mode 'emacs)
+            ;; Start in "emacs mode"
+            (evil-set-initial-state 'eshell-mode 'emacs)
+            (evil-set-initial-state 'term-mode 'emacs)
+            (evil-set-initial-state 'comint-mode 'emacs)
+            (evil-set-initial-state 'occur-mode 'emacs)
+            (evil-set-initial-state 'sql-interactive-mode 'emacs)
 
-	  ;; Mercurial keybindings for VC
-	  (define-key evil-normal-state-map (kbd ",hb") 'vc-annotate)
+            ;; Mercurial keybindings for VC
+            (define-key evil-normal-state-map (kbd ",hb") 'vc-annotate)
 
-	  (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
-	  (define-key evil-normal-state-map (kbd "C-w t") 'new-tab)
-	  (define-key evil-normal-state-map (kbd "C-w x") 'delete-tab)
-	  (define-key evil-normal-state-map (kbd "gt") 'next-tab)
-	  (define-key evil-normal-state-map (kbd "gT") 'previous-tab)
-	  (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
-	  (define-key evil-normal-state-map (kbd ",gt") 'tags-search)
-	  ;; (define-key evil-normal-state-map (kbd ",G") 'ag)
-	  ;; (define-key evil-normal-state-map (kbd ",G") 'ag-venv-project-at-point)
-	  (define-key evil-normal-state-map (kbd ",G") 'ag-project-at-point)
-	  (define-key evil-normal-state-map (kbd ",F") 'ag-files)
-	  (define-key evil-normal-state-map (kbd ",m") 'menu-bar-mode)
-	  (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
-	  (define-key evil-normal-state-map (kbd ", SPC") 'ace-jump-mode)
-	  (define-key evil-normal-state-map (kbd ",=") 'c-indent)
-	  (define-key evil-normal-state-map (kbd ",yff") 'yg-fogbugz-cli)
-	  (define-key evil-normal-state-map (kbd ",yfo") 'yg-fogbugz-browse-at-point)
-	  (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)))
+            (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
+            (define-key evil-normal-state-map (kbd "C-w t") 'new-tab)
+            (define-key evil-normal-state-map (kbd "C-w x") 'delete-tab)
+            (define-key evil-normal-state-map (kbd "gt") 'next-tab)
+            (define-key evil-normal-state-map (kbd "gT") 'previous-tab)
+            (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
+            (define-key evil-normal-state-map (kbd ",gt") 'tags-search)
+            (define-key evil-normal-state-map (kbd "gp") 'insert-x-primary-selection)
+            ;; (define-key evil-normal-state-map (kbd ",G") 'ag)
+            ;; (define-key evil-normal-state-map (kbd ",G") 'ag-venv-project-at-point)
+            (define-key evil-normal-state-map (kbd ",G") 'ag-project-at-point)
+            (define-key evil-normal-state-map (kbd ",F") 'ag-files)
+            (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
+            (define-key evil-normal-state-map (kbd ", SPC") 'ace-jump-mode)
+            (define-key evil-normal-state-map (kbd ",=") 'c-indent)
+            (define-key evil-normal-state-map (kbd ",yff") 'yg-fogbugz-cli)
+            (define-key evil-normal-state-map (kbd ",yfo") 'yg-fogbugz-browse-at-point)
+            (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer))))
+
+(use-package sh-script
+  :mode (("`\\.zsh\\'" . sh-mode)
+	 ("`\\.bash\\'" . sh-mode)))
 
 (use-package paredit
   :init (progn
@@ -304,19 +320,25 @@
 	  ;; (add-hook 'inferior-python-mode-hook  #'disable-paredit-mode)
 	  ))
 
+(use-package lisp-mode
+  :init (progn
+          (add-hook 'emacs-lisp-mode-hook
+                    (lambda ()
+                      ;; Dash is part of a lisp word
+                      (modify-syntax-entry ?\- "w")))))
+
 (use-package flycheck
   :init (progn
 	  (add-hook 'after-init-hook #'global-flycheck-mode))
   :config (progn
             (setq flycheck-highlighting-mode 'lines
-                  flycheck-ghc-language-extensions ()
                   flycheck-error-list-format
                   [("Line" 4 flycheck-error-list-entry-< :right-align t)
                    ("Col" 3 nil :right-align t)
                    ("Level" 8 flycheck-error-list-entry-level-<)
                    ("ID" 16 t)
-                   ("Message" 0 t)
-                   (" (Checker)" 8 t)])
+                   ("Message (Checker)" 0 t)]
+                  flycheck-ghc-language-extensions ())
 
 	    ;; TODO
 	    (flycheck-define-checker cython
@@ -344,10 +366,10 @@
 	  (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
 
 (use-package flycheck-mypy
-  ;; :disabled t
-  ;; :config (progn
-  ;; 	  (flycheck-add-next-checker 'python-pylint 'python-mypy))
-)
+  :config (progn
+            ;; TODO set it depending on which Python version I'm using
+            (setq flycheck-python-mypy-args '("--py2" "--silent-imports"))
+            (flycheck-add-next-checker 'python-pylint 'python-mypy)))
 
 (use-package flycheck-dialyzer
   :config (progn
@@ -389,6 +411,7 @@
 
 (use-package menu-bar
   :init (progn
+	  (global-set-key (kbd "<f10>") 'menu-bar-mode)
 	  (menu-bar-mode 0)))
 
 (use-package frame
@@ -411,9 +434,10 @@
   :mode ("\\.go\\'" . go-mode)
   :init (progn
           (setq godef-command "/home/lbolla/src/go/bin/godef")
-	  (define-key evil-normal-state-map "K" 'godoc)
           (auto-complete-mode -1)
-	  (add-hook 'before-save-hook 'gofmt-before-save)))
+          (add-hook 'before-save-hook 'gofmt-before-save))
+  :config (progn
+            (define-key go-mode-map (kbd "K") 'godoc)))
 
 (use-package virtualenvwrapper
   :defer t
@@ -517,14 +541,20 @@
 	    (interactive)
 	    (evil-open-above 1)
 	    (insert "# pylint: disable=")
-	    (evil-normal-state)))
+	    (evil-insert-state))
+	  (defun python-insert-type-annotation ()
+	    "Insert type annotation."
+	    (interactive)
+	    (end-of-line)
+	    (insert "  # type: ")
+	    (evil-insert-state)))
   :config (progn
 	    (defun python-current-function ()
 	      (save-excursion
 		(end-of-line)
 		(beginning-of-defun)
 		(search-forward-regexp " *def \\(\\w+\\)")
-		(message (match-string-no-properties 1))))
+		(match-string-no-properties 1)))
 
 	    (defmacro venv-pytest (&rest what)
 	      `(async-shell-command
@@ -534,6 +564,12 @@
 		 " && "
 		 "py.test -v "
 		 ,@what)))
+
+            (defun python-indent-jaraco ()
+              "Set jaraco-style indentation."
+              (interactive)
+              (python-indent-guess-indent-offset)
+              (setq indent-tabs-mode t))
 
 	    (defun python-pytest-current-file ()
 	      (interactive)
@@ -578,6 +614,7 @@
 			(define-key evil-normal-state-map (kbd ",T") 'python-pytest-current-file)
 			(define-key evil-normal-state-map (kbd ",pf") 'python-pyformat-buffer)
 			(define-key evil-normal-state-map (kbd ",pi") 'python-insert-pylint-ignore)
+			(define-key evil-normal-state-map (kbd ",pt") 'python-insert-type-annotation)
 			;; Enter key executes newline-and-indent
 			(local-set-key (kbd "RET") 'newline-and-indent)))))
 
@@ -707,6 +744,10 @@
   :mode (("\\.erl\\'" . erlang-mode)
 	 ("\\rebar.config\\'" . erlang-mode))
   :init (progn
+          (add-hook 'erlang-mode-hook
+                    (lambda ()
+                      ;; Unfortunately, erlang-mode does not inherit from prog-mode
+                      (modify-syntax-entry ?\_ "w")))
 	  (setq erlang-root-dir "/usr/lib/erlang")))
 
 (use-package whitespace
@@ -871,7 +912,7 @@
                   (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "CANC(c@)" "MEET(m@)" "PHON(p@)"))
                 org-todo-keyword-faces
                 '(("TODO" . org-todo)
-		  ("STRT" . "orange")
+		  ("STRT" . "orangered")
 		  ("WAIT" . "yellow")
 		  ("DELG" . "blue")
 		  ("MEET" . "cyan")
@@ -1041,6 +1082,11 @@
 
 (use-package mu4e
   :load-path "/usr/local/share/emacs/site-lisp/mu4e"
+  :config (progn
+            ;; Force adding contacts
+            ;; (mu4e~request-contacts))
+            ;; Force starting automatic updates
+            (mu4e~start))
   :init (progn
 	  (global-set-key (kbd "C-c mm") 'mu4e)
           (require 'org-mu4e)
@@ -1076,6 +1122,10 @@
 	   ;; mu4e-sent-messages-behavior 'delete
 	   ;; Default MUA
 	   mail-user-agent 'mu4e-user-agent
+           ;; Autocompletion
+           mu4e-compose-complete-addresses t
+           mu4e-compose-complete-only-after nil
+           mu4e-compose-complete-only-personal nil
 	   ;; I like UTF-8
 	   mu4e-use-fancy-chars nil
 	   ;; allow for updating mail using 'U' in the main view:
