@@ -1,5 +1,7 @@
 # See http://stackoverflow.com/questions/171563/whats-in-your-zshrc
 # Some system-wide vars are set in .profile so that gnome-session can set them.
+# Nifty config:
+# https://github.com/jleclanche/dotfiles/blob/master/.zshrc
 
 #{{{ ZSH Modules
 autoload -Uz promptinit compinit colors parameter
@@ -114,6 +116,7 @@ alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias tmux='tmux -2'
 alias ttyplay="scriptreplay /tmp/timingfile"
 alias ttyrec="script -t 2> /tmp/timingfile"
+alias mkvirtualenv3="mkvirtualenv --python python3"
 #}}}
 
 #{{{ Functions
@@ -171,6 +174,16 @@ export RPROMPT='%B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)$(cabal_sandbox_info)%b %{$f
 #{{{ Bindings
 bindkey -e
 bindkey \^U backward-kill-line
+# ctrl-left
+bindkey "\e[1;5D" backward-word
+# ctrl-right
+bindkey "\e[1;5C" forward-word
+# shift-tab
+bindkey "\e[Z" reverse-menu-complete
+# ctrl-e to edit current line in $EDITOR
+autoload edit-command-line
+zle -N edit-command-line
+bindkey "^v" edit-command-line
 #}}}
 
 #{{{ External scripts
