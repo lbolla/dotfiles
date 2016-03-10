@@ -1,6 +1,7 @@
 export GOPATH=$HOME/src/go
 export GOROOT=/opt/go
 export PLAN9=/home/lbolla/src/plan9port
+export PYTHONHASHSEED=random
 
 PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node:$PATH
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
