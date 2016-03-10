@@ -26,7 +26,7 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
+    ("fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2" "b9183de9666c3a16a7ffa7faaa8e9941b8d0ab50f9aaba1ca49f2f3aec7e3be9" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
  '(delete-old-versions t)
  '(display-time-world-list
    (quote
@@ -62,6 +62,7 @@
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
+ '(linum-format " %7i ")
  '(magit-branch-arguments nil)
  '(magit-push-always-verify nil)
  '(mouse-autoselect-window nil)
@@ -115,11 +116,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Terminus" :foundry "xos4" :width normal :height 120 :weight normal :slant normal :underline nil :overline nil :strike-through nil :box nil :inverse-video nil :foreground "light gray" :background "black" :stipple nil :inherit nil))))
- '(hl-line ((t (:background "grey20"))))
- '(magit-section-highlight ((t (:background "gray20"))))
- '(mu4e-flagged-face ((t (:inherit font-lock-constant-face :foreground "firebrick" :weight bold))))
- '(mu4e-replied-face ((t (:inherit font-lock-comment-face :weight normal)))))
+ '(default ((t (:family "Monoid" :foundry "xos4" :width normal
+                        :height 90 :weight normal :slant normal :underline nil :overline nil
+                        :strike-through nil :box nil :inverse-video nil
+                        ;; :foreground "light gray" :background "black"
+                        :stipple nil :inherit nil)))))
 
 (server-start)
 
@@ -152,6 +153,10 @@
   "Cycle elements of LST."
   (let ((item (pop lst)))
     (append lst `(,item))))
+
+(defun is-theme-enabled (theme)
+  "Check if THEME is enabled."
+  (member theme custom-enabled-themes))
 
 (defmacro timeit (what &rest body)
   "Time WHAT and run BODY and report real time taken to do so."
@@ -211,10 +216,6 @@
 
 ;; Load all downloaded packages
 (package-initialize)
-;; TODO
-; (package-initialize t)
-; (let ((default-directory "~/.emacs.d/elpa"))
-  ; (normal-top-level-add-subdirs-to-load-path))
 
 ;; Package management
 ;; See https://github.com/jwiegley/dot-emacs/blob/master/init.el
@@ -228,8 +229,8 @@
   :init (progn
           (if (display-graphic-p)
               (load-theme
-               'cyberpunk
-               ;; 'leuven
+               ;; 'cyberpunk
+               'leuven
                ;; 'quasi-monochrome
                )
             ;; Turn font coloring off on textual terminals
@@ -294,8 +295,8 @@
             (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
             (define-key evil-normal-state-map (kbd ", SPC") 'ace-jump-mode)
             (define-key evil-normal-state-map (kbd ",=") 'c-indent)
-            (define-key evil-normal-state-map (kbd ",yff") 'yg-fogbugz-cli)
-            (define-key evil-normal-state-map (kbd ",yfo") 'yg-fogbugz-browse-at-point)
+            ;; (define-key evil-normal-state-map (kbd ",yff") 'yg-fogbugz-cli)
+            ;; (define-key evil-normal-state-map (kbd ",yfo") 'yg-fogbugz-browse-at-point)
             (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer))))
 
 (use-package sh-script
@@ -403,7 +404,9 @@
 
 (use-package hl-line
   :init (progn
-	  (global-hl-line-mode)))
+	  (global-hl-line-mode)
+          (when (is-theme-enabled 'cyberpunk)
+              (set-face-attribute 'hl-line nil :background "grey20"))))
 
 (use-package scroll-bar
   :init (progn
@@ -525,8 +528,12 @@
 	  (add-hook 'electric-indent-functions
 		    'electric-indent-ignore-python)))
 
+(use-package sh-script
+  :mode ((".zsh" . shell-script-mode)))
+
 (use-package python
   :mode (("\\.py\\'" . python-mode)
+         ("\\.pyi\\'" . python-mode) ;; type stub files
 	 ("\\.mk\\'" . python-mode)) ;; check-mk config files
   :interpreter ("python" . python-mode)
   :init (progn
@@ -609,12 +616,12 @@
                         (add-to-list 'company-backends 'company-jedi)
 
 			;; Keybidings
-			(define-key evil-normal-state-map (kbd ",b") 'python-insert-breakpoint)
-			(define-key evil-normal-state-map (kbd ",t") 'python-pytest-current-function)
-			(define-key evil-normal-state-map (kbd ",T") 'python-pytest-current-file)
-			(define-key evil-normal-state-map (kbd ",pf") 'python-pyformat-buffer)
-			(define-key evil-normal-state-map (kbd ",pi") 'python-insert-pylint-ignore)
-			(define-key evil-normal-state-map (kbd ",pt") 'python-insert-type-annotation)
+			(define-key evil-normal-state-local-map (kbd ",b") 'python-insert-breakpoint)
+			(define-key evil-normal-state-local-map (kbd ",t") 'python-pytest-current-function)
+			(define-key evil-normal-state-local-map (kbd ",T") 'python-pytest-current-file)
+			(define-key evil-normal-state-local-map (kbd ",pf") 'python-pyformat-buffer)
+			(define-key evil-normal-state-local-map (kbd ",pi") 'python-insert-pylint-ignore)
+			(define-key evil-normal-state-local-map (kbd ",pt") 'python-insert-type-annotation)
 			;; Enter key executes newline-and-indent
 			(local-set-key (kbd "RET") 'newline-and-indent)))))
 
@@ -627,8 +634,15 @@
 
 (use-package magit
   :config (progn
-  	    (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
-  	    (define-key evil-normal-state-map (kbd ",gB") 'magit-blame-quit)))
+            (when (is-theme-enabled 'cyberpunk)
+              (set-face-attribute 'magit-section-highlight nil :background "gray20"))
+            (when (is-theme-enabled 'leuven)
+              (set-face-attribute 'magit-section-highlight nil :background "gray95")
+              (set-face-attribute 'magit-diff-file-heading-highlight nil :background "gray80")
+              (set-face-attribute 'magit-diff-hunk-heading-highlight nil :background "gray70")
+              (set-face-attribute 'magit-diff-hunk-heading nil :background "gray90"))
+            (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
+            (define-key evil-normal-state-map (kbd ",gB") 'magit-blame-quit)))
 
 (use-package cython-mode
   :defer t
@@ -806,8 +820,12 @@
 
 	  (add-hook 'org-mode-hook
 		    (lambda ()
-		      ;; For leuven theme
-		      (set-face-attribute 'org-checkbox nil :foreground "#CCCCCC")
+                      ;; For leuven theme
+                      (when (is-theme-enabled 'leuven)
+                        (set-face-attribute 'org-checkbox nil :foreground "#CCCCCC")
+                        (set-face-attribute 'org-done nil :foreground "forest green")
+                        (set-face-attribute 'org-todo nil :foreground "gray20")
+                        (set-face-attribute 'org-scheduled-today nil :background "#FFFFFF" :weight 'normal))
                       (org-indent-mode t)
 		      (auto-fill-mode t)
 		      (flyspell-mode t)))
@@ -913,7 +931,7 @@
                 org-todo-keyword-faces
                 '(("TODO" . org-todo)
 		  ("STRT" . "orangered")
-		  ("WAIT" . "yellow")
+		  ("WAIT" . "gold")
 		  ("DELG" . "blue")
 		  ("MEET" . "cyan")
 		  ("PHONE" . "cyan")
@@ -1090,7 +1108,15 @@
   :init (progn
 	  (global-set-key (kbd "C-c mm") 'mu4e)
           (require 'org-mu4e)
-	  (setq
+
+          (when (is-theme-enabled 'cyberpunk)
+            (set-face-attribute 'mu4e-flagged-face nil :inherit font-lock-constant-face :foreground "firebrick" :weight 'bold)
+            (set-face-attribute 'mu4e-replied-face nil :inherit font-lock-comment-face :weight 'normal))
+
+          (when (is-theme-enabled 'leuven)
+            (set-face-attribute 'mu4e-header-highlight-face nil :underline nil))
+
+          (setq
 
 	   ;; who am I?
 	   user-mail-address yg-smtp-user
@@ -1182,3 +1208,9 @@
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
