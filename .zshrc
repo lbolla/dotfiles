@@ -88,6 +88,7 @@ alias csvtable="sed 's/,,/, ,/g;s/,,/, ,/g' | column -s, -t | less -#2 -FNSX"
 alias diff2='diff -y --suppress-common-lines'
 alias e=vim
 alias em='emacs -nw'
+alias spacemacs='HOME=~/src/spacemacs emacs'
 alias google-chrome-def="google-chrome --profile-directory=Default --explicitly-allowed-ports=6000"
 alias google-chrome-fun="google-chrome --profile-directory=\"Profile 2\""
 alias google-chrome-inc="google-chrome --incognito"
@@ -116,7 +117,10 @@ alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 alias tmux='tmux -2'
 alias ttyplay="scriptreplay /tmp/timingfile"
 alias ttyrec="script -t 2> /tmp/timingfile"
-alias mkvirtualenv3="mkvirtualenv --python python3"
+alias mkvirtualenv2="mkvirtualenv --python /usr/local/bin/python2"
+alias mkvirtualenv3="mkvirtualenv --python /usr/local/bin/python3"
+alias w='workon'
+alias num_open_files="cat /proc/sys/fs/file-nr"
 #}}}
 
 #{{{ Functions
@@ -126,6 +130,12 @@ function diff2 {
 }
 function mccabe-find {
 	find $1 -name "*.py" -exec mccabe -m 10 {} \; | sed "s/[(),]//g" | awk "{print \$3, \$1, \$2}" | sort -n
+}
+function rand {
+    python -c "import random; print random.random()"
+}
+function num_threads {
+	grep -s '^Threads' /proc/[0-9]*/status | awk '{ sum += $2; } END { print sum; }'
 }
 #}}}
 
@@ -244,9 +254,14 @@ _devpi_cmds () {
 compctl -K _devpi_cmds devpi
 
 _rebar3_cmds () {
-	reply=( $(rebar3 2> /dev/null | grep -e "^[a-z]" | grep -ve "<task>" | cut -d ' ' -f 1) )
+    reply=( $(rebar3 2> /dev/null | grep -e "^[a-z]" | grep -ve "<task>" | cut -d ' ' -f 1) )
 }
 compctl -K _rebar3_cmds rebar3
+
+_mix_cmds () {
+    reply=( $(mix help | grep "^mix" | awk '/^mix [a-z]/{ print $2 }') )
+}
+compctl -K _mix_cmds mix
 #}}}
 
 #{{{ Window title, but not inside Emacs
@@ -258,4 +273,8 @@ if [[ "x$EMACS" == "x" ]]; then
 	;;
     esac
 fi
+#}}}
+
+#{{{ Other goodies
+source ~/src/zsh-autosuggestions/zsh-autosuggestions.zsh
 #}}}

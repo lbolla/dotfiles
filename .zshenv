@@ -3,7 +3,7 @@ export GOROOT=/opt/go
 export PLAN9=/home/lbolla/src/plan9port
 export PYTHONHASHSEED=random
 
-PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node:$PATH
+PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node/bin:$PATH
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 PATH=$HOME/bin:$HOME/.cache/rebar3/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin$PATH:$PLAN9/bin:
 export PATH
