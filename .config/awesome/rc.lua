@@ -108,9 +108,7 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "control panel", control_panel},
-                                    { "keepass2", "keepass2" },
                                     { "screenshot", screenshot },
-                                    { "spotify", "spotify" },
                                     { "startup apps", "gnome-session-properties"},
                                     { "terminal", terminal },
                                     { "vpn", "/opt/cisco/anyconnect/bin/vpnui" },
