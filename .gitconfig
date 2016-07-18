@@ -1,6 +1,7 @@
 [user]
 	name = Lorenzo Bolla
-	email = lbolla@gmail.com
+	email = lorenzo.bolla@yougov.com
+	signingkey = 0x0DF83D43C5750E74
 
 [core]
 	editor = vim
@@ -30,7 +31,7 @@
     untracked = cyan
 
 [core]
-    pager = less -FRSX
+    ; pager = less -FRSX
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
 
@@ -45,6 +46,8 @@
 	rank = shortlog -sn --no-merges
 	searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
 	last = cat-file commit HEAD
+	; graphlog = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+        graphlog = log --pretty=format:'%C(green)%h %C(yellow)[%ad]%C(red)%d %C(reset)%s%C(blue) [%cn]' --decorate --date=relative --graph
 
 [diff "mwbdiff"]
     textconv = mwb-diff
@@ -53,3 +56,7 @@
     show-date = yes
     tab-size = 8
     show-refs = yes
+[push]
+	default = current
+[credential]
+	helper = cache
