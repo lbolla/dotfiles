@@ -131,4 +131,19 @@
 			  ;;   (switch-to-buffer-other-window (current-buffer)))
 			  )))))))
 
+(defun yg-kiln-buffer ()
+  "Run `yg-kiln` on current buffer."
+  (interactive)
+  (shell-command (concat "yg-kiln " (buffer-file-name))))
+
+(defun yg-kiln-region ()
+  "Run `yg-kiln` on current region."
+  (interactive)
+  (shell-command (concat
+                  "yg-kiln " (buffer-file-name)
+                  ":"
+                  (number-to-string (line-number-at-pos (region-beginning)))
+                  ","
+                  (number-to-string (- (line-number-at-pos (region-end)) 1)))))
+
 ;;; yg.el ends here

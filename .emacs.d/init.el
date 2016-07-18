@@ -24,20 +24,21 @@
    (quote
     ("." "/usr/include" "/usr/local/include/*" "../deps" "../../deps")))
  '(column-number-mode t)
+ '(company-idle-delay 0.2)
  '(custom-safe-themes
    (quote
-    ("fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2" "b9183de9666c3a16a7ffa7faaa8e9941b8d0ab50f9aaba1ca49f2f3aec7e3be9" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
+    ("0b6645497e51d80eda1d337d6cabe31814d6c381e69491931a688836c16137ed" "d1a42ed39a15a843cccadf107ee0242b5f78bfbb5b70ba3ce19f3ea9fda8f52d" "3a3917dbcc6571ef3942c2bf4c4240f70b5c4bc0b28192be6d3f9acd83607a24" "b6db49cec08652adf1ff2341ce32c7303be313b0de38c621676122f255ee46db" "b4ec581daad15aa7020b722523dc6bcea850bfbdbe31bfeb11c45ea51899bd75" "e24679edfdea016519c0e2d4a5e57157a11f928b7ef4361d00c23a7fe54b8e01" "badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" "fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2" "b9183de9666c3a16a7ffa7faaa8e9941b8d0ab50f9aaba1ca49f2f3aec7e3be9" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
  '(delete-old-versions t)
  '(display-time-world-list
    (quote
     (("UTC" "UTC")
-     ("GMT" "GMT")
      ("America/Los_Angeles" "Palo Alto")
      ("America/Mexico_City" "Mexico City")
      ("America/Lima" "Lima")
      ("America/Montreal" "Montreal")
      ("America/New_York" "New York")
      ("America/Sao_Paulo" "Sao Paulo")
+     ("America/Montreal" "Montreal")
      ("Europe/London" "London")
      ("Europe/Rome" "Rome")
      ("Asia/Jakarta" "Jakarta")
@@ -50,11 +51,12 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(evil-emacs-state-modes
    (quote
-    (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-blame-mode magit-diff-mode magit-process-mode magit-refs-mode magit-revision-mode magit-reflog-mode magit-log-mode magit-status-mode magit-popup-mode magit-popup-sequence-mode magit-log-select-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode pass-mode)))
+    (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-diff-mode magit-process-mode magit-refs-mode magit-revision-mode magit-reflog-mode magit-log-mode magit-status-mode magit-popup-mode magit-popup-sequence-mode magit-log-select-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode pass-mode alchemist-mix-mode alchemist-iex-mode alchemist-test-report-mode)))
  '(flycheck-clang-include-path
    (quote
     ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps")))
  '(flycheck-cppcheck-checks (quote ("all")))
+ '(flycheck-javascript-flow-args (quote ("check")))
  '(font-use-system-font t)
  '(ido-ignore-files
    (quote
@@ -68,18 +70,24 @@
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
  '(mu4e-headers-include-related t)
+ '(mu4e-view-show-images t)
  '(org-agenda-sorting-strategy
    (quote
     ((agenda habit-down deadline-up time-up todo-state-down alpha-up priority-down category-keep tag-up)
      (todo priority-down category-keep alpha-up)
      (tags priority-down category-keep)
      (search category-keep))))
+ '(org-default-priority 68)
  '(org-fontify-whole-heading-line t)
+ '(org-priority-start-cycle-with-default nil)
  '(org-stuck-projects
    (quote
     ("+LEVEL=2/-DONE"
      ("TODO" "NEXT" "NEXTACTION" "CANC")
      nil "")))
+ '(projectile-globally-ignored-directories
+   (quote
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules")))
  '(python-shell-interpreter "ipython")
  '(show-paren-mode t)
  '(tool-bar-mode nil)
@@ -91,6 +99,14 @@
    (quote
     (yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-no-prompt)))
  '(yas-snippet-dirs (quote (yas-installed-snippets-dir))))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Monoid" :height 90)))))
+ ;; '(default ((t (:family "Input" :height 120)))))
 
 (load-file "~/.emacs.d/private.el")
 (load-file "~/.emacs.d/yg.el")
@@ -110,17 +126,6 @@
 (global-set-key (kbd "<f7>") 'async-shell-command)
 (global-set-key (kbd "C-c b b") 'browse-url-at-point)
 (global-set-key (kbd "C-c b w") 'w3m-goto-url)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Monoid" :foundry "xos4" :width normal
-                        :height 90 :weight normal :slant normal :underline nil :overline nil
-                        :strike-through nil :box nil :inverse-video nil
-                        ;; :foreground "light gray" :background "black"
-                        :stipple nil :inherit nil)))))
 
 (server-start)
 
@@ -198,7 +203,7 @@
       (save-buffer)
       (goto-char temp-point))))
 
-(defcustom my-fonts '("Terminus-12" "Ubuntu Mono-12" "ProggyCleanTT-12" "Monoid-9" "IBM 3270 Narrow-12")
+(defcustom my-fonts '("Terminus-12" "Ubuntu Mono-12" "ProggyCleanTT-12" "Monoid-9" "IBM 3270 Narrow-14" "Input-12")
   "List of fonts I like." :group 'local)
 
 (defun cycle-fonts ()
@@ -208,11 +213,18 @@
   (message "Using font %s" (car my-fonts))
   (setq my-fonts (cycle my-fonts)))
 
+(defun icalendar-import-buffer-in-default-diary ()
+  "Import icalendar files into default diary."
+  (interactive)
+  (icalendar-import-buffer diary-file t t))
+
 (require 'package)
 
 ;; Repositories
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+	     '("melpa" . "http://melpa.org/packages/")
+	     ;; '("melpa-stable" . "http://stable.melpa.org/packages/")
+             t)
 
 ;; Load all downloaded packages
 (package-initialize)
@@ -224,20 +236,26 @@
 ; (setq use-package-always-ensure t)
 
 (use-package cyberpunk-theme)
-(use-package quasi-monochrome-theme)
+(use-package quasi-monochrome-theme
+  ;; :load-path "/home/lbolla/src/emacs-quasi-monochrome/"
+  )
+(use-package base16-theme)
 (use-package custom
   :init (progn
           (if (display-graphic-p)
               (load-theme
                ;; 'cyberpunk
                'leuven
+               ;; 'base16-default-dark
+               ;; 'base16-tomorrow-dark
+               ;; 'base16-twilight-dark
                ;; 'quasi-monochrome
                )
             ;; Turn font coloring off on textual terminals
-            (add-to-list 'default-frame-alist '(tty-color-mode  . never))))
+            (add-to-list 'default-frame-alist '(tty-color-mode  . never)))))
 
-  (use-package evil
-    :init (progn
+(use-package evil
+  :config (progn
 
             (evil-mode t)
 
@@ -260,15 +278,6 @@
               "Switch to previous tab."
               (interactive)
               (other-frame -1))
-
-            (use-package evil-nerd-commenter
-              :init (progn
-                      (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
-                      (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
-
-            (use-package evil-matchit
-              :init (progn
-                      (global-evil-matchit-mode 1)))
 
             ;; Start in "emacs mode"
             (evil-set-initial-state 'eshell-mode 'emacs)
@@ -297,11 +306,18 @@
             (define-key evil-normal-state-map (kbd ",=") 'c-indent)
             ;; (define-key evil-normal-state-map (kbd ",yff") 'yg-fogbugz-cli)
             ;; (define-key evil-normal-state-map (kbd ",yfo") 'yg-fogbugz-browse-at-point)
-            (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer))))
+            (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)
+            (define-key evil-normal-state-map (kbd ",yk") 'yg-kiln-buffer)
+            (define-key evil-visual-state-map (kbd ",yk") 'yg-kiln-region)
 
-(use-package sh-script
-  :mode (("`\\.zsh\\'" . sh-mode)
-	 ("`\\.bash\\'" . sh-mode)))
+            (use-package evil-nerd-commenter
+              :config (progn
+                        (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
+                        (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
+
+            (use-package evil-matchit
+              :config (progn
+                        (global-evil-matchit-mode 1)))))
 
 (use-package paredit
   :init (progn
@@ -328,9 +344,21 @@
                       ;; Dash is part of a lisp word
                       (modify-syntax-entry ?\- "w")))))
 
+(use-package elixir-mode
+  :init (add-hook 'elixir-mode-hook
+                  (lambda ()
+                    (evil-define-key 'insert elixir-mode-map (kbd "RET") 'newline)
+                    (set-indent 2))))
+
+(use-package alchemist
+  :init (add-hook 'elixir-mode-hook
+                  (lambda ()
+                    (evil-define-key 'normal elixir-mode-map (kbd "C-]") 'alchemist-goto-definition-at-point)
+                    (evil-define-key 'normal elixir-mode-map (kbd "K") 'alchemist-help-search-at-point))))
+
 (use-package flycheck
   :init (progn
-	  (add-hook 'after-init-hook #'global-flycheck-mode))
+          (add-hook 'after-init-hook #'global-flycheck-mode))
   :config (progn
             (setq flycheck-highlighting-mode 'lines
                   flycheck-error-list-format
@@ -341,25 +369,17 @@
                    ("Message (Checker)" 0 t)]
                   flycheck-ghc-language-extensions ())
 
-	    ;; TODO
-	    (flycheck-define-checker cython
-	      "Cython checker"
-	      :command ("cython" "-Wextra" source-original)
-	      :error-patterns
-	      ((error line-start
-		      (file-name)
-		      ":"
-		      line
-		      ":"
-		      column
-		      ":"
-		      (message)
-		      line-end))
-	      :modes cython-mode)
-	    (add-to-list 'flycheck-checkers 'cython-mode t)
+            (flycheck-add-next-checker 'python-flake8 'python-pylint)
+            (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
 
-	    (flycheck-add-next-checker 'python-flake8 'python-pylint)
-	    (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
+(use-package flycheck-cython
+  ;; :load-path "/home/lbolla/src/emacs-flycheck-cython/"
+  )
+
+(use-package flycheck-elixir
+  :load-path "/home/lbolla/src/emacs-flycheck-elixir/"
+  ;; :disabled t
+  )
 
 (use-package flycheck-haskell
   :init (progn
@@ -367,18 +387,22 @@
 	  (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
 
 (use-package flycheck-mypy
+  ;; :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
+  :disabled t
   :config (progn
             ;; TODO set it depending on which Python version I'm using
             (setq flycheck-python-mypy-args '("--py2" "--silent-imports"))
             (flycheck-add-next-checker 'python-pylint 'python-mypy)))
 
 (use-package flycheck-dialyzer
+  :load-path "/home/lbolla/src/emacs-flycheck-dialyzer/"
   :config (progn
 	    (flycheck-add-next-checker 'erlang 'erlang-dialyzer)))
 
 (use-package flycheck-flow
-:config (progn
-	    (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)))
+  :load-path "/home/lbolla/src/emacs-flycheck-flow/"
+  :config (progn
+            (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)))
 
 (use-package ido
   :disabled t
@@ -406,7 +430,10 @@
   :init (progn
 	  (global-hl-line-mode)
           (when (is-theme-enabled 'cyberpunk)
-              (set-face-attribute 'hl-line nil :background "grey20"))))
+              (set-face-attribute 'hl-line nil :background "grey20"))
+          (when (is-theme-enabled 'base16-default-dark)
+              (set-face-attribute 'hl-line nil :background "grey15")
+              (set-face-attribute 'region nil :foreground "light grey" :background "brown4"))))
 
 (use-package scroll-bar
   :init (progn
@@ -426,6 +453,7 @@
 	  (show-paren-mode)))
 
 (use-package xclip
+  :disabled t
   :init (xclip-mode t))
 
 (use-package projectile
@@ -481,9 +509,7 @@
 	    (projectile-vc)
 	    (other-window 1))
 
-	  (define-key evil-normal-state-map ",w" 'venv-workon-and-cdproject))
-	  (global-set-key (kbd "C-c v w") 'venv-workon-and-cdproject)
-
+	  (global-set-key (kbd "C-c v w") 'venv-workon-and-cdproject))
   :config (progn
 	    (venv-initialize-interactive-shells)
 	    (venv-initialize-eshell)))
@@ -491,12 +517,10 @@
 (use-package w3m
   :defer t)
 
-(use-package xclip
-  :disabled t
-  :defer t)
-
 (use-package yaml-mode
   :mode ("\\.ya?ml\\'" . yaml-mode))
+
+(use-package json-mode)
 
 (use-package text-mode
   :mode "\\README\\'"
@@ -529,7 +553,9 @@
 		    'electric-indent-ignore-python)))
 
 (use-package sh-script
-  :mode ((".zsh" . shell-script-mode)))
+  :mode ((".zsh" . shell-script-mode)
+	 (".bash" . shell-script-mode)
+	 ("\\.sh\\'" . shell-script-mode)))
 
 (use-package python
   :mode (("\\.py\\'" . python-mode)
@@ -615,13 +641,16 @@
                         (auto-complete-mode -1)
                         (add-to-list 'company-backends 'company-jedi)
 
+                        ;; Hideshow mode to handle folding
+                        (hs-minor-mode t)
+
 			;; Keybidings
-			(define-key evil-normal-state-local-map (kbd ",b") 'python-insert-breakpoint)
-			(define-key evil-normal-state-local-map (kbd ",t") 'python-pytest-current-function)
-			(define-key evil-normal-state-local-map (kbd ",T") 'python-pytest-current-file)
-			(define-key evil-normal-state-local-map (kbd ",pf") 'python-pyformat-buffer)
-			(define-key evil-normal-state-local-map (kbd ",pi") 'python-insert-pylint-ignore)
-			(define-key evil-normal-state-local-map (kbd ",pt") 'python-insert-type-annotation)
+			(evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
+			(evil-define-key 'normal python-mode-map (kbd ",t") 'python-pytest-current-function)
+			(evil-define-key 'normal python-mode-map (kbd ",T") 'python-pytest-current-file)
+			(evil-define-key 'normal python-mode-map (kbd ",pf") 'python-pyformat-buffer)
+			(evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
+			(evil-define-key 'normal python-mode-map (kbd ",pt") 'python-insert-type-annotation)
 			;; Enter key executes newline-and-indent
 			(local-set-key (kbd "RET") 'newline-and-indent)))))
 
@@ -641,18 +670,25 @@
               (set-face-attribute 'magit-diff-file-heading-highlight nil :background "gray80")
               (set-face-attribute 'magit-diff-hunk-heading-highlight nil :background "gray70")
               (set-face-attribute 'magit-diff-hunk-heading nil :background "gray90"))
+            (when (is-theme-enabled 'base16-tomorrow-dark)
+              (set-face-attribute 'magit-section-highlight nil :background "gray20"))
+            (when (is-theme-enabled 'base16-default-dark)
+              (set-face-attribute 'magit-section-highlight nil :background "gray20")
+              (set-face-attribute 'magit-diff-file-heading-highlight nil :background "gray20")
+              (set-face-attribute 'magit-diff-hunk-heading-highlight nil :background "gray30")
+              (set-face-attribute 'magit-diff-hunk-heading nil :background "gray20"))
             (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
-            (define-key evil-normal-state-map (kbd ",gB") 'magit-blame-quit)))
+            (evil-define-key 'normal magit-blame-mode-map (kbd "q") 'magit-blame-quit)
+            (evil-define-key 'normal magit-blame-mode-map (kbd "RET") 'magit-show-commit)))
 
 (use-package cython-mode
   :defer t
   :config (progn
-	    (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
 	    (defun cython-show-annotated ()
 	      (interactive)
 	      (shell-command (concat "cython -a " (buffer-file-name)))
 	      (browse-url (concat "file://" (replace-regexp-in-string "\.pyx$" ".html" (buffer-file-name)))))
-	    (define-key evil-normal-state-map (kbd ",a") 'cython-show-annotated)))
+	    (evil-define-key 'normal cython-mode-map (kbd ",a") 'cython-show-annotated)))
 
 (use-package js
   :init (progn
@@ -756,12 +792,15 @@
 
 (use-package erlang
   :mode (("\\.erl\\'" . erlang-mode)
+	 ("\\vars.config\\'" . erlang-mode)
 	 ("\\rebar.config\\'" . erlang-mode))
   :init (progn
           (add-hook 'erlang-mode-hook
                     (lambda ()
+                      (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)
                       ;; Unfortunately, erlang-mode does not inherit from prog-mode
                       (modify-syntax-entry ?\_ "w")))
+
 	  (setq erlang-root-dir "/usr/lib/erlang")))
 
 (use-package whitespace
@@ -786,6 +825,8 @@
 
 ;; http://doc.norang.ca/org-mode.html#GettingStarted
 (use-package org
+  :mode (("\\.org\\'" . org-mode)
+         ("\\diary\\'" . org-mode))
   :init (progn
 	  (global-set-key (kbd "C-c o a") 'org-agenda)
 	  (global-set-key (kbd "C-c o b") 'org-iswitchb)
@@ -820,12 +861,21 @@
 
 	  (add-hook 'org-mode-hook
 		    (lambda ()
-                      ;; For leuven theme
+
                       (when (is-theme-enabled 'leuven)
-                        (set-face-attribute 'org-checkbox nil :foreground "#CCCCCC")
+                        (set-face-attribute 'org-checkbox nil :foreground "#cccccc")
                         (set-face-attribute 'org-done nil :foreground "forest green")
                         (set-face-attribute 'org-todo nil :foreground "gray20")
-                        (set-face-attribute 'org-scheduled-today nil :background "#FFFFFF" :weight 'normal))
+                        (set-face-attribute 'org-scheduled-today nil :background "#ffffff" :weight 'normal))
+
+                      (when (is-theme-enabled 'base16-default-dark)
+                        (set-face-attribute 'org-checkbox nil :background "#666666" :foreground "#cccccc")
+                        (set-face-attribute 'org-done nil :foreground "forest green")
+                        (set-face-attribute 'org-scheduled-today nil :foreground "#c2d69c" :weight 'normal))
+
+                      (when (is-theme-enabled 'cyberpunk)
+                        (set-face-attribute 'org-todo nil :foreground "gray40"))
+
                       (org-indent-mode t)
 		      (auto-fill-mode t)
 		      (flyspell-mode t)))
@@ -888,7 +938,7 @@
                 org-archive-location "%s_archive::* Archived Tasks"
 
                 ;; Tags
-                org-agenda-tags-column -110
+                org-agenda-tags-column -167
                 org-tag-alist
                 '((:startgroup)
                   ("@family" . ?f)
@@ -914,8 +964,9 @@
 					("gmap" . "http://maps.google.com/maps?q=%s"))
                 ;; Refiling
                 org-refile-targets
-                '((nil :maxlevel . 9)
-                  (org-agenda-files :maxlevel . 9))
+                ;; '((nil :maxlevel . 9)
+                ;;   (org-agenda-files :maxlevel . 9))
+                '((org-agenda-files :level . 1))
                 org-refile-use-outline-path t
                 org-outline-path-complete-in-steps nil
                 org-refile-allow-creating-parent-nodes 'confirm
@@ -950,6 +1001,7 @@
   :config (progn
 	    (add-hook 'web-mode-hook
 		      (lambda ()
+                        (modify-syntax-entry ?\- "w")
 			(setq web-mode-markup-indent-offset 4)
 			(setq web-mode-css-indent-offset 4)
 			(setq web-mode-code-indent-offset 4)
@@ -1010,9 +1062,12 @@
   :mode ("\\.csv\\'" . csv-mode))
 
 (use-package restclient
-  :mode ("\\.http\\'" . restclient-mode))
+  :mode (("\\.http\\'" . restclient-mode)
+         ;; ("\\*HTTP Response\\*" . json-mode)
+         ))
 
 (use-package lua-mode
+  :disabled t
   :defer t)
 
 (use-package ace-jump-mode
@@ -1116,6 +1171,14 @@
           (when (is-theme-enabled 'leuven)
             (set-face-attribute 'mu4e-header-highlight-face nil :underline nil))
 
+          (when (is-theme-enabled 'base16-tomorrow-dark)
+            (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :background "gray20"))
+
+          (when (is-theme-enabled 'base16-default-dark)
+            (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :weight 'bold :background "gray20")
+            (set-face-attribute 'mu4e-replied-face nil :inherit font-lock-comment-face :weight 'normal :foreground "gray50")
+            (set-face-attribute 'message-cited-text-face nil :inherit font-lock-comment-face :underline nil :foreground "gray60"))
+
           (setq
 
 	   ;; who am I?
@@ -1152,6 +1215,9 @@
            mu4e-compose-complete-addresses t
            mu4e-compose-complete-only-after nil
            mu4e-compose-complete-only-personal nil
+           ;; Don't include me in reply
+           mu4e-user-mail-address-list `(,yg-smtp-user)
+           mu4e-compose-dont-reply-to-self t
 	   ;; I like UTF-8
 	   mu4e-use-fancy-chars nil
 	   ;; allow for updating mail using 'U' in the main view:
@@ -1162,7 +1228,7 @@
 	   mu4e-update-interval 300
 	   ;; convert html msgs to txt
 	   ;; mu4e-html2text-command "html2text -utf8 -width 72"
-           mu4e-html2text-command "w3m -dump -cols 80 -T text/html"
+           mu4e-html2text-command "w3m -dump -cols 9999 -T text/html"  ;;; Let Emacs do the line wrapping
            ;; mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain | iconv -f utf-8 | fold"
            ;; when to prefer html over text
            mu4e-view-html-plaintext-ratio-heuristic 20
@@ -1203,14 +1269,22 @@
   :init (progn
           (global-set-key (kbd "C-c t") 'multi-term)))
 
-(use-package sh-script
-  :mode (("\\`\\.zsh" . shell-script-mode)))
+(use-package generic
+  :init (progn
+          ;; https://www.emacswiki.org/emacs/GenericMode
+          (define-generic-mode
+            'qsl-mode                                       ;; name of the mode
+            '("#")                                          ;; comments delimiter
+            '("questionnaire" "survey")                     ;; some keywords
+            '(("\\[.*\\]" . 'font-lock-constant-face)
+              ("<.*>" . 'font-lock-builtin-face)
+              ("[0-9]+" . 'font-lock-variable-name-face)
+              ("=" . 'font-lock-builtin))                   ;; a built-in
+            '("\\.qsl$")                                    ;; files that trigger this mode
+            nil                                             ;; any other functions to call
+            "qsl mode"                                      ;; doc string
+            )))
 
 (provide 'init)
 ;;; init.el ends here
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
