@@ -3,9 +3,6 @@
 	email = lorenzo.bolla@yougov.com
 	signingkey = 0x0DF83D43C5750E74
 
-[core]
-	editor = vim
-
 [color]
 	diff = auto
 	status = auto
@@ -31,6 +28,7 @@
     untracked = cyan
 
 [core]
+	editor = vim
     ; pager = less -FRSX
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
@@ -56,7 +54,12 @@
     show-date = yes
     tab-size = 8
     show-refs = yes
+
 [push]
 	default = current
+
 [credential]
 	helper = cache
+
+[log]
+	decorate = full
