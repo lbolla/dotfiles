@@ -99,6 +99,7 @@ alias linodesh='ssh -X lbolla.info'
 alias ll='ls -la --color'
 alias lp='lp -o fit-to-page -o media=a4'
 alias ls='ls --color'
+alias lsdir='find . -mindepth 1 -maxdepth 1 -type d'
 # alias mutt-gmail='MUTT_PROFILE=gmail mutt'
 # alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
 # alias mutt-pispo-customerservice='MUTT_PROFILE=pispo-customerservice mutt'
@@ -121,6 +122,7 @@ alias mkvirtualenv2="mkvirtualenv --python /usr/local/bin/python2"
 alias mkvirtualenv3="mkvirtualenv --python /usr/local/bin/python3"
 alias w='workon'
 alias num_open_files="cat /proc/sys/fs/file-nr"
+alias time="/usr/bin/time --verbose"
 #}}}
 
 #{{{ Functions
@@ -276,5 +278,6 @@ fi
 #}}}
 
 #{{{ Other goodies
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 source ~/src/zsh-autosuggestions/zsh-autosuggestions.zsh
 #}}}
