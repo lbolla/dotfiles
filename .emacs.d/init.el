@@ -27,7 +27,7 @@
  '(company-idle-delay 0.2)
  '(custom-safe-themes
    (quote
-    ("0b6645497e51d80eda1d337d6cabe31814d6c381e69491931a688836c16137ed" "d1a42ed39a15a843cccadf107ee0242b5f78bfbb5b70ba3ce19f3ea9fda8f52d" "3a3917dbcc6571ef3942c2bf4c4240f70b5c4bc0b28192be6d3f9acd83607a24" "b6db49cec08652adf1ff2341ce32c7303be313b0de38c621676122f255ee46db" "b4ec581daad15aa7020b722523dc6bcea850bfbdbe31bfeb11c45ea51899bd75" "e24679edfdea016519c0e2d4a5e57157a11f928b7ef4361d00c23a7fe54b8e01" "badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" "fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2" "b9183de9666c3a16a7ffa7faaa8e9941b8d0ab50f9aaba1ca49f2f3aec7e3be9" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
+    ("1af03c926f70fdcde68882387146bf14c2ff2438c86ef4063c1246ee44e9e8f0" "8a2e7783b5019e2f585eafad6d9d79d98ccd941fbdae032396f1de9a2fd4db89" "2c3fa247e21990b0c9f9ed429fa710dab6686571ddfa1ab05774e66de3b8f0f2" "ecd970bc9e85de5e28546c5001fc983fec12997796ba469879e22e24650af832" "541bfcd7d5c5e9c742803376001d2b26bc77a6680195f52430c3f7b3d93f808a" "cb94b9948166860922ecac7b54c4b3bac2464eeb2dac44b3e94af32b4b771f63" "595e806cb9b677ba06c3c149f99f7d1008f02edd6bbcf0fb3411f8664047d7a6" "ffa1a8de5ddf60c8b11bd047c26072f742af85bcce8f2261c2d4ac8b494026d5" "8869b4574ba98a1512466cac2c3d9342b733e70d333c97295da9f529cc414e8f" "2092555395b28cc7b66ccd075ff267f202ecebc9cb498e69793b332a3aacb7db" "f09f301605cb83418bbad1644c9aeb0e371106edc8c7f23a382038cfe5e38318" "0b6645497e51d80eda1d337d6cabe31814d6c381e69491931a688836c16137ed" "d1a42ed39a15a843cccadf107ee0242b5f78bfbb5b70ba3ce19f3ea9fda8f52d" "3a3917dbcc6571ef3942c2bf4c4240f70b5c4bc0b28192be6d3f9acd83607a24" "b6db49cec08652adf1ff2341ce32c7303be313b0de38c621676122f255ee46db" "b4ec581daad15aa7020b722523dc6bcea850bfbdbe31bfeb11c45ea51899bd75" "e24679edfdea016519c0e2d4a5e57157a11f928b7ef4361d00c23a7fe54b8e01" "badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" "fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2" "b9183de9666c3a16a7ffa7faaa8e9941b8d0ab50f9aaba1ca49f2f3aec7e3be9" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
  '(delete-old-versions t)
  '(display-time-world-list
    (quote
@@ -56,7 +56,9 @@
    (quote
     ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps")))
  '(flycheck-cppcheck-checks (quote ("all")))
- '(flycheck-javascript-flow-args (quote ("check")))
+ '(flycheck-flake8rc nil)
+ '(flycheck-javascript-flow-args nil)
+ '(flycheck-pylintrc nil)
  '(font-use-system-font t)
  '(ido-ignore-files
    (quote
@@ -73,7 +75,7 @@
  '(mu4e-view-show-images t)
  '(org-agenda-sorting-strategy
    (quote
-    ((agenda habit-down deadline-up time-up todo-state-down alpha-up priority-down category-keep tag-up)
+    ((agenda habit-down deadline-up time-up todo-state-down priority-down alpha-up category-keep tag-up)
      (todo priority-down category-keep alpha-up)
      (tags priority-down category-keep)
      (search category-keep))))
@@ -106,7 +108,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Monoid" :height 90)))))
- ;; '(default ((t (:family "Input" :height 120)))))
+ ;; '(default ((t (:family "Monoid" :height 90)))))
 
 (load-file "~/.emacs.d/private.el")
 (load-file "~/.emacs.d/yg.el")
@@ -237,19 +239,16 @@
 
 (use-package cyberpunk-theme)
 (use-package quasi-monochrome-theme
-  ;; :load-path "/home/lbolla/src/emacs-quasi-monochrome/"
-  )
+  :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
 (use-package base16-theme)
 (use-package custom
   :init (progn
           (if (display-graphic-p)
               (load-theme
-               ;; 'cyberpunk
-               'leuven
+               ;; 'leuven
                ;; 'base16-default-dark
-               ;; 'base16-tomorrow-dark
-               ;; 'base16-twilight-dark
-               ;; 'quasi-monochrome
+               ;; 'cyberpunk
+               'quasi-monochrome
                )
             ;; Turn font coloring off on textual terminals
             (add-to-list 'default-frame-alist '(tty-color-mode  . never)))))
@@ -518,7 +517,11 @@
   :defer t)
 
 (use-package yaml-mode
-  :mode ("\\.ya?ml\\'" . yaml-mode))
+  :mode ("\\.ya?ml\\'" . yaml-mode)
+  :config (progn
+            (add-hook 'yaml-mode-hook
+                      (lambda ()
+                        (set-indent 2)))))
 
 (use-package json-mode)
 
@@ -835,6 +838,7 @@
 	  (global-set-key (kbd "C-c o l i") 'org-insert-link)
 	  (global-set-key (kbd "C-c o l o") 'org-open-at-point)
 	  (global-set-key (kbd "<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a SPC"))))
+	  (global-set-key (kbd "S-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a t"))))
 
           (defun bh/skip-non-archivable-tasks ()
             "Skip trees that are not available for archiving"
@@ -1147,7 +1151,8 @@
 		      (unless (slime-connected-p)
 			(save-excursion (slime)))))))
 
-(use-package monky)
+(use-package monky
+  :load-path "/home/lbolla/src/monky")
 
 (use-package pass)
 
@@ -1228,7 +1233,7 @@
 	   mu4e-update-interval 300
 	   ;; convert html msgs to txt
 	   ;; mu4e-html2text-command "html2text -utf8 -width 72"
-           mu4e-html2text-command "w3m -dump -cols 9999 -T text/html"  ;;; Let Emacs do the line wrapping
+           mu4e-html2text-command "w3m -dump -cols 120 -T text/html"  ;;; Let Emacs do the line wrapping
            ;; mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain | iconv -f utf-8 | fold"
            ;; when to prefer html over text
            mu4e-view-html-plaintext-ratio-heuristic 20
