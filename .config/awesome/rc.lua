@@ -410,6 +410,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { name = "Rai.tv - Diretta.*" },
       properties = { floating = true } },
+    { rule = { class = "VirtualBox" },
+      properties = { floating = true } },
     -- Open app with [name|class] (use xprop) on screen [x] and tag [y]
     { rule = { class = "Google-chrome", name = ".*YouGov Slack.*" },
       properties = { tag = tags[one_screen][1] } },
