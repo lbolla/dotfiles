@@ -13,7 +13,7 @@
  ;; If there is more than one, they won't work right.
  '(ag-ignore-list (quote ("TAGS")))
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
- '(browse-url-browser-function (quote browse-url-default-browser))
+ '(browse-url-browser-function (quote browse-url-xdg-open))
  '(c-default-style
    (quote
     ((c-mode . "k&r-wikipedia")
