@@ -110,6 +110,7 @@ AddToFunc StartFunction
 + I Read mystyle quiet
 + I TestRc (-1) Read $./mystyle quiet
 + I TestRc (-1) Exec exec xsetroot -solid \#202020
++ I Exec exec conky
 
 DestroyFunc InitFunction
 AddToFunc InitFunction
