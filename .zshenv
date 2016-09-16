@@ -30,7 +30,7 @@ if [[ `tty` = /dev/tty* ]]; then
 	echo -en "\e]PE44C9C9" # cyan
 	echo -en "\e]P7E5E5E5" # lightgrey
 	echo -en "\e]PFFFFFFF" # white
-	clear # for background artifacting
+	#clear # for background artifacting
 else
 	# Inside X
 	export TERM=xterm-256color
