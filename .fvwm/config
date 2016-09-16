@@ -1,0 +1,206 @@
+###############################################################################
+#                                                                             #
+# Menus                                                                       #
+#                                                                             #
+###############################################################################
+
+AddToMenu RootMenu "Root Menu" Title
++ "&Terminal"         Exec exec x-terminal-emulator || xterm
++ "&Clock"            Exec exec xclock
++ ""                  Nop
++ "&Window Ops"       Popup Window-Ops
++ "&X11 Session"      Popup X11-Session
+
+AddToMenu Window-Ops
++ "&Move"             Move
++ "&Resize"           Resize
++ "&Stick"            Stick
++ ""                  Nop
++ "&Close"            Close
++ "&Destroy"          Destroy
+
+AddToMenu X11-Session
++ "Re&fresh Screen"   Refresh
++ "&Restart WM"       Restart
++ ""                  Nop
++ "Exit to xterm"     Restart xterm
++ "Exit WM"           Quit
+
+###############################################################################
+#                                                                             #
+# Keyboard & Mouse Bindings                                                   #
+#                                                                             #
+###############################################################################
+
+# Ignore the "Numlock" key so it does not interfere with keyboard shortcuts
+#
+IgnoreModifiers L2
+
+# Ctrl+Alt virtual desktop navigation
+#
+Key Up A CM           Scroll -100000 0
+Key Down A CM         Scroll  100000 0
+Key Page_Up A CM      Scroll -100000 0
+Key Page_Down A CM    Scroll  100000 0
+
+# Ctrl+Alt program shortcuts
+#
+Key C A CM            Exec exec xclock
+Key K A CM            Close
+Key M A CM            Menu RootMenu Nop
+Key R A CM            Restart
+Key T A CM            Exec exec x-terminal-emulator || xterm
+
+# Simple default mouse bindings for the root window:
+#
+Mouse 1	R A           Menu RootMenu Nop
+Mouse 2	R A           Menu Window-Ops Nop
+Mouse 3	R A           WindowList
+
+# ... and for the title bar buttons:
+#
+Mouse 0	1 A           Menu Window-Ops Close
+Mouse 0	2 A           Maximize
+Mouse 0	4 A           Iconify
+
+# ... and other parts of the windows / borders / icons:
+#
+Mouse 1	FS A          Resize-or-Raise
+Mouse 1	T A           Move-or-Raise
+Mouse 1	I A           Move-or-Iconify
+Mouse 2	I A           Iconify
+Mouse 2	FST A         Menu Window-Ops Nop
+Mouse 3	TSIF A        RaiseLower
+
+###############################################################################
+#                                                                             #
+# Init & Restart Functions                                                    #
+#                                                                             #
+###############################################################################
+
+DestroyFunc StartFunction
+AddToFunc StartFunction
++ I Module FvwmCommandS
++ I Module FvwmPager
++ I Read mystyle quiet
++ I TestRc (-1) Read $./mystyle quiet
++ I TestRc (-1) Exec exec xsetroot -solid \#202020
+
+DestroyFunc InitFunction
+AddToFunc InitFunction
++ I Nop
+
+DestroyFunc RestartFunction
+AddToFunc RestartFunction
++ I Nop
+
+DestroyFunc SessionInitFunction
+AddToFunc SessionInitFunction
++ I Nop
+
+DestroyFunc SessionRestartFunction
+AddToFunc SessionRestartFunction
++ I Nop
+
+###############################################################################
+#                                                                             #
+# Custom Functions                                                            #
+#                                                                             #
+###############################################################################
+
+DestroyFunc Move-or-Raise
+AddToFunc Move-or-Raise
++ I Raise
++ M Move
+
+DestroyFunc Move-or-Iconify
+AddToFunc Move-or-Iconify
++ I Raise
++ M Move
++ D Iconify
+
+DestroyFunc Resize-or-Raise
+AddToFunc Resize-or-Raise
++ I Raise
++ M Resize
+
+###############################################################################
+#                                                                             #
+# Global Behavior Commands                                                    #
+#                                                                             #
+###############################################################################
+
+ClickTime 750
+DeskTopSize 1x6
+EdgeResistance 250
+EdgeScroll 0 0
+
+###############################################################################
+#                                                                             #
+# Basic Style Settings                                                        #
+#                                                                             #
+###############################################################################
+
+DefaultColors \#000000 \#c0c0c0
+DefaultFont xft:Sans:Normal:size=10:antialias=True
+Emulate Mwm
+MenuStyle * Background \#c0c0c0
+MenuStyle * Foreground \#000000
+MenuStyle * Mwm
+Style * BackColor \#c0c0c0
+Style * BorderWidth 6
+Style * ClickToFocus
+Style * DecorateTransient
+Style * EdgeMoveDelay 250
+Style * EdgeMoveResistance 10
+Style * Font xft:Sans:Bold:size=10:antialias=True
+Style * ForeColor \#606060
+Style * FPLenient
+Style * HandleWidth 6
+Style * HilightBack \#c0c0c0
+Style * HilightFore \#000000
+Style * HintOverride
+Style * Icon /usr/share/pixmaps/fvwm/xterm.xpm
+Style * IconBox 1 -300 -1 -1, IconFill Left Bottom
+Style * MwmBorder
+Style * MwmButtons
+Style * MwmDecor
+Style * MwmFunctions
+Style * TileCascadePlacement
+Style * !UsePPosition
+TitleStyle Centered Height 20
+
+Style Fvwm* BorderWidth 2
+Style Fvwm* CirculateSkip
+Style Fvwm* CirculateSkipIcon
+Style Fvwm* Sticky
+Style Fvwm* !Title
+Style Fvwm* WindowListSkip
+
+###############################################################################
+#                                                                             #
+# Module: FvwmPager                                                           #
+#                                                                             #
+###############################################################################
+
+Style FvwmPager BackColor #000000
+Style FvwmPager BorderWidth 1
+Style FvwmPager FixedPosition
+Style FvwmPager FixedSize
+Style FvwmPager HandleWidth 1
+Style FvwmPager HilightBack #000000
+Style FvwmPager StaysOnBottom
+
+*FvwmPager: Back #666666
+*FvwmPager: Fore #444444
+*FvwmPager: Font none
+*FvwmPager: Balloons All
+*FvwmPager: BalloonBack #ffffff
+*FvwmPager: BalloonBorderColor #000000
+*FvwmPager: BalloonBorderWidth 1
+*FvwmPager: BalloonFont xft:Sans:Normal:size=8:antialias=True
+*FvwmPager: BalloonFore #000000
+*FvwmPager: BalloonYOffset +2
+*FvwmPager: Geometry 35x150+0+0
+*FvwmPager: Hilight #111111
+*FvwmPager: SmallFont 5x8

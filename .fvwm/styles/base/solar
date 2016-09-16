@@ -1,0 +1,19 @@
+#
+# Style: solar
+#
+CleanupColorsets
+DefaultColorset 0
+Style * ColorSet 1
+Style * HilightColorset 2
+MenuStyle * MenuColorset 3
+ColorSet 0 fg \#000000, bg \#aeb2c3, hi \#dcdee5, sh \#5d6069
+ColorSet 1 fg \#000000, bg \#aeb2c3, hi \#dcdee5, sh \#5d6069
+ColorSet 2 fg \#ffffff, bg \#b24d7a, hi \#dcadc2, sh \#57253b
+ColorSet 3 fg \#000000, bg \#aeb2c3, hi \#dcdee5, sh \#5d6069
+Style * BorderWidth 5
+Style * HandleWidth 5
+Style FvwmPager BackColor \#000000
+Style FvwmPager BorderWidth 1
+Style FvwmPager HandleWidth 1
+Style FvwmPager HilightBack \#000000
+Exec exec xsetroot -solid \#696089

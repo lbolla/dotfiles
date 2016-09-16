@@ -1,0 +1,19 @@
+#
+# Style: uware
+#
+CleanupColorsets
+DefaultColorset 0
+Style * ColorSet 1
+Style * HilightColorset 2
+MenuStyle * MenuColorset 3
+ColorSet 0 fg \#ffffff, bg \#30619d
+ColorSet 1 fg \#ffffff, bg \#30619d, hi \#9db6d2, sh \#182c48
+ColorSet 2 fg \#000000, bg \#f6d681
+ColorSet 3 fg \#ffffff, bg \#30619d
+Style * BorderWidth 6
+Style * HandleWidth 6
+Style FvwmPager BackColor \#000000
+Style FvwmPager BorderWidth 1
+Style FvwmPager HandleWidth 1
+Style FvwmPager HilightBack \#000000
+Exec exec xsetroot -solid \#9090a0

@@ -1,0 +1,19 @@
+#
+# Style: console
+#
+CleanupColorsets
+DefaultColorset 0
+Style * ColorSet 1
+Style * HilightColorset 2
+MenuStyle * MenuColorset 3
+ColorSet 0 fg \#ffffff, bg \#707070
+ColorSet 1 fg \#ffffff, bg \#707070
+ColorSet 2 fg \#ffffff, bg \#5588cc
+ColorSet 3 fg \#ffffff, bg \#696969
+Style * BorderWidth 5
+Style * HandleWidth 5
+Style FvwmPager BackColor \#000000
+Style FvwmPager BorderWidth 1
+Style FvwmPager HandleWidth 1
+Style FvwmPager HilightBack \#000000
+Exec exec xsetroot -solid \#101010

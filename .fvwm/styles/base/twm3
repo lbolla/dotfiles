@@ -1,0 +1,19 @@
+#
+# Style: twm3
+#
+CleanupColorsets
+DefaultColorset 0
+Style * ColorSet 1
+Style * HilightColorset 2
+MenuStyle * MenuColorset 3
+ColorSet 0 fg \#000000, bg \#99b9f9
+ColorSet 1 fg \#304050, bg \#99b9f9
+ColorSet 2 fg \#000000, bg \#89b9f9
+ColorSet 3 fg \#000000, bg \#89b9f9
+Style * BorderWidth 5
+Style * HandleWidth 5
+Style FvwmPager BackColor \#000000
+Style FvwmPager BorderWidth 1
+Style FvwmPager HandleWidth 1
+Style FvwmPager HilightBack \#000000
+Exec exec xsetroot -solid \#707070

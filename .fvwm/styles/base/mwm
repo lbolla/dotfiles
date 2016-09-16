@@ -1,0 +1,19 @@
+#
+# Style: mwm
+#
+CleanupColorsets
+DefaultColorset 0
+Style * ColorSet 1
+Style * HilightColorset 2
+MenuStyle * MenuColorset 3
+ColorSet 0 fg \#ffffff, bg \#5f9ea0, hi \#b7d4d5, sh \#2f4f50
+ColorSet 1 fg \#000000, bg \#d3d3d3, hi \#ededed, sh \#767676
+ColorSet 2 fg \#ffffff, bg \#5f9ea0, hi \#b7d4d5, sh \#2f4f50
+ColorSet 3 fg \#000000, bg \#c4c4c4, hi \#e6e6e6, sh \#6c6c6c
+Style * BorderWidth 7
+Style * HandleWidth 7
+Style FvwmPager BackColor \#000000
+Style FvwmPager BorderWidth 1
+Style FvwmPager HandleWidth 1
+Style FvwmPager HilightBack \#000000
+Exec exec xsetroot -solid \#333333

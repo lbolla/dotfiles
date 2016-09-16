@@ -1,0 +1,19 @@
+#
+# Style: vue
+#
+CleanupColorsets
+DefaultColorset 0
+Style * ColorSet 1
+Style * HilightColorset 2
+MenuStyle * MenuColorset 3
+ColorSet 0 fg \#000000, bg \#b0b0b0
+ColorSet 1 fg \#000000, bg \#7acac5, hi \#c5e8e5, sh \#416b68
+ColorSet 2 fg \#ffffff, bg \#fd8282, hi \#fec8c8, sh \#864545
+ColorSet 3 fg \#000000, bg \#c0c0c0
+Style * BorderWidth 7
+Style * HandleWidth 7
+Style FvwmPager BackColor \#000000
+Style FvwmPager BorderWidth 1
+Style FvwmPager HandleWidth 1
+Style FvwmPager HilightBack \#000000
+Exec exec xsetroot -solid \#3096c6

@@ -1,0 +1,19 @@
+#
+# Style: 4dwm
+#
+CleanupColorsets
+DefaultColorset 0
+Style * ColorSet 1
+Style * HilightColorset 2
+MenuStyle * MenuColorset 3
+ColorSet 0 fg \#000000, bg \#cccccc, hi \#f0f0f0, sh \#505050
+ColorSet 1 fg \#000000, bg \#a0a0a0, hi \#d0d0d0, sh \#000000
+ColorSet 2 fg \#000000, bg \#c0b089, hi \#e0e0d0, sh \#000000
+ColorSet 3 fg \#000000, bg \#cccccc, hi \#f0f0f0, sh \#505050
+Style * BorderWidth 6
+Style * HandleWidth 6
+Style FvwmPager BackColor \#000000
+Style FvwmPager BorderWidth 1
+Style FvwmPager HandleWidth 1
+Style FvwmPager HilightBack \#000000
+Exec exec xsetroot -solid \#5070a0

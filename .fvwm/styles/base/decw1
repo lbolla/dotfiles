@@ -1,0 +1,19 @@
+#
+# Style: decw1
+#
+CleanupColorsets
+DefaultColorset 0
+Style * ColorSet 1
+Style * HilightColorset 2
+MenuStyle * MenuColorset 3
+ColorSet 0 fg \#000000, bg \#caaa91, hi \#dcbca3, sh \#987867
+ColorSet 1 fg \#000000, bg \#caaa91, hi \#dcbca3, sh \#987867
+ColorSet 2 fg \#ffffff, bg \#987867, hi \#af998e, sh \#523728
+ColorSet 3 fg \#000000, bg \#caaa91, hi \#dcbca3, sh \#987867
+Style * BorderWidth 7
+Style * HandleWidth 7
+Style FvwmPager BackColor \#000000
+Style FvwmPager BorderWidth 1
+Style FvwmPager HandleWidth 1
+Style FvwmPager HilightBack \#000000
+Exec exec xsetroot -solid \#708090
