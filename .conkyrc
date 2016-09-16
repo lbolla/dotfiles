@@ -86,7 +86,7 @@ TEXT
 
 ${color #cc0000}${font Monospace:style=Bold:pixelsize=35}${alignc}${time %H:%M}${font}${color}
 
-${font Monospace:style=Bold:pixelsize=14}${alignc}${time %A}, ${time %B}${time %e}, ${time %G}${font}
+${font Monospace:style=Bold:pixelsize=14}${alignc}${time %A}, ${time %B} ${time %e}, ${time %G}${font}
 
 #SYSTEM DETAILS:
 ${color}${font Monospace:style=Bold:pixelsize=18}SYSTEM ${hr 1 }
