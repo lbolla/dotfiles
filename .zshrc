@@ -203,6 +203,8 @@ VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 if [[ -z "$VIRTUAL_ENV" ]]; then
     if [[ -x `which virtualenvwrapper.sh` ]]; then
 	source `which virtualenvwrapper.sh`
+    elif [[ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]]; then
+        source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
     elif [[ -f /etc/bash_completion.d/virtualenvwrapper ]]; then
 	source /etc/bash_completion.d/virtualenvwrapper
     fi
