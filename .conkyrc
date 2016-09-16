@@ -1,0 +1,144 @@
+# Set to yes if you want Conky to be forked in the background
+background yes
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont Bitstream Monospace:size=9
+
+# Text alpha when using Xft
+xftalpha 0.1
+
+# Update interval in seconds
+update_interval 1.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 300 0
+maximum_width 300
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+draw_graph_borders yes
+
+# Stippled borders?
+stippled_borders 8
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+default_color white
+default_shade_color black
+default_outline_color white
+
+# Text alignment, other possible values are commented
+alignment top_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 10
+gap_y 0
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+cpu_avg_samples 2
+net_avg_samples 2
+diskio_avg_samples 2
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer right
+
+text_buffer_size 2048
+
+# variable is given either in format $variable or in ${variable}. Latter
+# allows characters right after the variable and must be used in network
+# stuff because of an argument
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+
+${color #cc0000}${font Monospace:style=Bold:pixelsize=35}${alignc}${time %H:%M}${font}${color}
+
+${font Monospace:style=Bold:pixelsize=14}${alignc}${time %A}, ${time %B}${time %e}, ${time %G}${font}
+
+#SYSTEM DETAILS:
+${color}${font Monospace:style=Bold:pixelsize=18}SYSTEM ${hr 1 }
+${font Monospace:size=10}
+USER: ${alignr}${exec whoami}
+HOSTNAME: ${alignr}$nodename
+KERNEL: $alignr$sysname $kernel
+UPTIME: ${color #39ff14}$alignr$uptime${color}
+LOAD: ${color #39ff14}$alignr$loadavg${color}
+BATTERY: $alignr$battery
+
+${color}${font Monospace:style=Bold:pixelsize=18}CPU ${hr 1 }
+${font Monospace:size=10}
+${exec cat /proc/cpuinfo | grep -Po 'model\s+name\s+:\s+\K.*?GHz' | head -1}
+
+TEMP: ${color #39ff14}$alignr${hwmon 1 temp 1}°C${color}
+USAGE: ${color #39ff14}$alignr${cpu cpu0}%
+${color #cc0000}${cpubar cpu0 15}
+
+${color}${alignc}CURRENT PROCESSES: ${color #39ff14}$processes
+${font Monospace:size=10}
+${alignc}${color}1st ${color #39ff14}${top name 1}${top cpu 1}%
+${alignc}${color}2nd ${color #39ff14}${top name 2}${top cpu 2}%
+${alignc}${color}3rd ${color #39ff14}${top name 3}${top cpu 3}%
+${alignc}${color}4th ${color #39ff14}${top name 4}${top cpu 4}%
+${alignc}${color}5th ${color #39ff14}${top name 5}${top cpu 5}%
+${alignc}${color}6th ${color #39ff14}${top name 6}${top cpu 6}%
+
+${color}${font Monospace:style=Bold:pixelsize=18}MEMORY ${hr 1 }
+${font Monospace:size=10}
+USAGE:$alignr$mem ($memperc%)
+${color #cc0000}${membar 15}
+
+${alignc}${color}1st ${color #39ff14}${top_mem name 1}${top_mem mem 1}%
+${alignc}${color}2nd ${color #39ff14}${top_mem name 2}${top_mem mem 2}%
+${alignc}${color}3rd ${color #39ff14}${top_mem name 3}${top_mem mem 3}%
+${alignc}${color}4th ${color #39ff14}${top_mem name 4}${top_mem mem 4}%
+${alignc}${color}5th ${color #39ff14}${top_mem name 5}${top_mem mem 5}%
+${alignc}${color}6th ${color #39ff14}${top_mem name 6}${top_mem mem 6}%
+
+
+${color}${font Monospace:style=Bold:pixelsize=18}DISK ${hr 1 }
+${font Monospace:size=10}
+FILESYSTEM: $alignr${fs_type}
+USED: ${alignr}${fs_used /} (${fs_used_perc /}%)
+${color #cc0000}${fs_bar 15 /}
+
+${alignc}${color}READ I/O: ${color #39ff14}${diskio_read /dev/sda} ${alignr}${color}WRITE I/O: ${color #39ff14}${diskio_write /dev/sda}
+
+${color}${font Monospace:style=Bold:pixelsize=18}NETWORK ${hr 1 }
+${font Monospace:size=10}
+LAN IPv4: ${alignr}${addr wlan0}
+
+${alignr}DOWNLOAD: ${color}${totaldown wlan0}     ${alignr}UPLOAD: ${color}${alignr}${totalup wlan0}
+${alignr}RATE: ${color #39ff14}${downspeed wlan0}       ${color}${alignr}RATE: ${color #39ff14}${upspeed wlan0}
