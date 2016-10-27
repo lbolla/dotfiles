@@ -78,6 +78,7 @@ alias -s png=$IMAGEVIEWER
 alias -s ppt=$PPTVIEWER
 alias -s pptx=$PPTVIEWER
 alias -s html=$BROWSER
+alias -s zip=file-roller
 alias -s vcs='vcal -all'
 alias E='emacsclient -n'
 alias bc='bc -ql'
