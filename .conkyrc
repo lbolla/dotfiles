@@ -72,8 +72,8 @@ diskio_avg_samples 2
 # Force UTF8? note that UTF8 support required XFT
 override_utf8_locale yes
 
-# Add spaces to keep things from moving about?  This only affects certain objects.
-use_spacer right
+# Do not align automatically
+use_spacer none
 
 text_buffer_size 2048
 
@@ -91,12 +91,13 @@ ${font Monospace:style=Bold:pixelsize=14}${alignc}${time %A}, ${time %B} ${time 
 #SYSTEM DETAILS:
 ${color}${font Monospace:style=Bold:pixelsize=18}SYSTEM ${hr 1 }
 ${font Monospace:size=10}
-USER: ${alignr}${exec whoami}
-HOSTNAME: ${alignr}$nodename
-KERNEL: $alignr$sysname $kernel
+# USER: ${alignr}${exec whoami}
+# HOSTNAME: ${alignr}$nodename
+# KERNEL: $alignr$sysname $kernel
 UPTIME: ${color #39ff14}$alignr$uptime${color}
 LOAD: ${color #39ff14}$alignr$loadavg${color}
 BATTERY: $alignr$battery
+MAILS: $alignr${execi 5 mu find flag:unread AND NOT flag:trashed | wc -l | awk '{printf " %s", $1}'}
 
 ${color}${font Monospace:style=Bold:pixelsize=18}CPU ${hr 1 }
 ${font Monospace:size=10}
@@ -113,7 +114,7 @@ ${alignc}${color}2nd ${color #39ff14}${top name 2}${top cpu 2}%
 ${alignc}${color}3rd ${color #39ff14}${top name 3}${top cpu 3}%
 ${alignc}${color}4th ${color #39ff14}${top name 4}${top cpu 4}%
 ${alignc}${color}5th ${color #39ff14}${top name 5}${top cpu 5}%
-${alignc}${color}6th ${color #39ff14}${top name 6}${top cpu 6}%
+# ${alignc}${color}6th ${color #39ff14}${top name 6}${top cpu 6}%
 
 ${color}${font Monospace:style=Bold:pixelsize=18}MEMORY ${hr 1 }
 ${font Monospace:size=10}
@@ -125,8 +126,7 @@ ${alignc}${color}2nd ${color #39ff14}${top_mem name 2}${top_mem mem 2}%
 ${alignc}${color}3rd ${color #39ff14}${top_mem name 3}${top_mem mem 3}%
 ${alignc}${color}4th ${color #39ff14}${top_mem name 4}${top_mem mem 4}%
 ${alignc}${color}5th ${color #39ff14}${top_mem name 5}${top_mem mem 5}%
-${alignc}${color}6th ${color #39ff14}${top_mem name 6}${top_mem mem 6}%
-
+# ${alignc}${color}6th ${color #39ff14}${top_mem name 6}${top_mem mem 6}%
 
 ${color}${font Monospace:style=Bold:pixelsize=18}DISK ${hr 1 }
 ${font Monospace:size=10}
@@ -138,7 +138,13 @@ ${alignc}${color}READ I/O: ${color #39ff14}${diskio_read /dev/sda} ${alignr}${co
 
 ${color}${font Monospace:style=Bold:pixelsize=18}NETWORK ${hr 1 }
 ${font Monospace:size=10}
-LAN IPv4: ${alignr}${addr wlan0}
+${if_up wlan0}WIFI: ${alignr}${wireless_essid wlan0} ${wireless_bitrate wlan0} (${wireless_link_qual_perc wlan0}%)
+${color #cc0000}${wireless_link_bar 15 wlan0}${color}
 
-${alignr}DOWNLOAD: ${color}${totaldown wlan0}     ${alignr}UPLOAD: ${color}${alignr}${totalup wlan0}
-${alignr}RATE: ${color #39ff14}${downspeed wlan0}       ${color}${alignr}RATE: ${color #39ff14}${upspeed wlan0}
+${endif}Local IP:$alignr${addr wlan0}
+Remote IP:$alignr${execi 60 wget http://ipinfo.io/ip -qO -}
+PING: $alignr${execi 5 ping -c 1 google.co.uk | grep "time=" | cut -d '=' -f 4}
+VPN: $alignr${if_up cscotun0}${color #39ff14}Yes${color}${else}No${endif}
+
+DOWNLOAD: ${totaldown wlan0}                          ${goto 180}UPLOAD: ${totalup wlan0}
+    RATE: ${color #39ff14}${downspeed wlan0}${color}  ${goto 180}  RATE: ${color #39ff14}${upspeed wlan0}${color}

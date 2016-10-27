@@ -1,5 +1,5 @@
 #
-# Style: min
+# Style: min2
 #
 CleanupColorsets
 DefaultColorset 0
@@ -16,4 +16,4 @@ Style FvwmPager BackColor \#000000
 Style FvwmPager BorderWidth 1
 Style FvwmPager HandleWidth 1
 Style FvwmPager HilightBack \#000000
-Exec exec xsetroot -solid \#393939
+Exec exec xsetroot -solid \#000000

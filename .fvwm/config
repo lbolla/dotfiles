@@ -5,8 +5,8 @@
 ###############################################################################
 
 AddToMenu RootMenu "Root Menu" Title
-+ "&Terminal"         Exec exec x-terminal-emulator || xterm
-+ "&Clock"            Exec exec xclock
++ "&Terminal"         Exec exec x-terminal-emulator -geometry 120x40
++ "&Console"          Module FvwmConsole -terminal x-terminal-emulator
 + ""                  Nop
 + "&Window Ops"       Popup Window-Ops
 + "&X11 Session"      Popup X11-Session
@@ -21,10 +21,12 @@ AddToMenu Window-Ops
 
 AddToMenu X11-Session
 + "Re&fresh Screen"   Refresh
-+ "&Restart WM"       Restart
++ "Re&group"          All MoveToScreen
+# Need to specify 'fvwm' gnome-session
++ "&Restart WM"       Restart fvwm
 + ""                  Nop
-+ "Exit to xterm"     Restart xterm
-+ "Exit WM"           Quit
++ "&Logout"           Exec exec gnome-session-quit --logout
++ "&Exit"             Exec exec gnome-session-quit --power-off
 
 ###############################################################################
 #                                                                             #
@@ -59,22 +61,25 @@ Key 7 A 4S            MoveToDesk 0 6
 Key 8 A 4S            MoveToDesk 0 7
 Key 9 A 4S            MoveToDesk 0 8
 Key C A 4             Exec exec google-chrome
-Key E A 4             Exec exec emacs
+Key E A 4             Exec exec emacs -geometry 190x60
 Key M A 4             Maximize
 Key N A 4             Iconify
 Key R A 4             Exec exec gmrun
 Key J A 4             FocusNext
 Key K A 4             FocusPrev
-Key Return A 4        Exec exec x-terminal-emulator || xterm
+Key Return A 4        Exec exec x-terminal-emulator -geometry 120x40
+Key Return A 4S       Exec exec x-terminal-emulator -geometry 190x60
 Key F1 A 4            Exec exec gnome-control-center
 Key F2 A 4            Exec exec gnome-system-monitor
 Key F10 A 4           Exec exec nautilus
 Key F12 A 4           Exec exec gnome-screenshot -i
 Key C A 4S            Close
+Key L A 4S            Exec exec gnome-session-quit --logout
 Key M A 4S            Menu RootMenu Nop
 Key Q A 4S            Exec exec gnome-session-quit --power-off
 Key S A 4S            Exec exec gnome-screensaver-command --lock
-Key Tab A 4           WindowList Root c c
+# TODO http://fvwm.org/documentation/faq/
+Key Tab A 4           WindowList Root c c SelectOnRelease Super_L
 
 # Simple default mouse bindings for the root window:
 #
@@ -92,10 +97,12 @@ Mouse 0	4 A           Iconify
 #
 Mouse 1	FS A          Resize-or-Raise
 Mouse 1	T A           Move-or-Raise
+Mouse 1	W 4           Move-or-Raise
 Mouse 1	I A           Move-or-Iconify
 Mouse 2	I A           Iconify
 Mouse 2	FST A         Menu Window-Ops Nop
 Mouse 3	TSIF A        RaiseLower
+Mouse 3	W 4           Resize-or-Raise
 
 ###############################################################################
 #                                                                             #
@@ -110,7 +117,6 @@ AddToFunc StartFunction
 + I Read mystyle quiet
 + I TestRc (-1) Read $./mystyle quiet
 + I TestRc (-1) Exec exec xsetroot -solid \#202020
-+ I Exec exec conky
 
 DestroyFunc InitFunction
 AddToFunc InitFunction
@@ -122,7 +128,7 @@ AddToFunc RestartFunction
 
 DestroyFunc SessionInitFunction
 AddToFunc SessionInitFunction
-+ I Nop
++ I Exec exec conky
 
 DestroyFunc SessionRestartFunction
 AddToFunc SessionRestartFunction
@@ -152,13 +158,23 @@ AddToFunc Resize-or-Raise
 
 DestroyFunc FocusNext
 AddToFunc FocusNext
-+ I Next (CurrentDesk, !Focused, !Sticky, AcceptsFocus) Focus
++ I Next (CurrentDesk, !Focused, AcceptsFocus) Focus
 + I Current Raise
 
 DestroyFunc FocusPrev
 AddToFunc FocusPrev
-+ I Prev (CurrentDesk, !Focused, !Sticky, AcceptsFocus) Focus
++ I Prev (CurrentDesk, !Focused, AcceptsFocus) Focus
 + I Current Raise
+
+# Disable Urgency actions: we don't want to focus on urgent windows
+# all the time
+DestroyFunc UrgencyFunc
+AddToFunc UrgencyFunc
++ I Nop
+
+DestroyFunc UrgencyDoneFunc
+AddToFunc UrgencyDoneFunc
++ I Nop
 
 ###############################################################################
 #                                                                             #
@@ -170,6 +186,10 @@ ClickTime 750
 DeskTopSize 1x1
 EdgeResistance 250
 EdgeScroll 0 0
+
+# http://fvwm.org/documentation/faq/#how-do-i-maximize-a-window-but-not-cover-up-fvwmtaskbar
+# Do not cover pager and conky
+EwmhBaseStruts 0 320 40 0
 
 DesktopName 0 Desk-1
 DesktopName 1 Desk-2
@@ -195,7 +215,6 @@ MenuStyle * Foreground \#000000
 MenuStyle * Mwm
 Style * BackColor \#c0c0c0
 Style * BorderWidth 6
-Style * SloppyFocus
 Style * DecorateTransient
 Style * EdgeMoveDelay 250
 Style * EdgeMoveResistance 10
@@ -209,10 +228,14 @@ Style * HilightFore \#000000
 Style * HintOverride
 Style * Icon /usr/share/pixmaps/fvwm/xterm.xpm
 Style * IconBox 1 -300 -1 -1, IconFill Left Bottom
+# Style * MouseFocusClickRaises
 Style * MwmBorder
 Style * MwmButtons
 Style * MwmDecor
 Style * MwmFunctions
+Style * SloppyFocus
+Style * SnapAttraction 10 SameType
+Style * SnapGrid 10 10
 Style * TileCascadePlacement
 Style * !UsePPosition
 TitleStyle Centered Height 20
@@ -251,3 +274,15 @@ Style FvwmPager StaysOnBottom
 *FvwmPager: Geometry +0+0
 *FvwmPager: Hilight #111111
 *FvwmPager: SmallFont 5x8
+
+###############################################################################
+#                                                                             #
+# Other apps                                                                  #
+#                                                                             #
+###############################################################################
+
+# Position gmrun at mouse point
+Style gmrun PositionPlacement Move m+0 m+0
+
+# Enable Xinerama, usually managed by Gnome
+Xinerama on
