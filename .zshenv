@@ -31,6 +31,9 @@ if [[ `tty` = /dev/tty* ]]; then
 	echo -en "\e]P7E5E5E5" # lightgrey
 	echo -en "\e]PFFFFFFF" # white
 	#clear # for background artifacting
+elif [[ "$EMACS" == "t" ]]; then
+	# Inside Emacs
+	export TERM=dumb
 else
 	# Inside X
 	export TERM=xterm-256color
