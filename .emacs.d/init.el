@@ -17,6 +17,7 @@
  '(c-default-style
    (quote
     ((c-mode . "k&r-wikipedia")
+     (c++-mode . "stroustrup")
      (java-mode . "java")
      (awk-mode . "awk")
      (other . "gnu"))))
@@ -27,7 +28,39 @@
  '(company-idle-delay 0.2)
  '(custom-safe-themes
    (quote
-    ("1af03c926f70fdcde68882387146bf14c2ff2438c86ef4063c1246ee44e9e8f0" "8a2e7783b5019e2f585eafad6d9d79d98ccd941fbdae032396f1de9a2fd4db89" "2c3fa247e21990b0c9f9ed429fa710dab6686571ddfa1ab05774e66de3b8f0f2" "ecd970bc9e85de5e28546c5001fc983fec12997796ba469879e22e24650af832" "541bfcd7d5c5e9c742803376001d2b26bc77a6680195f52430c3f7b3d93f808a" "cb94b9948166860922ecac7b54c4b3bac2464eeb2dac44b3e94af32b4b771f63" "595e806cb9b677ba06c3c149f99f7d1008f02edd6bbcf0fb3411f8664047d7a6" "ffa1a8de5ddf60c8b11bd047c26072f742af85bcce8f2261c2d4ac8b494026d5" "8869b4574ba98a1512466cac2c3d9342b733e70d333c97295da9f529cc414e8f" "2092555395b28cc7b66ccd075ff267f202ecebc9cb498e69793b332a3aacb7db" "f09f301605cb83418bbad1644c9aeb0e371106edc8c7f23a382038cfe5e38318" "0b6645497e51d80eda1d337d6cabe31814d6c381e69491931a688836c16137ed" "d1a42ed39a15a843cccadf107ee0242b5f78bfbb5b70ba3ce19f3ea9fda8f52d" "3a3917dbcc6571ef3942c2bf4c4240f70b5c4bc0b28192be6d3f9acd83607a24" "b6db49cec08652adf1ff2341ce32c7303be313b0de38c621676122f255ee46db" "b4ec581daad15aa7020b722523dc6bcea850bfbdbe31bfeb11c45ea51899bd75" "e24679edfdea016519c0e2d4a5e57157a11f928b7ef4361d00c23a7fe54b8e01" "badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" "fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2" "b9183de9666c3a16a7ffa7faaa8e9941b8d0ab50f9aaba1ca49f2f3aec7e3be9" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
+    ("1af03c926f70fdcde68882387146bf14c2ff2438c86ef4063c1246ee44e9e8f0"
+    "8a2e7783b5019e2f585eafad6d9d79d98ccd941fbdae032396f1de9a2fd4db89"
+    "2c3fa247e21990b0c9f9ed429fa710dab6686571ddfa1ab05774e66de3b8f0f2"
+    "ecd970bc9e85de5e28546c5001fc983fec12997796ba469879e22e24650af832"
+    "541bfcd7d5c5e9c742803376001d2b26bc77a6680195f52430c3f7b3d93f808a"
+    "cb94b9948166860922ecac7b54c4b3bac2464eeb2dac44b3e94af32b4b771f63"
+    "595e806cb9b677ba06c3c149f99f7d1008f02edd6bbcf0fb3411f8664047d7a6"
+    "ffa1a8de5ddf60c8b11bd047c26072f742af85bcce8f2261c2d4ac8b494026d5"
+    "8869b4574ba98a1512466cac2c3d9342b733e70d333c97295da9f529cc414e8f"
+    "2092555395b28cc7b66ccd075ff267f202ecebc9cb498e69793b332a3aacb7db"
+    "f09f301605cb83418bbad1644c9aeb0e371106edc8c7f23a382038cfe5e38318"
+    "0b6645497e51d80eda1d337d6cabe31814d6c381e69491931a688836c16137ed"
+    "d1a42ed39a15a843cccadf107ee0242b5f78bfbb5b70ba3ce19f3ea9fda8f52d"
+    "3a3917dbcc6571ef3942c2bf4c4240f70b5c4bc0b28192be6d3f9acd83607a24"
+    "b6db49cec08652adf1ff2341ce32c7303be313b0de38c621676122f255ee46db"
+    "b4ec581daad15aa7020b722523dc6bcea850bfbdbe31bfeb11c45ea51899bd75"
+    "e24679edfdea016519c0e2d4a5e57157a11f928b7ef4361d00c23a7fe54b8e01"
+    "badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98"
+    "fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2"
+    "b9183de9666c3a16a7ffa7faaa8e9941b8d0ab50f9aaba1ca49f2f3aec7e3be9"
+    "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3"
+    "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607"
+    "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a"
+    "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d"
+    "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58"
+    "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e"
+    "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016"
+    "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf"
+    "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a"
+    "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841"
+    "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90"
+    "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f"
+    default)))
  '(delete-old-versions t)
  '(display-time-world-list
    (quote
@@ -51,12 +84,60 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(evil-emacs-state-modes
    (quote
-    (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-diff-mode magit-process-mode magit-refs-mode magit-revision-mode magit-reflog-mode magit-log-mode magit-status-mode magit-popup-mode magit-popup-sequence-mode magit-log-select-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode pass-mode alchemist-mix-mode alchemist-iex-mode alchemist-test-report-mode)))
+    (archive-mode bbdb-mode bookmark-bmenu-mode
+    bookmark-edit-annotation-mode browse-kill-ring-mode
+    bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode
+    completion-list-mode Custom-mode debugger-mode
+    delicious-search-mode desktop-menu-blist-mode desktop-menu-mode
+    doc-view-mode dvc-bookmarks-mode dvc-diff-mode
+    dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode
+    dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode
+    ediff-meta-mode efs-mode Electric-buffer-menu-mode
+    emms-browser-mode emms-mark-mode emms-metaplaylist-mode
+    emms-playlist-mode etags-select-mode fj-mode gc-issues-mode
+    gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode
+    gdb-locals-mode gdb-memory-mode gdb-registers-mode
+    gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode
+    gnus-group-mode gnus-server-mode gnus-summary-mode
+    google-maps-static-mode ibuffer-mode
+    jde-javadoc-checker-report-mode magit-diff-mode magit-process-mode
+    magit-refs-mode magit-revision-mode magit-reflog-mode
+    magit-log-mode magit-status-mode magit-popup-mode
+    magit-popup-sequence-mode magit-log-select-mode mh-folder-mode
+    monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode
+    notmuch-hello-mode notmuch-search-mode notmuch-show-mode
+    org-agenda-mode package-menu-mode proced-mode rcirc-mode
+    recentf-dialog-mode reftex-select-bib-mode
+    reftex-select-label-mode reftex-toc-mode sldb-mode
+    slime-inspector-mode slime-thread-control-mode slime-xref-mode
+    sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode
+    tetris-mode tla-annotate-mode tla-archive-list-mode
+    tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode
+    tla-browse-mode tla-category-list-mode tla-changelog-mode
+    tla-follow-symlinks-mode tla-inventory-file-mode
+    tla-inventory-mode tla-lint-mode tla-logs-mode
+    tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode
+    tla-version-list-mode twittering-mode urlview-mode
+    vc-annotate-mode vc-dir-mode vc-git-log-view-mode
+    vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode
+    wab-compilation-mode xgit-annotate-mode xgit-changelog-mode
+    xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode
+    xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode
+    cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode
+    help-mode flycheck-error-list-mode inferior-haskell-mode
+    haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode
+    diff-mode display-time-world-mode pass-mode alchemist-mix-mode
+    alchemist-iex-mode alchemist-test-report-mode)))
  '(flycheck-clang-include-path
    (quote
-    ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps")))
+    ("/usr/include/glib-2.0"
+     "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps"
+     "../../deps")))
+ '(flycheck-clang-language-standard "c++11")
  '(flycheck-cppcheck-checks (quote ("all")))
+ '(flycheck-cppcheck-suppressions (quote ("constStatement")))
  '(flycheck-flake8rc nil)
+ '(flycheck-gcc-language-standard "c++1y")
  '(flycheck-javascript-flow-args nil)
  '(flycheck-pylintrc nil)
  '(font-use-system-font t)
@@ -72,10 +153,12 @@
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
  '(mu4e-headers-include-related t)
+ '(mu4e-view-show-addresses t)
  '(mu4e-view-show-images t)
  '(org-agenda-sorting-strategy
    (quote
-    ((agenda habit-down deadline-up time-up todo-state-down priority-down alpha-up category-keep tag-up)
+    ((agenda habit-down deadline-up time-up todo-state-down
+             priority-down alpha-up category-keep tag-up)
      (todo priority-down category-keep alpha-up)
      (tags priority-down category-keep)
      (search category-keep))))
@@ -89,7 +172,8 @@
      nil "")))
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules")))
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
+     ".svn" ".stack-work" "deps" "node_modules")))
  '(python-shell-interpreter "ipython")
  '(show-paren-mode t)
  '(tool-bar-mode nil)
@@ -99,7 +183,8 @@
  '(yas-indent-line (quote none))
  '(yas-prompt-functions
    (quote
-    (yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-no-prompt)))
+    (yas-ido-prompt yas-x-prompt yas-dropdown-prompt
+                    yas-completing-prompt yas-no-prompt)))
  '(yas-snippet-dirs (quote (yas-installed-snippets-dir))))
 
 (custom-set-faces
@@ -107,7 +192,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Monoid" :height 90)))))
+ '(default ((t (:family "Monoid" :height 90))))
+ '(monky-diff-add ((t (:foreground "forest green")))))
  ;; '(default ((t (:family "Monoid" :height 90)))))
 
 (load-file "~/.emacs.d/private.el")
@@ -123,9 +209,10 @@
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "C-0") (lambda () (interactive) (text-scale-set 0)))
-(global-set-key (kbd "<f5>") 'compile)
 (global-set-key (kbd "<f6>") 'gdb)
 (global-set-key (kbd "<f7>") 'async-shell-command)
+(global-set-key (kbd "<f8>") 'pass)
+(global-set-key (kbd "S-<f8>") 'password-store-copy)
 (global-set-key (kbd "C-c b b") 'browse-url-at-point)
 (global-set-key (kbd "C-c b w") 'w3m-goto-url)
 
@@ -237,19 +324,20 @@
 (require 'use-package)
 ; (setq use-package-always-ensure t)
 
-(use-package cyberpunk-theme)
-(use-package quasi-monochrome-theme
-  :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
-(use-package base16-theme)
 (use-package custom
   :init (progn
           (if (display-graphic-p)
-              (load-theme
-               ;; 'leuven
-               ;; 'base16-default-dark
-               ;; 'cyberpunk
-               'quasi-monochrome
-               )
+              (progn
+                ;; (use-package cyberpunk-theme)
+                ;; (use-package base16-theme)
+                (use-package quasi-monochrome-theme
+                  :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
+                (load-theme
+                 ;; 'leuven
+                 ;; 'base16-default-dark
+                 ;; 'cyberpunk
+                 'quasi-monochrome
+                 ))
             ;; Turn font coloring off on textual terminals
             (add-to-list 'default-frame-alist '(tty-color-mode  . never)))))
 
@@ -381,15 +469,20 @@
   )
 
 (use-package flycheck-haskell
+  :disabled t
+  :defer t
   :init (progn
 	  (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
 	  (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
 
 (use-package flycheck-mypy
-  ;; :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
-  :disabled t
+  :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
+  ;; :disabled t
   :config (progn
             ;; TODO set it depending on which Python version I'm using
+            ;; TODO consider using mypy.ini in repo dir, instead
+            ;; http://mypy.readthedocs.io/en/latest/config_file.html
+            ;; TODO http://blog.zulip.org/2016/10/13/static-types-in-python-oh-mypy/
             (setq flycheck-python-mypy-args '("--py2" "--silent-imports"))
             (flycheck-add-next-checker 'python-pylint 'python-mypy)))
 
@@ -458,7 +551,8 @@
 (use-package projectile
   :init (progn
 	  (projectile-global-mode)
-	  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)))
+	  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+          (global-set-key (kbd "<f5>") 'projectile-compile-project)))
 
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
@@ -657,6 +751,12 @@
 			;; Enter key executes newline-and-indent
 			(local-set-key (kbd "RET") 'newline-and-indent)))))
 
+(use-package make-mode
+  :init (progn
+          (add-hook 'make-mode-hook
+                    (lambda ()
+                      (setq indent-tabs-mode t)))))
+
 (use-package prog-mode
   :config (progn
 	    (add-hook 'prog-mode-hook
@@ -701,7 +801,17 @@
 		      (local-set-key (kbd "RET") 'newline-and-indent)))))
 
 (use-package js2-mode
-  :mode (("\\.js\\'" . js2-mode)))
+  :mode (("\\.js\\'" . js2-mode))
+  :init (progn
+	  (defun js-insert-breakpoint ()
+	    "Insert JS Chrome breakpoint above point."
+	    (interactive)
+	    (evil-open-above 1)
+	    (insert "debugger;  // TODO")
+	    (evil-normal-state))
+	  (add-hook 'js2-mode-hook
+		    (lambda ()
+                      (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint)))))
 
 (use-package ffap
   :config (progn
@@ -768,7 +878,8 @@
 			  (inline-close . 0)
 			  (inline-open . +)
 			  (inmodule . +)
-			  (innamespace . +)
+			  ;; (innamespace . +)
+			  (innamespace . [0])
 			  (knr-argdecl . 0)
 			  (knr-argdecl-intro . +)
 			  (label . 2)
@@ -808,10 +919,10 @@
 
 (use-package whitespace
   :init (progn
-	  (hook-into-modes 'whitespace-mode '(python-mode-hook))
+	  (hook-into-modes 'whitespace-mode '(prog-mode-hook))
 	  ;; Highlight portion of lines >79
 	  (setq whitespace-line-column 79
-		whitespace-style '(face lines-tail))))
+		whitespace-style '(face lines-tail trailing))))
 
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode))
