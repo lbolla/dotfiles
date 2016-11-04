@@ -283,4 +283,7 @@ fi
 #{{{ Other goodies
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 source ~/src/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [[ $TERM = "linux" ]]; then
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
+fi
 #}}}

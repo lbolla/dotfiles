@@ -11,6 +11,7 @@ export PATH
 if [[ `tty` = /dev/tty* ]]; then
 	# Terminal
 	export TERM=linux
+	export IN_X="no"
 	# Nice terminal colors
 	# http://askubuntu.com/questions/147462/how-can-i-change-the-tty-colors
 	#  echo -en "\e]P0232323" # black
@@ -32,9 +33,11 @@ if [[ `tty` = /dev/tty* ]]; then
 	echo -en "\e]PFFFFFFF" # white
 	#clear # for background artifacting
 elif [[ "$EMACS" == "t" ]]; then
-	# Inside Emacs
+	Inside Emacs
 	export TERM=dumb
+	export IN_X="yes"
 else
 	# Inside X
 	export TERM=xterm-256color
+	export IN_X="yes"
 fi
