@@ -134,7 +134,7 @@
 (defun yg-kiln-buffer ()
   "Run `yg-kiln` on current buffer."
   (interactive)
-  (shell-command (concat "yg-kiln " (buffer-file-name))))
+  (shell-command (concat "yg-kiln " (or (buffer-file-name) default-directory))))
 
 (defun yg-kiln-region ()
   "Run `yg-kiln` on current region."

@@ -16,8 +16,8 @@
  '(browse-url-browser-function (quote browse-url-xdg-open))
  '(c-default-style
    (quote
-    ((c-mode . "k&r-wikipedia")
-     (c++-mode . "stroustrup")
+    ((c-mode . "k&r")
+     (c++-mode . "stroustrup-book")
      (java-mode . "java")
      (awk-mode . "awk")
      (other . "gnu"))))
@@ -28,40 +28,9 @@
  '(company-idle-delay 0.2)
  '(custom-safe-themes
    (quote
-    ("1af03c926f70fdcde68882387146bf14c2ff2438c86ef4063c1246ee44e9e8f0"
-    "8a2e7783b5019e2f585eafad6d9d79d98ccd941fbdae032396f1de9a2fd4db89"
-    "2c3fa247e21990b0c9f9ed429fa710dab6686571ddfa1ab05774e66de3b8f0f2"
-    "ecd970bc9e85de5e28546c5001fc983fec12997796ba469879e22e24650af832"
-    "541bfcd7d5c5e9c742803376001d2b26bc77a6680195f52430c3f7b3d93f808a"
-    "cb94b9948166860922ecac7b54c4b3bac2464eeb2dac44b3e94af32b4b771f63"
-    "595e806cb9b677ba06c3c149f99f7d1008f02edd6bbcf0fb3411f8664047d7a6"
-    "ffa1a8de5ddf60c8b11bd047c26072f742af85bcce8f2261c2d4ac8b494026d5"
-    "8869b4574ba98a1512466cac2c3d9342b733e70d333c97295da9f529cc414e8f"
-    "2092555395b28cc7b66ccd075ff267f202ecebc9cb498e69793b332a3aacb7db"
-    "f09f301605cb83418bbad1644c9aeb0e371106edc8c7f23a382038cfe5e38318"
-    "0b6645497e51d80eda1d337d6cabe31814d6c381e69491931a688836c16137ed"
-    "d1a42ed39a15a843cccadf107ee0242b5f78bfbb5b70ba3ce19f3ea9fda8f52d"
-    "3a3917dbcc6571ef3942c2bf4c4240f70b5c4bc0b28192be6d3f9acd83607a24"
-    "b6db49cec08652adf1ff2341ce32c7303be313b0de38c621676122f255ee46db"
-    "b4ec581daad15aa7020b722523dc6bcea850bfbdbe31bfeb11c45ea51899bd75"
-    "e24679edfdea016519c0e2d4a5e57157a11f928b7ef4361d00c23a7fe54b8e01"
-    "badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98"
-    "fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2"
-    "b9183de9666c3a16a7ffa7faaa8e9941b8d0ab50f9aaba1ca49f2f3aec7e3be9"
-    "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3"
-    "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607"
-    "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a"
-    "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d"
-    "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58"
-    "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e"
-    "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016"
-    "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf"
-    "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a"
-    "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841"
-    "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90"
-    "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f"
-    default)))
+    ("d6b418b8a8bea9318641979d5ee7bd7beb266158dc3ef0415cef768118d2e341" "1af03c926f70fdcde68882387146bf14c2ff2438c86ef4063c1246ee44e9e8f0" "8a2e7783b5019e2f585eafad6d9d79d98ccd941fbdae032396f1de9a2fd4db89" "2c3fa247e21990b0c9f9ed429fa710dab6686571ddfa1ab05774e66de3b8f0f2" "ecd970bc9e85de5e28546c5001fc983fec12997796ba469879e22e24650af832" "541bfcd7d5c5e9c742803376001d2b26bc77a6680195f52430c3f7b3d93f808a" "cb94b9948166860922ecac7b54c4b3bac2464eeb2dac44b3e94af32b4b771f63" "595e806cb9b677ba06c3c149f99f7d1008f02edd6bbcf0fb3411f8664047d7a6" "ffa1a8de5ddf60c8b11bd047c26072f742af85bcce8f2261c2d4ac8b494026d5" "8869b4574ba98a1512466cac2c3d9342b733e70d333c97295da9f529cc414e8f" "2092555395b28cc7b66ccd075ff267f202ecebc9cb498e69793b332a3aacb7db" "f09f301605cb83418bbad1644c9aeb0e371106edc8c7f23a382038cfe5e38318" "0b6645497e51d80eda1d337d6cabe31814d6c381e69491931a688836c16137ed" "d1a42ed39a15a843cccadf107ee0242b5f78bfbb5b70ba3ce19f3ea9fda8f52d" "3a3917dbcc6571ef3942c2bf4c4240f70b5c4bc0b28192be6d3f9acd83607a24" "b6db49cec08652adf1ff2341ce32c7303be313b0de38c621676122f255ee46db" "b4ec581daad15aa7020b722523dc6bcea850bfbdbe31bfeb11c45ea51899bd75" "e24679edfdea016519c0e2d4a5e57157a11f928b7ef4361d00c23a7fe54b8e01" "badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" "fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2" "b9183de9666c3a16a7ffa7faaa8e9941b8d0ab50f9aaba1ca49f2f3aec7e3be9" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "1fab355c4c92964546ab511838e3f9f5437f4e68d9d1d073ab8e36e51b26ca6a" "53af9a10613a30b5e04c4e0f8efbc44d12147fc9985767d7e45f5088be889841" "fbb449ba8147e2914a9bebc2d6a210b8927313a6c1b70764a7f7c61a9bc04b90" "093af34e7baf84660c739950b515fb3700f5a5745deb516c9d1d7723a5d0c39f" default)))
  '(delete-old-versions t)
+ '(disaster-objdump "objdump -d -M intel --demangle -Sl --no-show-raw-insn")
  '(display-time-world-list
    (quote
     (("UTC" "UTC")
@@ -84,55 +53,11 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(evil-emacs-state-modes
    (quote
-    (archive-mode bbdb-mode bookmark-bmenu-mode
-    bookmark-edit-annotation-mode browse-kill-ring-mode
-    bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode
-    completion-list-mode Custom-mode debugger-mode
-    delicious-search-mode desktop-menu-blist-mode desktop-menu-mode
-    doc-view-mode dvc-bookmarks-mode dvc-diff-mode
-    dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode
-    dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode
-    ediff-meta-mode efs-mode Electric-buffer-menu-mode
-    emms-browser-mode emms-mark-mode emms-metaplaylist-mode
-    emms-playlist-mode etags-select-mode fj-mode gc-issues-mode
-    gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode
-    gdb-locals-mode gdb-memory-mode gdb-registers-mode
-    gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode
-    gnus-group-mode gnus-server-mode gnus-summary-mode
-    google-maps-static-mode ibuffer-mode
-    jde-javadoc-checker-report-mode magit-diff-mode magit-process-mode
-    magit-refs-mode magit-revision-mode magit-reflog-mode
-    magit-log-mode magit-status-mode magit-popup-mode
-    magit-popup-sequence-mode magit-log-select-mode mh-folder-mode
-    monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode
-    notmuch-hello-mode notmuch-search-mode notmuch-show-mode
-    org-agenda-mode package-menu-mode proced-mode rcirc-mode
-    recentf-dialog-mode reftex-select-bib-mode
-    reftex-select-label-mode reftex-toc-mode sldb-mode
-    slime-inspector-mode slime-thread-control-mode slime-xref-mode
-    sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode
-    tetris-mode tla-annotate-mode tla-archive-list-mode
-    tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode
-    tla-browse-mode tla-category-list-mode tla-changelog-mode
-    tla-follow-symlinks-mode tla-inventory-file-mode
-    tla-inventory-mode tla-lint-mode tla-logs-mode
-    tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode
-    tla-version-list-mode twittering-mode urlview-mode
-    vc-annotate-mode vc-dir-mode vc-git-log-view-mode
-    vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode
-    wab-compilation-mode xgit-annotate-mode xgit-changelog-mode
-    xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode
-    xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode
-    cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode
-    help-mode flycheck-error-list-mode inferior-haskell-mode
-    haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode
-    diff-mode display-time-world-mode pass-mode alchemist-mix-mode
-    alchemist-iex-mode alchemist-test-report-mode)))
+    (archive-mode bbdb-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calculator-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode doc-view-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode ibuffer-mode jde-javadoc-checker-report-mode magit-diff-mode magit-process-mode magit-refs-mode magit-revision-mode magit-reflog-mode magit-log-mode magit-status-mode magit-popup-mode magit-popup-sequence-mode magit-log-select-mode mh-folder-mode monky-mode mu4e-main-mode mu4e-headers-mode mu4e-view-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode org-agenda-mode package-menu-mode proced-mode rcirc-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vc-git-log-view-mode vc-svn-log-view-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode cider-repl-mode cider-popup-buffer-mode inferior-lisp-mode help-mode flycheck-error-list-mode inferior-haskell-mode haskell-error-mode haskell-interactive-mode vc-hg-log-view-mode diff-mode display-time-world-mode pass-mode alchemist-mix-mode alchemist-iex-mode alchemist-test-report-mode)))
+ '(explicit-shell-file-name "/bin/bash")
  '(flycheck-clang-include-path
    (quote
-    ("/usr/include/glib-2.0"
-     "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps"
-     "../../deps")))
+    ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps")))
  '(flycheck-clang-language-standard "c++11")
  '(flycheck-cppcheck-checks (quote ("all")))
  '(flycheck-cppcheck-suppressions (quote ("constStatement")))
@@ -140,6 +65,7 @@
  '(flycheck-gcc-language-standard "c++1y")
  '(flycheck-javascript-flow-args nil)
  '(flycheck-pylintrc nil)
+ '(flycheck-python-flake8-executable "/home/lbolla/bin/flake8")
  '(font-use-system-font t)
  '(ido-ignore-files
    (quote
@@ -157,8 +83,7 @@
  '(mu4e-view-show-images t)
  '(org-agenda-sorting-strategy
    (quote
-    ((agenda habit-down deadline-up time-up todo-state-down
-             priority-down alpha-up category-keep tag-up)
+    ((agenda habit-down deadline-up time-up todo-state-down priority-down alpha-up category-keep tag-up)
      (todo priority-down category-keep alpha-up)
      (tags priority-down category-keep)
      (search category-keep))))
@@ -170,10 +95,12 @@
     ("+LEVEL=2/-DONE"
      ("TODO" "NEXT" "NEXTACTION" "CANC")
      nil "")))
+ '(package-selected-packages
+   (quote
+    (yaml-mode xclip web-mode w3m virtualenvwrapper use-package swiper spinner restclient queue quasi-monochrome-theme projectile pass paredit multi-term mu4e-alert markdown-mode magit macrostep json-mode js2-mode jedi hexrgb go-mode gnus-desktop-notify gnuplot flycheck-mypy flycheck-flow flycheck-elixir flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil erlang disaster cython-mode cyberpunk-theme csv-mode company-jedi base16-theme alchemist ag ace-jump-mode)))
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
-     ".svn" ".stack-work" "deps" "node_modules")))
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules")))
  '(python-shell-interpreter "ipython")
  '(show-paren-mode t)
  '(tool-bar-mode nil)
@@ -183,8 +110,7 @@
  '(yas-indent-line (quote none))
  '(yas-prompt-functions
    (quote
-    (yas-ido-prompt yas-x-prompt yas-dropdown-prompt
-                    yas-completing-prompt yas-no-prompt)))
+    (yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-no-prompt)))
  '(yas-snippet-dirs (quote (yas-installed-snippets-dir))))
 
 (custom-set-faces
@@ -214,7 +140,14 @@
 (global-set-key (kbd "<f8>") 'pass)
 (global-set-key (kbd "S-<f8>") 'password-store-copy)
 (global-set-key (kbd "C-c b b") 'browse-url-at-point)
-(global-set-key (kbd "C-c b w") 'w3m-goto-url)
+(global-set-key (kbd "C-c b w")
+                (lambda ()
+                  (interactive)
+                  (w3m-goto-url (thing-at-point 'word))))
+(global-set-key (kbd "C-c b e")
+                (lambda ()
+                  (interactive)
+                  (eww (thing-at-point 'word))))
 
 (server-start)
 
@@ -307,6 +240,14 @@
   (interactive)
   (icalendar-import-buffer diary-file t t))
 
+(defun cppref-search ()
+  "Search word at point in cppreference.com."
+  (interactive)
+  (let (
+        (cppurl "http://en.cppreference.com/mwiki/index.php?search=")
+        (term (thing-at-point 'filename)))
+    (browse-url (concat cppurl term))))
+
 (require 'package)
 
 ;; Repositories
@@ -323,23 +264,35 @@
 ;;     https://github.com/jordonbiondo/.emacs.d/blob/master/init.el
 (require 'use-package)
 ; (setq use-package-always-ensure t)
+; (setq use-package-always-defer t)
 
 (use-package custom
   :init (progn
-          (if (display-graphic-p)
+          (if (equal (getenv "IN_X") "no")
+              ;; Textual terminal
               (progn
-                ;; (use-package cyberpunk-theme)
-                ;; (use-package base16-theme)
+                (add-to-list 'default-frame-alist '(tty-color-mode  . never)))
+            ;; In X window
+            (if (display-graphic-p)
+                (progn
+                  ;; (use-package cyberpunk-theme)
+                  ;; (use-package base16-theme)
+                  (use-package quasi-monochrome-theme
+                    :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
+                  (load-theme
+                   ;; 'leuven
+                   ;; 'base16-default-dark
+                   ;; 'cyberpunk
+                   'quasi-monochrome
+                   ))
+              ;; In X terminal
+              (progn
+                (use-package xclip
+                  :init (xclip-mode t))
+                (xterm-mouse-mode t)
                 (use-package quasi-monochrome-theme
                   :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
-                (load-theme
-                 ;; 'leuven
-                 ;; 'base16-default-dark
-                 ;; 'cyberpunk
-                 'quasi-monochrome
-                 ))
-            ;; Turn font coloring off on textual terminals
-            (add-to-list 'default-frame-alist '(tty-color-mode  . never)))))
+                )))))
 
 (use-package evil
   :config (progn
@@ -428,8 +381,9 @@
   :init (progn
           (add-hook 'emacs-lisp-mode-hook
                     (lambda ()
-                      ;; Dash is part of a lisp word
-                      (modify-syntax-entry ?\- "w")))))
+                      ;; Dash and tilde are part of a lisp word
+                      (modify-syntax-entry ?\- "w")
+                      (modify-syntax-entry ?\~ "w")))))
 
 (use-package elixir-mode
   :init (add-hook 'elixir-mode-hook
@@ -444,8 +398,8 @@
                     (evil-define-key 'normal elixir-mode-map (kbd "K") 'alchemist-help-search-at-point))))
 
 (use-package flycheck
-  :init (progn
-          (add-hook 'after-init-hook #'global-flycheck-mode))
+  ;; :init (progn
+  ;;         (add-hook 'after-init-hook #'global-flycheck-mode))
   :config (progn
             (setq flycheck-highlighting-mode 'lines
                   flycheck-error-list-format
@@ -544,10 +498,6 @@
   :init (progn
 	  (show-paren-mode)))
 
-(use-package xclip
-  :disabled t
-  :init (xclip-mode t))
-
 (use-package projectile
   :init (progn
 	  (projectile-global-mode)
@@ -615,7 +565,7 @@
   :config (progn
             (add-hook 'yaml-mode-hook
                       (lambda ()
-                        (set-indent 2)))))
+                        (set-indent 4)))))
 
 (use-package json-mode)
 
@@ -741,6 +691,11 @@
                         ;; Hideshow mode to handle folding
                         (hs-minor-mode t)
 
+                        ;; PEP8 line width
+                        (whitespace-mode 0)
+                        (setq whitespace-line-column 79)
+                        (whitespace-mode 1)
+
 			;; Keybidings
 			(evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
 			(evil-define-key 'normal python-mode-map (kbd ",t") 'python-pytest-current-function)
@@ -811,6 +766,7 @@
 	    (evil-normal-state))
 	  (add-hook 'js2-mode-hook
 		    (lambda ()
+                      (set-indent 4)
                       (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint)))))
 
 (use-package ffap
@@ -818,91 +774,29 @@
           (add-to-list 'ffap-c-path "../deps")
           (add-to-list 'ffap-c-path "../../deps")))
 
+(use-package disaster
+  :init (progn
+          ;; (define-key c-mode-base-map (kbd "C-c d") 'disaster)
+          ))
+
 (use-package cc-mode
   :init (progn
 
 	  ;; Run indent on save
 	  ;; (add-hook 'before-save-hook 'c-indent)
 
-	  ;; From https://en.wikipedia.org/wiki/Indent_style#K.26R_style
-	  (c-add-style "k&r-wikipedia"
-		       '("k&r"
-			 (c-basic-offset . 4)	; Guessed value
-			 (c-offsets-alist
-			  (block-close . 0)	; Guessed value
-			  (defun-block-intro . +)	; Guessed value
-			  (defun-close . 0)	; Guessed value
-			  (defun-open . 0)	; Guessed value
-			  (else-clause . 0)	; Guessed value
-			  (statement . 0)		; Guessed value
-			  (statement-block-intro . +) ; Guessed value
-			  (substatement . +)	; Guessed value
-			  (topmost-intro . 0)	; Guessed value
-			  (access-label . -)
-			  (annotation-top-cont . 0)
-			  (annotation-var-cont . +)
-			  (arglist-close . c-lineup-close-paren)
-			  (arglist-cont c-lineup-gcc-asm-reg 0)
-			  (arglist-cont-nonempty . c-lineup-arglist)
-			  (arglist-intro . +)
-			  (block-open . 0)
-			  (brace-entry-open . 0)
-			  (brace-list-close . 0)
-			  (brace-list-entry . 0)
-			  (brace-list-intro . +)
-			  (brace-list-open . 0)
-			  (c . c-lineup-C-comments)
-			  (case-label . 0)
-			  (catch-clause . 0)
-			  (class-close . 0)
-			  (class-open . 0)
-			  (comment-intro . c-lineup-comment)
-			  (composition-close . 0)
-			  (composition-open . 0)
-			  (cpp-define-intro c-lineup-cpp-define +)
-			  (cpp-macro . -1000)
-			  (cpp-macro-cont . +)
-			  (do-while-closure . 0)
-			  (extern-lang-close . 0)
-			  (extern-lang-open . 0)
-			  (friend . 0)
-			  (func-decl-cont . +)
-			  (inclass . +)
-			  (incomposition . +)
-			  (inexpr-class . +)
-			  (inexpr-statement . +)
-			  (inextern-lang . +)
-			  (inher-cont . c-lineup-multi-inher)
-			  (inher-intro . +)
-			  (inlambda . c-lineup-inexpr-block)
-			  (inline-close . 0)
-			  (inline-open . +)
-			  (inmodule . +)
-			  ;; (innamespace . +)
-			  (innamespace . [0])
-			  (knr-argdecl . 0)
-			  (knr-argdecl-intro . +)
-			  (label . 2)
-			  (lambda-intro-cont . +)
-			  (member-init-cont . c-lineup-multi-inher)
-			  (member-init-intro . +)
-			  (module-close . 0)
-			  (module-open . 0)
-			  (namespace-close . 0)
-			  (namespace-open . 0)
-			  (objc-method-args-cont . c-lineup-ObjC-method-args)
-			  (objc-method-call-cont c-lineup-ObjC-method-call-colons c-lineup-ObjC-method-call +)
-			  (objc-method-intro .
-					     [0])
-			  (statement-case-intro . +)
-			  (statement-case-open . 0)
-			  (statement-cont . +)
-			  (stream-op . c-lineup-streamop)
-			  (string . -1000)
-			  (substatement-label . 2)
-			  (substatement-open . +)
-			  (template-args-cont c-lineup-template-args +)
-			  (topmost-intro-cont . c-lineup-topmost-intro-cont))))))
+	  ;; (add-hook 'cc-mode-hook
+	  ;;           (lambda ()
+          ;;             (evil-define-key 'normal cc-mode-map (kbd ",h") 'cppref-search)))
+
+          ;; Style used in the C++ Programming Language book
+          (c-add-style "stroustrup-book"
+                       '("stroustrup"
+                         (c-basic-offset . 4)
+                         (c-offsets-alist
+                          (inline-open . 0))))
+
+	  ))
 
 (use-package erlang
   :mode (("\\.erl\\'" . erlang-mode)
@@ -919,10 +813,12 @@
 
 (use-package whitespace
   :init (progn
-	  (hook-into-modes 'whitespace-mode '(prog-mode-hook))
-	  ;; Highlight portion of lines >79
-	  (setq whitespace-line-column 79
-		whitespace-style '(face lines-tail trailing))))
+          (setq whitespace-style '(face lines-tail trailing))
+          (add-hook 'prog-mode-hook
+                    (lambda ()
+                      (whitespace-mode 0)
+                      (setq whitespace-line-column 80)
+                      (whitespace-mode 1)))))
 
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode))
@@ -1117,6 +1013,12 @@
 	    (add-hook 'web-mode-hook
 		      (lambda ()
                         (modify-syntax-entry ?\- "w")
+
+                        ;; Allow long lines
+                        (whitespace-mode 0)
+                        (setq whitespace-line-column 120)
+                        (whitespace-mode 1)
+
 			(setq web-mode-markup-indent-offset 4)
 			(setq web-mode-css-indent-offset 4)
 			(setq web-mode-code-indent-offset 4)
@@ -1277,6 +1179,14 @@
             ;; Force starting automatic updates
             (mu4e~start))
   :init (progn
+
+          (use-package mu4e-alert
+            :init (progn
+                    (mu4e-alert-set-default-style 'libnotify)
+                    (global-set-key (kbd "C-c mu") 'mu4e-alert-view-unread-mails)
+                    (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+                    (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)))
+
 	  (global-set-key (kbd "C-c mm") 'mu4e)
           (require 'org-mu4e)
 
@@ -1305,7 +1215,7 @@
 	   mu4e-maildir "/home/lbolla/Mail"
 	   mu4e-drafts-folder "/YG/Drafts"
 	   mu4e-sent-folder "/YG/Sent Items"
-	   mu4e-trash-folder "/YG/Trash"
+	   mu4e-trash-folder "/YG/Deleted Items"
 
 	   ;; Shortcuts
 	   mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
@@ -1356,13 +1266,6 @@
 	   mu4e-attachment-dir "/tmp"
 	   ;; skip duplicates introduced by gmail and offlineimap
 	   mu4e-headers-skip-duplicates t)))
-
-(use-package mu4e-alert
-  :init (progn
-	  (mu4e-alert-set-default-style 'libnotify)
-	  (global-set-key (kbd "C-c mu") 'mu4e-alert-view-unread-mails)
-	  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
-	  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)))
 
 (use-package smtpmail
   :init (progn
