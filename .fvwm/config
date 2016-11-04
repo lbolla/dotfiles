@@ -62,6 +62,7 @@ Key 8 A 4S            MoveToDesk 0 7
 Key 9 A 4S            MoveToDesk 0 8
 Key C A 4             Exec exec google-chrome
 Key E A 4             Exec exec emacs -geometry 190x60
+Key E A 4S            Exec exec emacs-nw -geometry 190x60
 Key M A 4             Maximize
 Key N A 4             Iconify
 Key R A 4             Exec exec gmrun
@@ -189,7 +190,7 @@ EdgeScroll 0 0
 
 # http://fvwm.org/documentation/faq/#how-do-i-maximize-a-window-but-not-cover-up-fvwmtaskbar
 # Do not cover pager and conky
-EwmhBaseStruts 0 320 40 0
+# EwmhBaseStruts 0 320 40 0
 
 DesktopName 0 Desk-1
 DesktopName 1 Desk-2
