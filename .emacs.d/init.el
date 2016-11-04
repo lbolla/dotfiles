@@ -398,8 +398,54 @@
                     (evil-define-key 'normal elixir-mode-map (kbd "K") 'alchemist-help-search-at-point))))
 
 (use-package flycheck
-  ;; :init (progn
-  ;;         (add-hook 'after-init-hook #'global-flycheck-mode))
+  :init (progn
+
+          (use-package flycheck-cython
+            :load-path "/home/lbolla/src/emacs-flycheck-cython/"
+            :defer t
+            )
+
+          (use-package flycheck-elixir
+            :load-path "/home/lbolla/src/emacs-flycheck-elixir/"
+            :disabled t
+            :defer t
+            )
+
+          (use-package flycheck-haskell
+            :disabled t
+            :defer t
+            :init (progn
+                    (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
+                    (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
+
+          (use-package flycheck-mypy
+            :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
+            ;; :disabled t
+            :defer t
+            :config (progn
+                      ;; TODO set it depending on which Python version I'm using
+                      ;; TODO consider using mypy.ini in repo dir, instead
+                      ;; http://mypy.readthedocs.io/en/latest/config_file.html
+                      ;; TODO http://blog.zulip.org/2016/10/13/static-types-in-python-oh-mypy/
+                      (setq flycheck-python-mypy-args '("--py2" "--silent-imports"))
+                      (flycheck-add-next-checker 'python-pylint 'python-mypy)))
+
+          (use-package flycheck-dialyzer
+            :load-path "/home/lbolla/src/emacs-flycheck-dialyzer/"
+            :disabled t
+            :defer t
+            :config (progn
+                      (flycheck-add-next-checker 'erlang 'erlang-dialyzer)))
+
+          (use-package flycheck-flow
+            :load-path "/home/lbolla/src/emacs-flycheck-flow/"
+            :disabled t
+            :defer t
+            :config (progn
+                      (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)))
+
+          (add-hook 'after-init-hook #'global-flycheck-mode))
+
   :config (progn
             (setq flycheck-highlighting-mode 'lines
                   flycheck-error-list-format
@@ -413,45 +459,7 @@
             (flycheck-add-next-checker 'python-flake8 'python-pylint)
             (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
 
-(use-package flycheck-cython
-  ;; :load-path "/home/lbolla/src/emacs-flycheck-cython/"
-  )
-
-(use-package flycheck-elixir
-  :load-path "/home/lbolla/src/emacs-flycheck-elixir/"
-  ;; :disabled t
-  )
-
-(use-package flycheck-haskell
-  :disabled t
-  :defer t
-  :init (progn
-	  (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
-	  (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
-
-(use-package flycheck-mypy
-  :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
-  ;; :disabled t
-  :config (progn
-            ;; TODO set it depending on which Python version I'm using
-            ;; TODO consider using mypy.ini in repo dir, instead
-            ;; http://mypy.readthedocs.io/en/latest/config_file.html
-            ;; TODO http://blog.zulip.org/2016/10/13/static-types-in-python-oh-mypy/
-            (setq flycheck-python-mypy-args '("--py2" "--silent-imports"))
-            (flycheck-add-next-checker 'python-pylint 'python-mypy)))
-
-(use-package flycheck-dialyzer
-  :load-path "/home/lbolla/src/emacs-flycheck-dialyzer/"
-  :config (progn
-	    (flycheck-add-next-checker 'erlang 'erlang-dialyzer)))
-
-(use-package flycheck-flow
-  :load-path "/home/lbolla/src/emacs-flycheck-flow/"
-  :config (progn
-            (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)))
-
 (use-package ido
-  :disabled t
   :init (progn
 	  (ido-mode t)
 	  (ido-everywhere t)
@@ -505,6 +513,7 @@
           (global-set-key (kbd "<f5>") 'projectile-compile-project)))
 
 (use-package go-mode
+  :defer t
   :mode ("\\.go\\'" . go-mode)
   :init (progn
           (setq godef-command "/home/lbolla/src/go/bin/godef")
@@ -567,15 +576,17 @@
                       (lambda ()
                         (set-indent 4)))))
 
-(use-package json-mode)
+(use-package json-mode
+  :defer t)
 
 (use-package text-mode
   :mode "\\README\\'"
   :init (progn
-	  (add-hook 'text-mode-hook
-		    (lambda ()
-		      (modify-syntax-entry ?\_ "w")
-		      (flyspell-mode t)))))
+          (add-hook 'text-mode-hook
+        	    (lambda ()
+                      ;; TODO this breaks mu4e reply for certain msgs!
+        	      ;; (modify-syntax-entry ?\_ "w")
+        	      (flyspell-mode t)))))
 
 (use-package help-mode
   :init (progn
@@ -584,7 +595,6 @@
 		      (evil-motion-state 0)))))
 
 (use-package jedi
-  :disabled t
   :defer t)
 
 (use-package electric
@@ -799,6 +809,7 @@
 	  ))
 
 (use-package erlang
+  :defer t
   :mode (("\\.erl\\'" . erlang-mode)
 	 ("\\vars.config\\'" . erlang-mode)
 	 ("\\rebar.config\\'" . erlang-mode))
@@ -1007,6 +1018,7 @@
   :mode (("\\.scss\\'" . css-mode)))
 
 (use-package web-mode
+  :defer t
   :mode (("\\.html\\'" . web-mode)
 	 ("\\.tmpl\\'" . web-mode))
   :config (progn
@@ -1025,10 +1037,12 @@
 			(setq web-mode-indent-style 4)))))
 
 (use-package clojure-mode
-  :disabled t)
+  :disabled t
+  :defer t)
 
 (use-package cider-mode
   :disabled t
+  :defer t
   :commands cider-jack-in)
 
 (use-package gnuplot
@@ -1037,6 +1051,13 @@
 (use-package haskell-mode
   :disabled t
   :defer t
+  :init (progn
+          (use-package haskell-cabal
+            :disabled t
+            :mode ("\\.cabal\\'" . haskell-cabal-mode)
+            :config (progn
+                      (setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
+                      (add-to-list 'exec-path "~/.cabal/bin"))))
   :config (progn
 	    (add-hook
 	     'haskell-mode-hook
@@ -1064,13 +1085,6 @@
 	       (define-key haskell-mode-map (kbd "C-c C-v") 'haskell-cabal-visit-file)
 	       ;; (define-key haskell-mode-map (kbd "C-c C-d") 'haskell-w3m-open-haddock)
 	       (define-key haskell-mode-map (kbd "C-c `") 'haskell-interactive-bring)))))
-
-(use-package haskell-cabal
-  :disabled t
-  :mode ("\\.cabal\\'" . haskell-cabal-mode)
-  :config (progn
-            (setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
-            (add-to-list 'exec-path "~/.cabal/bin")))
 
 (use-package auto-revert-tail-mode
   :mode ("\\.log\\'" . auto-revert-tail-mode))
@@ -1285,6 +1299,7 @@
           (add-hook 'after-init-hook 'global-company-mode)))
 
 (use-package multi-term
+  :defer t
   :init (progn
           (global-set-key (kbd "C-c t") 'multi-term)))
 
