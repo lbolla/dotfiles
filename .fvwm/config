@@ -62,7 +62,7 @@ Key 8 A 4S            MoveToDesk 0 7
 Key 9 A 4S            MoveToDesk 0 8
 Key C A 4             Exec exec google-chrome
 Key E A 4             Exec exec emacs -geometry 190x60
-Key E A 4S            Exec exec emacs-nw -geometry 190x60
+Key E A 4S            Exec exec emacs -Q -geometry 190x60
 Key M A 4             Maximize
 Key N A 4             Iconify
 Key R A 4             Exec exec gmrun
