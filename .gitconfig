@@ -1,15 +1,15 @@
 [user]
-	name = Lorenzo Bolla
-	email = lorenzo.bolla@yougov.com
-	signingkey = 0x0DF83D43C5750E74
+    name = Lorenzo Bolla
+    email = lorenzo.bolla@yougov.com
+    signingkey = 0x0DF83D43C5750E74
 
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
-	ui = true
-	pager = true
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = true
+    pager = true
 
 [color "branch"]
     current = yellow reverse
@@ -28,24 +28,24 @@
     untracked = cyan
 
 [core]
-	editor = vim
-    ; pager = less -FRSX
+    editor = vim
+	pager = less -FRSX
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore
 
 [alias]
-	;  s = status
-	;  w = whatchanged
-	;  l = log
-	;  c = commit
-	;  a = add
-	;  d = diff
-	review = push origin HEAD:refs/for/master # push for review on gerrit
-	rank = shortlog -sn --no-merges
-	searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
-	last = cat-file commit HEAD
-	; graphlog = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-        graphlog = log --pretty=format:'%C(green)%h %C(yellow)[%ad]%C(red)%d %C(reset)%s%C(blue) [%cn]' --decorate --date=relative --graph
+    ; s = status
+    ; w = whatchanged
+    ; l = log
+    ; c = commit
+    ; a = add
+    ; d = diff
+    review = push origin HEAD:refs/for/master # push for review on gerrit
+    rank = shortlog -sn --no-merges
+    searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
+    last = cat-file commit HEAD
+    ; graphlog = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    graphlog = log --pretty=format:'%C(green)%h %C(yellow)[%ad]%C(red)%d %C(reset)%s%C(blue) [%cn]' --decorate --date=relative --graph
 
 [diff "mwbdiff"]
     textconv = mwb-diff
@@ -56,10 +56,10 @@
     show-refs = yes
 
 [push]
-	default = current
+    default = current
 
 [credential]
-	helper = cache
+    helper = cache
 
 [log]
-	decorate = full
+    decorate = full
