@@ -31,7 +31,8 @@ SAVEHIST=1000
 HISTFILE=~/.zsh_history
 export EDITOR=vim
 export PAGER=less
-export BROWSER=google-chrome
+# export BROWSER=google-chrome
+export BROWSER=firefox
 if [[ -x `which mupdf` ]]; then
     PDFVIEWER=mupdf
 elif [[ -x `which evince` ]]; then
@@ -116,7 +117,7 @@ alias rm='rm -i'
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
-alias tmux='tmux -2'
+# alias tmux='tmux -2'
 alias ttyplay="scriptreplay /tmp/timingfile"
 alias ttyrec="script -t 2> /tmp/timingfile"
 alias mkvirtualenv2="mkvirtualenv --python /usr/local/bin/python2"
@@ -132,13 +133,21 @@ function diff2 {
     diff -y -W $COLUMNS $1 $2
 }
 function mccabe-find {
-	find $1 -name "*.py" -exec mccabe -m 10 {} \; | sed "s/[(),]//g" | awk "{print \$3, \$1, \$2}" | sort -n
+    find $1 -name "*.py" -exec mccabe -m 10 {} \; | sed "s/[(),]//g" | awk "{print \$3, \$1, \$2}" | sort -n
 }
 function rand {
     python -c "import random; print random.random()"
 }
 function num_threads {
-	grep -s '^Threads' /proc/[0-9]*/status | awk '{ sum += $2; } END { print sum; }'
+    grep -s '^Threads' /proc/[0-9]*/status | awk '{ sum += $2; } END { print sum; }'
+}
+function find-missing {
+    # Find directories which don't contain files matching `pattern`
+    # E.g. find-missing /tmp 'ciao*' 1
+    dirname=$1
+    pattern=$2
+    depth=$3
+    comm -3 <(find $dirname -name "$2" -printf '%h\n' | sort) <(find $dirname -mindepth $depth -maxdepth $depth -type d | sort)
 }
 #}}}
 
@@ -201,7 +210,7 @@ bindkey "^v" edit-command-line
 
 #{{{ External scripts
 VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-if [[ -z "$VIRTUAL_ENV" ]]; then
+# if [[ -z "$VIRTUAL_ENV" ]]; then
     if [[ -x `which virtualenvwrapper.sh` ]]; then
 	source `which virtualenvwrapper.sh`
     elif [[ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]]; then
@@ -209,11 +218,13 @@ if [[ -z "$VIRTUAL_ENV" ]]; then
     elif [[ -f /etc/bash_completion.d/virtualenvwrapper ]]; then
 	source /etc/bash_completion.d/virtualenvwrapper
     fi
-fi
+# fi
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 export LESS="-R"
+# Use latest PG
+export PGCLUSTER="9.6/main"
 #}}}
 
 #{{{ Styles
@@ -267,17 +278,42 @@ _mix_cmds () {
     reply=( $(mix help | grep "^mix" | awk '/^mix [a-z]/{ print $2 }') )
 }
 compctl -K _mix_cmds mix
+
+# kubectl autocomplete
+source <(kubectl completion zsh)
+
 #}}}
 
-#{{{ Window title, but not inside Emacs
-if [[ "x$EMACS" == "x" ]]; then
+#{{{ Window title
+
+function title() {
+    # escape '%' chars in $1, make nonprintables visible
+    local a=${(V)1//\%/\%\%}
+
+    # Truncate command, and join lines.
+    a=$(print -Pn "%40>...>$a" | tr -d "\n")
     case $TERM in
-      termite|*xterm*|rxvt|rxvt-unicode|rxvt-256color|rxvt-unicode-256color|(dt|k|E)term)
-	precmd() { print -Pn "\e]0;%m:%~\a" }
-	preexec () { print -Pn "\e]0;$1\a" }
-	;;
+        screen*)
+            print -Pn "\e]2;$a @ $2\a" # plain xterm title
+            print -Pn "\ek$a\e\\"      # screen title (in ^A")
+            print -Pn "\e_$2   \e\\"   # screen location
+            ;;
+        xterm*)
+            print -Pn "\e]2;$a @ $2\a" # plain xterm title
+            ;;
     esac
-fi
+}
+
+# precmd is called just before the prompt is printed
+function precmd() {
+    title "zsh" "%m:%55<...<%~"
+}
+
+# preexec is called just before any command line is executed
+function preexec() {
+    title "$1" "%m:%35<...<%~"
+}
+
 #}}}
 
 #{{{ Other goodies
@@ -285,5 +321,7 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 source ~/src/zsh-autosuggestions/zsh-autosuggestions.zsh
 if [[ $TERM = "linux" ]]; then
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
+elif [[ -n $INSIDE_EMACS ]]; then
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 fi
 #}}}
