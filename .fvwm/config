@@ -20,10 +20,10 @@ AddToMenu Window-Ops
 + "&Destroy"          Destroy
 
 AddToMenu X11-Session
-+ "Re&fresh Screen"   Refresh
-+ "Re&group"          All MoveToScreen
-# Need to specify 'fvwm' gnome-session
-+ "&Restart WM"       Restart fvwm
++ "Re&fresh"          Refresh
++ "Re&group"          Regroup
+# Need to specify 'fvwm' because of gnome-session
++ "&Restart"          Restart fvwm
 + ""                  Nop
 + "&Logout"           Exec exec gnome-session-quit --logout
 + "&Exit"             Exec exec gnome-session-quit --power-off
@@ -42,6 +42,12 @@ IgnoreModifiers L2
 #
 Key Left A 4          GotoDesk -1 0 8
 Key Right A 4         GotoDesk +1 0 8
+Key H A 4             GotoDesk -1 0 8
+Key L A 4             GotoDesk +1 0 8
+Key J A 4C            Direction South (CurrentDesk AcceptsFocus) Focus-and-Raise
+Key K A 4C            Direction North (CurrentDesk AcceptsFocus) Focus-and-Raise
+Key H A 4C            Direction West (CurrentDesk AcceptsFocus) Focus-and-Raise
+Key L A 4C            Direction East (CurrentDesk AcceptsFocus) Focus-and-Raise
 Key 1 A 4             GotoDesk 0 0
 Key 2 A 4             GotoDesk 0 1
 Key 3 A 4             GotoDesk 0 2
@@ -63,20 +69,23 @@ Key 9 A 4S            MoveToDesk 0 8
 Key C A 4             Exec exec google-chrome
 Key E A 4             Exec exec emacs -geometry 190x60
 Key E A 4S            Exec exec emacs -Q -geometry 190x60
-Key M A 4             Maximize
+Key F A 4             Exec exec firefox --new-instance
+Key M A 4             Maximize grow grow
+Key M A 4S            Maximize
 Key N A 4             Iconify
 Key R A 4             Exec exec gmrun
+Key S A 4             Stick
 Key J A 4             FocusNext
 Key K A 4             FocusPrev
 Key Return A 4        Exec exec x-terminal-emulator -geometry 120x40
 Key Return A 4S       Exec exec x-terminal-emulator -geometry 190x60
-Key F1 A 4            Exec exec gnome-control-center
-Key F2 A 4            Exec exec gnome-system-monitor
+Key F1 A 4            Menu RootMenu Nop
+Key F2 A 4            Exec exec gnome-control-center
+Key F3 A 4            Exec exec gnome-system-monitor
 Key F10 A 4           Exec exec nautilus
 Key F12 A 4           Exec exec gnome-screenshot -i
 Key C A 4S            Close
 Key L A 4S            Exec exec gnome-session-quit --logout
-Key M A 4S            Menu RootMenu Nop
 Key Q A 4S            Exec exec gnome-session-quit --power-off
 Key S A 4S            Exec exec gnome-screensaver-command --lock
 # TODO http://fvwm.org/documentation/faq/
@@ -146,6 +155,11 @@ AddToFunc Move-or-Raise
 + I Raise
 + M Move
 
+DestroyFunc Focus-and-Raise
+AddToFunc Focus-and-Raise
++ I Focus
++ I Raise
+
 DestroyFunc Move-or-Iconify
 AddToFunc Move-or-Iconify
 + I Raise
@@ -176,6 +190,18 @@ AddToFunc UrgencyFunc
 DestroyFunc UrgencyDoneFunc
 AddToFunc UrgencyDoneFunc
 + I Nop
+
+# Useful after (dis)connecting monitor
+# TODO reset background
+# BG=`gsettings get org.gnome.desktop.background picture-uri`
+# gsettings set org.gnome.desktop.background picture-uri null
+# gsettings set org.gnome.desktop.background picture-uri "$BG"
+DestroyFunc Regroup
+AddToFunc Regroup
++ I All Maximize False
++ I All MoveToScreen
++ I All PlaceAgain
++ I Exec exec killall -SIGUSR1 conky
 
 ###############################################################################
 #                                                                             #
@@ -274,7 +300,8 @@ Style FvwmPager StaysOnBottom
 *FvwmPager: BalloonYOffset +2
 *FvwmPager: Geometry +0+0
 *FvwmPager: Hilight #111111
-*FvwmPager: SmallFont 5x8
+# *FvwmPager: SmallFont 5x8
+*FvwmPager: SmallFont none
 
 ###############################################################################
 #                                                                             #
