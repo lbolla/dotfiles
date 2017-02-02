@@ -77,6 +77,9 @@ use_spacer none
 
 text_buffer_size 2048
 
+# Consider interfaces up if they have an address
+if_up_strictness address
+
 # variable is given either in format $variable or in ${variable}. Latter
 # allows characters right after the variable and must be used in network
 # stuff because of an argument
@@ -86,7 +89,7 @@ TEXT
 
 ${color #cc0000}${font Monospace:style=Bold:pixelsize=35}${alignc}${time %H:%M}${font}${color}
 
-${font Monospace:style=Bold:pixelsize=14}${alignc}${time %A}, ${time %B} ${time %e}, ${time %G}${font}
+${font Monospace:style=Bold:pixelsize=14}${alignc}${time %A}, ${time %B} ${time %-d}, ${time %G}${font}
 
 #SYSTEM DETAILS:
 ${color}${font Monospace:style=Bold:pixelsize=18}SYSTEM ${hr 1 }
@@ -97,7 +100,7 @@ ${font Monospace:size=10}
 UPTIME: ${color #39ff14}$alignr$uptime${color}
 LOAD: ${color #39ff14}$alignr$loadavg${color}
 BATTERY: $alignr$battery
-MAILS: $alignr${execi 5 mu find flag:unread AND NOT flag:trashed | wc -l | awk '{printf " %s", $1}'}
+MAILS: $alignr${execi 5 mu find flag:unread AND NOT flag:trashed 2> /dev/null | wc -l | awk '{printf " %s", $1}'}
 
 ${color}${font Monospace:style=Bold:pixelsize=18}CPU ${hr 1 }
 ${font Monospace:size=10}
@@ -106,6 +109,10 @@ ${exec cat /proc/cpuinfo | grep -Po 'model\s+name\s+:\s+\K.*?GHz' | head -1}
 TEMP: ${color #39ff14}$alignr${hwmon 1 temp 1}°C${color}
 USAGE: ${color #39ff14}$alignr${cpu cpu0}%
 ${color #cc0000}${cpubar cpu0 15}
+# ${color #cc0000}${cpugraph cpu1 15 #ff0000 #00ff00}
+# ${color #cc0000}${cpugraph cpu2 15 #ff0000 #00ff00}
+# ${color #cc0000}${cpugraph cpu3 15 #ff0000 #00ff00}
+# ${color #cc0000}${cpugraph cpu4 15 #ff0000 #00ff00}
 
 ${color}${alignc}CURRENT PROCESSES: ${color #39ff14}$processes
 ${font Monospace:size=10}
@@ -134,17 +141,18 @@ FILESYSTEM: $alignr${fs_type}
 USED: ${alignr}${fs_used /} (${fs_used_perc /}%)
 ${color #cc0000}${fs_bar 15 /}
 
-${alignc}${color}READ I/O: ${color #39ff14}${diskio_read /dev/sda} ${alignr}${color}WRITE I/O: ${color #39ff14}${diskio_write /dev/sda}
+${alignc}${color}READ I/O: ${color #39ff14}${diskio_read} ${alignr}${color}WRITE I/O: ${color #39ff14}${diskio_write}
 
 ${color}${font Monospace:style=Bold:pixelsize=18}NETWORK ${hr 1 }
 ${font Monospace:size=10}
 ${if_up wlan0}WIFI: ${alignr}${wireless_essid wlan0} ${wireless_bitrate wlan0} (${wireless_link_qual_perc wlan0}%)
 ${color #cc0000}${wireless_link_bar 15 wlan0}${color}
 
-${endif}Local IP:$alignr${addr wlan0}
+${endif}Local IP:$alignr${addr wlan0}${if_up eth0}
+$alignr(eth0) ${addr eth0}${endif}
 Remote IP:$alignr${execi 60 wget http://ipinfo.io/ip -qO -}
-PING: $alignr${execi 5 ping -c 1 google.co.uk | grep "time=" | cut -d '=' -f 4}
-VPN: $alignr${if_up cscotun0}${color #39ff14}Yes${color}${else}No${endif}
+PING: $alignr${execi 5 ping -c 1 5.135.183.146 2> /dev/null | grep "time=" | cut -d '=' -f 4}
+VPN: $alignr${if_up cscotun0}${color #39ff14}Yes${color}${else}${if_up tun0}${color #39ff14}Yes${color}${else}No${endif}${endif}
 
 DOWNLOAD: ${totaldown wlan0}                          ${goto 180}UPLOAD: ${totalup wlan0}
     RATE: ${color #39ff14}${downspeed wlan0}${color}  ${goto 180}  RATE: ${color #39ff14}${upspeed wlan0}${color}
