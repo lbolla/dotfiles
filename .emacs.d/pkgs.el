@@ -66,40 +66,57 @@
   :init (progn
           (add-hook 'after-init-hook 'global-company-mode)))
 
+(use-package counsel)
+
 (use-package css-mode
-  :mode (("\\.scss\\'" . css-mode)))
+  :mode (("\\.scss\\'" . css-mode))
+  :init (progn
+          (add-hook 'css-mode-hook
+                    (lambda ()
+                      (modify-syntax-entry ?\- "w")))))
 
 (use-package csv-mode
   :mode ("\\.csv\\'" . csv-mode))
 
 (use-package custom
   :demand t
-  ;; :if window-system
   :config (progn
-          (if (equal (getenv "IN_X") "no")
-              ;; Textual terminal
-              (progn
-                (add-to-list 'default-frame-alist '(tty-color-mode  . never)))
 
-            (progn
+            (use-package quasi-monochrome-theme
+              :demand t
+              :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
+            (load-theme 'quasi-monochrome :no-confirm)
 
-              (use-package quasi-monochrome-theme
-                :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
-              (load-theme 'quasi-monochrome)
+          ;; (if (equal (getenv "IN_X") "no")
+          ;;     ;; Textual terminal
+          ;;     (progn
+          ;;       ;; (add-to-list 'default-frame-alist '(tty-color-mode  . never))
+          ;;       )
 
-              ;; (use-package cyberpunk-theme)
-              ;; (load-theme 'cyberpunk)
+          ;;   (progn
 
-              ;; (use-package base16-theme)
-              ;; (load-theme 'bas16-default-dark)
+          ;;     (use-package quasi-monochrome-theme
+          ;;       :demand t
+          ;;       :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
+          ;;     (load-theme 'quasi-monochrome)
 
-              ;; In X terminal
+          ;;     ;; (use-package cyberpunk-theme)
+          ;;     ;; (load-theme 'cyberpunk)
 
-              (unless (display-graphic-p)
-                (progn
-                  (use-package xclip
-                    :init (xclip-mode t))
-                  (xterm-mouse-mode t)))))))
+          ;;     ;; (use-package base16-theme)
+          ;;     ;; (load-theme 'base16-default-dark)
+
+          ;;     ;; (use-package leuven)
+          ;;     ;; (load-theme 'leuven)
+
+          ;;     ;; In X terminal
+
+          ;;     (unless (display-graphic-p)
+          ;;       (progn
+          ;;         (use-package xclip
+          ;;           :init (xclip-mode t))
+          ;;         (xterm-mouse-mode t)))))
+          ))
 
 (use-package cython-mode
   :config (progn
@@ -112,6 +129,11 @@
             (evil-define-key 'normal cython-mode-map (kbd ",a") 'cython-show-annotated)))
 
 (use-package disaster)
+
+(use-package docker
+  :disabled t
+  :init (progn
+          (docker-global-mode t)))
 
 (use-package electric
   :config (progn
@@ -147,11 +169,13 @@
                         ;; Unfortunately, erlang-mode does not inherit from prog-mode
                         (modify-syntax-entry ?\_ "w")))))
 
+(use-package ess)
+
 (use-package evil
   :demand t
+  :init (progn
+            (evil-mode t))
   :config (progn
-
-            (evil-mode t)
 
             (defun new-tab ()
               "Open file in new tab."
@@ -176,14 +200,16 @@
             (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
             (define-key evil-normal-state-map (kbd ", SPC") 'ace-jump-mode)
             (define-key evil-normal-state-map (kbd ",=") 'c-indent)
-            (define-key evil-normal-state-map (kbd ",F") 'ag-files)
+            (define-key evil-normal-state-map (kbd ",Cgg") 'counsel-git-grep)
+            (define-key evil-normal-state-map (kbd ",F") 'ag-project-files)
             (define-key evil-normal-state-map (kbd ",G") 'ag-project-at-point)
             (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
             (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
             (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
             (define-key evil-normal-state-map (kbd ",gt") 'tags-search)
             (define-key evil-normal-state-map (kbd ",hb") 'vc-annotate)
-            (define-key evil-normal-state-map (kbd ",yk") 'yg-kiln-buffer)
+            (define-key evil-normal-state-map (kbd ",vr") 'vcs-resolve-buffer)
+            (define-key evil-normal-state-map (kbd ",vp") 'vcs-resolve-at-point)
             (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)
             (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
             (define-key evil-normal-state-map (kbd "C-w t") 'new-tab)
@@ -191,18 +217,17 @@
             (define-key evil-normal-state-map (kbd "gT") 'previous-tab)
             (define-key evil-normal-state-map (kbd "gp") 'insert-x-primary-selection)
             (define-key evil-normal-state-map (kbd "gt") 'next-tab)
-            (define-key evil-visual-state-map (kbd ",yk") 'yg-kiln-region)
-            ;; (define-key evil-normal-state-map (kbd ",G") 'ag)
-            ;; (define-key evil-normal-state-map (kbd ",G") 'ag-venv-project-at-point)
-            ;; (define-key evil-normal-state-map (kbd ",yff") 'yg-fogbugz-cli)
-            ;; (define-key evil-normal-state-map (kbd ",yfo") 'yg-fogbugz-browse-at-point)
+            (define-key evil-visual-state-map (kbd ",vr") 'vcs-resolve-region)
+            (define-key evil-visual-state-map (kbd ",yp") 'yg-paste-region)
 
             (use-package evil-nerd-commenter
+              :demand t
               :init (progn
                       (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
                       (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)))
 
             (use-package evil-matchit
+              :demand t
               :init (progn
                       (global-evil-matchit-mode 1)))))
 
@@ -215,40 +240,43 @@
   :init (progn
 
           (use-package flycheck-cython
-            :load-path "/home/lbolla/src/emacs-flycheck-cython/")
+            :load-path "/home/lbolla/src/emacs-flycheck-cython/"
+            :demand t)
 
           (use-package flycheck-elixir
             :load-path "/home/lbolla/src/emacs-flycheck-elixir/"
             :disabled t)
 
-          (use-package flycheck-haskell
-            :disabled t
-            :init (progn
-                    (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
-                    (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
+          ;; Included in main flycheck.el
+          ;; (use-package flycheck-haskell
+          ;;   :disabled t
+          ;;   :init (progn
+          ;;           (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
+          ;;           (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
 
           (use-package flycheck-mypy
             :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
-            ;; :disabled t
+            :demand t
             :config (progn
                       ;; TODO set it depending on which Python version I'm using
                       ;; TODO consider using mypy.ini in repo dir, instead
                       ;; http://mypy.readthedocs.io/en/latest/config_file.html
                       ;; TODO http://blog.zulip.org/2016/10/13/static-types-in-python-oh-mypy/
                       (setq flycheck-python-mypy-args '("--py2" "--silent-imports"))
-                      (flycheck-add-next-checker 'python-pylint 'python-mypy)))
+                      (flycheck-add-next-checker 'python-pylint '(warning . python-mypy) t)))
 
           (use-package flycheck-dialyzer
             :load-path "/home/lbolla/src/emacs-flycheck-dialyzer/"
             :disabled t
             :config (progn
-                      (flycheck-add-next-checker 'erlang 'erlang-dialyzer)))
+                      (flycheck-add-next-checker 'erlang 'erlang-dialyzer t)))
 
           (use-package flycheck-flow
             :load-path "/home/lbolla/src/emacs-flycheck-flow/"
-            :disabled t
+            :demand t
             :config (progn
-                      (flycheck-add-next-checker 'javascript-gjslint 'javascript-flow)))
+                      (flycheck-add-next-checker 'javascript-gjslint '(warning . javascript-flow) t)
+                      (flycheck-add-next-checker 'javascript-flow '(warning . javascript-flow-coverage) t)))
 
           (add-hook 'after-init-hook #'global-flycheck-mode))
 
@@ -262,8 +290,8 @@
                    ("Message (Checker)" 0 t)]
                   flycheck-ghc-language-extensions ())
 
-            (flycheck-add-next-checker 'python-flake8 'python-pylint)
-            (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)))
+            (flycheck-add-next-checker 'python-flake8 'python-pylint t)
+            (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t)))
 
 (use-package frame
   :init (progn
@@ -329,42 +357,91 @@
           (global-hl-line-mode)
           (when (is-theme-enabled 'cyberpunk)
             (set-face-attribute 'hl-line nil :background "grey20"))
+          (when (is-theme-enabled 'tao-yin)
+            (set-face-attribute 'hl-line nil :background "grey20"))
           (when (is-theme-enabled 'base16-default-dark)
             (set-face-attribute 'hl-line nil :background "grey15")
             (set-face-attribute 'region nil :foreground "light grey" :background "brown4"))))
 
 (use-package ido
+  :disabled t
   :init (progn
           (ido-mode t)
           (ido-everywhere t)
-          (setq ido-enable-flex-matching t)
-          (setq ido-file-extensions-order '(".py" ".js" ".html" ".css" t))))
+          (setq ido-enable-flex-matching t
+                ido-file-extensions-order '(".py" ".js" ".html" ".css" t))))
+
+(use-package ivy
+  :init (progn
+          (ivy-mode t))
+  :config (progn
+            (defvar magit-completing-read-function)
+            (defvar projectile-completion-system)
+            (setq ivy-use-virtual-buffers t
+                  magit-completing-read-function 'ivy-completing-read
+                  projectile-completion-system 'ivy)))
 
 (use-package jedi)
 
 (use-package js
+  :disabled t
   :init (progn
           (add-hook 'js-mode-hook
                     (lambda ()
-                      (setq js-indent-level 2)
+                      (setq js-indent-level 4)
                       (local-set-key (kbd "RET") 'newline-and-indent)))))
 
 (use-package js2-mode
   :mode (("\\.js\\'" . js2-mode))
   :init (progn
+
           (defun js-insert-breakpoint ()
             "Insert JS Chrome breakpoint above point."
             (interactive)
             (evil-open-above 1)
             (insert "debugger;  // TODO")
             (evil-normal-state))
+
+          (defun js-fix-style ()
+            "Call `fixjsstyle` on current buffer."
+            (interactive)
+            (save-buffer)
+            (let ((outbuf (get-buffer-create "*FixJSStyle output*")))
+              (shell-command (concat "fixjsstyle " (buffer-name)) outbuf)
+              (with-current-buffer outbuf
+                (setq buffer-read-only t)
+                (unless (= 0 (buffer-size outbuf))
+                  (display-buffer outbuf))))
+            (revert-buffer :ignore-auto :noconfirm))
+
+          (defun js-clang-format ()
+            "Call `clang-format` on current buffer."
+            (interactive)
+            (save-buffer)
+            (shell-command (concat "clang-format-3.9 -i " (buffer-name)))
+            (revert-buffer :ignore-auto :noconfirm))
+
+          (defun js-beautify ()
+            "Call `uglifyjs` on current buffer to make it prettier."
+            (interactive)
+            (save-excursion
+              (shell-command-on-region (point-min) (point-max) "uglifyjs -b --comments=all -q 1" (current-buffer) t)))
+
           (add-hook 'js2-mode-hook
                     (lambda ()
+
+                      (when (is-theme-enabled 'tao-yin)
+                        (set-face-attribute 'js2-function-call nil :underline nil))
+
                       (set-whitespace-line-column 80)
                       (set-indent 4)
                       (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint)))))
 
-(use-package json-mode)
+(use-package json-mode
+  :init (progn
+          (add-hook 'json-mode-hook
+                    (lambda ()
+                      (set-indent 2)))))
 
 (use-package lisp-mode
   :init (progn
@@ -404,10 +481,15 @@
 
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode))
-  :config (progn
+  :init (progn
             (add-hook 'markdown-mode-hook
                       (lambda ()
-                        (set-indent 2)))))
+                        (auto-fill-mode t)
+                        (set-indent 4))))
+  :config (progn
+            (defun markdown-help ()
+              (interactive)
+              (browse-url "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"))))
 
 (use-package menu-bar
   :init (progn
@@ -415,11 +497,13 @@
           (menu-bar-mode 0)))
 
 (use-package monky
-  :load-path "/home/lbolla/src/monky")
+  :commands monky-status
+  :load-path "/home/lbolla/src/monky"
+  :config (progn
+            (setq monky-process-type 'cmdserver)))
 
 (use-package mu4e
   :demand t
-  :bind
   :bind (("C-c mm" . mu4e)
          ("C-c mu" . mu4e-alert-view-unread-mails))
   :load-path "/usr/local/share/emacs/site-lisp/mu4e"
@@ -436,7 +520,8 @@
                     (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
                     (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)))
 
-          (use-package org-mu4e)
+          (use-package org-mu4e
+            :demand t)
 
           (when (is-theme-enabled 'cyberpunk)
             (set-face-attribute 'mu4e-flagged-face nil :inherit font-lock-constant-face :foreground "firebrick" :weight 'bold)
@@ -446,7 +531,18 @@
             (set-face-attribute 'mu4e-header-highlight-face nil :underline nil))
 
           (when (is-theme-enabled 'base16-tomorrow-dark)
+            (set-face-attribute 'mu4e-flagged-face nil :inherit font-lock-constant-face :foreground "firebrick" :weight 'bold :underline nil)
             (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :background "gray20"))
+
+          (when (is-theme-enabled 'tao-yin)
+            (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :background "gray20")
+            (set-face-attribute 'mu4e-title-face nil :inherit font-lock-type-face :underline nil))
+
+          (when (is-theme-enabled 'tao-yang)
+            (set-face-attribute 'mu4e-title-face nil :inherit font-lock-type-face :underline nil))
+
+          (when (is-theme-enabled 'tao-yang)
+            (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :background "gray85"))
 
           (when (is-theme-enabled 'base16-default-dark)
             (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :weight 'bold :background "gray20")
@@ -532,8 +628,15 @@
           (global-set-key (kbd "C-c o l s") 'org-store-link)
           (global-set-key (kbd "C-c o l i") 'org-insert-link)
           (global-set-key (kbd "C-c o l o") 'org-open-at-point)
+
+          (global-set-key (kbd "<f9>") 'org-capture)
+          (global-set-key (kbd "C-<f9>") 'org-store-link)
+          (global-set-key (kbd "S-<f9>") 'org-insert-link)
           (global-set-key (kbd "<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a SPC"))))
-          (global-set-key (kbd "S-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a t"))))
+          (global-set-key (kbd "S-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
+          (global-set-key (kbd "C-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a t"))))
+
+          (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
 
           (defun bh/skip-non-archivable-tasks ()
             "Skip trees that are not available for archiving"
@@ -570,10 +673,18 @@
                       (when (is-theme-enabled 'base16-default-dark)
                         (set-face-attribute 'org-checkbox nil :background "#666666" :foreground "#cccccc")
                         (set-face-attribute 'org-done nil :foreground "forest green")
-                        (set-face-attribute 'org-scheduled-today nil :foreground "#c2d69c" :weight 'normal))
+                        (set-face-attribute 'org-scheduled-today nil :foreground "gray70" :weight 'normal)
+                        (set-face-attribute 'org-scheduled nil :foreground "gray60" :weight 'normal))
 
                       (when (is-theme-enabled 'cyberpunk)
                         (set-face-attribute 'org-todo nil :foreground "gray40"))
+
+                      (when (is-theme-enabled 'tao-yang)
+                        (set-face-attribute 'org-scheduled-previously nil :foreground "gray40" :weight 'normal))
+
+                      (when (is-theme-enabled 'tao-yin)
+                        (set-face-attribute 'org-todo nil :background "black" :foreground "gray40")
+                        (set-face-attribute 'org-scheduled-previously nil :foreground "gray50" :weight 'normal))
 
                       (org-indent-mode t)
                       (auto-fill-mode t)
@@ -617,11 +728,11 @@
                   ("n" "Notes" tags "NOTE"
                    ((org-agenda-overriding-header "Notes")
                     (org-tags-match-list-sublevels t)))
-                  ("A" agenda "Priority #A tasks"
+                  ("A" agenda "Prioritized tasks"
                    ((org-agenda-skip-function
                      (lambda nil
-                       (org-agenda-skip-entry-if 'notregexp "\\=.*\\[#A\\]")))
-                    (org-agenda-overriding-header "Priority #A tasks")))
+                       (org-agenda-skip-entry-if 'notregexp "\\=.*\\[#\[ABC\]\\]")))
+                    (org-agenda-overriding-header "Prioritized tasks")))
                   ("u" alltodo "Unscheduled TODO"
                    ((org-agenda-skip-function
                      (lambda nil
@@ -637,7 +748,7 @@
                 org-archive-location "%s_archive::* Archived Tasks"
 
                 ;; Tags
-                org-agenda-tags-column -167
+                org-agenda-tags-column -116
                 org-tag-alist
                 '((:startgroup)
                   ("@family" . ?f)
@@ -658,9 +769,12 @@
                   ("j" "Journal" entry (file+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a"))
 
                 ;; Abbreviations
-                org-link-abbrev-alist '(("FB" . (concat yg-fogbugz-url "/f/cases/%s"))
-                                        ("google" . "http://www.google.com/search?q=")
-                                        ("gmap" . "http://maps.google.com/maps?q=%s"))
+                org-link-abbrev-alist '(("FB" . (concat yg-fogbugz-url "/f/cases/%h"))
+                                        ("VR" . "https://github.com/yougov/velociraptor/issues/%h")
+                                        ("VR.SERVER" . "https://github.com/yougov/vr.server/issues/%h")
+                                        ("CHERRYPY" . "https://github.com/cherrypy/cherrypy/issues/%h")
+                                        ("g" . "http://www.google.com/search?q=%h")
+                                        ("gmap" . "http://maps.google.com/maps?q=%h"))
                 ;; Refiling
                 org-refile-targets
                 ;; '((nil :maxlevel . 9)
@@ -680,13 +794,13 @@
                   (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "CANC(c@)" "MEET(m@)" "PHON(p@)"))
                 org-todo-keyword-faces
                 '(("TODO" . org-todo)
-                  ("STRT" . "orangered")
-                  ("WAIT" . "gold")
-                  ("DELG" . "blue")
-                  ("MEET" . "cyan")
-                  ("PHONE" . "cyan")
-                  ("CANC" . "darkgray")
-                  ("DEFR" . "purple")
+                  ("STRT" . font-lock-keyword-face)
+                  ("WAIT" . font-lock-warning-face)
+                  ("DELG" . font-lock-comment-face)
+                  ("MEET" . org-todo)
+                  ("PHONE" . org-todo)
+                  ("CANC" . fringe)
+                  ("DEFR" . font-lock-comment-face)
                   ("DONE" . org-done))
                 org-log-done 'time
                 org-log-into-drawer t)))
@@ -739,6 +853,12 @@
             (evil-open-above 1)
             (insert "import ipdb; ipdb.set_trace()  # BREAKPOINT")
             (evil-normal-state))
+          (defun python-insert-breakpoint-celery()
+            "Insert Celery breakpoint above point."
+            (interactive)
+            (evil-open-above 1)
+            (insert "from celery.contrib import rdb; rdb.set_trace()  # BREAKPOINT")
+            (evil-normal-state))
           (defun python-insert-pylint-ignore ()
             "Insert pylint ignore comment."
             (interactive)
@@ -765,7 +885,7 @@
                  "cd "
                  (venv-get-proj-dir)
                  " && "
-                 "py.test -v "
+                 "py.test --color=no -v "
                  ,@what)))
 
             (defun python-indent-jaraco ()
@@ -931,13 +1051,7 @@
 
 (use-package swiper
   :init (progn
-          (ivy-mode t)
-          ;; (swiper-from-isearch)
-          ;; TODO search-forward/backward evil-search
-          (global-set-key (kbd "C-s") 'swiper)
-          (setq ivy-use-virtual-buffers t
-                magit-completing-read-function 'ivy-completing-read
-                projectile-completion-system 'ivy)))
+          (global-set-key (kbd "C-s") 'swiper)))
 
 (use-package text-mode
   :mode "\\README\\'"
@@ -948,9 +1062,25 @@
                       ;; (modify-syntax-entry ?\_ "w")
                       (flyspell-mode t)))))
 
+(use-package timonier
+  :disabled t
+  :load-path "/home/lbolla/src/timonier"
+  :commands timonier-k8s
+  :init (progn
+          (use-package all-the-icons)
+          (use-package hydra)
+          (use-package request)
+
+          (setq timonier-k8s-proxy "https://10.32.9.224:443")))
+
 (use-package tool-bar
   :init (progn
           (tool-bar-mode 0)))
+
+(use-package vcs-resolve
+  :commands (vcs-resolve-buffer
+             vcs-resolve-region)
+  :load-path "/home/lbolla/src/vcs-resolve/")
 
 (use-package virtualenvwrapper
   :init (progn
@@ -1004,21 +1134,19 @@
             (add-hook 'web-mode-hook
                       (lambda ()
                         (modify-syntax-entry ?\- "w")
-                        ;; TODO why not 'customize' them? Setting them
-                        ;; here makes them buffer local
-                        (setq web-mode-markup-indent-offset 4)
-                        (setq web-mode-css-indent-offset 4)
-                        (setq web-mode-code-indent-offset 4)
-                        (setq web-mode-indent-style 4)))))
+                        (setq web-mode-markup-indent-offset 2
+                              web-mode-css-indent-offset 2
+                              web-mode-code-indent-offset 4)))))
 
 (use-package whitespace)
 
 (use-package yaml-mode
   :mode ("\\.ya?ml\\'" . yaml-mode)
-  :config (progn
-            (add-hook 'yaml-mode-hook
-                      (lambda ()
-                        (set-indent 4)))))
+  :init (progn
+          (add-hook 'yaml-mode-hook
+                    (lambda ()
+                      (modify-syntax-entry ?\_ "w")
+                      (set-indent 4)))))
 
 (use-package yasnippet
   :disabled t

@@ -53,15 +53,15 @@
   `(dolist (mode-hook ,modes)
      (add-hook mode-hook ,func)))
 
-(defmacro with-basic-http-auth (&rest body)
-  "Execute BODY with basic http auth."
-  `(let ((url-request-extra-headers
-          (cons `("Authorization" . ,(concat "Basic "
-                                             (base64-encode-string
-                                              (concat (read-string "Username: " "lorenzo.bolla")
-                                                      ":"
-                                                      (read-passwd "Password: "))))) url-request-extra-headers)))
-     (progn ,@body)))
+;; (defmacro with-basic-http-auth (&rest body)
+;;   "Execute BODY with basic http auth."
+;;   `(let ((url-request-extra-headers
+;;           (cons `("Authorization" . ,(concat "Basic "
+;;                                              (base64-encode-string
+;;                                               (concat (read-string "Username: " "lorenzo.bolla")
+;;                                                       ":"
+;;                                                       (read-passwd "Password: "))))) url-request-extra-headers)))
+;;      (progn ,@body)))
 
 (defun set-indent (size)
   "Set indent equal to SIZE."
@@ -113,6 +113,11 @@
         (cppurl "http://en.cppreference.com/mwiki/index.php?search=")
         (term (thing-at-point 'filename)))
     (browse-url (concat cppurl term))))
+
+(defun man-at-point ()
+  "Call `man` on the current word."
+  (interactive)
+  (man (thing-at-point 'word)))
 
 (provide 'defuns)
 ;;; defuns.el ends here

@@ -51,8 +51,7 @@
 (defun yg-paste-browse (pasteid)
   "Browse YG Paste PASTEID in a new Emacs window."
   (interactive "sHash: ")
-  (with-basic-http-auth
-   (browse-url-emacs (concat yg-paste-base-url "plain/" pasteid))))
+   (browse-url-emacs (concat yg-paste-base-url "plain/" pasteid)))
 
 (defun yg-paste-browse-at-point ()
   "Browse YG Paste at point."
@@ -68,82 +67,66 @@
   "Create a YG Paste of the selected region between START and END."
   (interactive "r")
   (let* ((txt (buffer-substring start end))
-	 (crlf "\r\n")
-	 (boundary "----WebKitFormBoundaryLgGlAtSyzYnRsb1o")
-	 (boundary-prologue "--")
-	 (boundary-open (concat boundary crlf))
-	 (boundary-close (concat crlf "--"))
-	 (boundary-epilogue (concat boundary "--" crlf))
-	 (url-request-method "POST")
-	 (url-request-extra-headers
-	  `(("Content-Type" . ,(concat "multipart/form-data; boundary=" boundary))))
-	 (url-request-data (concat
-			    boundary-prologue
-	 		    boundary-open
-			    "Content-Disposition: form-data; name=\"nick\""
-			    crlf
-			    crlf
-			    "lbolla"
-			    boundary-close
-	 		    boundary-open
-			    "Content-Disposition: form-data; name=\"makeshort\""
-			    crlf
-			    crlf
-			    "True"
-			    boundary-close
-	 		    boundary-open
-			    "Content-Disposition: form-data; name=\"file\"; filename=\"\""
-			    crlf
-			    "Content-Type: application/octet-stream"
-			    crlf
-			    crlf
-			    boundary-close
-	 		    boundary-open
-			    "Content-Disposition: form-data; name=\"fmt\""
-			    crlf
-			    crlf
-			    "_"
-			    boundary-close
-	 		    boundary-open
-			    "Content-Disposition: form-data; name=\"code\""
-			    crlf
-			    crlf
-			    txt
-			    boundary-close
-			    boundary-epilogue)))
-    (with-basic-http-auth
-     (url-retrieve yg-paste-base-url
-		   '(lambda (status)
-		      (save-match-data
-			(search-forward-regexp "Paste \\(.....\\)")
-			(let* ((pasteid (match-string 1))
-			       (url (url-encode-url (concat yg-paste-base-url pasteid))))
-			  (kill-new url)
-			  (message url)
-			  ;; ;; Insert link in another buffer
-			  ;; (with-current-buffer (get-buffer-create "*YG Paste*")
-			  ;;   (goto-char (point-max))
-			  ;;   (insert "Region pasted to ")
-			  ;;   (insert-button pasteid
-			  ;; 		     'action (lambda (x) (browse-url (button-get x 'url)))
-			  ;; 		     'url url)
-			  ;;   (insert "\n")
-			  ;;   (switch-to-buffer-other-window (current-buffer)))
-			  )))))))
-
-(defun yg-kiln-buffer ()
-  "Run `yg-kiln` on current buffer."
-  (interactive)
-  (shell-command (concat "yg-kiln " (or (buffer-file-name) default-directory))))
-
-(defun yg-kiln-region ()
-  "Run `yg-kiln` on current region."
-  (interactive)
-  (shell-command (concat
-                  "yg-kiln " (buffer-file-name)
-                  ":"
-                  (number-to-string (line-number-at-pos (region-beginning)))
-                  ","
-                  (number-to-string (- (line-number-at-pos (region-end)) 1)))))
+         (crlf "\r\n")
+         (boundary "----WebKitFormBoundaryLgGlAtSyzYnRsb1o")
+         (boundary-prologue "--")
+         (boundary-open (concat boundary crlf))
+         (boundary-close (concat crlf "--"))
+         (boundary-epilogue (concat boundary "--" crlf))
+         (url-request-method "POST")
+         (url-request-extra-headers
+          `(("Content-Type" . ,(concat "multipart/form-data; boundary=" boundary))))
+         (url-request-data (concat
+                            boundary-prologue
+                            boundary-open
+                            "Content-Disposition: form-data; name=\"nick\""
+                            crlf
+                            crlf
+                            "lbolla"
+                            boundary-close
+                            boundary-open
+                            "Content-Disposition: form-data; name=\"makeshort\""
+                            crlf
+                            crlf
+                            "True"
+                            boundary-close
+                            boundary-open
+                            "Content-Disposition: form-data; name=\"file\"; filename=\"\""
+                            crlf
+                            "Content-Type: application/octet-stream"
+                            crlf
+                            crlf
+                            boundary-close
+                            boundary-open
+                            "Content-Disposition: form-data; name=\"fmt\""
+                            crlf
+                            crlf
+                            "_"
+                            boundary-close
+                            boundary-open
+                            "Content-Disposition: form-data; name=\"code\""
+                            crlf
+                            crlf
+                            txt
+                            boundary-close
+                            boundary-epilogue)))
+    (url-retrieve yg-paste-base-url
+                  '(lambda (status)
+                     (save-match-data
+                       (search-forward-regexp "Paste \\(.....\\)")
+                       (let* ((pasteid (match-string 1))
+                              (url (url-encode-url (concat yg-paste-base-url pasteid))))
+                         (kill-new url)
+                         (message url)
+                         ;; ;; Insert link in another buffer
+                         ;; (with-current-buffer (get-buffer-create "*YG Paste*")
+                         ;;   (goto-char (point-max))
+                         ;;   (insert "Region pasted to ")
+                         ;;   (insert-button pasteid
+                         ;; 		     'action (lambda (x) (browse-url (button-get x 'url)))
+                         ;; 		     'url url)
+                         ;;   (insert "\n")
+                         ;;   (switch-to-buffer-other-window (current-buffer)))
+                         ))))))
 
 ;;; yg.el ends here
