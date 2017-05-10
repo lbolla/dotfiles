@@ -35,6 +35,19 @@
                     (evil-define-key 'normal elixir-mode-map (kbd "C-]") 'alchemist-goto-definition-at-point)
                     (evil-define-key 'normal elixir-mode-map (kbd "K") 'alchemist-help-search-at-point))))
 
+(use-package ats2-mode
+  :load-path "/home/lbolla/src/ATS2-Postiats-0.3.3/utils/emacs/"
+  :disabled t
+  ;; :commands ats-mode
+  :mode ("\\.dats\\'" . ats-mode)
+  :init (progn
+          (use-package flycheck-ats2
+            :load-path "/home/lbolla/src/ATS2-Postiats-0.3.3/utils/emacs/"
+            :demand t
+            :commands flycheck-ats2-setup
+            :init (progn
+                      (flycheck-ats2-setup)))))
+
 (use-package auto-revert-tail-mode
   :mode ("\\.log\\'" . auto-revert-tail-mode))
 
@@ -83,8 +96,8 @@
   :config (progn
 
             (use-package quasi-monochrome-theme
-              :demand t
-              :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
+              :load-path "/home/lbolla/src/emacs-quasi-monochrome/"
+              :demand t)
             (load-theme 'quasi-monochrome :no-confirm)
 
           ;; (if (equal (getenv "IN_X") "no")
@@ -95,9 +108,9 @@
 
           ;;   (progn
 
-          ;;     (use-package quasi-monochrome-theme
-          ;;       :demand t
-          ;;       :load-path "/home/lbolla/src/emacs-quasi-monochrome/")
+              ;; (use-package quasi-monochrome-theme
+              ;;   :load-path "/home/lbolla/src/emacs-quasi-monochrome/"
+              ;;   :demand t)
           ;;     (load-theme 'quasi-monochrome)
 
           ;;     ;; (use-package cyberpunk-theme)
@@ -106,8 +119,8 @@
           ;;     ;; (use-package base16-theme)
           ;;     ;; (load-theme 'base16-default-dark)
 
-          ;;     ;; (use-package leuven)
-          ;;     ;; (load-theme 'leuven)
+            ;; (use-package leuven)
+            ;; (load-theme 'leuven)
 
           ;;     ;; In X terminal
 
@@ -202,7 +215,7 @@
             (define-key evil-normal-state-map (kbd ",=") 'c-indent)
             (define-key evil-normal-state-map (kbd ",Cgg") 'counsel-git-grep)
             (define-key evil-normal-state-map (kbd ",F") 'ag-project-files)
-            (define-key evil-normal-state-map (kbd ",G") 'ag-project-at-point)
+            (define-key evil-normal-state-map (kbd ",G") 'ag-project)
             (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
             (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
             (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
@@ -219,6 +232,9 @@
             (define-key evil-normal-state-map (kbd "gt") 'next-tab)
             (define-key evil-visual-state-map (kbd ",vr") 'vcs-resolve-region)
             (define-key evil-visual-state-map (kbd ",yp") 'yg-paste-region)
+
+            ;; Avoid that visual selecting a region copies it to kill-ring
+            (fset 'evil-visual-update-x-selection 'ignore)
 
             (use-package evil-nerd-commenter
               :demand t
@@ -247,13 +263,6 @@
             :load-path "/home/lbolla/src/emacs-flycheck-elixir/"
             :disabled t)
 
-          ;; Included in main flycheck.el
-          ;; (use-package flycheck-haskell
-          ;;   :disabled t
-          ;;   :init (progn
-          ;;           (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
-          ;;           (add-hook 'haskell-mode-hook #'flycheck-haskell-configure)))
-
           (use-package flycheck-mypy
             :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
             :demand t
@@ -276,7 +285,8 @@
             :demand t
             :config (progn
                       (flycheck-add-next-checker 'javascript-gjslint '(warning . javascript-flow) t)
-                      (flycheck-add-next-checker 'javascript-flow '(warning . javascript-flow-coverage) t)))
+                      ;; (flycheck-add-next-checker 'javascript-flow '(warning . javascript-flow-coverage) t)
+                      ))
 
           (add-hook 'after-init-hook #'global-flycheck-mode))
 
@@ -310,41 +320,35 @@
                       (define-key go-mode-map (kbd "K") 'godoc)))))
 
 (use-package haskell-mode
-  :disabled t
-  :init (progn
-          (use-package haskell-cabal
-            :disabled t
-            :mode ("\\.cabal\\'" . haskell-cabal-mode)
-            :config (progn
-                      (setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
-                      (add-to-list 'exec-path "~/.cabal/bin"))))
+  ;; :mode ("\\.hs\\'" . haskell-mode)
+  ;; :init (progn
+  ;;         (use-package haskell-cabal
+  ;;           :disabled t
+  ;;           :mode ("\\.cabal\\'" . haskell-cabal-mode)
+  ;;           :config (progn
+  ;;                     (setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
+  ;;                     (add-to-list 'exec-path "~/.cabal/bin"))))
   :config (progn
-            (add-hook
-             'haskell-mode-hook
-             (lambda ()
-               ;; See https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md#haskell-mode
-               (turn-on-haskell-decl-scan)
-               (turn-on-haskell-doc-mode t)
-               (turn-on-haskell-indentation)
-               ;; (require 'w3m-haddock)
-               ;; (add-hook 'w3m-display-hook 'w3m-haddock-display)
-               (set-indent 2)
-               (setq
-                haskell-compile-cabal-build-command "cd %s && ~/.cabal/bin/cabal build -v --ghc-options=-ferror-spans"
-                haskell-process-suggest-remove-import-lines t
-                haskell-process-auto-import-loaded-modules t
-                haskell-process-type 'cabal-repl
-                ;; haskell-w3m-haddock-dirs '("~/.cabal/share/doc/")
-                haskell-process-log t)
-               (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
-               (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile)
-               ;; (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-file)
-               (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
-               (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
-               (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
-               (define-key haskell-mode-map (kbd "C-c C-v") 'haskell-cabal-visit-file)
-               ;; (define-key haskell-mode-map (kbd "C-c C-d") 'haskell-w3m-open-haddock)
-               (define-key haskell-mode-map (kbd "C-c `") 'haskell-interactive-bring)))))
+            (add-hook 'haskell-mode-hook
+                      (lambda ()
+                        ;; (set-indent 2)
+                        (haskell-indentation-mode -1)
+                        (haskell-indent-mode -1)
+                        (setq
+                         haskell-stylish-on-save t
+                         ;; haskell-compile-cabal-build-command "stack build"
+                         ;; haskell-process-suggest-remove-import-lines t
+                         ;; haskell-process-auto-import-loaded-modules t
+                         ;; haskell-process-type 'cabal-repl
+                         ;; haskell-process-log t
+                         )
+                        ;; (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile)
+                        ;; (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+                        ;; (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
+                        ;; (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
+                        ;; (define-key haskell-mode-map (kbd "C-c C-v") 'haskell-cabal-visit-file)
+                        ;; (define-key haskell-mode-map (kbd "C-c `") 'haskell-interactive-bring)
+                        ))))
 
 (use-package help-mode
   :init (progn
@@ -451,8 +455,7 @@
                       (modify-syntax-entry ?\- "w")
                       (modify-syntax-entry ?\~ "w")))))
 
-(use-package lua-mode
-  :disabled t)
+(use-package lua-mode)
 
 (use-package magit
   :config (progn
@@ -470,6 +473,9 @@
               (set-face-attribute 'magit-diff-file-heading-highlight nil :background "gray20")
               (set-face-attribute 'magit-diff-hunk-heading-highlight nil :background "gray30")
               (set-face-attribute 'magit-diff-hunk-heading nil :background "gray20"))
+            ;; (setq magit-bury-buffer-function 'magit-mode-quit-window)
+            (define-key magit-log-mode-map (kbd ",vp") 'vcs-resolve-at-point)
+            (define-key magit-revision-mode-map (kbd ",vp") 'vcs-resolve-at-point)
             (evil-define-key 'normal magit-blame-mode-map (kbd "q") 'magit-blame-quit)
             (evil-define-key 'normal magit-blame-mode-map (kbd "RET") 'magit-show-commit)))
 
@@ -497,16 +503,16 @@
           (menu-bar-mode 0)))
 
 (use-package monky
-  :commands monky-status
   :load-path "/home/lbolla/src/monky"
+  :commands monky-status
   :config (progn
-            (setq monky-process-type 'cmdserver)))
+            (setq monky-process-type nil)))
 
 (use-package mu4e
+  :load-path "/usr/local/share/emacs/site-lisp/mu4e"
   :demand t
   :bind (("C-c mm" . mu4e)
          ("C-c mu" . mu4e-alert-view-unread-mails))
-  :load-path "/usr/local/share/emacs/site-lisp/mu4e"
   :config (progn
             ;; Force adding contacts
             ;; (mu4e~request-contacts))
@@ -566,10 +572,14 @@
                                     ("/YG/Sent Items" . ?s))
            ;; Bookmarks
            mu4e-bookmarks '(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
-                            ("date:today..now" "Today's messages" ?t)
-                            ("date:7d..now" "Last 7 days" ?w)
-                            ("mime:image/*" "Messages with images" ?p)
-                            ("flag:flagged" "Flagged messages" ?f))
+                            ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" ?i)
+                            ("maildir:/YG/Errors AND flag:unread AND NOT flag:trashed" "Unread errors" ?e)
+                            ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" ?t)
+                            ("flag:flagged" "Flagged messages" ?f)
+                            ;; ("date:today..now" "Today's messages" ?t)
+                            ;; ("date:7d..now" "Last 7 days" ?w)
+                            ;; ("mime:image/*" "Messages with images" ?p)
+                            )
 
            ;; Actions
            mu4e-view-actions '(("capture message" . mu4e-action-capture-message)
@@ -633,8 +643,9 @@
           (global-set-key (kbd "C-<f9>") 'org-store-link)
           (global-set-key (kbd "S-<f9>") 'org-insert-link)
           (global-set-key (kbd "<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a SPC"))))
-          (global-set-key (kbd "S-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
-          (global-set-key (kbd "C-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a t"))))
+          (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view t match)))
+          (global-set-key (kbd "C-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
+          (global-set-key (kbd "M-<f12>") 'org-todo-list)
 
           (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
 
@@ -713,6 +724,7 @@
                 org-default-notes-file "~/org/refile.org"
                 org-fast-tag-selection-single-key t
                 org-treat-S-cursor-todo-selection-as-state-change nil
+                org-src-fontify-natively t
 
                 ;; Commands
                 org-agenda-custom-commands
@@ -769,12 +781,15 @@
                   ("j" "Journal" entry (file+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a"))
 
                 ;; Abbreviations
-                org-link-abbrev-alist '(("FB" . (concat yg-fogbugz-url "/f/cases/%h"))
+                org-link-abbrev-alist `(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
+                                        ("KR" . ,(concat yg-kiln-url "/Review/K%h"))
                                         ("VR" . "https://github.com/yougov/velociraptor/issues/%h")
                                         ("VR.SERVER" . "https://github.com/yougov/vr.server/issues/%h")
+                                        ("VR.COMMON" . "https://github.com/yougov/vr.common/issues/%h")
                                         ("CHERRYPY" . "https://github.com/cherrypy/cherrypy/issues/%h")
-                                        ("g" . "http://www.google.com/search?q=%h")
-                                        ("gmap" . "http://maps.google.com/maps?q=%h"))
+                                        ("EMPY" . "https://github.com/lbolla/EMpy/issues/%h")
+                                        ("G" . "http://www.google.com/search?q=%h")
+                                        ("GMAP" . "http://maps.google.com/maps?q=%h"))
                 ;; Refiling
                 org-refile-targets
                 ;; '((nil :maxlevel . 9)
@@ -790,8 +805,8 @@
 
                 ;; Todos
                 org-todo-keywords
-                '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")
-                  (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "CANC(c@)" "MEET(m@)" "PHON(p@)"))
+                '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)")
+                  (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "MEET(m@)" "PHON(p@)"))
                 org-todo-keyword-faces
                 '(("TODO" . org-todo)
                   ("STRT" . font-lock-keyword-face)
@@ -921,7 +936,8 @@
             (font-lock-add-keywords
              'python-mode
              '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)
-               ("\\<\\(FIXME\\)\\>" 1 font-lock-warning-face t)))
+               ("\\<\\(FIXME\\)\\>" 1 font-lock-warning-face t)
+               ("\\<\\(XXX\\)\\>" 1 font-lock-warning-face t)))
 
             (add-hook 'python-mode-hook
                       (lambda ()
@@ -1005,6 +1021,13 @@
                     (lambda ()
                       (auto-fill-mode t)))))
 
+(use-package rust-mode
+  :mode (("\\.rs\\'" . rust-mode))
+  :init (progn
+          (use-package flycheck-rust
+            :init (progn
+                    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))))
+
 ;; http://doc.norang.ca/org-mode.html#GettingStarted
 (use-package scroll-bar
   :init (progn
@@ -1014,16 +1037,6 @@
   :mode ((".zsh" . shell-script-mode)
          (".bash" . shell-script-mode)
          ("\\.sh\\'" . shell-script-mode)))
-
-(use-package shm
-  :disabled t
-  :load-path "/home/lbolla/src/structured-haskell-mode/elisp"
-  :init (progn
-          (add-hook 'haskell-mode-hook
-                    (lambda ()
-                      (electric-indent-mode 0)
-                      (hl-line-mode 0)
-                      (structured-haskell-mode)))))
 
 (use-package slime
   :disabled t
@@ -1063,8 +1076,8 @@
                       (flyspell-mode t)))))
 
 (use-package timonier
-  :disabled t
   :load-path "/home/lbolla/src/timonier"
+  :disabled t
   :commands timonier-k8s
   :init (progn
           (use-package all-the-icons)
@@ -1078,9 +1091,10 @@
           (tool-bar-mode 0)))
 
 (use-package vcs-resolve
-  :commands (vcs-resolve-buffer
-             vcs-resolve-region)
-  :load-path "/home/lbolla/src/vcs-resolve/")
+  :load-path "/home/lbolla/src/vcs-resolve/"
+  :commands (vcs-resolve-at-point
+             vcs-resolve-buffer
+             vcs-resolve-region))
 
 (use-package virtualenvwrapper
   :init (progn
@@ -1102,7 +1116,7 @@
             (interactive)
             (let ((dir (venv-get-proj-dir)))
               (shell-command
-               (concat "find " dir " -name \"*.py\" | xargs etags -f " dir "/TAGS")
+               (concat "find " dir " -name \"*.py\" | fgrep -ve node_modules/ -ve build/ -ve dist/ -ve .egg/ | xargs etags -f " dir "/TAGS")
                nil nil)
               (setq tags-file-name (concat dir "/TAGS"))))
 
