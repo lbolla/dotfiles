@@ -45,11 +45,29 @@ terminal = "x-terminal-emulator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
+home = os.getenv("HOME")
+maildir = home .. "/Mail/YG"
+
 lock = "gnome-screensaver-command --lock"
 logout = "gnome-session-quit --logout"
 poweroff = "gnome-session-quit --power-off"
 screenshot = "gnome-screenshot -i"
 control_panel = "gnome-control-center"
+
+function exec_cmd(cmd)
+    local file = assert(io.popen(cmd, 'r'))
+    local output = file:read('*all'):gsub("^\n+", ""):gsub("\n+$", "")
+    file:close()
+    return output
+end
+
+function ping()
+   return exec_cmd('timeout 0.1 ping -c 1 5.135.183.146 2> /dev/null | grep "time=" | cut -d "=" -f 4')
+end
+
+function unread_emails()
+   return exec_cmd('mu find -t -n 50 --reverse flag:unread AND NOT flag:trashed 2> /dev/null || echo "No mail"')
+end
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -111,12 +129,12 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "screenshot", screenshot },
                                     { "startup apps", "gnome-session-properties"},
                                     { "terminal", terminal },
-                                    { "vpn", "/opt/cisco/anyconnect/bin/vpnui" },
-		  		    { "lock", lock },
-				    { "logout", logout },
-				    { "quit", poweroff }
-                                    }
-                        })
+                                    -- { "vpn", "/opt/cisco/anyconnect/bin/vpnui" },
+                                    { "lock", lock },
+                                    { "logout", logout },
+                                    { "quit", poweroff }
+									}
+								})
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
@@ -145,8 +163,55 @@ batwidget:set_border_color(nil)
 batwidget:set_color("#00bfff")
 vicious.register(batwidget, vicious.widgets.bat, "$2", 120, "BAT0")
 
--- batwidget = widget({type = "textbox"})
--- vicious.register(batwidget, vicious.widgets.bat, "BAT: $1 $2% [$3]", 120, "BAT0")
+mailwidget = widget({type = "textbox"})
+mailtooltip = awful.tooltip({ objects = { mailwidget } })
+vicious.register(
+   mailwidget, vicious.widgets.mdir,
+   function (widget, data)
+      mailtooltip:set_text(awful.util.escape(unread_emails()))
+      return ' ' .. data[1] .. ' <span color="' .. beautiful.bg_focus .. '">' .. data[2] .. '</span> |'
+   end,
+   30, { maildir })
+ 
+wifiwidget = widget({type = "textbox"})
+netwidget = widget({type = "textbox"})
+nettooltip = awful.tooltip({ objects = { wifiwidget, netwidget } })
+
+vicious.register(
+   wifiwidget, vicious.widgets.wifi,
+   function (widget, data)
+      if data['{ssid}'] == 'N/A' then
+         return ''
+      else
+         local tooltip_text = (
+            'CHANNEL #' .. data['{chan}'] .. '\n' ..
+               'RATE ' .. data['{rate}'] .. 'Mb/s\n' ..
+               'QUALITY ' .. data['{linp}'] .. '% ' .. data['{sign}'] .. 'dBm\n' ..
+               'PING ' .. ping())
+         nettooltip:set_text(tooltip_text)
+         return ' ' .. data['{ssid}']
+      end
+   end,
+   5, 'wlan0')
+
+vicious.register(
+   netwidget, vicious.widgets.net,
+   function (widget, data) 
+      local text
+      if data['{tun0 carrier}'] == 1 then
+         return ' <span color="' .. beautiful.bg_focus .. '">VPN</span> |'
+      elseif data['{eth0 carrier}'] == 1 then
+         nettooltip:set_text('PING ' .. ping())
+         return ' eth0 |'
+      elseif data['{wlan0 carrier}'] == 1 then
+         -- Handled by wifiwidget
+         return ' |'
+      else
+         -- No network available
+         nettooltip:set_text('N/A')
+         return ''
+      end
+   end, 5)
 
 memwidget = awful.widget.progressbar()
 memwidget:set_width(8)
@@ -224,22 +289,25 @@ for s = 1, screen.count() do
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
     -- Add widgets to the wibox - order matters
-	mywibox[s].widgets = {
-		{
-			mylauncher,
-			mytaglist[s],
-			s == 1 and batwidget or nil,
-			s == 1 and memwidget or nil,
-			s == 1 and cpuwidget or nil,
-			mypromptbox[s],
-			layout = awful.widget.layout.horizontal.leftright
-		},
-		mylayoutbox[s],
-		mytextclock,
-		s == 1 and mysystray or nil,
-		mytasklist[s],
-		layout = awful.widget.layout.horizontal.rightleft
-	}
+    mywibox[s].widgets = {
+        {
+            mylauncher,
+            mytaglist[s],
+            s == screen.count() and batwidget or nil,
+            s == screen.count() and memwidget or nil,
+            s == screen.count() and cpuwidget or nil,
+            s == 1 and mysystray or nil,
+            mypromptbox[s],
+            layout = awful.widget.layout.horizontal.leftright
+        },
+        mylayoutbox[s],
+        mytextclock,
+        netwidget,
+        wifiwidget,
+        mailwidget,
+        mytasklist[s],
+        layout = awful.widget.layout.horizontal.rightleft
+    }
 end
 -- }}}
 
@@ -285,12 +353,13 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey,           }, "b",      function () awful.util.spawn("firefox") end),
+    awful.key({ modkey,           }, "b",      function () awful.util.spawn("firefox --new-instance") end),
+    awful.key({ modkey, "Control" }, "b",      function () awful.util.spawn("firefox -P default") end),
     awful.key({ modkey,           }, "c",      function () awful.util.spawn("google-chrome --profile-directory=Default --explicitly-allowed-ports=6000") end),
     awful.key({ modkey, "Control" }, "c",      function () awful.util.spawn("google-chrome --incognito") end),
     awful.key({ modkey,           }, "e",      function () awful.util.spawn("emacs") end),
-    awful.key({ modkey,           }, "t",      function () awful.util.spawn("thunderbird") end),
-    awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
+    -- awful.key({ modkey,           }, "t",      function () awful.util.spawn("thunderbird") end),
+    -- awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
     awful.key({ modkey, "Shift"   }, "s",      function () awful.util.spawn(lock) end),
     awful.key({ modkey, "Shift"   }, "q",      function () awful.util.spawn(poweroff) end),
     awful.key({ modkey,           }, "F1",     function () awful.util.spawn(control_panel) end),
@@ -400,7 +469,7 @@ awful.rules.rules = {
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = true,
-		     size_hints_honor = false,
+                     size_hints_honor = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
     -- Floating apps

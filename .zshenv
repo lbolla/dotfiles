@@ -1,11 +1,25 @@
+export BROWSER=firefox
+# export BROWSER=google-chrome
+# export EDITOR=ne
+export EDITOR=vim
 export GOPATH=$HOME/src/go
 export GOROOT=/opt/go
+export LESS="-R"
+export MAIL=$HOME/Mail/YG/INBOX/
+export PAGER=less
+export PGCLUSTER="9.6/main"  # Use latest PG
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_RESPECT_VIRTUALENV=true
 export PLAN9=/home/lbolla/src/plan9port
 export PYTHONHASHSEED=random
+export PYTHONSTARTUP="$HOME/.pyrc"
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+export PATSHOME=/usr/local/lib/ats2-postiats-0.3.3
 
-PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node/bin:/opt/stackato:$PATH
+PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node/bin:$PATH
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-PATH=$HOME/bin:$HOME/.cache/rebar3/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH:$PLAN9/bin:
+PATH=$HOME/.cargo/bin:$PATH
+PATH=$HOME/bin:$HOME/.local/bin:$HOME/.cache/rebar3/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH
 export PATH
 
 if [[ `tty` = /dev/tty* ]]; then

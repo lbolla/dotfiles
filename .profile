@@ -19,3 +19,5 @@ fi
 if [ -f "$HOME/.zshenv" ]; then
 	. "$HOME/.zshenv"
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"

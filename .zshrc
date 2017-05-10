@@ -20,19 +20,14 @@ setopt HIST_REDUCE_BLANKS
 setopt PROMPT_SUBST
 setopt RM_STAR_WAIT
 unsetopt SHARE_HISTORY
+setopt EXTENDED_GLOB
 #}}}
 
 #{{{ Variables
 
-export PYTHONSTARTUP="$HOME/.pyrc"
-export MAIL=$HOME/Mail/YG/INBOX/
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
-export EDITOR=vim
-export PAGER=less
-# export BROWSER=google-chrome
-export BROWSER=firefox
 if [[ -x `which mupdf` ]]; then
     PDFVIEWER=mupdf
 elif [[ -x `which evince` ]]; then
@@ -70,7 +65,7 @@ alias -s odt=$DOCVIEWER
 alias -s xls=$XLSVIEWER
 alias -s xlsx=$XLSVIEWER
 alias -s gif=$IMAGEVIEWER
-alias -s hs=runhaskell
+alias -s hs=stack
 alias -s jpg=$IMAGEVIEWER
 alias -s JPG=$IMAGEVIEWER
 alias -s json='python -m json.tool'
@@ -89,12 +84,11 @@ alias cindent='indent -kr -nut'
 alias csvtable="sed 's/,,/, ,/g;s/,,/, ,/g' | column -s, -t | less -#2 -FNSX"
 alias diff2='diff -y --suppress-common-lines'
 alias e=vim
-alias em='emacs -nw'
-alias spacemacs='HOME=~/src/spacemacs emacs'
-alias google-chrome-def="google-chrome --profile-directory=Default --explicitly-allowed-ports=6000"
-alias google-chrome-fun="google-chrome --profile-directory=\"Profile 2\""
-alias google-chrome-inc="google-chrome --incognito"
-alias google-chrome-netflix="google-chrome --profile-directory=\"Profile 2\" --proxy-server=\"socks://localhost:9999\""
+# alias em='emacs -nw'
+# alias google-chrome-def="google-chrome --profile-directory=Default --explicitly-allowed-ports=6000"
+# alias google-chrome-fun="google-chrome --profile-directory=\"Profile 2\""
+# alias google-chrome-inc="google-chrome --incognito"
+# alias google-chrome-netflix="google-chrome --profile-directory=\"Profile 2\" --proxy-server=\"socks://localhost:9999\""
 alias l='ls -l --color'
 alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
 alias linodesh='ssh -X lbolla.info'
@@ -108,7 +102,7 @@ alias lsdir='find . -mindepth 1 -maxdepth 1 -type d'
 # alias mutt-pispo-info='MUTT_PROFILE=pispo-info mutt'
 # alias mutt-pispo='MUTT_PROFILE=pispo mutt'
 # alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
-alias pg='ps aux | grep'
+alias pg='ps -eF | grep'
 alias psp="ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:28,comm"
 alias psz="ps aux | awk '{ print \$8 \" \" \$2 }' | grep Z"
 alias rdesktop='rdesktop -r clipboard:PRIMARYCLIPBOARD -g 1280x1024'
@@ -124,7 +118,7 @@ alias mkvirtualenv2="mkvirtualenv --python /usr/local/bin/python2"
 alias mkvirtualenv3="mkvirtualenv --python /usr/local/bin/python3"
 alias w='workon'
 alias num_open_files="cat /proc/sys/fs/file-nr"
-alias time="/usr/bin/time --verbose"
+alias pssh=parallel-ssh
 #}}}
 
 #{{{ Functions
@@ -137,6 +131,9 @@ function mccabe-find {
 }
 function rand {
     python -c "import random; print random.random()"
+}
+function randint {
+    python -c "import random; print random.randint($1, $2)"
 }
 function num_threads {
     grep -s '^Threads' /proc/[0-9]*/status | awk '{ sum += $2; } END { print sum; }'
@@ -177,20 +174,27 @@ function __venv_ps1 {
     fi
 }
 
-function cabal_sandbox_info() {
-	cabal_files=(*.cabal(N))
-	if [ $#cabal_files -gt 0 ]; then
-		if [ -f cabal.sandbox.config ]; then
-			echo "%{$fg[green]%}(HS:sandboxed)%{$reset_color%}"
-		else
-			echo "%{$fg[red]%}(HS:not-sandboxed)%{$reset_color%}"
-		fi
-	fi
+function __haskell_pkg_info {
+    # TODO should search for files in parent dirs, too
+    # Use .zsh extended globbing
+    # tmp=`ls (../)#stack.yaml(:a)"
+    cabal_files=(*.cabal(N))
+    if [ $#cabal_files -gt 0 ]; then
+            if [ -f stack.yaml ]; then
+                    # echo "%{$fg[green]%}(λ:stack)%{$reset_color%}"
+                    echo ""
+            elif [ -f cabal.sandbox.config ]; then
+                    echo "%{$fg[orange]%}(λ:no-stack)%{$reset_color%}"
+            else
+                    echo "%{$fg[red]%}(λ:not-sandboxed)%{$reset_color%}"
+            fi
+    fi
 }
 
 GIT_PS1_SHOWDIRTYSTATE=true
 export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F%B%{$fg[yellow]%}%~%f%{$reset_color%}%b % > '
-export RPROMPT='%B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)$(cabal_sandbox_info)%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
+# export RPROMPT='%B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)$(__haskell_pkg_info)%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
+export RPROMPT='%B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
 #}}}
 
 #{{{ Bindings
@@ -219,12 +223,6 @@ VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 	source /etc/bash_completion.d/virtualenvwrapper
     fi
 # fi
-export PIP_REQUIRE_VIRTUALENV=true
-export PIP_RESPECT_VIRTUALENV=true
-export VIRTUAL_ENV_DISABLE_PROMPT=true
-export LESS="-R"
-# Use latest PG
-export PGCLUSTER="9.6/main"
 #}}}
 
 #{{{ Styles
