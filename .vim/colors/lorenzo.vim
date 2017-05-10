@@ -251,7 +251,7 @@ hi Comment        ctermbg=black guibg=black ctermfg=61 guifg=#5f5faf cterm=NONE 
 hi Condtional     ctermbg=black guibg=black ctermfg=red guifg=red
 hi Constant       ctermbg=black guibg=black ctermfg=white guifg=white cterm=NONE gui=NONE
 hi Cursor         ctermbg=black guibg=white ctermfg=grey guifg=grey
-hi CursorLine     ctermbg=235 guibg=253 ctermfg=NONE guifg=NONE cterm=NONE gui=NONE
+hi CursorLine     ctermbg=235 guibg=#262626 ctermfg=NONE guifg=NONE cterm=NONE gui=NONE
 hi Debug          ctermbg=black guibg=black ctermfg=grey guifg=grey
 hi Define         ctermbg=black guibg=black ctermfg=white guifg=white
 hi Delimiter      ctermbg=black guibg=black ctermfg=grey guifg=grey
