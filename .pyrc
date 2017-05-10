@@ -9,12 +9,20 @@ readline.parse_and_bind("tab: complete")
 # history
 historyPath = os.path.expanduser("~/.python_history")
 
-def save_history(historyPath=historyPath):
+def maybe_truncate_history(historyPath=historyPath):
+    import os
+    max_size = 1000000
+    if os.path.exists(historyPath) and os.stat(historyPath).st_size > max_size:
+        os.remove(historyPath)
+
+def save_history(historyPath=historyPath, maybe_truncate_history=maybe_truncate_history):
     import readline
+    maybe_truncate_history()
     readline.write_history_file(historyPath)
 
 if os.path.exists(historyPath):
+    maybe_truncate_history()
     readline.read_history_file(historyPath)
 
 atexit.register(save_history)
-del os, atexit, readline, rlcompleter, save_history, historyPath
+del os, atexit, readline, rlcompleter, save_history, maybe_truncate_history, historyPath
