@@ -144,9 +144,10 @@
 (use-package disaster)
 
 (use-package docker
-  :disabled t
   :init (progn
-          (docker-global-mode t)))
+          (use-package dockerfile-mode))
+  :config (progn
+            (docker-global-mode t)))
 
 (use-package electric
   :config (progn
@@ -183,6 +184,16 @@
                         (modify-syntax-entry ?\_ "w")))))
 
 (use-package ess)
+
+(use-package eww
+  :init (progn
+          (defun eww-at-point ()
+            (interactive)
+            (eww (thing-at-point 'word)))
+
+          (defun eww-region (start end)
+            (interactive "r")
+            (eww (buffer-substring start end)))))
 
 (use-package evil
   :demand t
@@ -221,7 +232,7 @@
             (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
             (define-key evil-normal-state-map (kbd ",gt") 'tags-search)
             (define-key evil-normal-state-map (kbd ",hb") 'vc-annotate)
-            (define-key evil-normal-state-map (kbd ",vr") 'vcs-resolve-buffer)
+            (define-key evil-normal-state-map (kbd ",vb") 'vcs-resolve-buffer)
             (define-key evil-normal-state-map (kbd ",vp") 'vcs-resolve-at-point)
             (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)
             (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
@@ -230,8 +241,11 @@
             (define-key evil-normal-state-map (kbd "gT") 'previous-tab)
             (define-key evil-normal-state-map (kbd "gp") 'insert-x-primary-selection)
             (define-key evil-normal-state-map (kbd "gt") 'next-tab)
+            (define-key evil-normal-state-map (kbd ",K") 'eww-at-point)
             (define-key evil-visual-state-map (kbd ",vr") 'vcs-resolve-region)
             (define-key evil-visual-state-map (kbd ",yp") 'yg-paste-region)
+            (define-key evil-visual-state-map (kbd ",vr") 'vcs-resolve-region)
+            (define-key evil-visual-state-map (kbd ",K") 'eww-region)
 
             ;; Avoid that visual selecting a region copies it to kill-ring
             (fset 'evil-visual-update-x-selection 'ignore)
@@ -284,7 +298,7 @@
             :load-path "/home/lbolla/src/emacs-flycheck-flow/"
             :demand t
             :config (progn
-                      (flycheck-add-next-checker 'javascript-gjslint '(warning . javascript-flow) t)
+                      (flycheck-add-next-checker 'javascript-jshint '(warning . javascript-flow) t)
                       ;; (flycheck-add-next-checker 'javascript-flow '(warning . javascript-flow-coverage) t)
                       ))
 
@@ -473,9 +487,11 @@
               (set-face-attribute 'magit-diff-file-heading-highlight nil :background "gray20")
               (set-face-attribute 'magit-diff-hunk-heading-highlight nil :background "gray30")
               (set-face-attribute 'magit-diff-hunk-heading nil :background "gray20"))
+
             ;; (setq magit-bury-buffer-function 'magit-mode-quit-window)
             (define-key magit-log-mode-map (kbd ",vp") 'vcs-resolve-at-point)
             (define-key magit-revision-mode-map (kbd ",vp") 'vcs-resolve-at-point)
+            (define-key magit-status-mode-map (kbd "C-p") 'projectile-find-file)
             (evil-define-key 'normal magit-blame-mode-map (kbd "q") 'magit-blame-quit)
             (evil-define-key 'normal magit-blame-mode-map (kbd "RET") 'magit-show-commit)))
 
@@ -569,7 +585,8 @@
 
            ;; Shortcuts
            mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
-                                    ("/YG/Sent Items" . ?s))
+                                    ("/YG/Sent Items" . ?s)
+                                    ("/YG/Errors" . ?e))
            ;; Bookmarks
            mu4e-bookmarks '(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
                             ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" ?i)
@@ -610,6 +627,7 @@
            ;; mu4e-html2text-command "html2text -utf8 -width 72"
            mu4e-html2text-command "w3m -dump -cols 120 -T text/html"  ;;; Let Emacs do the line wrapping
            ;; mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain | iconv -f utf-8 | fold"
+           ;; mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain --columns=120"
            ;; when to prefer html over text
            mu4e-view-html-plaintext-ratio-heuristic 20
            ;; don't keep message buffers around
@@ -645,7 +663,7 @@
           (global-set-key (kbd "<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a SPC"))))
           (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view t match)))
           (global-set-key (kbd "C-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
-          (global-set-key (kbd "M-<f12>") 'org-todo-list)
+          (global-set-key (kbd "M-<f12>") 'org-search-view)
 
           (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
 
@@ -1024,9 +1042,21 @@
 (use-package rust-mode
   :mode (("\\.rs\\'" . rust-mode))
   :init (progn
+
+          (setq rust-format-on-save t)
+
+          (use-package racer)
+
           (use-package flycheck-rust
             :init (progn
-                    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))))
+                    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+
+          (add-hook 'rust-mode-hook
+                    (lambda ()
+                      (racer-mode))))
+  :config (progn
+            (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
+            (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition)))
 
 ;; http://doc.norang.ca/org-mode.html#GettingStarted
 (use-package scroll-bar
@@ -1089,6 +1119,8 @@
 (use-package tool-bar
   :init (progn
           (tool-bar-mode 0)))
+
+(use-package toml-mode)
 
 (use-package vcs-resolve
   :load-path "/home/lbolla/src/vcs-resolve/"
