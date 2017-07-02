@@ -119,6 +119,7 @@ alias mkvirtualenv3="mkvirtualenv --python /usr/local/bin/python3"
 alias w='workon'
 alias num_open_files="cat /proc/sys/fs/file-nr"
 alias pssh=parallel-ssh
+alias opennic-nearest="curl -s 'https://api.opennicproject.org/geoip/?nearest' | cut -d ' ' -f 1"
 #}}}
 
 #{{{ Functions
