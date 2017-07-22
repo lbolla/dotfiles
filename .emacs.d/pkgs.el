@@ -26,7 +26,9 @@
 
 (use-package ace-jump-mode)
 
-(use-package ag)
+;; Replaced by rg
+;; TODO uninstall
+;; (use-package ag)
 
 (use-package alchemist
   :disabled t
@@ -225,8 +227,10 @@
             (define-key evil-normal-state-map (kbd ", SPC") 'ace-jump-mode)
             (define-key evil-normal-state-map (kbd ",=") 'c-indent)
             (define-key evil-normal-state-map (kbd ",Cgg") 'counsel-git-grep)
-            (define-key evil-normal-state-map (kbd ",F") 'ag-project-files)
-            (define-key evil-normal-state-map (kbd ",G") 'ag-project)
+            ;; (define-key evil-normal-state-map (kbd ",F") 'ag-project-files)
+            (define-key evil-normal-state-map (kbd ",F") 'rg-project)
+            ;; (define-key evil-normal-state-map (kbd ",G") 'ag-project)
+            (define-key evil-normal-state-map (kbd ",G") 'rg-dwim)
             (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
             (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
             (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
@@ -623,6 +627,8 @@
            mu4e-get-mail-command "true"
            ;; Update every 5 minutes
            mu4e-update-interval 300
+           ;; Speed up indexing
+           mu4e-index-lazy-check t
            ;; convert html msgs to txt
            ;; mu4e-html2text-command "html2text -utf8 -width 72"
            mu4e-html2text-command "w3m -dump -cols 120 -T text/html"  ;;; Let Emacs do the line wrapping
@@ -661,7 +667,7 @@
           (global-set-key (kbd "C-<f9>") 'org-store-link)
           (global-set-key (kbd "S-<f9>") 'org-insert-link)
           (global-set-key (kbd "<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a SPC"))))
-          (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view t match)))
+          (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view nil match)))
           (global-set-key (kbd "C-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
           (global-set-key (kbd "M-<f12>") 'org-search-view)
 
@@ -998,10 +1004,13 @@
                         (rcirc-track-minor-mode t)
                         ;; (rcirc-omit-mode)
                         (flyspell-mode t)))
-            (setq rcirc-server-alist '())
-            ;; (add-to-list 'rcirc-server-alist yg-rcirc-server)
-            ;; (add-to-list 'rcirc-server-alist yg-slack-rcirc-server)
-            (add-to-list 'rcirc-server-alist freenode-rcirc-server)
+            (setq rcirc-server-alist
+                  `(
+                    ;; rcirc-server-yg
+                    ,rcirc-server-yg-slack
+                    ;; rcirc-server-freenode
+                    ;; ,rcirc-server-mozilla
+                    ))
             (defun-rcirc-command reconnect (arg)
               "Reconnect the server process."
               (interactive "i")
@@ -1032,6 +1041,15 @@
   :mode (("\\.http\\'" . restclient-mode)
          ;; ("\\*HTTP Response\\*" . json-mode)
          ))
+
+(use-package rg
+  :config (progn
+            (setq rg-group-result t
+                  rg-custom-type-aliases '(("gn" . "*.gn *.gni")
+                                           ("gyp" . "*.gyp *.gypi")
+                                           ("tmpl" . "*.tmpl")))
+            ;; Rerun search with context -- bind to "x" in rg results buffer
+            (rg-define-toggle "--context 3" "x" nil)))
 
 (use-package rst
   :init (progn
@@ -1151,10 +1169,6 @@
                (concat "find " dir " -name \"*.py\" | fgrep -ve node_modules/ -ve build/ -ve dist/ -ve .egg/ | xargs etags -f " dir "/TAGS")
                nil nil)
               (setq tags-file-name (concat dir "/TAGS"))))
-
-          (defun ag-venv-project-at-point ()
-            (interactive)
-            (ag (thing-at-point 'word) (venv-get-proj-dir)))
 
           (defun venv-workon-and-cdproject (venv)
             (interactive "i")
