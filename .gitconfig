@@ -40,7 +40,7 @@
     ; c = commit
     ; a = add
     ; d = diff
-	; review = push origin HEAD:refs/for/master # push for review on gerrit
+    ; review = push origin HEAD:refs/for/master # push for review on gerrit
     rank = shortlog -sn --no-merges
     searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
     last = cat-file commit HEAD
@@ -63,5 +63,6 @@
 
 [log]
     decorate = full
+
 [diff]
-	tool = meld
+    tool = meld
