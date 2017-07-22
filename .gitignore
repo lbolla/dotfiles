@@ -14,7 +14,6 @@ aliases
 /.emacs.d/bookmarks
 /.emacs.d/ede-projects.el
 /.emacs.d/elpa/
-/.emacs.d/eshell/
 /.emacs.d/flycheck_private.el
 /.emacs.d/private.el
 /.emacs.d/projectile-bookmarks.eld
@@ -23,3 +22,5 @@ aliases
 /.emacs.d/session.*
 /.emacs.d/tramp
 /.emacs.d/url/
+/.emacs.d/eshell/history
+/.emacs.d/eshell/lastdir
