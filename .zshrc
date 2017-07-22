@@ -109,7 +109,7 @@ alias rdesktop='rdesktop -r clipboard:PRIMARYCLIPBOARD -g 1280x1024'
 alias remove_dups="awk 'NF && !(\$1 in a){a[\$1];p=\$1;print (getline == 0) ? p : p}'"
 alias rm='rm -i'
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
-alias screen-mail='screen -S mail -c ~/.screenrc-mail'
+# alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
 # alias tmux='tmux -2'
 alias ttyplay="scriptreplay /tmp/timingfile"
@@ -119,7 +119,7 @@ alias mkvirtualenv3="mkvirtualenv --python /usr/local/bin/python3"
 alias w='workon'
 alias num_open_files="cat /proc/sys/fs/file-nr"
 alias pssh=parallel-ssh
-alias opennic-nearest="curl -s 'https://api.opennicproject.org/geoip/?nearest' | cut -d ' ' -f 1"
+alias opennic-nearest="curl -s 'https://api.opennicproject.org/geoip/?nearest' | cut -d ' ' -f 1 | head -3"
 #}}}
 
 #{{{ Functions
