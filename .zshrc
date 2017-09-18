@@ -83,25 +83,19 @@ alias cdrip='ripit'
 alias cindent='indent -kr -nut'
 alias csvtable="sed 's/,,/, ,/g;s/,,/, ,/g' | column -s, -t | less -#2 -FNSX"
 alias diff2='diff -y --suppress-common-lines'
-alias e=vim
+alias e=$EDITOR
 # alias em='emacs -nw'
 # alias google-chrome-def="google-chrome --profile-directory=Default --explicitly-allowed-ports=6000"
 # alias google-chrome-fun="google-chrome --profile-directory=\"Profile 2\""
 # alias google-chrome-inc="google-chrome --incognito"
 # alias google-chrome-netflix="google-chrome --profile-directory=\"Profile 2\" --proxy-server=\"socks://localhost:9999\""
-alias l='ls -l --color'
+alias l='ls -a1 --color'
 alias linodefs='mkdir -p /tmp/linode && sshfs lbolla.info:/ /tmp/linode'
 alias linodesh='ssh -X lbolla.info'
 alias ll='ls -la --color'
 alias lp='lp -o fit-to-page -o media=a4'
 alias ls='ls --color'
 alias lsdir='find . -mindepth 1 -maxdepth 1 -type d'
-# alias mutt-gmail='MUTT_PROFILE=gmail mutt'
-# alias mutt-networkscale='MUTT_PROFILE=networkscale mutt'
-# alias mutt-pispo-customerservice='MUTT_PROFILE=pispo-customerservice mutt'
-# alias mutt-pispo-info='MUTT_PROFILE=pispo-info mutt'
-# alias mutt-pispo='MUTT_PROFILE=pispo mutt'
-# alias mutt-reddeer='MUTT_PROFILE=reddeer mutt'
 alias pg='ps -eF | grep'
 alias psp="ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:28,comm"
 alias psz="ps aux | awk '{ print \$8 \" \" \$2 }' | grep Z"
@@ -109,9 +103,7 @@ alias rdesktop='rdesktop -r clipboard:PRIMARYCLIPBOARD -g 1280x1024'
 alias remove_dups="awk 'NF && !(\$1 in a){a[\$1];p=\$1;print (getline == 0) ? p : p}'"
 alias rm='rm -i'
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
-# alias screen-mail='screen -S mail -c ~/.screenrc-mail'
 alias sqlitetmp='mkdir -p /tmp/sqlite && sudo mount tmpfs -t tmpfs /tmp/sqlite'
-# alias tmux='tmux -2'
 alias ttyplay="scriptreplay /tmp/timingfile"
 alias ttyrec="script -t 2> /tmp/timingfile"
 alias mkvirtualenv2="mkvirtualenv --python /usr/local/bin/python2"
@@ -120,6 +112,7 @@ alias w='workon'
 alias num_open_files="cat /proc/sys/fs/file-nr"
 alias pssh=parallel-ssh
 alias opennic-nearest="curl -s 'https://api.opennicproject.org/geoip/?nearest' | cut -d ' ' -f 1 | head -3"
+alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 #}}}
 
 #{{{ Functions
@@ -146,6 +139,22 @@ function find-missing {
     pattern=$2
     depth=$3
     comm -3 <(find $dirname -name "$2" -printf '%h\n' | sort) <(find $dirname -mindepth $depth -maxdepth $depth -type d | sort)
+}
+function t {
+    # Launch tmux session named after venv
+    if [[ -z $VIRTUAL_ENV ]]; then
+        tmux $*
+    elif [[ -z "$*" ]]; then
+        SESSION=`basename $VIRTUAL_ENV`
+        tmux has-session -t $SESSION
+        if [[ $? -ne 0 ]]; then
+            tmux new-session -s $SESSION
+        else
+            tmux attach-session -t $SESSION
+        fi
+    else
+        tmux $*
+    fi
 }
 #}}}
 

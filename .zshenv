@@ -1,7 +1,8 @@
+# export ALTERNATE_EDITOR=vim
 export BROWSER=firefox
 # export BROWSER=google-chrome
-# export EDITOR=ne
-export EDITOR=vim
+# export EDITOR='emacsclient -t'
+export EDITOR='vim'
 export GOPATH=$HOME/src/go
 export GOROOT=/opt/go
 export LESS="-R"
