@@ -667,7 +667,8 @@
           (global-set-key (kbd "C-<f9>") 'org-store-link)
           (global-set-key (kbd "S-<f9>") 'org-insert-link)
           (global-set-key (kbd "<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a SPC"))))
-          (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view nil match)))
+          (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view t match)))
+          (global-set-key (kbd "C-S-<f12>") (lambda (match) (interactive "P") (org-tags-view nil match)))
           (global-set-key (kbd "C-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
           (global-set-key (kbd "M-<f12>") 'org-search-view)
 
@@ -812,8 +813,10 @@
                                         ("VR.COMMON" . "https://github.com/yougov/vr.common/issues/%h")
                                         ("CHERRYPY" . "https://github.com/cherrypy/cherrypy/issues/%h")
                                         ("EMPY" . "https://github.com/lbolla/EMpy/issues/%h")
-                                        ("G" . "http://www.google.com/search?q=%h")
-                                        ("GMAP" . "http://maps.google.com/maps?q=%h"))
+                                        ("QUAD" . "https://gitlab.yougov.net/diu/quad/issues/%h")
+                                        ;; ("G" . "http://www.google.com/search?q=%h")
+                                        ;; ("GMAP" . "http://maps.google.com/maps?q=%h")
+                                        )
                 ;; Refiling
                 org-refile-targets
                 ;; '((nil :maxlevel . 9)
@@ -1206,7 +1209,8 @@
           (add-hook 'yaml-mode-hook
                     (lambda ()
                       (modify-syntax-entry ?\_ "w")
-                      (set-indent 4)))))
+                      (modify-syntax-entry ?\$ ".")
+                      (set-indent 2)))))
 
 (use-package yasnippet
   :disabled t

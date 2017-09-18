@@ -117,7 +117,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (rg dockerfile-mode racer toml-mode flycheck-rust rust-mode haskell-mode lua-mode ess docker counsel yaml-mode xclip web-mode w3m virtualenvwrapper use-package swiper spinner restclient queue projectile pass paredit multi-term mu4e-alert markdown-mode magit macrostep json-mode js2-mode jedi hexrgb go-mode gnus-desktop-notify gnuplot flycheck-mypy flycheck-flow flycheck-elixir flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil erlang disaster cython-mode cyberpunk-theme csv-mode company-jedi base16-theme alchemist ag ace-jump-mode)))
+    (rg dockerfile-mode racer toml-mode flycheck-rust haskell-mode lua-mode ess docker counsel yaml-mode xclip web-mode w3m virtualenvwrapper use-package swiper spinner restclient queue projectile pass paredit multi-term mu4e-alert markdown-mode magit macrostep json-mode js2-mode jedi hexrgb go-mode gnus-desktop-notify gnuplot flycheck-mypy flycheck-flow flycheck-elixir flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil erlang disaster cython-mode cyberpunk-theme csv-mode company-jedi base16-theme alchemist ag ace-jump-mode)))
  '(password-store-password-length 16)
  '(projectile-globally-ignored-directories
    (quote
