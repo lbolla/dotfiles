@@ -197,7 +197,7 @@ vicious.register(
    netwidget, vicious.widgets.net,
    function (widget, data) 
       local text
-      if data['{tun0 carrier}'] == 1 then
+      if data['{tun0 carrier}'] == 1 or data['{cscotun0 carrier}'] == 1 then
          return ' <span color="' .. beautiful.bg_focus .. '">VPN</span> |'
       elseif data['{eth0 carrier}'] == 1 then
          nettooltip:set_text('PING ' .. ping())
