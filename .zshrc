@@ -68,7 +68,7 @@ alias -s gif=$IMAGEVIEWER
 alias -s hs=stack
 alias -s jpg=$IMAGEVIEWER
 alias -s JPG=$IMAGEVIEWER
-alias -s json='python -m json.tool'
+alias -s json='jq . < '
 alias -s pdf=$PDFVIEWER
 alias -s png=$IMAGEVIEWER
 alias -s ppt=$PPTVIEWER
@@ -108,14 +108,19 @@ alias ttyplay="scriptreplay /tmp/timingfile"
 alias ttyrec="script -t 2> /tmp/timingfile"
 alias mkvirtualenv2="mkvirtualenv --python /usr/local/bin/python2"
 alias mkvirtualenv3="mkvirtualenv --python /usr/local/bin/python3"
-alias w='workon'
 alias num_open_files="cat /proc/sys/fs/file-nr"
 alias pssh=parallel-ssh
 alias opennic-nearest="curl -s 'https://api.opennicproject.org/geoip/?nearest' | cut -d ' ' -f 1 | head -3"
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
+alias w='workon'
+alias weechat='PATH=/usr/bin/:$PATH weechat'
 #}}}
 
 #{{{ Functions
+function ww {
+    venv=${1:-$(workon | fzf)}
+    workon $venv
+}
 function diff2 {
     # Side-by-side diff
     diff -y -W $COLUMNS $1 $2
@@ -232,6 +237,8 @@ VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
     elif [[ -f /etc/bash_completion.d/virtualenvwrapper ]]; then
 	source /etc/bash_completion.d/virtualenvwrapper
     fi
+
+
 # fi
 #}}}
 
@@ -287,6 +294,16 @@ _mix_cmds () {
 }
 compctl -K _mix_cmds mix
 
+_kube_pod_names () {
+    reply=( $(kubectl get pods -o custom-columns=:.metadata.name ) )
+}
+compctl -K _kube_pod_names kubetail
+
+_kube_namespaces () {
+    reply=( $(kubectl get ns -o custom-columns=:.metadata.name ) )
+}
+compctl -K _kube_namespaces kns
+
 # kubectl autocomplete
 source <(kubectl completion zsh)
 
@@ -318,18 +335,26 @@ function precmd() {
 }
 
 # preexec is called just before any command line is executed
-function preexec() {
-    title "$1" "%m:%35<...<%~"
-}
+# Note: breaks fzf piping
+# function preexec() {
+#     title "$1" "%m:%35<...<%~"
+# }
 
 #}}}
 
 #{{{ Other goodies
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-source ~/src/zsh-autosuggestions/zsh-autosuggestions.zsh
-if [[ $TERM = "linux" ]]; then
-    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
-elif [[ -n $INSIDE_EMACS ]]; then
-    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+if [[ $TERM != "dumb" ]]; then
+    ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+    source ~/src/zsh-autosuggestions/zsh-autosuggestions.zsh
+    if [[ $TERM = "linux" ]]; then
+        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
+    elif [[ -n $INSIDE_EMACS ]]; then
+        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+    fi
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files'
+# export FZF_DEFAULT_OPTS="--height=10%"
+
 #}}}
