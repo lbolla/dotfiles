@@ -14,11 +14,13 @@ export PIP_RESPECT_VIRTUALENV=true
 export PLAN9=/home/lbolla/src/plan9port
 export PYTHONHASHSEED=random
 export PYTHONSTARTUP="$HOME/.pyrc"
-export RUST_SRC_PATH=~/.multirust/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+export RUST_SRC_PATH=~/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+# export RUST_SRC_PATH=~/.multirust/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+export CARGO_INCREMENTAL=1
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 export PATSHOME=/usr/local/lib/ats2-postiats-0.3.3
 
-PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node/bin:/opt/kubernetes/client/bin:$PATH
+PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node/bin:$PATH
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 PATH=$HOME/.cargo/bin:$PATH
 PATH=$HOME/bin:$HOME/.local/bin:$HOME/.cache/rebar3/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH
