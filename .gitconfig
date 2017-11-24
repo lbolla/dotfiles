@@ -66,3 +66,5 @@
 
 [diff]
     tool = meld
+[magit]
+	hideCampaign = true
