@@ -11,6 +11,13 @@
 (defvar yg-fogbugz-password)
 (defvar yg-paste-base-url)
 
+(defun yg-gitlab-issue-url (tag)
+  "Generate a YG GitLab issue url for TAG."
+  (let* ((tokens (reverse (split-string tag "/")))
+         (issue (car tokens))
+         (repo (mapconcat 'identity (reverse (cdr tokens)) "/")))
+    (format "https://gitlab.yougov.net/%s/issues/%s" repo (url-hexify-string issue))))
+
 (defun yg-fogbugz-cli ()
   "Open FogBugz command line interface."
   (interactive)
@@ -128,5 +135,7 @@
                          ;;   (insert "\n")
                          ;;   (switch-to-buffer-other-window (current-buffer)))
                          ))))))
+
+(provide 'yg)
 
 ;;; yg.el ends here
