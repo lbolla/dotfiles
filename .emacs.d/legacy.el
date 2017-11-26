@@ -244,3 +244,23 @@
    '(yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-no-prompt)
    yas-snippet-dirs (quote (yas-installed-snippets-dir))))
 
+
+(defun load-theme-base16-default-dark ()
+  "Load `base-16-default-dark` theme."
+  (interactive)
+  (use-package base16-theme)
+  (switch-theme 'base16-default-dark)
+  ;; (set-face-attribute 'hl-line nil :background "grey15")
+  ;; (set-face-attribute 'region nil :foreground "light grey" :background "brown4")
+  ;; (set-face-attribute 'org-checkbox nil :background "#666666" :foreground "#cccccc")
+  ;; (set-face-attribute 'org-done nil :foreground "forest green")
+  ;; (set-face-attribute 'org-scheduled-today nil :foreground "gray70" :weight 'normal)
+  ;; (set-face-attribute 'org-scheduled nil :foreground "gray60" :weight 'normal)
+  ;; (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :weight 'bold :background "gray20")
+  ;; (set-face-attribute 'mu4e-replied-face nil :inherit font-lock-comment-face :weight 'normal :foreground "gray50")
+  ;; (set-face-attribute 'message-cited-text-face nil :inherit font-lock-comment-face :underline nil :foreground "gray60")
+  ;; (set-face-attribute 'magit-section-highlight nil :background "gray20")
+  ;; (set-face-attribute 'magit-diff-file-heading-highlight nil :background "gray20")
+  ;; (set-face-attribute 'magit-diff-hunk-heading-highlight nil :background "gray30")
+  ;; (set-face-attribute 'magit-diff-hunk-heading nil :background "gray20")
+  )

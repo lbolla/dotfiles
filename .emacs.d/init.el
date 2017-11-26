@@ -18,6 +18,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#C2C2C2" "#161616" "#252525" "#080808" "#0E0E0E" "#161616" "#080808" "#080808"])
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
@@ -32,6 +34,7 @@
  '(cc-search-directories
    (quote
     ("." "/usr/include" "/usr/local/include/*" "../deps" "../../deps")))
+ '(custom-safe-themes t)
  '(delete-old-versions t)
  '(display-time-world-list
    (quote
@@ -60,6 +63,8 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(eww-search-prefix "https://lite.qwant.com/?q=")
  '(explicit-shell-file-name "/usr/bin/bash")
+ '(fci-rule-color "#383838")
+ '(flycheck-javascript-flow-args nil)
  '(font-use-system-font t)
  '(gc-cons-threshold 5000000)
  '(indent-tabs-mode nil)
@@ -72,7 +77,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (evil-org evil-magit evil-mu4e org-bullets fzf zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m virtualenvwrapper use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode jedi hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-elixir flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode company-jedi)))
+    (evil-org evil-magit evil-mu4e org-bullets fzf zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m virtualenvwrapper use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode jedi hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode company-jedi)))
  '(password-store-password-length 16)
  '(show-paren-mode t)
  '(tool-bar-mode nil)
@@ -117,7 +122,15 @@
 (global-set-key (kbd "C-x 2") 'split-window-below-and-switch-buffer)
 (global-set-key (kbd "C-x 3") 'split-window-right-and-switch-buffer)
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
-(global-set-key (kbd "C-c i")
+(global-set-key (kbd "C-c f h")
+                (lambda ()
+                  (interactive)
+                  (find-file "~/Private/home.org")))
+(global-set-key (kbd "C-c f i")
+                (lambda ()
+                  (interactive)
+                  (find-file "~/.emacs.d/init.el")))
+(global-set-key (kbd "C-c f p")
                 (lambda ()
                   (interactive)
                   (find-file "~/.emacs.d/pkgs.el")))
@@ -130,14 +143,19 @@
 (require 'private "~/.emacs.d/private.el")
 (require 'yg "~/.emacs.d/yg.el")
 (require 'pkgs "~/.emacs.d/pkgs.el")
+(require 'themes "~/.emacs.d/themes.el")
 
-(blink-cursor-mode 1)
+(blink-cursor-mode 0)
 (column-number-mode 1)
 (global-hl-line-mode)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (show-paren-mode 1)
 (tool-bar-mode 0)
+
+;; (load-theme-quasi-monochrome)
+;; (load-theme-leuven)
+(load-theme-cyberpunk)
 
 (server-start)
 

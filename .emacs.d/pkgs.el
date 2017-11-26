@@ -59,38 +59,6 @@
 (use-package csv-mode
   :mode ("\\.csv\\'" . csv-mode))
 
-(use-package custom
-  :config
-  (use-package quasi-monochrome-theme
-    :load-path "/home/lbolla/src/emacs-quasi-monochrome/"
-    :demand t)
-  (load-theme 'quasi-monochrome :no-confirm)
-
-  ;; (if (equal (getenv "IN_X") "no")
-  ;;     ;; Textual terminal
-  ;;     (progn
-  ;;       ;; (add-to-list 'default-frame-alist '(tty-color-mode  . never))
-  ;;       )
-
-  ;; (use-package cyberpunk-theme)
-  ;; (load-theme 'cyberpunk)
-
-  ;; (use-package base16-theme)
-  ;; (load-theme 'base16-default-dark)
-
-  ;; (use-package leuven)
-  ;; (load-theme 'leuven)
-
-  ;; ;; In X terminal
-
-  ;; (unless (display-graphic-p)
-  ;;   (progn
-  ;;     (use-package xclip
-  ;;       :init (xclip-mode t))
-  ;;     (xterm-mouse-mode t)))))
-
-  )
-
 (use-package cython-mode
   :after evil
   :config
@@ -103,7 +71,7 @@
               (setq cursor-type nil))))
 
 (use-package dockerfile-mode
-  :mode "Dockerfile")
+  :mode "^Dockerfile")
 
 (use-package electric
   :config
@@ -155,6 +123,9 @@
 
   ;; Avoid that visual selecting a region copies it to kill-ring
   (fset 'evil-visual-update-x-selection 'ignore)
+
+  ;; I like C-w for navigation even in Emacs mode
+  (setq evil-want-C-w-in-emacs-state t)
 
   ;; (setq evil-lookup-func 'man-at-point
   ;;       evil-emacs-state-modes '(Custom-mode Electric-buffer-menu-mode alchemist-iex-mode alchemist-mix-mode alchemist-test-report-mode archive-mode bbdb-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calc-mode calculator-mode cfw:calendar-mode cider-popup-buffer-mode cider-repl-mode comint-mode completion-list-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode diff-mode display-time-world-mode doc-view-mode docker-containers-mode docker-images-mode doctor-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-meta-mode ediff-mode efs-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode eww-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode git-rebase-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode haskell-error-mode haskell-interactive-mode help-mode inferior-haskell-mode inferior-lisp-mode jde-javadoc-checker-report-mode log-view-mode mh-folder-mode monky-mode org-agenda-mode pass-mode proced-mode rcirc-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode rg-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sql-interactive-mode sr-buttons-mode sr-mode sr-tree-mode special-mode sr-virtual-mode tabulated-list-mode tar-mode term-char-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode))
@@ -269,16 +240,6 @@
               (auto-complete-mode -1)
               (define-key go-mode-map (kbd "K") 'godoc))))
 
-(use-package hl-line
-  :init
-  (when (is-theme-enabled 'cyberpunk)
-    (set-face-attribute 'hl-line nil :background "grey20"))
-  (when (is-theme-enabled 'tao-yin)
-    (set-face-attribute 'hl-line nil :background "grey20"))
-  (when (is-theme-enabled 'base16-default-dark)
-    (set-face-attribute 'hl-line nil :background "grey15")
-    (set-face-attribute 'region nil :foreground "light grey" :background "brown4")))
-
 (use-package ivy
   :init
   (ivy-mode t)
@@ -298,10 +259,6 @@
   :init
   (add-hook 'js2-mode-hook
             (lambda ()
-
-              (when (is-theme-enabled 'tao-yin)
-                (set-face-attribute 'js2-function-call nil :underline nil))
-
               (set-whitespace-line-column 80)
               (set-indent 4)
               (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
@@ -325,21 +282,6 @@
 (use-package magit
   :after evil
   :config
-  (when (is-theme-enabled 'cyberpunk)
-    (set-face-attribute 'magit-section-highlight nil :background "gray20"))
-  (when (is-theme-enabled 'leuven)
-    (set-face-attribute 'magit-section-highlight nil :background "gray95")
-    (set-face-attribute 'magit-diff-file-heading-highlight nil :background "gray80")
-    (set-face-attribute 'magit-diff-hunk-heading-highlight nil :background "gray70")
-    (set-face-attribute 'magit-diff-hunk-heading nil :background "gray90"))
-  (when (is-theme-enabled 'base16-tomorrow-dark)
-    (set-face-attribute 'magit-section-highlight nil :background "gray20"))
-  (when (is-theme-enabled 'base16-default-dark)
-    (set-face-attribute 'magit-section-highlight nil :background "gray20")
-    (set-face-attribute 'magit-diff-file-heading-highlight nil :background "gray20")
-    (set-face-attribute 'magit-diff-hunk-heading-highlight nil :background "gray30")
-    (set-face-attribute 'magit-diff-hunk-heading nil :background "gray20"))
-
   (setq
    ;; No recent commits -- confusing
    magit-log-section-commit-count 0
@@ -371,7 +313,7 @@
   :load-path "/usr/local/share/emacs/site-lisp/mu4e"
   :bind (("C-c mm" . mu4e)
          ("C-c mu" . mu4e-alert-view-unread-mails))
-  :config 
+  :config
   (define-key mu4e-headers-mode-map (kbd "U") (lambda () (interactive) (mu4e-refresh-headers nil)))
   (define-key mu4e-headers-mode-map (kbd "C-u U") (lambda () (interactive) (mu4e-refresh-headers t)))
 
@@ -380,33 +322,6 @@
   ;; Force starting automatic updates
   (mu4e~start)
   :init
-
-  (when (is-theme-enabled 'cyberpunk)
-    (set-face-attribute 'mu4e-flagged-face nil :inherit font-lock-constant-face :foreground "firebrick" :weight 'bold)
-    (set-face-attribute 'mu4e-replied-face nil :inherit font-lock-comment-face :weight 'normal))
-
-  (when (is-theme-enabled 'leuven)
-    (set-face-attribute 'mu4e-header-highlight-face nil :underline nil))
-
-  (when (is-theme-enabled 'base16-tomorrow-dark)
-    (set-face-attribute 'mu4e-flagged-face nil :inherit font-lock-constant-face :foreground "firebrick" :weight 'bold :underline nil)
-    (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :background "gray20"))
-
-  (when (is-theme-enabled 'tao-yin)
-    (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :background "gray20")
-    (set-face-attribute 'mu4e-title-face nil :inherit font-lock-type-face :underline nil))
-
-  (when (is-theme-enabled 'tao-yang)
-    (set-face-attribute 'mu4e-title-face nil :inherit font-lock-type-face :underline nil))
-
-  (when (is-theme-enabled 'tao-yang)
-    (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :background "gray85"))
-
-  (when (is-theme-enabled 'base16-default-dark)
-    (set-face-attribute 'mu4e-header-highlight-face nil :inherit nil :underline nil :weight 'bold :background "gray20")
-    (set-face-attribute 'mu4e-replied-face nil :inherit font-lock-comment-face :weight 'normal :foreground "gray50")
-    (set-face-attribute 'message-cited-text-face nil :inherit font-lock-comment-face :underline nil :foreground "gray60"))
-
   (setq
 
    ;; who am I?
@@ -522,30 +437,6 @@
 
   (add-hook 'org-mode-hook
             (lambda ()
-
-              ;; TODO have "my-load-theme" that enables all these, too
-              (when (is-theme-enabled 'leuven)
-                (set-face-attribute 'org-checkbox nil :foreground "#cccccc")
-                (set-face-attribute 'org-done nil :foreground "forest green")
-                (set-face-attribute 'org-todo nil :foreground "gray20")
-                (set-face-attribute 'org-scheduled-today nil :background "#ffffff" :weight 'normal))
-
-              (when (is-theme-enabled 'base16-default-dark)
-                (set-face-attribute 'org-checkbox nil :background "#666666" :foreground "#cccccc")
-                (set-face-attribute 'org-done nil :foreground "forest green")
-                (set-face-attribute 'org-scheduled-today nil :foreground "gray70" :weight 'normal)
-                (set-face-attribute 'org-scheduled nil :foreground "gray60" :weight 'normal))
-
-              (when (is-theme-enabled 'cyberpunk)
-                (set-face-attribute 'org-todo nil :foreground "gray40"))
-
-              (when (is-theme-enabled 'tao-yang)
-                (set-face-attribute 'org-scheduled-previously nil :foreground "gray40" :weight 'normal))
-
-              (when (is-theme-enabled 'tao-yin)
-                (set-face-attribute 'org-todo nil :background "black" :foreground "gray40")
-                (set-face-attribute 'org-scheduled-previously nil :foreground "gray50" :weight 'normal))
-
               (org-indent-mode t)
               (auto-fill-mode t)
               (flyspell-mode t)))
@@ -565,6 +456,14 @@
            (org . t)
            ;; (plantuml . t)
            (latex . t))))
+
+  :config
+  (org-copy-face 'org-todo 'org-strt "Face used for started tasks.")
+  (org-copy-face 'org-todo 'org-wait "Face used for waiting tasks.")
+  (org-copy-face 'org-todo 'org-delg "Face used for delegated tasks.")
+  (org-copy-face 'org-todo 'org-meet "Face used for meeting tasks.")
+  (org-copy-face 'org-todo 'org-canc "Face used for cancelled tasks.")
+  (org-copy-face 'org-todo 'org-defr "Face used for deferred tasks.")
 
   (setq org-agenda-files '("~/org/")
         org-agenda-include-diary t
@@ -669,16 +568,21 @@
         ;; Todos
         org-todo-keywords
         '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)")
-          (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "MEET(m@)" "PHON(p@)"))
+          (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "MEET(m@)"))
         org-todo-keyword-faces
         '(("TODO" . org-todo)
-          ("STRT" . font-lock-keyword-face)
-          ("WAIT" . font-lock-warning-face)
-          ("DELG" . font-lock-comment-face)
-          ("MEET" . org-todo)
-          ("PHONE" . org-todo)
-          ("CANC" . fringe)
-          ("DEFR" . font-lock-comment-face)
+          ;; ("STRT" . font-lock-keyword-face)
+          ("STRT" . org-strt)
+          ;; ("WAIT" . font-lock-warning-face)
+          ("WAIT" . org-wait)
+          ;; ("DELG" . font-lock-comment-face)
+          ("DELG" . org-delg)
+          ;; ("MEET" . org-todo)
+          ("MEET" . org-meet)
+          ;; ("CANC" . fringe)
+          ("CANC" . org-canc)
+          ;; ("DEFR" . font-lock-comment-face)
+          ("DEFR" . org-defr)
           ("DONE" . org-done))
         org-log-done 'time
         org-log-into-drawer t))
@@ -718,7 +622,7 @@
               (modify-syntax-entry ?\_ "w"))))
 
 (use-package projectile
-  :init 
+  :init
   (projectile-mode)
   (global-set-key (kbd "<f5>") 'projectile-compile-project)
   :config
@@ -766,7 +670,14 @@
               (local-set-key (kbd "RET") 'newline-and-indent))))
 
 (use-package racer
-  :after rust-mode)
+  :after rust-mode
+  :init
+  (add-hook 'rust-mode-hook
+            (lambda ()
+              (racer-mode)))
+  :config
+  (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
+  (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition))
 
 (use-package restclient
   :mode (("\\.http\\'" . restclient-mode)
@@ -791,18 +702,12 @@
 (use-package rust-mode
   :after evil
   :mode (("\\.rs\\'" . rust-mode))
-  :init
-  (setq rust-format-on-save t)
-  (add-hook 'rust-mode-hook
-            (lambda ()
-              (racer-mode)))
   :config
-  (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
-  (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition))
+  (setq rust-format-on-save t))
 
 (use-package sh-script
-  :mode ((".zsh" . shell-script-mode)
-         (".bash" . shell-script-mode)
+  :mode (("\\.zsh" . shell-script-mode)
+         ("\\.bash" . shell-script-mode)
          ("\\.sh\\'" . shell-script-mode)))
 
 (use-package smtpmail
@@ -820,12 +725,10 @@
   (global-set-key (kbd "C-s") 'swiper))
 
 (use-package text-mode
-  ;; :mode "README"
+  :mode "^README\\'"
   :init
   (add-hook 'text-mode-hook
             (lambda ()
-              ;; TODO this breaks mu4e reply for certain msgs!
-              ;; (modify-syntax-entry ?\_ "w")
               (flyspell-mode t))))
 
 (use-package toml-mode)
