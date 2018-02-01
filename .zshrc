@@ -189,6 +189,10 @@ function __venv_ps1 {
     fi
 }
 
+function __k8s_ps1 {
+    echo `kubectl config get-contexts | awk '/\*/ { printf "(K8S:%s|%s)", $3, $5}'`
+}
+
 function __haskell_pkg_info {
     # TODO should search for files in parent dirs, too
     # Use .zsh extended globbing
@@ -209,7 +213,7 @@ function __haskell_pkg_info {
 GIT_PS1_SHOWDIRTYSTATE=true
 export PROMPT='%B%(?..[%?] )%b%n@%U%m%u %F%B%{$fg[yellow]%}%~%f%{$reset_color%}%b % > '
 # export RPROMPT='%B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)$(__haskell_pkg_info)%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
-export RPROMPT='%B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)%b %{$fg[green]%}$(__venv_ps1)%{$reset_color%}%'
+export RPROMPT='%{$fg[green]%}$(__venv_ps1)%{$reset_color%} %B$(__git_ps1 "(GIT:%s)")$(__hg_ps1)%b %B%{$fg[cyan]%}$(__k8s_ps1)%{$reset_color%}%b'
 #}}}
 
 #{{{ Bindings
