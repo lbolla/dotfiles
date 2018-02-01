@@ -41,6 +41,7 @@
     ; a = add
     ; d = diff
     ; review = push origin HEAD:refs/for/master # push for review on gerrit
+    tags = tag --sort=-taggerdate
     rank = shortlog -sn --no-merges
     searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
     last = cat-file commit HEAD
