@@ -194,12 +194,13 @@
       (goto-char temp-point))))
 
 (defcustom my-fonts '(
-                      ;; "Ubuntu Mono-12"
-                      ;; "ProggyCleanTT-12"
+                      "Ubuntu Mono-12"
+                      "ProggyCleanTT-12"
                       "Terminus-12"
                       "IBM 3270 Narrow-14"
-                      ;; "Input-12"
-                      "Monoid-9"
+                      "Input-12"
+                      ;; "Monoid-9"
+                      "Monoid-11"
                       ) "List of fonts I like." :group 'local)
 
 (defun cycle-fonts ()
@@ -286,7 +287,7 @@
      "cd "
      (venv-get-proj-dir)
      " && "
-     "py.test --color=no -v "
+     "py.test --color=no -sv "
      ,@what)))
 
 (defun python-indent-jaraco ()
@@ -349,11 +350,54 @@
   (interactive "i")
   (venv-workon venv)
   (venv-cdproject)
-  (venv-build-python-etags)
+  ;; Replaced etags with dumb-jump
+  ;; (venv-build-python-etags)
   (dired default-directory)
+  (projectile-switch-project-by-name default-directory)
   (revert-buffer)
   (projectile-vc)
   (other-window 1))
+
+(defun lbolla.info/org-publish-sitemap-format-entry (entry style project)
+  "Format ENTRY for sitemap STYLE for PROJECT lbolla.info."
+  (cond ((not (directory-name-p entry))
+         (let ((date (org-publish-find-property entry :date project)))
+           (if date
+             (format "<%s> [[file:%s][%s]]"
+                     (format-time-string "%Y-%m-%d" (org-publish-find-date entry project))
+                     entry
+                     (org-publish-find-title entry project))
+             ;; Don't show if no date is set
+             "")))
+        ((eq style 'tree)
+         ;; Return only last subdir.
+         (file-name-nondirectory (directory-file-name entry)))
+        (t entry)))
+
+(defun lbolla.info/org-publish-sitemap-function (title list)
+  "Default site map, as a string.
+TITLE is the the title of the site map.  LIST is an internal
+representation for the files to include, as returned by
+`org-list-to-lisp'.  PROJECT is the current project."
+  (let* ((hd (car list))
+         (tl (seq-remove (lambda (x) (equal x '(""))) (cdr list)))
+         (new-list (cons hd tl)))
+    (concat "#+TITLE: " title "\n\n"
+            (org-list-to-org new-list))))
+
+(defun lbolla.info/html-preamble (info)
+  "Return a preamble given a plist INFO."
+  (let* ((spec (org-html-format-spec info))
+         (date (cdr (assq ?d spec)))
+         (author (cdr (assq ?a spec))))
+    (when (and date (> (length date) 0))
+      (format "<span class=\"timestamp\"><%s></span> by <em>%s</em>" (format-time-string "%Y-%m-%d" (org-time-string-to-time date)) author))))
+
+(defun mu4e-headers-narrow-thing-at-point ()
+  "Narrow mu4e search querying for thing at point."
+  (interactive)
+  (let ((q (thing-at-point 'symbol)))
+    (mu4e-headers-search-narrow q)))
 
 (provide 'defuns)
 ;;; defuns.el ends here

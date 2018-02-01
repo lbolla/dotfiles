@@ -1,24 +1,24 @@
-;;; Packages that I used to use
-;;; Commentary:
-;;; 13 November 2017
+Packages that I used to use
+Commentary:
+13 November 2017
 
-;; TODO use C-w hjkl instead
-;; (global-set-key (kbd "C-c h") 'windmove-left)
-;; (global-set-key (kbd "C-c j") 'windmove-down)
-;; (global-set-key (kbd "C-c k") 'windmove-up)
-;; (global-set-key (kbd "C-c l") 'windmove-right)
-;; (global-set-key (kbd "C-c u") 'undo-tree-visualize)
-;; (global-set-key (kbd "<f6>") 'gdb)
-;; (global-set-key (kbd "<f7>") 'async-shell-command)
-;; (global-set-key (kbd "C-c b b") 'browse-url-at-point)
-;; (global-set-key (kbd "C-c b w")
-;;                 (lambda ()
-;;                   (interactive)
-;;                   (w3m-goto-url (thing-at-point 'word))))
-;; (global-set-key (kbd "C-c b e")
-;;                 (lambda ()
-;;                   (interactive)
-;;                   (eww (thing-at-point 'word))))
+TODO use C-w hjkl instead
+(global-set-key (kbd "C-c h") 'windmove-left)
+(global-set-key (kbd "C-c j") 'windmove-down)
+(global-set-key (kbd "C-c k") 'windmove-up)
+(global-set-key (kbd "C-c l") 'windmove-right)
+(global-set-key (kbd "C-c u") 'undo-tree-visualize)
+(global-set-key (kbd "<f6>") 'gdb)
+(global-set-key (kbd "<f7>") 'async-shell-command)
+(global-set-key (kbd "C-c b b") 'browse-url-at-point)
+(global-set-key (kbd "C-c b w")
+                (lambda ()
+                  (interactive)
+                  (w3m-goto-url (thing-at-point 'word))))
+(global-set-key (kbd "C-c b e")
+                (lambda ()
+                  (interactive)
+                  (eww (thing-at-point 'word))))
 
 (use-package ace-jump-mode)
 
@@ -41,12 +41,22 @@
   :init (progn
           ))
 
+(use-package ffap
+  :config
+  (add-to-list 'ffap-c-path "../deps")
+  (add-to-list 'ffap-c-path "../../deps"))
+
 (use-package flycheck-ats2
   :load-path "/home/lbolla/src/ATS2-Postiats-0.3.3/utils/emacs/"
   :after ats2-mode
   :commands flycheck-ats2-setup
   :init (progn
           (flycheck-ats2-setup)))
+
+(use-package fzf
+  :defer t
+  :config
+  (setq fzf/executable (expand-file-name "~/.fzf/bin/fzf")))
 
 (use-package auto-revert-tail-mode
   :mode ("\\.log\\'" . auto-revert-tail-mode))
@@ -264,3 +274,18 @@
   ;; (set-face-attribute 'magit-diff-hunk-heading-highlight nil :background "gray30")
   ;; (set-face-attribute 'magit-diff-hunk-heading nil :background "gray20")
   )
+
+;; Evil settings
+
+;; evil-emacs-state-modes '(Custom-mode Electric-buffer-menu-mode alchemist-iex-mode alchemist-mix-mode alchemist-test-report-mode archive-mode bbdb-mode bookmark-edit-annotation-mode browse-kill-ring-mode bzr-annotate-mode calc-mode calculator-mode cfw:calendar-mode cider-popup-buffer-mode cider-repl-mode comint-mode completion-list-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode diff-mode display-time-world-mode doc-view-mode docker-containers-mode docker-images-mode doctor-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-meta-mode ediff-mode efs-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode etags-select-mode eww-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode git-rebase-mode gnus-article-mode gnus-browse-mode gnus-group-mode gnus-server-mode gnus-summary-mode google-maps-static-mode haskell-error-mode haskell-interactive-mode help-mode inferior-haskell-mode inferior-lisp-mode jde-javadoc-checker-report-mode log-view-mode mh-folder-mode monky-mode org-agenda-mode pass-mode proced-mode rcirc-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode rg-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode sql-interactive-mode sr-buttons-mode sr-mode sr-tree-mode special-mode sr-virtual-mode tabulated-list-mode tar-mode term-char-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vc-annotate-mode vc-dir-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode))
+
+  ;; (define-key evil-normal-state-map (kbd ", SPC") 'ace-jump-mode)
+  ;; (define-key evil-normal-state-map (kbd "gp") 'insert-x-primary-selection)
+  ;; (define-key evil-normal-state-map (kbd ",Cgg") 'counsel-git-grep)
+  ;; (define-key evil-normal-state-map (kbd ",f") 'cycle-fonts)
+  ;; (define-key evil-normal-state-map (kbd ",gg") 'vc-git-grep)
+  ;; (define-key evil-normal-state-map (kbd ",gt") 'tags-search)
+  ;; (define-key evil-normal-state-map (kbd ",hb") 'vc-annotate)
+  ;; (define-key evil-normal-state-map (kbd ",t") 'fzf-evil)
+  ;; (define-key evil-normal-state-map (kbd ",K") 'eww-at-point)
+  ;; (define-key evil-visual-state-map (kbd ",K") 'eww-region)
