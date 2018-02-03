@@ -4,8 +4,11 @@ tags
 .DS_Store
 secret
 aliases
+*private*
+*.eld
 .centerim/*
 .vim/bundle
+.vim/.netrwhist
 /.emacs.d/.cask/
 /.emacs.d/.python-environments/
 /.emacs.d/ac-comphist.dat
