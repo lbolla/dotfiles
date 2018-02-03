@@ -357,6 +357,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "c",      function () awful.util.spawn("google-chrome --profile-directory=Default --explicitly-allowed-ports=6000") end),
     awful.key({ modkey, "Control" }, "c",      function () awful.util.spawn("google-chrome --incognito") end),
     awful.key({ modkey,           }, "e",      function () awful.util.spawn("emacs") end),
+    -- awful.key({ modkey,           }, "e",      function () awful.util.spawn("emacsclient -c") end),
     -- awful.key({ modkey,           }, "t",      function () awful.util.spawn("thunderbird") end),
     -- awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
     awful.key({ modkey,           }, "s",      function () awful.util.spawn("slack") end),
