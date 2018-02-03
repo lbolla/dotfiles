@@ -13,6 +13,7 @@ alias -s JPG=$IMAGEVIEWER
 alias -s json='jq . < '
 alias -s png=$IMAGEVIEWER
 
+# We want this: https://github.com/sharkdp/fd
 unalias fd
 
 function docker-images-children {
