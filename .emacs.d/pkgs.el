@@ -10,12 +10,12 @@
 ;;; Note: keep the `setq` here to allow commented out archives
 (setq package-archives
       '(
-        ("melpa" . "http://melpa.org/packages/")
-        ;; ("melpa-stable" . "http://stable.melpa.org/packages/")
-        ;; ("marmalade" . "http://marmalade-repo.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")
-        ;; ("gnu" . "http://elpa.gnu.org/packages/")
-        ;; ("sc" . "http://joseito.republika.pl/sunrise-commander/")
+        ("melpa" . "https://melpa.org/packages/")
+        ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ;; ("marmalade" . "https://marmalade-repo.org/packages/")
+        ("org" . "https://orgmode.org/elpa/")
+        ;; ("gnu" . "https://elpa.gnu.org/packages/")
+        ;; ("sc" . "https://joseito.republika.pl/sunrise-commander/")
         ))
 
 (eval-when-compile
@@ -91,18 +91,11 @@
 (use-package diminish
   :demand t
   :init
-  ;; Diminish built-in modes here
-  ;; Other modes are diminished by use-package
-
-  ;; (diminish 'auto-revert-mode)
-  ;; (diminish 'flyspell-mode)
-  ;; (diminish 'hs-minor-mode)
-  ;; (diminish 'whitespace-mode)
-
-  ;; TODO auto-fill-mode
   (eval-after-load 'autorevert '(diminish 'auto-revert-mode))
   (eval-after-load 'flyspell '(diminish 'flyspell-mode))
   (eval-after-load 'hideshow '(diminish 'hs-minor-mode))
+  (eval-after-load 'org-indent '(diminish 'org-indent-mode))
+  (eval-after-load 'simple '(diminish 'auto-fill-function))
   (eval-after-load 'whitespace '(diminish 'whitespace-mode)))
 
 (use-package doc-view
@@ -200,6 +193,7 @@
 
 (use-package evil-org
   :demand t
+  :diminish
   :after (evil org)
   :config
   (add-hook 'org-mode-hook 'evil-org-mode)
@@ -794,6 +788,10 @@
   :init
   (projectile-mode)
   (global-set-key (kbd "<f5>") 'projectile-compile-project))
+
+(use-package nsm
+  :demand t
+  :custom (network-security-level 'high))
 
 (use-package python
   ;; :defer t

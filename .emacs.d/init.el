@@ -21,7 +21,7 @@
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
-   ["#C2C2C2" "#161616" "#252525" "#080808" "#0E0E0E" "#161616" "#080808" "#080808"])
+   ["#282c34" "#ff6c6b" "#98be65" "#da8548" "#61afef" "#c678dd" "#1f5582" "#abb2bf"])
  '(auth-source-debug nil)
  '(auth-sources
    (quote
@@ -90,7 +90,8 @@
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(org-html-htmlize-output-type (quote css))
+ '(network-security-level (quote high))
+ '(org-html-htmlize-output-type (quote css) t)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
@@ -105,20 +106,15 @@
  '(recentf-max-saved-items 100)
  '(rg-custom-type-aliases
    (quote
-    ((#("gn" 0 1
-        (idx 0))
-      . "*.gn *.gni")
-     (#("gyp" 0 1
-        (idx 1))
-      . "*.gyp *.gypi")
-     (#("tmpl" 0 1
-        (idx 2))
-      . "*.tmpl"))))
+    (("gn" . "*.gn *.gni")
+     ("gyp" . "*.gyp *.gypi")
+     ("tmpl" . "*.tmpl"))) t)
  '(rg-define-toggle "--context 3" t)
- '(rg-group-result t)
- '(rust-format-on-save t t)
+ '(rg-group-result t t)
+ '(rust-format-on-save t)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
+ '(tls-checktrust (quote ask))
  '(tool-bar-mode nil)
  '(tramp-default-method "ssh")
  '(undo-tree-visualizer-diff nil)
@@ -174,6 +170,12 @@
                   (interactive)
                   (find-file "~/.emacs.d/pkgs.el")))
 (global-set-key (kbd "C-c z") 'zoom-window-zoom)
+(global-set-key (kbd "C-c C-q")
+                (lambda ()
+                  (interactive)
+                  ;; Kill daemonized Emacs
+                  (when (y-or-n-p "Quit Emacs? ")
+                    (save-buffers-kill-emacs))))
 (global-set-key (kbd "<f8>") 'pass)
 (global-set-key (kbd "S-<f8>") 'password-store-copy)
 (global-set-key (kbd "<f10>") 'menu-bar-mode)
@@ -193,9 +195,9 @@
 (tool-bar-mode 0)
 
 ;; (load-theme-cyberpunk)
-(load-theme-leuven)
+;; (load-theme-leuven)
 ;; (load-theme-quasi-monochrome)
-;; (load-theme-zerodark)
+(load-theme-zerodark)
 
 (server-start)
 
