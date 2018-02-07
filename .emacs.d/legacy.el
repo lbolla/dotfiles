@@ -1,8 +1,8 @@
-Packages that I used to use
-Commentary:
-13 November 2017
+;; Packages that I used to use
+;; Commentary:
+;; 13 November 2017
 
-TODO use C-w hjkl instead
+;; TODO use C-w hjkl instead
 (global-set-key (kbd "C-c h") 'windmove-left)
 (global-set-key (kbd "C-c j") 'windmove-down)
 (global-set-key (kbd "C-c k") 'windmove-up)

@@ -54,20 +54,6 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode))
 
-;; racer provides its own autocompletion, but it's slow
-;; TODO add more info to MATCHES (see racer)
-;; TODO bind C-i instead of TAB
-(use-package company-racer
-  ;; :defer t
-  :load-path "/home/lbolla/src/company-racer/"
-  :after (company evil rust)
-  :defines rust-mode-map
-  :init
-  (add-hook 'rust-mode-hook
-            (lambda ()
-              ;; (company-racer 'init)
-              (evil-define-key 'insert rust-mode-map (kbd "M-TAB") 'company-racer))))
-
 (use-package counsel)
 
 (use-package css-mode
@@ -246,24 +232,21 @@
   (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t))
 
 (use-package flycheck-cython
-  ;; :defer t
+  :demand t
   :load-path "/home/lbolla/src/emacs-flycheck-cython/"
   :after flycheck)
 
 (use-package flycheck-mypy
-  ;; :defer t
+  :demand t
   :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
   :after flycheck
+  :custom
+  (flycheck-python-mypy-args '("--ignore-missing-imports" "--follow-imports=skip"))
   :config
-  ;; TODO set it depending on which Python version I'm using
-  ;; TODO consider using mypy.ini in repo dir, instead
-  ;; http://mypy.readthedocs.io/en/latest/config_file.html
-  ;; TODO http://blog.zulip.org/2016/10/13/static-types-in-python-oh-mypy/
-  (setq flycheck-python-mypy-args '("--py2" "--silent-imports"))
   (flycheck-add-next-checker 'python-pylint '(warning . python-mypy) t))
 
 (use-package flycheck-flow
-  ;; :defer t
+  :demand t
   :load-path "/home/lbolla/src/emacs-flycheck-flow/"
   :after flycheck
   :config
@@ -271,7 +254,7 @@
   (flycheck-add-next-checker 'javascript-jshint '(warning . javascript-flow) t))
 
 (use-package flycheck-rust
-  ;; :defer t
+  :demand t
   :after rust-mode
   :init
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
@@ -782,7 +765,7 @@
   :diminish
   :custom
   (projectile-globally-ignored-directories
-   '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "dist" ".cache" ".eggs" ".tox" "__pycache__"))
+   '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "dist" ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
   (projectile-globally-ignored-file-suffixes '("pyc"))
   (projectile-switch-project-action 'projectile-dired)
   :init
@@ -833,23 +816,15 @@
               ;; Enter key executes newline-and-indent
               (local-set-key (kbd "RET") 'newline-and-indent))))
 
-;; TODO is there a way to only trigger autocompletion on keypress?
-;; See https://www.gnu.org/software/emacs/manual/html_node/elisp/Completion-in-Buffers.html
 (use-package racer
   :after (evil rust-mode)
-  ;; Don't enable racer-mode, which turns on autocompletion, which is slow
-  ;; :init
-  ;; (add-hook 'rust-mode-hook
-  ;;           (lambda ()
-  ;;             (racer-mode)
-  ;;             ;; https://github.com/racer-rust/emacs-racer/issues/86
-  ;;             ;; (setq-local eldoc-documentation-function #'ignore)
-  ;;             ))
   :init
-  ;; For some reason, racer-describe is not "autoload"ed
-  (autoload 'racer-describe "racer" nil t)
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
   (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
-  (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition))
+  (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition)
+  (setq company-tooltip-align-annotations t))
 
 (use-package restclient
   ;; :defer t

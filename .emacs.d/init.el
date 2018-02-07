@@ -75,7 +75,7 @@
  '(eww-search-prefix "https://www.ixquick.com/do/search?q=")
  '(explicit-shell-file-name "/usr/bin/bash")
  '(fci-rule-color "#383838")
- '(flycheck-javascript-flow-args nil t)
+ '(flycheck-javascript-flow-args nil)
  '(font-use-system-font t)
  '(gc-cons-threshold 5000000)
  '(godef-command "/home/lbolla/src/go/bin/godef")
@@ -83,10 +83,11 @@
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
+ '(initial-scratch-message ";; SCRATCH\n\n")
  '(ivy-use-virtual-buffers t)
  '(js2-mode-show-strict-warnings nil t)
  '(linum-format " %7i ")
- '(magit-completing-read-function (quote ivy-completing-read))
+ '(magit-completing-read-function (quote ivy-completing-read) t)
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
@@ -95,12 +96,12 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist company-racer evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m virtualenvwrapper use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode jedi hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode company-jedi)))
+    (which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m virtualenvwrapper use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode jedi hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode company-jedi)))
  '(password-store-password-length 16)
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "dist" ".cache" ".eggs" ".tox" "__pycache__")))
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "dist" ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache")))
  '(projectile-globally-ignored-file-suffixes (quote ("pyc")))
  '(projectile-switch-project-action (quote projectile-dired))
  '(recentf-max-saved-items 100)
@@ -199,7 +200,8 @@
 ;; (load-theme-quasi-monochrome)
 (load-theme-zerodark)
 
-(server-start)
+(when (not server-process)
+  (server-start))
 
 (provide 'init)
 ;;; init.el ends here
