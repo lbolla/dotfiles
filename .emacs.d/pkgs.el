@@ -78,6 +78,7 @@
   :demand t
   :init
   (eval-after-load 'autorevert '(diminish 'auto-revert-mode))
+  (eval-after-load 'eldoc '(diminish 'eldoc-mode))
   (eval-after-load 'flyspell '(diminish 'flyspell-mode))
   (eval-after-load 'hideshow '(diminish 'hs-minor-mode))
   (eval-after-load 'org-indent '(diminish 'org-indent-mode))
@@ -817,6 +818,7 @@
               (local-set-key (kbd "RET") 'newline-and-indent))))
 
 (use-package racer
+  :diminish
   :after (evil rust-mode)
   :init
   (add-hook 'rust-mode-hook #'racer-mode)

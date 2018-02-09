@@ -355,7 +355,7 @@
   (dired default-directory)
   (projectile-switch-project-by-name default-directory)
   (revert-buffer)
-  (projectile-vc)
+  (projectile-vc default-directory)
   (other-window 1))
 
 (defun lbolla.info/org-publish-sitemap-format-entry (entry style project)
