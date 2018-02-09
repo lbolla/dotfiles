@@ -1,9 +1,10 @@
-XIVIEWER=eog
-
+alias -g GV="| grep -v"
 alias -g J="| jq ."
 alias -g S="| sort"
 alias -g SN="| sort -n"
 alias -g T="| tar t"
+alias -g U="| sort | uniq -c"
+alias -g UN="| sort -n | uniq -c"
 
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 alias docker-images-tree="dockviz images -t -l"
@@ -24,8 +25,4 @@ function docker-images-children {
     do
         docker history $i | grep -v $i | grep -q $1 && echo $i
     done | sort -u
-}
-
-function dus {
-    du $* | sort -n
 }
