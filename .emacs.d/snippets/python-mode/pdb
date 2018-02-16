@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: pdb breakpoint
+# key: pdb
+# --
+
+import pdb; pdb.set_trace()

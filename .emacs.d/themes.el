@@ -32,6 +32,7 @@
   (interactive)
   (switch-theme 'leuven)
   (custom-theme-set-faces 'leuven
+   `(highlight-indentation-face        ((t (:inherit (fringe) :background "gray97"))))
   ;;  `(magit-diff-file-heading-highlight ((t (:background "gray80"))))
   ;;  `(magit-diff-hunk-heading           ((t (:background "gray90"))))
   ;;  `(magit-diff-hunk-heading-highlight ((t (:background "gray70"))))
@@ -82,6 +83,7 @@
   (use-package zerodark-theme
     :demand t)
   (custom-theme-set-faces 'zerodark
+   `(highlight-indentation-face        ((t (:inherit (fringe) :background "#24282f"))))
    `(org-canc                          ((t (:inherit (org-todo) :foreground "dark gray" :strike-through t))))
    `(org-delg                          ((t (:inherit (org-todo) :foreground "gray")))))
   (zerodark-setup-modeline-format)

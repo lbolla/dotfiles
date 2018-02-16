@@ -152,6 +152,10 @@
           (setq ido-enable-flex-matching t
                 ido-file-extensions-order '(".py" ".js" ".html" ".css" t))))
 
+(use-package jedi
+  ;; :defer t
+  )
+
 (use-package js
   :disabled t
   :init (progn
@@ -173,6 +177,46 @@
             (multi-term)
             (evil-local-mode -1))
           (global-set-key (kbd "C-c C-t") 'multi-term-evil)))
+
+(use-package python
+  ;; :defer t
+  :after evil
+  :mode (("\\.py\\'" . python-mode)
+         ("\\.pyi\\'" . python-mode) ;; type stub files
+         ("\\.mk\\'" . python-mode)) ;; check-mk config files
+  :config
+  (font-lock-add-keywords
+   'python-mode
+   '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)
+     ("\\<\\(FIXME\\)\\>" 1 font-lock-warning-face t)
+     ("\\<\\(XXX\\)\\>" 1 font-lock-warning-face t)))
+  :hook
+  (python-mode . (lambda ()
+                   ;; Autocompletion
+                   ;; (jedi:setup)
+                   ;; Turn off AC and use company instead
+                   ;; (auto-complete-mode -1)
+                   ;; (add-to-list 'company-backends 'company-jedi)
+
+                   ;; Hideshow mode to handle folding
+                   (hs-minor-mode t)
+
+                   ;; PEP8set-whitespace-line-column line width
+                   (set-whitespace-line-column 79)
+
+                   ;; Keybidings
+                   (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
+                   ;; (evil-define-key 'normal python-mode-map (kbd ",pt") 'python-pytest-current-function)
+                   ;; (evil-define-key 'normal python-mode-map (kbd ",pT") 'python-pytest-current-file)
+                   ;; (evil-define-key 'normal python-mode-map (kbd ",pf") 'python-pyformat-buffer)
+                   (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
+                   ;; (evil-define-key 'normal python-mode-map (kbd ",pt") 'python-insert-type-annotation)
+                   (evil-define-key 'normal python-mode-map (kbd "gf") (lambda () (interactive) (elpy-find-file t)))
+                   (evil-define-key 'normal python-mode-map (kbd "C-]") 'elpy-goto-definition)
+
+                   ;; Enter key executes newline-and-indent
+                   ;; (local-set-key (kbd "RET") 'newline-and-indent)
+                   )))
 
 (use-package rcirc
   :disabled t
@@ -254,6 +298,13 @@
    '(yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-no-prompt)
    yas-snippet-dirs (quote (yas-installed-snippets-dir))))
 
+;; TODO
+;; (use-package virtualenvwrapper
+;;   ;; :defer t
+;;   :bind (("C-c v w" . venv-workon-and-cdproject))
+;;   :config
+;;   (venv-initialize-interactive-shells)
+;;   (venv-initialize-eshell))
 
 (defun load-theme-base16-default-dark ()
   "Load `base-16-default-dark` theme."
@@ -289,3 +340,71 @@
   ;; (define-key evil-normal-state-map (kbd ",t") 'fzf-evil)
   ;; (define-key evil-normal-state-map (kbd ",K") 'eww-at-point)
   ;; (define-key evil-visual-state-map (kbd ",K") 'eww-region)
+
+
+;; (defun venv-cdproject ()
+;;   "Change directory to the current project directory, if set."
+;;   (interactive)
+;;   (let ((dir (venv-get-proj-dir)))
+;;     (if dir
+;;         (cd dir))))
+
+;; (defun venv-build-python-etags ()
+;;   "Build etags for venv."
+;;   (interactive)
+;;   (let ((dir (venv-get-proj-dir)))
+;;     (shell-command
+;;      (concat "find " dir " -name \"*.py\" | fgrep -ve node_modules/ -ve build/ -ve dist/ -ve .egg/ | xargs etags -f " dir "/TAGS")
+;;      nil nil)
+;;     (setq tags-file-name (concat dir "/TAGS"))))
+
+;; (defun venv-workon-and-cdproject (venv)
+;;   "Activate VENV and cd to it."
+;;   (interactive "i")
+;;   (venv-workon venv)
+;;   ;; (pyvenv-workon venv)
+;;   (venv-cdproject)
+;;   (message default-directory)
+;;   (elpy-rpc-restart)
+;;   ;; Replaced etags with dumb-jump
+;;   ;; (venv-build-python-etags)
+;;   (dired default-directory)
+;;   (projectile-switch-project-by-name default-directory)
+;;   (revert-buffer)
+;;   (projectile-vc default-directory)
+;;   (other-window 1)
+;;   )
+
+;; TODO elpy C-c C-t is better
+;; (defmacro venv-pytest (&rest what)
+;;   `(async-shell-command
+;;     (concat
+;;      "cd "
+;;      (venv-get-proj-dir)
+;;      " && "
+;;      "py.test --color=no -sv "
+;;      ,@what)))
+
+;; (defun python-pytest-current-file ()
+;;   "Run py.test for current file."
+;;   (interactive)
+;;   (venv-pytest (buffer-file-name)))
+
+;; (defun python-pytest-at-point ()
+;;   "Run py.test thing at point."
+;;   (interactive)
+;;   (venv-pytest
+;;    (buffer-file-name)
+;;    " -k "
+;;    (thing-at-point 'word)))
+
+;; (defun python-pytest-current-function ()
+;;   "Run py.test for current function."
+;;   (interactive)
+;;   (venv-pytest
+;;    (buffer-file-name)
+;;    " -k "
+;;    (python-current-function)))
+
+  ;; (add-hook 'electric-indent-functions
+  ;;           'electric-indent-ignore-python)

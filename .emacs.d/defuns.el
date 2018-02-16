@@ -263,6 +263,7 @@
   (end-of-line)
   (insert "  # type: ")
   (evil-insert-state))
+
 (defun python-current-function ()
   (save-excursion
     (end-of-line)
@@ -281,42 +282,13 @@
       (unless (= 0 (buffer-size outbuf))
         (display-buffer outbuf)))))
 
-(defmacro venv-pytest (&rest what)
-  `(async-shell-command
-    (concat
-     "cd "
-     (venv-get-proj-dir)
-     " && "
-     "py.test --color=no -sv "
-     ,@what)))
-
 (defun python-indent-jaraco ()
   "Set jaraco-style indentation."
   (interactive)
   (python-indent-guess-indent-offset)
   (setq indent-tabs-mode t))
 
-(defun python-pytest-current-file ()
-  "Run py.test for current file."
-  (interactive)
-  (venv-pytest (buffer-file-name)))
-
-(defun python-pytest-at-point ()
-  "Run py.test thing at point."
-  (interactive)
-  (venv-pytest
-   (buffer-file-name)
-   " -k "
-   (thing-at-point 'word)))
-
-(defun python-pytest-current-function ()
-  "Run py.test for current function."
-  (interactive)
-  (venv-pytest
-   (buffer-file-name)
-   " -k "
-   (python-current-function)))
-
+;; TODO use elpy yapf instead
 (defun python-pyformat-buffer ()
   "Run pyformat on current buffer."
   (interactive)
@@ -325,38 +297,25 @@
 
 (defun venv-get-proj-dir ()
   "While in a venv, return the project directory or nil."
-  (let ((fn (concat (getenv "VIRTUAL_ENV") ".project")))
-    (if (file-exists-p fn)
-        (chomp (read-file-in-string fn)))))
-
-(defun venv-cdproject ()
-  "Change directory to the current project directory, if set."
-  (interactive)
-  (let ((dir (venv-get-proj-dir)))
-    (if dir
-        (cd dir))))
-
-(defun venv-build-python-etags ()
-  "Build etags for venv."
-  (interactive)
-  (let ((dir (venv-get-proj-dir)))
-    (shell-command
-     (concat "find " dir " -name \"*.py\" | fgrep -ve node_modules/ -ve build/ -ve dist/ -ve .egg/ | xargs etags -f " dir "/TAGS")
-     nil nil)
-    (setq tags-file-name (concat dir "/TAGS"))))
+  (let ((fn (concat (file-name-as-directory (getenv "VIRTUAL_ENV")) ".project")))
+    (when (file-exists-p fn)
+      (chomp (read-file-in-string fn)))))
 
 (defun venv-workon-and-cdproject (venv)
   "Activate VENV and cd to it."
-  (interactive "i")
-  (venv-workon venv)
-  (venv-cdproject)
-  ;; Replaced etags with dumb-jump
-  ;; (venv-build-python-etags)
-  (dired default-directory)
-  (projectile-switch-project-by-name default-directory)
-  (revert-buffer)
-  (projectile-vc default-directory)
-  (other-window 1))
+  (interactive
+   (list
+    (completing-read "Work on: " (pyvenv-virtualenv-list)
+                     nil t nil 'pyvenv-workon-history nil nil)))
+  (pyvenv-workon venv)
+  (elpy-rpc-restart)
+  (let ((dir (venv-get-proj-dir)))
+    (when (not (string-equal (getenv "HOME") dir))
+      (delete-other-windows)
+      (dired dir)
+      (projectile-switch-project-by-name dir)
+      (projectile-vc dir)
+      (other-window 1))))
 
 (defun lbolla.info/org-publish-sitemap-format-entry (entry style project)
   "Format ENTRY for sitemap STYLE for PROJECT lbolla.info."

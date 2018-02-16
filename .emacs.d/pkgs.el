@@ -32,7 +32,6 @@
 
 ;; TODO builtin, move to init?
 (use-package cc-mode
-  ;; :defer t
   :init
   ;; Run indent on save
   ;; (add-hook 'before-save-hook 'c-indent)
@@ -51,25 +50,24 @@
   :custom
   (company-idle-delay 0.2)
   (company-tooltip-align-annotations t)
-  :init
-  (add-hook 'after-init-hook 'global-company-mode))
+  :hook
+  (after-init . global-company-mode))
+
+(use-package conf-mode
+  :mode (rx "rc" eol))
 
 (use-package counsel)
 
 (use-package css-mode
-  ;; :defer t
   :mode (("\\.scss\\'" . css-mode))
-  :init
-  (add-hook 'css-mode-hook
-            (lambda ()
-              (modify-syntax-entry ?\- "w"))))
+  :hook
+  (css-mode . (lambda ()
+                (modify-syntax-entry ?\- "w"))))
 
 (use-package csv-mode
-  ;; :defer t
   :mode ("\\.csv\\'" . csv-mode))
 
 (use-package cython-mode
-  ;; :defer t
   :after evil
   :config
   (evil-define-key 'normal cython-mode-map (kbd ",a") 'cython-show-annotated))
@@ -86,10 +84,9 @@
   (eval-after-load 'whitespace '(diminish 'whitespace-mode)))
 
 (use-package doc-view
-  :init
-  (add-hook 'doc-view-mode
-            (lambda ()
-              (setq cursor-type nil))))
+  :hook
+  (doc-view . (lambda ()
+                (setq cursor-type nil))))
 
 (use-package dockerfile-mode
   :mode (rx "Dockerfile" (zero-or-more "." (one-or-more anything)) eol))
@@ -103,13 +100,20 @@
 
 (use-package electric
   :config
-  (electric-indent-mode t)
-  (add-hook 'electric-indent-functions
-            'electric-indent-ignore-python))
+  (electric-indent-mode t))
 
-(use-package ess
-  ;; :defer t
-  )
+(use-package elpy
+  :diminish
+  :custom
+  (elpy-modules '(elpy-module-sane-defaults
+                  elpy-module-company
+                  elpy-module-eldoc
+                  elpy-module-highlight-indentation
+                  elpy-module-pyvenv))
+  :init
+  (elpy-enable))
+
+(use-package ess)
 
 (use-package evil
   :demand t
@@ -182,11 +186,10 @@
   :demand t
   :diminish
   :after (evil org)
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme))))
+  :hook
+  (org-mode . evil-org-mode)
+  (evil-org-mode . (lambda ()
+                     (evil-org-set-key-theme))))
 
 (use-package evil-org-agenda
   :demand t
@@ -194,10 +197,13 @@
   :config (evil-org-agenda-set-keys))
 
 (use-package flycheck
-  ;; :defer t
   :diminish
+  :custom
+  (flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
   :defines
   flycheck-javascript-flow-args
+  :hook
+  (after-init . global-flycheck-mode)
   :init
   (add-to-list 'display-buffer-alist
                `(,(rx bos "*Flycheck errors*" eos)
@@ -205,8 +211,7 @@
                   display-buffer-below-selected)
                  (reusable-frames . visible)
                  (side            . bottom)
-                 (window-height   . 0.15)))
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+                 (window-height   . 0.20)))
   :config
   (setq flycheck-highlighting-mode 'lines
         flycheck-error-list-format
@@ -242,7 +247,7 @@
   :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
   :after flycheck
   :custom
-  (flycheck-python-mypy-args '("--ignore-missing-imports" "--follow-imports=skip"))
+  (flycheck-python-mypy-args '("--incremental" "--ignore-missing-imports" "--follow-imports=skip"))
   :config
   (flycheck-add-next-checker 'python-pylint '(warning . python-mypy) t))
 
@@ -257,20 +262,23 @@
 (use-package flycheck-rust
   :demand t
   :after rust-mode
-  :init
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+  :hook
+  (flycheck-mode . flycheck-rust-setup)
+  :config
+  (flycheck-add-next-checker 'rust-cargo 'rust-clippy t))
 
 (use-package go-mode
-  ;; :defer t
   :mode ("\\.go\\'" . go-mode)
   :custom
   (godef-command "/home/lbolla/src/go/bin/godef")
-  :init
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (add-hook 'go-mode-hook
-            (lambda ()
-              (auto-complete-mode -1)
-              (define-key go-mode-map (kbd "K") 'godoc))))
+  :hook
+  (before-save . gofmt-before-save)
+  (go-mode . (lambda ()
+               (auto-complete-mode -1)
+               (define-key go-mode-map (kbd "K") 'godoc))))
+
+(use-package highlight-indentation
+  :diminish)
 
 (use-package htmlize)
 
@@ -288,29 +296,21 @@
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
   (global-set-key (kbd "M-x") 'counsel-M-x))
 
-(use-package jedi
-  ;; :defer t
-  )
-
 (use-package js2-mode
-  ;; :defer t
   :after evil
   :mode (("\\.js\\'" . js2-mode))
   :custom
   (js2-mode-show-strict-warnings nil)
-  :init
-  (add-hook 'js2-mode-hook
-            (lambda ()
-              (set-whitespace-line-column 80)
-              (set-indent 4)
-              (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
+  :hook
+  (js2-mode . (lambda ()
+                (set-whitespace-line-column 80)
+                (set-indent 4)
+                (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
 
 (use-package json-mode
-  ;; :defer t
-  :init
-  (add-hook 'json-mode-hook
-            (lambda ()
-              (set-indent 2))))
+  :hook
+  (json-mode . (lambda ()
+                 (set-indent 2))))
 
 (use-package kubernetes
   :disabled t
@@ -321,17 +321,13 @@
 (use-package leuven-theme)
 
 (use-package lisp-mode
-  ;; :defer t
-  :init
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              ;; Dash and tilde are part of a lisp word
-              (modify-syntax-entry ?\- "w")
-              (modify-syntax-entry ?\~ "w"))))
+  :hook
+  (emacs-lisp-mode . (lambda ()
+                       ;; Dash and tilde are part of a lisp word
+                       (modify-syntax-entry ?\- "w")
+                       (modify-syntax-entry ?\~ "w"))))
 
-(use-package lua-mode
-  ;; :defer t
-  )
+(use-package lua-mode)
 
 (use-package magit
   :after evil
@@ -353,19 +349,15 @@
   (evil-define-key 'normal magit-blame-mode-map (kbd "RET") 'magit-show-commit))
 
 (use-package make-mode
-  ;; :defer t
-  :init
-  (add-hook 'make-mode-hook
-            (lambda ()
-              (setq indent-tabs-mode t))))
+  :hook
+  (make-mode . (lambda ()
+                 (setq indent-tabs-mode t))))
 
 (use-package markdown-mode
-  ;; :defer t
-  :init
-  (add-hook 'markdown-mode-hook
-            (lambda ()
-              (auto-fill-mode t)
-              (set-indent 4))))
+  :hook
+  (markdown-mode . (lambda ()
+                     (auto-fill-mode t)
+                     (set-indent 4))))
 
 (use-package mu4e
   :demand t
@@ -464,6 +456,7 @@
   ;; Force adding contacts
   ;; (mu4e~request-contacts))
   ;; Force starting automatic updates
+  ;; TODO only start if not already started
   (mu4e~start)
   )
 
@@ -494,6 +487,12 @@
   org-stuck-projects
   yg-fogbugz-url
   yg-kiln-url
+
+  :hook
+  (org-mode . org-indent-mode)
+  (org-mode . auto-fill-mode)
+  (org-mode . flyspell-mode)
+
   :init
   (global-set-key (kbd "C-c o a") 'org-agenda)
   (global-set-key (kbd "C-c o b") 'org-iswitchb)
@@ -512,12 +511,6 @@
   (global-set-key (kbd "M-<f12>") 'org-search-view)
 
   (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
-
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (org-indent-mode t)
-              (auto-fill-mode t)
-              (flyspell-mode t)))
 
   :config
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
@@ -729,40 +722,32 @@
 (use-package org-bullets
   :after org
   :demand t
-  :init
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+  :hook
+  (org-mode . org-bullets-mode))
 
 (use-package paredit
   :diminish
-  :init
-  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-  (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-  (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-  (add-hook 'inferior-lisp-mode-hook    #'enable-paredit-mode)
-  (add-hook 'slime-repl-mode-hook       #'enable-paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-  (add-hook 'clojure-mode-hook          #'enable-paredit-mode)
-  (add-hook 'cider-repl-mode-hook       #'enable-paredit-mode)
-  (add-hook 'scheme-mode-hook           #'enable-paredit-mode))
-  ;; (add-hook 'comint-mode-hook           #'enable-paredit-mode)
-  ;; (add-hook 'haskell-mode-hook          #'disable-paredit-mode)
-  ;; (add-hook 'inferior-python-mode-hook  #'disable-paredit-mode)
+  :hook
+  ((emacs-lisp-mode
+    eval-expression-minibuffer-setup
+    ielm-mode-hook
+    lisp-mode-hook
+    inferior-lisp-mode-hook
+    slime-repl-mode-hook
+    lisp-interaction-mode-hook
+    clojure-mode-hook
+    cider-repl-mode-hook
+    scheme-mode-hook) . enable-paredit-mode))
 
-(use-package pass
-  ;; :defer t
-  )
+(use-package pass)
 
 (use-package prog-mode
-  :init
-  (add-hook 'prog-mode-hook
-            (lambda ()
-              ;; Underscore is part of a word
-              (modify-syntax-entry ?\_ "w"))))
+  :hook
+  (prog-mode . (lambda ()
+                 ;; Underscore is part of a word
+                 (modify-syntax-entry ?\_ "w"))))
 
 (use-package projectile
-  ;; :defer t
   :diminish
   :custom
   (projectile-globally-ignored-directories
@@ -778,95 +763,74 @@
   :custom (network-security-level 'high))
 
 (use-package python
-  ;; :defer t
   :after evil
+  :bind (("C-c v w" . venv-workon-and-cdproject))
   :mode (("\\.py\\'" . python-mode)
          ("\\.pyi\\'" . python-mode) ;; type stub files
-         ("\\.mk\\'" . python-mode)) ;; check-mk config files
-  :interpreter ("python" . python-mode)
+         ("\\.mk\\'" . python-mode) ;; check-mk config files
+         (".pyrc" . python-mode))
   :config
-
   (font-lock-add-keywords
    'python-mode
    '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)
      ("\\<\\(FIXME\\)\\>" 1 font-lock-warning-face t)
      ("\\<\\(XXX\\)\\>" 1 font-lock-warning-face t)))
+  :hook
+  (python-mode . hs-minor-mode)
+  (python-mode . (lambda ()
+                   (electric-indent-local-mode -1)
+                   (set-whitespace-line-column 79)
+                   (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
+                   (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
+                   (evil-define-key 'normal python-mode-map (kbd "C-]") 'elpy-goto-definition)
+                   (evil-define-key 'normal python-mode-map (kbd "K") 'elpy-doc)
+                   (evil-define-key 'normal python-mode-map (kbd "gf") (lambda () (interactive) (elpy-find-file t))))))
 
-  (add-hook 'python-mode-hook
-            (lambda ()
-              ;; Autocompletion
-              (jedi:setup)
-              ;; Turn off AC and use company instead
-              (auto-complete-mode -1)
-              (add-to-list 'company-backends 'company-jedi)
-
-              ;; Hideshow mode to handle folding
-              (hs-minor-mode t)
-
-              ;; PEP8set-whitespace-line-column line width
-              (set-whitespace-line-column 79)
-
-              ;; Keybidings
-              (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
-              (evil-define-key 'normal python-mode-map (kbd ",pt") 'python-pytest-current-function)
-              (evil-define-key 'normal python-mode-map (kbd ",pT") 'python-pytest-current-file)
-              (evil-define-key 'normal python-mode-map (kbd ",pf") 'python-pyformat-buffer)
-              (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
-              ;; (evil-define-key 'normal python-mode-map (kbd ",pt") 'python-insert-type-annotation)
-
-              ;; Enter key executes newline-and-indent
-              (local-set-key (kbd "RET") 'newline-and-indent))))
 
 (use-package racer
   :diminish
   :after (evil rust-mode)
+  :custom
+  (company-tooltip-align-annotations t)
+  :hook
+  (rust-mode . racer-mode)
+  (racer-mode . eldoc-mode)
+  (racer-mode . company-mode)
   :init
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-  (add-hook 'racer-mode-hook #'company-mode)
   (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
+  (evil-define-key 'normal racer-help-mode-map (kbd "K") 'racer-describe)
   (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition)
-  (setq company-tooltip-align-annotations t))
+  (evil-define-key 'normal racer-help-mode-map (kbd "C-]") 'racer-find-definition))
 
 (use-package restclient
-  ;; :defer t
   :mode (("\\.http\\'" . restclient-mode)
          ;; ("\\*HTTP Response\\*" . json-mode)
          ))
 
 (use-package rg
-  ;; :defer t
   :custom
-  (rg-group-result t)
-  (rg-custom-type-aliases '(("gn" . "*.gn *.gni")
-                            ("gyp" . "*.gyp *.gypi")
-                            ("tmpl" . "*.tmpl")))
-  ;; Rerun search with context -- bind to "x" in rg results buffer
+  (rg-group-result nil)
+  :config
   (rg-define-toggle "--context 3" "x" nil))
 
 (use-package rst
-  ;; :defer t
-  :init
-  (add-hook 'rst-mode-hook
-            (lambda ()
-              (auto-fill-mode t))))
+  :hook
+  (rst-mode . (lambda ()
+                (auto-fill-mode t))))
 
 (use-package rust-mode
-  ;; :defer t
   :after evil
   :mode (("\\.rs\\'" . rust-mode))
   :custom
   (rust-format-on-save t))
 
 (use-package sh-script
-  ;; :defer t
   :mode (("\\.zsh" . shell-script-mode)
          ("\\.bash" . shell-script-mode)
          ("\\.sh\\'" . shell-script-mode)
          ("\\.env" . shell-script-mode)))
 
 (use-package smtpmail
-  ;; :defer t
   :custom
   (send-mail-function 'smtpmail-send-it)
   :defines
@@ -884,61 +848,49 @@
 
 (use-package text-mode
   :mode (((rx ".fbcli_comment" eol) . text-mode))
-  :init
-  (add-hook 'text-mode-hook
-            (lambda ()
-              (flyspell-mode t))))
+  :hook
+  (text-mode . (lambda ()
+                 (flyspell-mode t))))
 
-(use-package toml-mode
-  ;; :defer t
-  )
+(use-package toml-mode)
 
 ;; Used by evil
 (use-package undo-tree
   :diminish)
 
 (use-package vcs-resolve
-  ;; :defer t
   :load-path "/home/lbolla/src/vcs-resolve/"
   :commands (vcs-resolve-at-point
              vcs-resolve-buffer
              vcs-resolve-region))
 
-(use-package virtualenvwrapper
-  ;; :defer t
-  :bind (("C-c v w" . venv-workon-and-cdproject))
-  :config
-  (venv-initialize-interactive-shells)
-  (venv-initialize-eshell))
-
-(use-package w3m
-  ;; :defer t
-  )
+(use-package w3m)
 
 (use-package web-mode
-  ;; :defer t
   :mode (("\\.html\\'" . web-mode)
          ("\\.tmpl\\'" . web-mode))
-  :config
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (modify-syntax-entry ?\- "w")
-              (setq web-mode-markup-indent-offset 2
-                    web-mode-css-indent-offset 2
-                    web-mode-code-indent-offset 4))))
+  :custom
+  (web-mode-code-indent-offset 4)
+  (web-mode-css-indent-offset 2)
+  (web-mode-markup-indent-offset 2)
+  :hook
+  (web-mode . (lambda ()
+                 (modify-syntax-entry ?\- "w"))))
 
 (use-package yaml-mode
-  ;; :defer t
   :mode (("\\.ya?ml\\'" . yaml-mode)
          ("\\.tpl\\'" . yaml-mode))
+  :hook
+  (yaml-mode . (lambda ()
+                 (modify-syntax-entry ?\_ "w")
+                 (modify-syntax-entry ?\- "w")
+                 (modify-syntax-entry ?\$ ".")
+                 (set-indent 2)
+                 (flyspell-mode nil))))
+
+(use-package yasnippet
   :init
-  (add-hook 'yaml-mode-hook
-            (lambda ()
-              (modify-syntax-entry ?\_ "w")
-              (modify-syntax-entry ?\- "w")
-              (modify-syntax-entry ?\$ ".")
-              (set-indent 2)
-              (flyspell-mode nil))))
+  (yas-global-mode 1))
 
 (use-package which-key
   :diminish

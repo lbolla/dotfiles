@@ -69,6 +69,9 @@
  '(dump-jump-prefer-searcher (quote rg) t)
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(elpy-modules
+   (quote
+    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
  '(evil-lookup-func (quote man-at-point))
  '(evil-want-C-w-in-emacs-state t)
  '(evil-want-integration nil)
@@ -76,6 +79,9 @@
  '(explicit-shell-file-name "/usr/bin/bash")
  '(fci-rule-color "#383838")
  '(flycheck-javascript-flow-args nil)
+ '(flycheck-python-mypy-args
+   (quote
+    ("--ignore-missing-imports" "--follow-imports=skip")))
  '(font-use-system-font t)
  '(gc-cons-threshold 5000000)
  '(godef-command "/home/lbolla/src/go/bin/godef")
@@ -83,20 +89,22 @@
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
- '(initial-scratch-message ";; SCRATCH\n\n")
+ '(initial-scratch-message ";; SCRATCH
+
+")
  '(ivy-use-virtual-buffers t)
  '(js2-mode-show-strict-warnings nil t)
  '(linum-format " %7i ")
- '(magit-completing-read-function (quote ivy-completing-read) t)
+ '(magit-completing-read-function (quote ivy-completing-read))
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
  '(network-security-level (quote high))
- '(org-html-htmlize-output-type (quote css) t)
+ '(org-html-htmlize-output-type (quote css))
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m virtualenvwrapper use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode jedi hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode company-jedi)))
+    (elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
@@ -112,7 +120,7 @@
      ("tmpl" . "*.tmpl"))) t)
  '(rg-define-toggle "--context 3" t)
  '(rg-group-result t t)
- '(rust-format-on-save t)
+ '(rust-format-on-save t t)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(tls-checktrust (quote ask))
@@ -196,12 +204,11 @@
 (tool-bar-mode 0)
 
 ;; (load-theme-cyberpunk)
-;; (load-theme-leuven)
+(load-theme-leuven)
 ;; (load-theme-quasi-monochrome)
-(load-theme-zerodark)
+;; (load-theme-zerodark)
 
-(when (not server-process)
-  (server-start))
+(server-start)
 
 (provide 'init)
 ;;; init.el ends here
