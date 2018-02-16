@@ -1,0 +1,14 @@
+# Don't let ripgrep vomit really long lines to my terminal.
+--max-columns=150
+
+# Add my 'web' type.
+--type-add
+web:*.{html,css,js,tmpl}*
+
+# Set the colors.
+--colors=line:none
+--colors=line:style:bold
+--colors=match:fg:yellow
+
+# Because who cares about case!?
+--smart-case
