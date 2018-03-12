@@ -2,7 +2,7 @@ alias -g GV="| grep -v"
 alias -g J="| jq ."
 alias -g S="| sort"
 alias -g SN="| sort -n"
-alias -g T="| tar t"
+# alias -g T="| tar t"
 alias -g U="| sort | uniq -c"
 alias -g UN="| sort -n | uniq -c"
 
@@ -26,3 +26,7 @@ function docker-images-children {
         docker history $i | grep -v $i | grep -q $1 && echo $i
     done | sort -u
 }
+
+# Don't want history shared across terminals
+unsetopt inc_append_history
+unsetopt share_history
