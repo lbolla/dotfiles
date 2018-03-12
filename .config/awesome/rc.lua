@@ -61,8 +61,8 @@ function exec_cmd(cmd)
     return output
 end
 
-function ping()
-   return exec_cmd('timeout 0.1 ping -c 1 5.135.183.146 2> /dev/null | grep "time=" | cut -d "=" -f 4')
+function ping(iface)
+   return exec_cmd('timeout 1 ping -c 1 -I ' .. iface .. ' 5.135.183.146 2> /dev/null | grep "time=" | cut -d "=" -f 4')
 end
 
 function unread_emails()
@@ -182,13 +182,18 @@ vicious.register(
       if data['{ssid}'] == 'N/A' then
          return ''
       else
+         local p = ping('wlan0')
          local tooltip_text = (
             'CHANNEL #' .. data['{chan}'] .. '\n' ..
                'RATE ' .. data['{rate}'] .. 'Mb/s\n' ..
                'QUALITY ' .. data['{linp}'] .. '% ' .. data['{sign}'] .. 'dBm\n' ..
-               'PING ' .. ping())
+               'PING ' .. p)
          nettooltip:set_text(tooltip_text)
-         return ' ' .. data['{ssid}']
+         if p == '' then
+            return ' <span color="red">' .. data['{ssid}'] .. '</span>'
+         else
+            return ' ' .. data['{ssid}']
+         end
       end
    end,
    5, 'wlan0')
@@ -196,21 +201,44 @@ vicious.register(
 vicious.register(
    netwidget, vicious.widgets.net,
    function (widget, data) 
-      local text
-      if data['{tun0 carrier}'] == 1 or data['{cscotun0 carrier}'] == 1 then
-         return ' <span color="' .. beautiful.bg_focus .. '">VPN</span> |'
-      elseif data['{eth0 carrier}'] == 1 then
-         nettooltip:set_text('PING ' .. ping())
-         return ' eth0 |'
-      elseif data['{wlan0 carrier}'] == 1 then
-         -- Handled by wifiwidget
-         return ' |'
-      else
-         -- No network available
-         nettooltip:set_text('N/A')
+      local text = nil
+
+      if data['{wlan0 carrier}'] == 1 then
+         text = ''
+      end
+
+      if data['{eth0 carrier}'] == 1 then
+         -- Only write the tooltip if wlan0 hasn't already
+         if data['{wlan0 carrier}'] ~= 1 then
+            local p = ping('eth0')
+            nettooltip:set_text('PING ' .. p)
+         end
+         if p == '' then
+            text = '<span color="red">eth0</span>'
+         else
+            text = ' eth0'
+         end
+      end
+
+      -- Nothing else to do
+      if text == nil then
          return ''
       end
+
+      -- Add VPN
+      if data['{tun0 carrier}'] == 1 then
+         text = text .. ' <span color="' .. beautiful.bg_focus .. '">YG-VPN</span>'
+      elseif data['{cscotun0 carrier}'] == 1 then
+         text = text .. ' <span color="' .. beautiful.bg_focus .. '">VPN</span>'
+      end
+
+      -- Add separator
+      text = text .. ' |'
+
+      return text
+
    end, 5)
+
 
 memwidget = awful.widget.progressbar()
 memwidget:set_width(8)
@@ -473,10 +501,11 @@ awful.rules.rules = {
                      size_hints_honor = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    -- Floating apps
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "eog" },
+      properties = { floating = true } },
+    { rule = { class = "evince" },
       properties = { floating = true } },
     { rule = { class = "libreoffice" },
       properties = { floating = true } },
@@ -484,12 +513,20 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { name = "Rai.tv - Diretta.*" },
       properties = { floating = true } },
+    { rule = { class = "update-manager" },
+      properties = { floating = true } },
     { rule = { class = "VirtualBox" },
       properties = { floating = true } },
+    { rule = { class = "Google-chrome" },
+      properties = { screen = one_screen } },
+    { rule = { class = "Gnome-terminal" },
+      properties = { screen = other_screen } },
+    { rule = { class = "Firefox" },
+      properties = { screen = other_screen } },
     { rule = { class = "slack" },
-      properties = { tag = tags[one_screen][6] } },
-    { rule = { class = "Emacs", instance = "emacs" },
-      properties = { tag = tags[other_screen][1] } },
+      properties = { screen = one_screen, tag = tags[one_screen][1] } },
+    { rule = { class = "Emacs" },
+      properties = { screen = other_screen, tag = tags[other_screen][1] } },
 }
 -- }}}
 
