@@ -408,3 +408,11 @@
 
   ;; (add-hook 'electric-indent-functions
   ;;           'electric-indent-ignore-python)
+
+;; (defun python-current-function ()
+;;   (interactive)
+;;   (save-excursion
+;;     (end-of-line)
+;;     (elpy-shell--nav-beginning-of-defun)
+;;     (search-forward-regexp " *def \\(\\w+\\)")
+;;     (message (match-string-no-properties 1))))

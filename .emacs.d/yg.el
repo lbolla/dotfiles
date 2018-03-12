@@ -13,7 +13,7 @@
 
 (defun yg-gitlab-issue-url (tag)
   "Generate a YG GitLab issue url for TAG."
-  (let* ((tokens (reverse (split-string tag "/")))
+  (let* ((tokens (reverse (split-string tag "#")))
          (issue (car tokens))
          (repo (mapconcat 'identity (reverse (cdr tokens)) "/")))
     (format "https://gitlab.yougov.net/%s/issues/%s" repo (url-hexify-string issue))))

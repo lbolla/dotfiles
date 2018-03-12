@@ -78,10 +78,12 @@
  '(eww-search-prefix "https://www.ixquick.com/do/search?q=")
  '(explicit-shell-file-name "/usr/bin/bash")
  '(fci-rule-color "#383838")
+ '(flycheck-check-syntax-automatically (quote (save idle-change new-line mode-enabled)))
+ '(flycheck-idle-change-delay 3)
  '(flycheck-javascript-flow-args nil)
  '(flycheck-python-mypy-args
    (quote
-    ("--ignore-missing-imports" "--follow-imports=skip")))
+    ("--incremental" "--ignore-missing-imports" "--follow-imports=skip")))
  '(font-use-system-font t)
  '(gc-cons-threshold 5000000)
  '(godef-command "/home/lbolla/src/go/bin/godef")
@@ -104,8 +106,11 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
+ '(prettier-js-args
+   (quote
+    ("--trailing-comma" "all" "--bracket-spacing" "false" "--tab-width" "4")) t)
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
    (quote
@@ -115,11 +120,17 @@
  '(recentf-max-saved-items 100)
  '(rg-custom-type-aliases
    (quote
-    (("gn" . "*.gn *.gni")
-     ("gyp" . "*.gyp *.gypi")
-     ("tmpl" . "*.tmpl"))) t)
+    ((#("gn" 0 1
+        (idx 0))
+      . "*.gn *.gni")
+     (#("gyp" 0 1
+        (idx 1))
+      . "*.gyp *.gypi")
+     (#("tmpl" 0 1
+        (idx 2))
+      . "*.tmpl"))))
  '(rg-define-toggle "--context 3" t)
- '(rg-group-result t t)
+ '(rg-group-result nil)
  '(rust-format-on-save t t)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
@@ -153,6 +164,47 @@
  '(vc-annotate-very-old-color "#161616")
  '(vc-follow-symlinks nil)
  '(vc-log-show-limit 50)
+ '(w3m-home-page "about:")
+ '(w3m-search-default-engine "startpage")
+ '(w3m-search-engine-alist
+   (quote
+    (("searx" "https://searx.me/?q=%s" utf-8)
+     ("startpage" "https://www.ixquick.com/do/search?q=%s" utf-8)
+     ("yahoo" "https://search.yahoo.com/bin/search?p=%s" nil)
+     ("yahoo-ja" "https://search.yahoo.co.jp/bin/search?p=%s" euc-japan)
+     ("alc" "https://eow.alc.co.jp/%s/UTF-8/" utf-8)
+     ("blog" "https://blogsearch.google.com/blogsearch?q=%s&oe=utf-8&ie=utf-8" utf-8)
+     ("blog-en" "https://blogsearch.google.com/blogsearch?q=%s&hl=en&oe=utf-8&ie=utf-8" utf-8)
+     ("google" "https://www.google.com/search?q=%s&ie=utf-8&oe=utf-8" utf-8)
+     ("google-en" "https://www.google.com/search?q=%s&hl=en&ie=utf-8&oe=utf-8" utf-8)
+     ("google news" "https://news.google.com/news?q=%s&ie=utf-8&oe=utf-8" utf-8)
+     ("google news-en" "https://news.google.com/news?q=%s&hl=en&ie=utf-8&oe=utf-8" nil)
+     ("technorati" "https://www.technorati.com/search/%s" utf-8)
+     ("technorati-ja" "https://www.technorati.jp/search/search.html?query=%s&language=ja" utf-8)
+     ("technorati-tag" "https://www.technorati.com/tag/%s" utf-8)
+     ("goo-ja" "https://search.goo.ne.jp/web.jsp?MT=%s" euc-japan)
+     ("excite-ja" "https://www.excite.co.jp/search.gw?target=combined&look=excite_jp&lang=jp&tsug=-1&csug=-1&search=%s" shift_jis)
+     ("altavista" "https://altavista.com/sites/search/web?q=\"%s\"&kl=ja&search=Search" nil)
+     ("rpmfind" "https://rpmfind.net/linux/rpm2html/search.php?query=%s" nil)
+     ("debian-pkg" "https://packages.debian.org/search?&searchon=names&suite=stable&section=all&arch=amd64&keywords=%s" nil)
+     ("debian-bts" "https://bugs.debian.org/cgi-bin/pkgreport.cgi?archive=yes&pkg=%s" nil)
+     ("freebsd-users-jp" "https://home.jp.FreeBSD.org/cgi-bin/namazu.cgi?key=\"%s\"&whence=0&max=50&format=long&sort=score&dbname=FreeBSD-users-jp" euc-japan)
+     ("iij-archie" "https://www.iij.ad.jp/cgi-bin/archieplexform?query=%s&type=Case+Insensitive+Substring+Match&order=host&server=archie1.iij.ad.jp&hits=95&nice=Nice" nil)
+     ("waei" "https://dictionary.goo.ne.jp/search.php?MT=%s&kind=je" euc-japan)
+     ("eiwa" "https://dictionary.goo.ne.jp/search.php?MT=%s&kind=ej" nil)
+     ("kokugo" "https://dictionary.goo.ne.jp/search.php?MT=%s&kind=jn" euc-japan)
+     ("eiei" "https://www.dictionary.com/cgi-bin/dict.pl?term=%s&r=67" nil)
+     ("amazon" "https://www.amazon.com/exec/obidos/search-handle-form/250-7496892-7797857" iso-8859-1 "url=index=blended&field-keywords=%s")
+     ("amazon-ja" "https://www.amazon.co.jp/gp/search?__mk_ja_JP=%%83J%%83%%5E%%83J%%83i&url=search-alias%%3Daps&field-keywords=%s" shift_jis)
+     ("emacswiki" "https://www.emacswiki.org/cgi-bin/wiki?search=%s" nil)
+     ("en.wikipedia" "https://en.wikipedia.org/wiki/Special:Search?search=%s" nil)
+     ("de.wikipedia" "https://de.wikipedia.org/wiki/Spezial:Search?search=%s" utf-8)
+     ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
+     ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
+     ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
+ '(web-mode-code-indent-offset 4 t)
+ '(web-mode-css-indent-offset 2 t)
+ '(web-mode-markup-indent-offset 2 t)
  '(whitespace-style (quote (face trailing lines-tail))))
 
 (custom-set-faces
@@ -161,6 +213,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Monoid" :height 110)))))
+
+;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
+(setq auto-window-vscroll nil)
 
 ;; Standard pkgs bindings
 (global-set-key (kbd "C-x 2") 'split-window-below-and-switch-buffer)
@@ -178,6 +233,8 @@
                 (lambda ()
                   (interactive)
                   (find-file "~/.emacs.d/pkgs.el")))
+;; (global-set-key (kbd "C-c w") 'eww)
+(global-set-key (kbd "C-c w") 'w3m)
 (global-set-key (kbd "C-c z") 'zoom-window-zoom)
 (global-set-key (kbd "C-c C-q")
                 (lambda ()
@@ -204,8 +261,8 @@
 (tool-bar-mode 0)
 
 ;; (load-theme-cyberpunk)
-(load-theme-leuven)
-;; (load-theme-quasi-monochrome)
+;; (load-theme-leuven)
+(load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
 
 (server-start)

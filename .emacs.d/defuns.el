@@ -231,17 +231,18 @@
 
 (defun github-issue-url (tag)
   "Generate a GitHub issue url for TAG."
-  (let* ((tokens (reverse (split-string tag "/")))
+  (let* ((tokens (reverse (split-string tag "#")))
          (issue (car tokens))
          (repo (mapconcat 'identity (reverse (cdr tokens)) "/")))
     (format "https://github.com/%s/issues/%s" repo (url-hexify-string issue))))
 
-(defun python-insert-breakpoint ()
-  "Insert Python breakpoint above point."
-  (interactive)
-  (evil-open-above 1)
-  (insert "import ipdb; ipdb.set_trace()  # BREAKPOINT")
-  (evil-normal-state))
+(defun python-insert-breakpoint (pdb)
+  "Insert Python PDB breakpoint above point."
+  (interactive "P")
+  (let ((mod (if pdb "pdb" "ipdb")))
+    (evil-open-above 1)
+    (insert (format "import %s; %s.set_trace()  # BREAKPOINT" mod mod))
+    (evil-normal-state)))
 
 (defun python-insert-breakpoint-celery()
   "Insert Celery breakpoint above point."
@@ -250,11 +251,16 @@
   (insert "from celery.contrib import rdb; rdb.set_trace()  # BREAKPOINT")
   (evil-normal-state))
 
-(defun python-insert-pylint-ignore ()
-  "Insert pylint ignore comment."
-  (interactive)
-  (evil-open-above 1)
-  (insert "# pylint: disable=")
+(defun python-insert-pylint-ignore (eol)
+  "Insert pylint disable comment, possibly on EOL."
+  (interactive "P")
+  (if eol
+      (progn
+        (end-of-line)
+        (insert "  # pylint: disable="))
+    (progn
+      (evil-open-above 1)
+      (insert "# pylint: disable=")))
   (evil-insert-state))
 
 (defun python-insert-type-annotation ()
@@ -264,23 +270,26 @@
   (insert "  # type: ")
   (evil-insert-state))
 
-(defun python-current-function ()
-  (save-excursion
-    (end-of-line)
-    (beginning-of-defun)
-    (search-forward-regexp " *def \\(\\w+\\)")
-    (match-string-no-properties 1)))
-
-(defun python-2to3 ()
-  (interactive)
-  (let ((outbuf (get-buffer-create "*2to3*"))
+(defun python--run-in-new-buffer (cmd args bufname)
+  "Run CMD + ARGS and output to BUFNAME."
+  (let ((outbuf (get-buffer-create bufname))
         (what (or (buffer-file-name) default-directory)))
-    (shell-command (concat "2to3 " what) outbuf)
+    (shell-command (concat cmd " " args " " what) outbuf)
     (with-current-buffer outbuf
       (diff-mode)
       (setq buffer-read-only t)
       (unless (= 0 (buffer-size outbuf))
         (display-buffer outbuf)))))
+
+(defun python-2to3 (inplace)
+  "Run 2to3 on current buffer or directory, possibly INPLACE."
+  (interactive "P")
+  (python--run-in-new-buffer "2to3" (if inplace "-nw " "") "*2to3*"))
+
+(defun python-modernize (inplace)
+  "Run modernize on current buffer or directory, possibly INPLACE."
+  (interactive "P")
+  (python--run-in-new-buffer "python-modernize" (if inplace "-nw " "") "*modernize*"))
 
 (defun python-indent-jaraco ()
   "Set jaraco-style indentation."

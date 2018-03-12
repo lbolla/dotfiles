@@ -1,16 +1,14 @@
 ;;; package --- lbolla pkgs.el file
 ;;; Commentary:
 ;;; 7 November 2016
-;;; TODO difference between :init and :config
-;;; TODO use :declare to silence linter
+;;; TODO use :defines/:functions to silence linter
 ;;; TODO use :custom to customize variables
 
 ;;; Code:
 
 ;;; Note: keep the `setq` here to allow commented out archives
 (setq package-archives
-      '(
-        ("melpa" . "https://melpa.org/packages/")
+      '(("melpa" . "https://melpa.org/packages/")
         ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
         ;; ("marmalade" . "https://marmalade-repo.org/packages/")
         ("org" . "https://orgmode.org/elpa/")
@@ -54,18 +52,18 @@
   (after-init . global-company-mode))
 
 (use-package conf-mode
-  :mode (rx "rc" eol))
+  :mode ((rx "rc" eos)
+         (rx "requirements")))
 
 (use-package counsel)
 
 (use-package css-mode
-  :mode (("\\.scss\\'" . css-mode))
+  :mode ((rx ".scss" eos))
   :hook
   (css-mode . (lambda ()
                 (modify-syntax-entry ?\- "w"))))
 
-(use-package csv-mode
-  :mode ("\\.csv\\'" . csv-mode))
+(use-package csv-mode)
 
 (use-package cython-mode
   :after evil
@@ -75,12 +73,15 @@
 (use-package diminish
   :demand t
   :init
+  (eval-after-load 'abbrev '(diminish 'abbrev-mode))
   (eval-after-load 'autorevert '(diminish 'auto-revert-mode))
   (eval-after-load 'eldoc '(diminish 'eldoc-mode))
   (eval-after-load 'flyspell '(diminish 'flyspell-mode))
   (eval-after-load 'hideshow '(diminish 'hs-minor-mode))
+  (eval-after-load 'mml '(diminish 'mml-mode))
   (eval-after-load 'org-indent '(diminish 'org-indent-mode))
   (eval-after-load 'simple '(diminish 'auto-fill-function))
+  (eval-after-load 'smerge-mode '(diminish 'smerge-mode))
   (eval-after-load 'whitespace '(diminish 'whitespace-mode)))
 
 (use-package doc-view
@@ -89,7 +90,7 @@
                 (setq cursor-type nil))))
 
 (use-package dockerfile-mode
-  :mode (rx "Dockerfile" (zero-or-more "." (one-or-more anything)) eol))
+  :mode ((rx "Dockerfile")))
 
 (use-package dumb-jump
   :custom
@@ -199,6 +200,7 @@
 (use-package flycheck
   :diminish
   :custom
+  (flycheck-idle-change-delay 3)
   (flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
   :defines
   flycheck-javascript-flow-args
@@ -262,19 +264,20 @@
 (use-package flycheck-rust
   :demand t
   :after rust-mode
+  :custom
+  ;; Use 'cargo check' not 'cargo test'
+  (flycheck-rust-check-tests nil)
   :hook
   (flycheck-mode . flycheck-rust-setup)
   :config
-  (flycheck-add-next-checker 'rust-cargo 'rust-clippy t))
+  (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy) t))
 
 (use-package go-mode
-  :mode ("\\.go\\'" . go-mode)
   :custom
   (godef-command "/home/lbolla/src/go/bin/godef")
   :hook
   (before-save . gofmt-before-save)
   (go-mode . (lambda ()
-               (auto-complete-mode -1)
                (define-key go-mode-map (kbd "K") 'godoc))))
 
 (use-package highlight-indentation
@@ -298,9 +301,12 @@
 
 (use-package js2-mode
   :after evil
-  :mode (("\\.js\\'" . js2-mode))
+  :mode ((rx ".js" eos))
   :custom
   (js2-mode-show-strict-warnings nil)
+  :functions
+  set-indent
+  set-whitespace-line-column
   :hook
   (js2-mode . (lambda ()
                 (set-whitespace-line-column 80)
@@ -365,6 +371,8 @@
   :bind (("C-c m m" . mu4e))
   :defines
   yg-smtp-user
+  :functions
+  mu4e-refresh-headers
   :config
   (setq
 
@@ -381,7 +389,8 @@
    ;; Shortcuts
    mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
                             ("/YG/Sent Items" . ?s)
-                            ("/YG/Errors" . ?e))
+                            ("/YG/Errors" . ?e)
+                            ("/YG/Tickets" . ?t))
    ;; Bookmarks
    mu4e-bookmarks '(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
                     ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" ?i)
@@ -467,10 +476,10 @@
   (mu4e-alert-enable-mode-line-display)
   (mu4e-alert-set-default-style 'libnotify))
 
+(use-package olivetti)
+
 (use-package org
   :after evil
-  :mode (("\\.org\\'" . org-mode)
-         ("\\diary\\'" . org-mode))
   :custom
   (org-html-htmlize-output-type 'css)
   :defines
@@ -504,10 +513,9 @@
   (global-set-key (kbd "<f9>") 'org-capture)
   (global-set-key (kbd "C-<f9>") 'org-store-link)
   (global-set-key (kbd "S-<f9>") 'org-insert-link)
-  (global-set-key (kbd "<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a SPC"))))
+  (global-set-key (kbd "<f12>") (lambda () (interactive) (org-agenda nil (kbd "SPC") nil)))
   (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view t match)))
-  (global-set-key (kbd "C-S-<f12>") (lambda (match) (interactive "P") (org-tags-view nil match)))
-  (global-set-key (kbd "C-<f12>") (lambda () (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
+  ;; (global-set-key (kbd "C-<f12>") (lambda (c) (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
   (global-set-key (kbd "M-<f12>") 'org-search-view)
 
   (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
@@ -545,6 +553,7 @@
                              nil "")
 
         ;; Commands
+        ;; https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
         org-agenda-custom-commands
         '((" " "Agenda"
            ((agenda "" nil)
@@ -558,16 +567,31 @@
           ("n" "Notes" tags "NOTE"
            ((org-agenda-overriding-header "Notes")
             (org-tags-match-list-sublevels t)))
+          ("i" "Ideas" tags "IDEA"
+           ((org-agenda-overriding-header "Ideas")
+            (org-tags-match-list-sublevels t)))
           ("A" agenda "Prioritized tasks"
            ((org-agenda-skip-function
              (lambda nil
                (org-agenda-skip-entry-if 'notregexp "\\=.*\\[#\[ABC\]\\]")))
             (org-agenda-overriding-header "Prioritized tasks")))
-          ("u" alltodo "Unscheduled TODO"
+          ("u" . "Unscheduled")
+          ("ut" "Unscheduled TODO" todo "TODO"
            ((org-agenda-skip-function
              (lambda nil
-               (org-agenda-skip-entry-if 'scheduled 'deadline 'regexp "\n]+>")))
+               (org-agenda-skip-entry-if 'scheduled 'deadline)))
             (org-agenda-overriding-header "Unscheduled TODO")))
+          ("ud" "Unscheduled DONE|CANC" todo "DONE|CANC"
+           ((org-agenda-skip-function
+             (lambda nil
+               (org-agenda-skip-entry-if 'scheduled 'deadline)))
+            (org-agenda-overriding-header "Unscheduled DONE|CANC")))
+          ("c" . "Filter by category")
+          ("cb" "BrandIndex" tags-todo "+CATEGORY=\"BrandIndex\"")
+          ("cd" "DevOps" tags-todo "+CATEGORY=\"DevOps\"")
+          ("ce" "Emacs" tags-todo "+CATEGORY=\"Emacs\"")
+          ("cp" "Python" tags-todo "+CATEGORY=\"Python\"")
+          ("cr" "Rust" tags-todo "+CATEGORY=\"Rust\"")
           ;; ("d" todo "DELG" nil)
           ;; ("c" todo "DONE|DEFR|CANC" nil)
           ;; ("w" todo "WAIT" nil)
@@ -592,20 +616,19 @@
 
         ;; Templates
         org-capture-templates
-        '(("t" "Todo" entry (file "~/org/refile.org") "* TODO %?\n  %i\n  %a")
-          ("m" "Meeting" entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
-          ("p" "Phone" entry (file "~/org/refile.org") "* TODO Phone %? :PHON: \n%U")
-          ("n" "Note" entry (file "~/org/refile.org") "* %? :NOTE:\n%U\n%a\n")
-          ("j" "Journal" entry (file+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a"))
+        '(("t" "Todo"      entry (file "~/org/refile.org") "* TODO %?\n%i\n%a\n")
+          ("c" "Clipboard" entry (file "~/org/refile.org") "* TODO %?\n%i\n%x\n")
+          ("f" "Fogbugz"   entry (file "~/org/refile.org") "* TODO [[FB:%? %:subject :FOGB:\n%i\n%a\n")
+          ("m" "Meeting"   entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
+          ("p" "Phone"     entry (file "~/org/refile.org") "* TODO Phone %? :PHON:\n%U")
+          ("n" "Note"      entry (file "~/org/notes.org")  "* %? :NOTE:\n%U\n%a\n")
+          ("i" "Idea"      entry (file "~/org/ideas.org")  "* %? :IDEA:\n%U\n%a\n")
+          ("j" "Journal"   entry (file+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a"))
 
         ;; Abbreviations
         org-link-abbrev-alist `(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
                                 ("KR" . ,(concat yg-kiln-url "/Review/K%h"))
-                                ("VR" . "https://github.com/yougov/velociraptor/issues/%h")
-                                ("VR.SERVER" . "https://github.com/yougov/vr.server/issues/%h")
-                                ("VR.COMMON" . "https://github.com/yougov/vr.common/issues/%h")
-                                ("CHERRYPY" . "https://github.com/cherrypy/cherrypy/issues/%h")
-                                ("EMPY" . "https://github.com/lbolla/EMpy/issues/%h")
+                                ("GH" . github-issue-url)
                                 ("GL" . yg-gitlab-issue-url))
         ;; Refiling
         org-refile-targets
@@ -643,9 +666,9 @@
            :with-broken-links t
            :publishing-directory "~/Private/"
            :publishing-function org-html-publish-to-html
-           :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
+           ;; :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
            ;; "Async" CSS
-           ;; :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
+           :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
           ("lbolla.info"
            :components ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv"))
           ("lbolla.info-static"
@@ -765,10 +788,9 @@
 (use-package python
   :after evil
   :bind (("C-c v w" . venv-workon-and-cdproject))
-  :mode (("\\.py\\'" . python-mode)
-         ("\\.pyi\\'" . python-mode) ;; type stub files
-         ("\\.mk\\'" . python-mode) ;; check-mk config files
-         (".pyrc" . python-mode))
+  :mode (((rx ".pyi" eos) . python-mode) ;; type stub files
+         ((rx ".mk" eos) . python-mode) ;; check-mk config files
+         ((rx ".pyrc" eos) . python-mode))
   :config
   (font-lock-add-keywords
    'python-mode
@@ -786,16 +808,27 @@
                    (evil-define-key 'normal python-mode-map (kbd "K") 'elpy-doc)
                    (evil-define-key 'normal python-mode-map (kbd "gf") (lambda () (interactive) (elpy-find-file t))))))
 
+(use-package prettier-js
+  :diminish
+  :hook
+  (js2-mode . prettier-js-mode)
+  (web-mode . prettier-js-mode)
+  :custom
+  (prettier-js-args '(
+                      "--trailing-comma" "all"
+                      "--bracket-spacing" "false"
+                      "--tab-width" "4"
+                      )))
 
 (use-package racer
   :diminish
   :after (evil rust-mode)
   :custom
   (company-tooltip-align-annotations t)
-  :hook
-  (rust-mode . racer-mode)
-  (racer-mode . eldoc-mode)
-  (racer-mode . company-mode)
+  ;; :hook
+  ;; (rust-mode . racer-mode)
+  ;; (racer-mode . eldoc-mode)
+  ;; (racer-mode . company-mode)
   :init
   (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
   (evil-define-key 'normal racer-help-mode-map (kbd "K") 'racer-describe)
@@ -803,13 +836,21 @@
   (evil-define-key 'normal racer-help-mode-map (kbd "C-]") 'racer-find-definition))
 
 (use-package restclient
-  :mode (("\\.http\\'" . restclient-mode)
-         ;; ("\\*HTTP Response\\*" . json-mode)
-         ))
+  :mode (((rx ".http" eos) . restclient-mode)))
 
 (use-package rg
   :custom
   (rg-group-result nil)
+  (rg-custom-type-aliases '((#("gn" 0 1
+                               (idx 0))
+                             . "*.gn *.gni")
+                            (#("gyp" 0 1
+                               (idx 1))
+                             . "*.gyp *.gypi")
+                            (#("tmpl" 0 1
+                               (idx 2))
+                             . "*.tmpl")))
+
   :config
   (rg-define-toggle "--context 3" "x" nil))
 
@@ -820,15 +861,13 @@
 
 (use-package rust-mode
   :after evil
-  :mode (("\\.rs\\'" . rust-mode))
   :custom
   (rust-format-on-save t))
 
 (use-package sh-script
-  :mode (("\\.zsh" . shell-script-mode)
-         ("\\.bash" . shell-script-mode)
-         ("\\.sh\\'" . shell-script-mode)
-         ("\\.env" . shell-script-mode)))
+  :mode (((rx "." (or "z" "ba") "sh") . shell-script-mode)
+         ((rx ".sh" eos) . shell-script-mode)
+         ((rx ".env") . shell-script-mode)))
 
 (use-package smtpmail
   :custom
@@ -847,12 +886,13 @@
   (global-set-key (kbd "C-s") 'swiper))
 
 (use-package text-mode
-  :mode (((rx ".fbcli_comment" eol) . text-mode))
+  :mode ((rx ".fbcli_comment" eos))
   :hook
   (text-mode . (lambda ()
                  (flyspell-mode t))))
 
-(use-package toml-mode)
+(use-package toml-mode
+  :mode ((rx "Cargo")))
 
 ;; Used by evil
 (use-package undo-tree
@@ -867,8 +907,8 @@
 (use-package w3m)
 
 (use-package web-mode
-  :mode (("\\.html\\'" . web-mode)
-         ("\\.tmpl\\'" . web-mode))
+  :mode ((rx ".html" eos)
+         (rx ".tmpl" eos))
   :custom
   (web-mode-code-indent-offset 4)
   (web-mode-css-indent-offset 2)
@@ -878,8 +918,8 @@
                  (modify-syntax-entry ?\- "w"))))
 
 (use-package yaml-mode
-  :mode (("\\.ya?ml\\'" . yaml-mode)
-         ("\\.tpl\\'" . yaml-mode))
+  :mode ((rx ".y" (opt "a") "ml" eos)
+         (rx ".tpl" eos))
   :hook
   (yaml-mode . (lambda ()
                  (modify-syntax-entry ?\_ "w")
@@ -890,6 +930,7 @@
 
 (use-package yasnippet
   :init
+  (eval-after-load 'yasnippet '(diminish 'yas-minor-mode))
   (yas-global-mode 1))
 
 (use-package which-key

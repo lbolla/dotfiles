@@ -25,6 +25,7 @@
   (use-package quasi-monochrome-theme
     :load-path "/home/lbolla/src/emacs-quasi-monochrome/"
     :demand t)
+  (quasi-monochrome-setup-modeline-format)
   (switch-theme 'quasi-monochrome))
 
 (defun load-theme-leuven ()
