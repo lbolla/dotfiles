@@ -538,7 +538,7 @@
         org-src-fontify-natively t
 
         org-agenda-sorting-strategy
-        '((agenda habit-down deadline-up time-up todo-state-down priority-down alpha-up category-keep tag-up)
+        '((agenda habit-down time-up deadline-up scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
           (todo priority-down category-keep alpha-up)
           (tags priority-down category-keep)
           (search category-keep))
