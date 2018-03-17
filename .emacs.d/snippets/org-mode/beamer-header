@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: beamer-header
+# key: beamer
+# --
+
+#+TITLE: $1
+#+SUBTITLE: $2
+#+AUTHOR: $3
+#+EMAIL: $4
+#+DATE: $5
+#+DESCRIPTION: $6
+#+KEYWORDS: $7
+#+LANGUAGE: en
+#+OPTIONS: H:2
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [presentation,smaller]
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+#+BEAMER_THEME: Frankfurt
+#+BEAMER_COLOR_THEME: beaver
+#+BEAMER_FONT_THEME: structuresmallcapsserif 
+#+BEAMER_INNER_THEME:
+#+BEAMER_OUTER_THEME:

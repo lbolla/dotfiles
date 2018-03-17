@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: beamer-column
+# key: beamer
+# --
+
+*** $1
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:

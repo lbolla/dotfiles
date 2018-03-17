@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: beamer-example
+# key: beamer
+# --
+
+*** $1
+:PROPERTIES:
+:BEAMER_env: exampleblock
+:END:

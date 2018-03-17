@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: beamer-alert
+# key: beamer
+# --
+
+*** $1
+:PROPERTIES:
+:BEAMER_env: alertblock
+:END:

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: beamer-animation
+# key: beamer
+# --
+
+:PROPERTIES:
+:BEAMER_act: [<+->]
+:END:
