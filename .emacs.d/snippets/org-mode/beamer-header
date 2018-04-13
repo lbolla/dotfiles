@@ -3,6 +3,7 @@
 # key: beamer
 # --
 
+#+STARTUP: beamer
 #+TITLE: $1
 #+SUBTITLE: $2
 #+AUTHOR: $3

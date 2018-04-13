@@ -44,17 +44,16 @@
  '(delete-old-versions t)
  '(display-time-world-list
    (quote
-    (("America/Los_Angeles" "palmcal")
+    (("UTC" "UTC/GMT/Zulu")
+     ("America/Los_Angeles" "palmcal")
      ("America/Sao_Paulo" "diogo")
      ("America/New_York" "fesh")
-     ("UTC" "UTC")
      ("America/Los_Angeles" "Palo Alto")
      ("America/Mexico_City" "Mexico City")
      ("America/Lima" "Lima")
-     ("America/Montreal" "Montreal")
      ("America/New_York" "New York")
-     ("America/Sao_Paulo" "Sao Paulo")
      ("America/Montreal" "Montreal")
+     ("America/Sao_Paulo" "Sao Paulo")
      ("Europe/London" "London")
      ("Europe/Rome" "Rome")
      ("Europe/Moscow" "Moscow")
@@ -101,16 +100,18 @@
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
+ '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
  '(network-security-level (quote high))
+ '(org-deadline-warning-days 9999)
  '(org-html-htmlize-output-type (quote css))
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
-    ("--trailing-comma" "all" "--bracket-spacing" "false" "--tab-width" "4")) t)
+    ("--bracket-spacing" "false" "--single-quote" "true" "--tab-width" "4" "--trailing-comma" "none")) t)
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
    (quote
@@ -212,7 +213,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Monoid" :height 110)))))
+ '(default ((t (:family "Operator Mono" :weight light :height 140)))))
+ ;; '(default ((t (:family "Monoid" :height 110)))))
 
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
 (setq auto-window-vscroll nil)

@@ -194,12 +194,12 @@
       (goto-char temp-point))))
 
 (defcustom my-fonts '(
+                      "Operator Mono Light-14"
                       "Ubuntu Mono-12"
                       "ProggyCleanTT-12"
                       "Terminus-12"
                       "IBM 3270 Narrow-14"
                       "Input-12"
-                      ;; "Monoid-9"
                       "Monoid-11"
                       ) "List of fonts I like." :group 'local)
 

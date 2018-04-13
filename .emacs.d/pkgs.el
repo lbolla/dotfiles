@@ -8,11 +8,11 @@
 
 ;;; Note: keep the `setq` here to allow commented out archives
 (setq package-archives
-      '(("melpa" . "https://melpa.org/packages/")
-        ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ;; ("marmalade" . "https://marmalade-repo.org/packages/")
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
         ("org" . "https://orgmode.org/elpa/")
-        ;; ("gnu" . "https://elpa.gnu.org/packages/")
+        ;; ("marmalade" . "https://marmalade-repo.org/packages/")
+        ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
         ;; ("sc" . "https://joseito.republika.pl/sunrise-commander/")
         ))
 
@@ -27,6 +27,8 @@
 
 ;; Necessary to use use-package's :bind
 (require 'bind-key)
+
+(use-package gnu-apl-mode)
 
 ;; TODO builtin, move to init?
 (use-package cc-mode
@@ -52,8 +54,8 @@
   (after-init . global-company-mode))
 
 (use-package conf-mode
-  :mode ((rx "rc" eos)
-         (rx "requirements")))
+  :mode (((rx "rc" eos). conf-unix-mode)
+         ((rx "requirements") . conf-unix-mode)))
 
 (use-package counsel)
 
@@ -368,7 +370,9 @@
 (use-package mu4e
   :demand t
   :load-path "/usr/local/share/emacs/site-lisp/mu4e"
-  :bind (("C-c m m" . mu4e))
+  :bind (
+         ("C-c m m" . mu4e)
+         ("C-c m n" . mu4e-compose-new))
   :defines
   yg-smtp-user
   :functions
@@ -392,11 +396,12 @@
                             ("/YG/Errors" . ?e)
                             ("/YG/Tickets" . ?t))
    ;; Bookmarks
-   mu4e-bookmarks '(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+   mu4e-bookmarks '(("flag:unread OR flag:flagged AND NOT flag:trashed" "Unread/flagged" ?u)
                     ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" ?i)
                     ("maildir:/YG/Errors AND flag:unread AND NOT flag:trashed" "Unread errors" ?e)
                     ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" ?t)
-                    ("flag:flagged" "Flagged messages" ?f)
+                    ("flag:flagged" "Flagged" ?f)
+                    ("flag:attach" "With attachment" ?a)
                     ;; ("date:today..now" "Today's messages" ?t)
                     ;; ("date:7d..now" "Last 7 days" ?w)
                     ;; ("mime:image/*" "Messages with images" ?p)
@@ -466,11 +471,12 @@
   ;; (mu4e~request-contacts))
   ;; Force starting automatic updates
   ;; TODO only start if not already started
-  (mu4e~start)
-  )
+  (mu4e~start))
 
 (use-package mu4e-alert
   :bind (("C-c m u" . mu4e-alert-view-unread-mails))
+  :custom
+  (mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
   :config
   (mu4e-alert-enable-notifications)
   (mu4e-alert-enable-mode-line-display)
@@ -482,6 +488,7 @@
   :after evil
   :custom
   (org-html-htmlize-output-type 'css)
+  (org-deadline-warning-days 9999)
   :defines
   org-agenda-custom-commands
   org-agenda-include-diary
@@ -627,9 +634,10 @@
 
         ;; Abbreviations
         org-link-abbrev-alist `(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
-                                ("KR" . ,(concat yg-kiln-url "/Review/K%h"))
+                                ;; ("KR" . ,(concat yg-kiln-url "/Review/K%h"))
                                 ("GH" . github-issue-url)
-                                ("GL" . yg-gitlab-issue-url))
+                                ("GL" . yg-gitlab-issue-url)
+                                ("MR" . yg-gitlab-merge-request-url))
         ;; Refiling
         org-refile-targets
         ;; '((nil :maxlevel . 9)
@@ -810,14 +818,16 @@
 
 (use-package prettier-js
   :diminish
-  :hook
-  (js2-mode . prettier-js-mode)
-  (web-mode . prettier-js-mode)
+  :commands (prettier-js)
+  ;; :hook
+  ;; (js2-mode . prettier-js-mode)
+  ;; (web-mode . prettier-js-mode)
   :custom
   (prettier-js-args '(
-                      "--trailing-comma" "all"
                       "--bracket-spacing" "false"
+                      "--single-quote" "true"
                       "--tab-width" "4"
+                      "--trailing-comma" "none"
                       )))
 
 (use-package racer
@@ -850,7 +860,6 @@
                             (#("tmpl" 0 1
                                (idx 2))
                              . "*.tmpl")))
-
   :config
   (rg-define-toggle "--context 3" "x" nil))
 
