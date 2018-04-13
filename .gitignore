@@ -28,3 +28,4 @@ aliases
 /.emacs.d/eshell/history
 /.emacs.d/eshell/lastdir
 /.emacs.d/.apl.history
+/.emacs.d/network-security.data
