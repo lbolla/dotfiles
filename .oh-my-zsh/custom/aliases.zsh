@@ -10,6 +10,7 @@ alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock 
 alias docker-images-tree="dockviz images -t -l"
 alias mkvirtualenv2="mkvirtualenv --python /usr/local/bin/python2"
 alias mkvirtualenv3="mkvirtualenv --python /usr/local/bin/python3"
+alias ungron="gron --ungron"
 alias w=workon
 
 alias -s gz="gunzip -c"

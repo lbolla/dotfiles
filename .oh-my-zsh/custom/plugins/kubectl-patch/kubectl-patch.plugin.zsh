@@ -6,7 +6,8 @@ alias kdesc="kubectl describe"
 alias kget="kubectl get -o wide"
 alias kedit="kubectl edit"
 alias klogs="kubectl logs"
-alias ktail="kubetail"
+# alias ktail="kubetail"
+alias ktail="stern -t -s 1s"
 alias kview="kubectl get -o yaml"
 alias kevents="kubectl get events --sort-by=.lastTimestamp -ocustom-columns=LAST_TS:.lastTimestamp,NAME:.metadata.name,MSG:.message | grep -v 'Search Line limits were exceeded'"
 # TODO not working
@@ -46,4 +47,6 @@ function ksearch {
     kget all --all-namespaces --show-kind=true | fgrep -i "$*"
     kget secret --all-namespaces --show-kind=true | fgrep -i "$*"
     kget cm --all-namespaces --show-kind=true | fgrep -i "$*"
+    kget sa --all-namespaces --show-kind=true | fgrep -i "$*"
+    kget clusterrolebinding --all-namespaces --show-kind=true | fgrep -i "$*"
 }

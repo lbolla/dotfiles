@@ -9,8 +9,11 @@ eval my_orange='$FG[214]'
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
 local return_code="%(?:%{$FG[105]%}» :%{$my_orange%}» )"
 
+# Should really be used as plugin
+# source $HOME/.oh-my-zsh/plugins/kube-ps1/kube-ps1.zsh 
 function __k8s_ps1 {
     echo "%{$my_gray%}`kubectl config get-contexts | awk '/\*/ { printf "(K8S:%s|%s)", $3, $5}'`%{$reset_color%}"
+    # kube_ps1
 }
 
 # primary prompt
