@@ -227,9 +227,9 @@ vicious.register(
 
       -- Add VPN
       if data['{tun0 carrier}'] == 1 then
-         text = text .. ' <span color="' .. beautiful.bg_focus .. '">YG-VPN</span>'
-      elseif data['{cscotun0 carrier}'] == 1 then
          text = text .. ' <span color="' .. beautiful.bg_focus .. '">VPN</span>'
+      -- elseif data['{cscotun0 carrier}'] == 1 then
+      --    text = text .. ' <span color="' .. beautiful.bg_focus .. '">VPN</span>'
       end
 
       -- Add separator
