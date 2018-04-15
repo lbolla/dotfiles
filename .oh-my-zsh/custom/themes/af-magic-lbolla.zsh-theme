@@ -12,7 +12,10 @@ local return_code="%(?:%{$FG[105]%}» :%{$my_orange%}» )"
 # Should really be used as plugin
 # source $HOME/.oh-my-zsh/plugins/kube-ps1/kube-ps1.zsh 
 function __k8s_ps1 {
-    echo "%{$my_gray%}`kubectl config get-contexts | awk '/\*/ { printf "(K8S:%s|%s)", $3, $5}'`%{$reset_color%}"
+    if type "kubectl" > /dev/null
+    then
+        echo "%{$my_gray%}`kubectl config get-contexts | awk '/\*/ { printf "(K8S:%s|%s)", $3, $5}'`%{$reset_color%}"
+    fi
     # kube_ps1
 }
 
