@@ -120,3 +120,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Rehash automatically (https://wiki.archlinux.org/index.php/zsh#Persistent_rehash)
+zstyle ':completion:*' rehash true
+
+# Ctrl-arrow (xterm, urxvt)
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^[Od" backward-word
+bindkey "^[Oc" forward-word
+
