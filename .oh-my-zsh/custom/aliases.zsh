@@ -8,8 +8,9 @@ alias -g UN="| sort -n | uniq -c"
 
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 alias docker-images-tree="dockviz images -t -l"
-alias mkvirtualenv2="mkvirtualenv --python /usr/local/bin/python2"
-alias mkvirtualenv3="mkvirtualenv --python /usr/local/bin/python3"
+alias mkvirtualenv2="mkvirtualenv --python `which python2`"
+alias mkvirtualenv3="mkvirtualenv --python `which python3`"
+alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Control/" | sudo loadkeys'
 alias ungron="gron --ungron"
 alias w=workon
 

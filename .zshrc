@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/lbolla/.oh-my-zsh
@@ -67,7 +67,7 @@ ZSH_THEME="af-magic-lbolla"
 # Don't automatically activate venvs
 export DISABLE_VENV_CD=1
 export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export XIVIEWER=eog
 
 plugins=(

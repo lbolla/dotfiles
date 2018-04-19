@@ -20,10 +20,10 @@ function __k8s_ps1 {
 }
 
 # primary prompt
-PROMPT='$FG[237]------------------------------------------------------------%{$reset_color%}
+PROMPT='
 $FG[032]%~\
 $(git_prompt_info) \
-$FG[105]%(!.#.)${return_code}%{$reset_color%} '
+$FG[105]%(!.#.)${return_code}%{$reset_color%}'
 PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
 RPS1='${return_code}'
 

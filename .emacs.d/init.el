@@ -38,8 +38,6 @@
  '(cc-search-directories
    (quote
     ("." "/usr/include" "/usr/local/include/*" "../deps" "../../deps")))
- '(company-idle-delay 0.2)
- '(company-tooltip-align-annotations t)
  '(custom-safe-themes t)
  '(delete-old-versions t)
  '(display-time-world-list
@@ -70,7 +68,7 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(elpy-modules
    (quote
-    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
+    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)) t)
  '(evil-lookup-func (quote man-at-point))
  '(evil-want-C-w-in-emacs-state t)
  '(evil-want-integration nil)
@@ -94,20 +92,20 @@
 
 ")
  '(ivy-use-virtual-buffers t)
- '(js2-mode-show-strict-warnings nil t)
+ '(js2-mode-show-strict-warnings nil)
  '(linum-format " %7i ")
  '(magit-completing-read-function (quote ivy-completing-read))
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
+ '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed" t)
  '(network-security-level (quote high))
  '(org-deadline-warning-days 9999)
- '(org-html-htmlize-output-type (quote css))
+ '(org-html-htmlize-output-type (quote css) t)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -132,7 +130,7 @@
       . "*.tmpl"))))
  '(rg-define-toggle "--context 3" t)
  '(rg-group-result nil)
- '(rust-format-on-save t t)
+ '(rust-format-on-save t)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(tls-checktrust (quote ask))
@@ -213,7 +211,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Operator Mono" :weight light :height 140)))))
+ '(default ((t (:family "Terminus" :weight light :height 120)))))
  ;; '(default ((t (:family "Monoid" :height 110)))))
 
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
@@ -262,10 +260,12 @@
 (show-paren-mode 1)
 (tool-bar-mode 0)
 
-;; (load-theme-cyberpunk)
-;; (load-theme-leuven)
-(load-theme-quasi-monochrome)
-;; (load-theme-zerodark)
+(when (display-graphic-p)
+  ;; (load-theme-cyberpunk)
+  ;; (load-theme-leuven)
+  (load-theme-quasi-monochrome)
+  ;; (load-theme-zerodark)
+  )
 
 (server-start)
 
