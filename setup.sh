@@ -21,3 +21,14 @@ FILES=(
 for f in ${FILES[@]}; do
 	link $f
 done
+
+DIRS=(
+    .virtualenvs
+)
+
+for d in ${DIRS[@]}; do
+    mkdir -p $d
+    for f in `ls $d`; do
+        link $d/$f
+    done
+done
