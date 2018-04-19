@@ -1,0 +1,11 @@
+#!/bin/bash
+# This hook is run after a new virtualenv is activated.
+
+# Get latest pip and setuptools
+pip install --upgrade pip setuptools
+
+# Get latest dev tools
+pip install --upgrade ipython ipdb jedi pylint
+
+# Set venv dir
+setvirtualenvproject
