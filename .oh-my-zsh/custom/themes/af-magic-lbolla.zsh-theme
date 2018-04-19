@@ -16,7 +16,6 @@ function __k8s_ps1 {
     then
         echo "%{$my_gray%}`kubectl config get-contexts | awk '/\*/ { printf "(K8S:%s|%s)", $3, $5}'`%{$reset_color%}"
     fi
-    # kube_ps1
 }
 
 # primary prompt

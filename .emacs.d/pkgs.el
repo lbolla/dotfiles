@@ -482,7 +482,7 @@
   :after evil
   :custom
   (org-html-htmlize-output-type 'css)
-  (org-deadline-warning-days 9999)
+  (org-deadline-warning-days 30)
   :defines
   org-agenda-custom-commands
   org-agenda-include-diary
