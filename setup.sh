@@ -4,9 +4,11 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+DOTDIR=${HOME}/src/dotfiles
+
 function link {
     echo $1
-    ln -sf $HOME/src/dotfiles/$1 $HOME/$1
+    ln -sf ${DOTDIR}/$1 ${HOME}/$1
 }
 
 FILES=(
@@ -19,7 +21,7 @@ FILES=(
 )
 
 for f in ${FILES[@]}; do
-	link $f
+    link $f
 done
 
 DIRS=(
@@ -27,8 +29,8 @@ DIRS=(
 )
 
 for d in ${DIRS[@]}; do
-    mkdir -p $d
-    for f in `ls $d`; do
+    mkdir -p ${HOME}/$d
+    for f in `ls ${DOTDIR}/$d`; do
         link $d/$f
     done
 done
