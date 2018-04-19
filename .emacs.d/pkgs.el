@@ -19,9 +19,12 @@
 (eval-when-compile
   (require 'package)
   (package-initialize)
-  (require 'use-package))
+  (unless (require 'use-package nil 'noerror)
+    (package-install 'use-package)
+    (require 'use-package)))
 
 (setq use-package-always-defer t
+      use-package-always-ensure t
       use-package-minimum-reported-time 0.1
       use-package-verbose t)
 
@@ -84,6 +87,7 @@
   (eval-after-load 'org-indent '(diminish 'org-indent-mode))
   (eval-after-load 'simple '(diminish 'auto-fill-function))
   (eval-after-load 'smerge-mode '(diminish 'smerge-mode))
+  (eval-after-load 'undo-tree '(diminish 'undo-tree-mode))
   (eval-after-load 'whitespace '(diminish 'whitespace-mode)))
 
 (use-package doc-view
@@ -106,6 +110,8 @@
   (electric-indent-mode t))
 
 (use-package elpy
+  :commands
+  elpy-enable
   :diminish
   :custom
   (elpy-modules '(elpy-module-sane-defaults
@@ -113,14 +119,13 @@
                   elpy-module-eldoc
                   elpy-module-highlight-indentation
                   elpy-module-pyvenv))
-  :init
-  (elpy-enable))
+ :init
+ (elpy-enable))
 
 (use-package ess)
 
 (use-package evil
   :demand t
-
   :custom
   ;; (evil-emacs-state-modes '(picture-mode))
   (evil-want-integration nil)
@@ -162,7 +167,6 @@
 
 (use-package evil-collection
   :demand t
-  ;; :load-path "/home/lbolla/src/evil-collection/"
   :after evil
   :config
   (evil-collection-init))
@@ -170,11 +174,6 @@
 (use-package evil-magit
   :demand t
   :after (evil magit))
-
-(use-package evil-matchit
-  :demand t
-  :after evil
-  :init (global-evil-matchit-mode 1))
 
 (use-package evil-mu4e
   :demand t
@@ -195,8 +194,9 @@
                      (evil-org-set-key-theme))))
 
 (use-package evil-org-agenda
+  :ensure nil  ;; Part of evil-org
   :demand t
-  :after (evil org)
+  :after evil-org
   :config (evil-org-agenda-set-keys))
 
 (use-package flycheck
@@ -218,12 +218,6 @@
                  (window-height   . 0.20)))
   :config
   (setq flycheck-highlighting-mode 'lines
-        flycheck-error-list-format
-        [("Line" 4 flycheck-error-list-entry-< :right-align t)
-         ("Col" 3 nil :right-align t)
-         ("Level" 8 flycheck-error-list-entry-level-<)
-         ("ID" 16 t)
-         ("Message (Checker)" 0 t)]
         flycheck-ghc-language-extensions ()
         flycheck-clang-include-path '("/usr/include/glib-2.0"
                                       "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
@@ -242,12 +236,10 @@
   (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t))
 
 (use-package flycheck-cython
-  :demand t
   :load-path "/home/lbolla/src/emacs-flycheck-cython/"
   :after flycheck)
 
 (use-package flycheck-mypy
-  :demand t
   :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
   :after flycheck
   :custom
@@ -256,7 +248,6 @@
   (flycheck-add-next-checker 'python-pylint '(warning . python-mypy) t))
 
 (use-package flycheck-flow
-  :demand t
   :load-path "/home/lbolla/src/emacs-flycheck-flow/"
   :after flycheck
   :config
@@ -264,7 +255,6 @@
   (flycheck-add-next-checker 'javascript-jshint '(warning . javascript-flow) t))
 
 (use-package flycheck-rust
-  :demand t
   :after rust-mode
   :custom
   ;; Use 'cargo check' not 'cargo test'
@@ -275,6 +265,7 @@
   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy) t))
 
 (use-package go-mode
+  :disabled t
   :custom
   (godef-command "/home/lbolla/src/go/bin/godef")
   :hook
@@ -288,18 +279,19 @@
 (use-package htmlize)
 
 (use-package ivy
+  :demand t
   :diminish
   :custom
   (ivy-use-virtual-buffers t)
   (magit-completing-read-function 'ivy-completing-read)
   (projectile-completion-system 'ivy)
-  :init
-  (ivy-mode t)
   :config
+  (ivy-mode t)
   (defvar magit-completing-read-function)
   (defvar projectile-completion-system)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "M-x") 'counsel-M-x))
+  ;; (global-set-key (kbd "M-x") 'counsel-M-x)
+  )
 
 (use-package js2-mode
   :after evil
@@ -329,6 +321,7 @@
 (use-package leuven-theme)
 
 (use-package lisp-mode
+  :ensure nil ;; builtin
   :hook
   (emacs-lisp-mode . (lambda ()
                        ;; Dash and tilde are part of a lisp word
@@ -368,8 +361,8 @@
                      (set-indent 4))))
 
 (use-package mu4e
+  :ensure nil  ;; installed system-wide
   :demand t
-  :load-path "/usr/local/share/emacs/site-lisp/mu4e"
   :bind (
          ("C-c m m" . mu4e)
          ("C-c m n" . mu4e-compose-new))
@@ -471,7 +464,8 @@
   ;; (mu4e~request-contacts))
   ;; Force starting automatic updates
   ;; TODO only start if not already started
-  (mu4e~start))
+  ;; (mu4e~start)
+  )
 
 (use-package mu4e-alert
   :bind (("C-c m u" . mu4e-alert-view-unread-mails))
@@ -745,11 +739,6 @@
            :recursive t
            :publishing-function org-publish-attachment))))
 
-;; TODO not capturing email
-(use-package org-mu4e
-  :demand t
-  :after (org mu4e))
-
 (use-package org-bullets
   :after org
   :demand t
@@ -757,6 +746,7 @@
   (org-mode . org-bullets-mode))
 
 (use-package paredit
+  :demand t
   :diminish
   :hook
   ((emacs-lisp-mode
@@ -773,12 +763,14 @@
 (use-package pass)
 
 (use-package prog-mode
+  :ensure nil
   :hook
   (prog-mode . (lambda ()
                  ;; Underscore is part of a word
                  (modify-syntax-entry ?\_ "w"))))
 
 (use-package projectile
+  :demand t
   :diminish
   :custom
   (projectile-globally-ignored-directories
@@ -833,8 +825,6 @@
 (use-package racer
   :diminish
   :after (evil rust-mode)
-  :custom
-  (company-tooltip-align-annotations t)
   ;; :hook
   ;; (rust-mode . racer-mode)
   ;; (racer-mode . eldoc-mode)
@@ -895,6 +885,7 @@
   (global-set-key (kbd "C-s") 'swiper))
 
 (use-package text-mode
+  :ensure nil
   :mode ((rx ".fbcli_comment" eos))
   :hook
   (text-mode . (lambda ()
@@ -902,10 +893,6 @@
 
 (use-package toml-mode
   :mode ((rx "Cargo")))
-
-;; Used by evil
-(use-package undo-tree
-  :diminish)
 
 (use-package vcs-resolve
   :load-path "/home/lbolla/src/vcs-resolve/"

@@ -1,0 +1,36 @@
+Xft.autohint: 1
+Xft.antialias: 1
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
+
+URxvt.depth: 32
+URxvt.loginShell: true
+URxvt.internalBorder: 3
+URxvt.lineSpace: 3
+URxvt*saveLines: 12000
+URxvt*foreground: #9f9f9f
+URxvt*background: #000000
+URxvt*font: xft:Terminus:pixelsize=14
+URxvt*letterSpace: 0
+URxvt*scrollBar: none
+URxvt*scrollBar_right: false
+URxvt*scrollstyle: plain
+
+URxvt.perl-ext-common: default,matcher,font-size
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.keysym.C-Delete: matcher:last
+URxvt.keysym.M-Delete: matcher:list
+URxvt.colorUL: #4682B4
+!!! TODO Change font size on Control-Plus/Minus
+! URxvt.perl-ext-common: font-size
+! URxvt.keysym.Control-0x2b: perl:font-size:increase
+! URxvt.keysym.Control-0x2d: perl:font-size:decrease
+! URxvt.keysym.C-Up:     perl:font-size:increase
+! URxvt.keysym.C-Down:   perl:font-size:decrease
+! URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+! URxvt.keysym.C-S-Down: perl:font-size:decglobal
+! URxvt.keysym.C-equal:  perl:font-size:reset
+! URxvt.keysym.C-slash:  perl:font-size:show
+

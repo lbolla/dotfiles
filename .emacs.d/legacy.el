@@ -416,3 +416,15 @@
 ;;     (elpy-shell--nav-beginning-of-defun)
 ;;     (search-forward-regexp " *def \\(\\w+\\)")
 ;;     (message (match-string-no-properties 1))))
+
+;; (use-package evil-matchit
+;;   :ensure t
+;;   :demand t
+;;   :after evil
+;;   ;; :config (global-evil-matchit-mode 1)
+;;   )
+
+;; TODO not capturing email
+;; (use-package org-mu4e
+;;   :demand t
+;;   :after (org mu4e))
