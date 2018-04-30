@@ -262,8 +262,8 @@
 
 (when (display-graphic-p)
   ;; (load-theme-cyberpunk)
-  ;; (load-theme-leuven)
-  (load-theme-quasi-monochrome)
+  (load-theme-leuven)
+  ;; (load-theme-quasi-monochrome)
   ;; (load-theme-zerodark)
   )
 
