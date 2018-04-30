@@ -130,3 +130,5 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[Od" backward-word
 bindkey "^[Oc" forward-word
 
+# For white bg
+# export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
