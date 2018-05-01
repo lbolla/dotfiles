@@ -14,8 +14,11 @@ function link {
 FILES=(
     .Xresources
     .emacs.d
+    .gitconfig
     .psqlrc
+    .pylintrc
     .pyrc
+    .ripgreprc
     .zshenv
     .zshrc
 )
