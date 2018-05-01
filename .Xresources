@@ -10,10 +10,10 @@ URxvt.loginShell: true
 URxvt.internalBorder: 3
 URxvt.lineSpace: 3
 URxvt*saveLines: 12000
-URxvt*foreground: #000000
-URxvt*background: #ffffff
-! URxvt*foreground: #ffffff
-! URxvt*background: #000000
+! URxvt*foreground: #000000
+! URxvt*background: #ffffff
+URxvt*foreground: #ffffff
+URxvt*background: #000000
 
 ! URxvt*font: xft:Terminus:pixelsize=14
 
