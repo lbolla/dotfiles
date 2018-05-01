@@ -260,12 +260,18 @@
 (show-paren-mode 1)
 (tool-bar-mode 0)
 
-(when (display-graphic-p)
-  ;; (load-theme-cyberpunk)
-  (load-theme-leuven)
-  ;; (load-theme-quasi-monochrome)
-  ;; (load-theme-zerodark)
-  )
+;; TODO https://www.reddit.com/r/emacs/comments/8fyzjd/theme_not_loading_completly_with_emacsserver/
+;; (add-hook 'after-make-frame-functions
+;;           (lambda (frame)
+;;             (select-frame frame)
+;;             ;; (load-theme-leuven)
+;;             (load-theme-quasi-monochrome)
+;;             ))
+
+;; (load-theme-cyberpunk)
+;; (load-theme-leuven)
+(load-theme-quasi-monochrome)
+;; (load-theme-zerodark)
 
 (server-start)
 

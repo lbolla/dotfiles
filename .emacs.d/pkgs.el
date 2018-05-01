@@ -122,7 +122,10 @@
  :init
  (elpy-enable))
 
-(use-package ess)
+(use-package ess
+  :hook
+  (ess-mode . (lambda ()
+                 (modify-syntax-entry ?\_ "w"))))
 
 (use-package evil
   :demand t
@@ -361,10 +364,13 @@
                      (set-indent 4))))
 
 (use-package mu4e
+  ;; TODO add this to list of paths to search
+  :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
   :ensure nil  ;; installed system-wide
   :demand t
   :bind (
          ("C-c m m" . mu4e)
+         ("C-c m r" . (lambda () (interactive) (mu4e~request-contacts)))
          ("C-c m n" . mu4e-compose-new))
   :defines
   yg-smtp-user
@@ -427,7 +433,7 @@
    ;; Update every 5 minutes
    mu4e-update-interval 300
    ;; Speed up indexing
-   mu4e-index-lazy-check t
+   ;; mu4e-index-lazy-check t
    ;; convert html msgs to txt
    ;; mu4e-html2text-command "html2text -utf8 -width 72"
    mu4e-html2text-command "w3m -dump -cols 120 -T text/html"  ;;; Let Emacs do the line wrapping
@@ -464,7 +470,7 @@
   ;; (mu4e~request-contacts))
   ;; Force starting automatic updates
   ;; TODO only start if not already started
-  ;; (mu4e~start)
+  (mu4e~start)
   )
 
 (use-package mu4e-alert
