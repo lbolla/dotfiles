@@ -16,7 +16,9 @@ FILES=(
     .emacs.d
     .gitconfig
     .psqlrc
+    .pylintrc
     .pyrc
+    .ripgreprc
     .zshenv
     .zshrc
 )
