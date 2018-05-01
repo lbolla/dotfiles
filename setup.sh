@@ -8,7 +8,7 @@ DOTDIR=${HOME}/src/dotfiles
 
 function link {
     echo $1
-    ln -sf ${DOTDIR}/$1 ${HOME}/$1
+    ln -sf ${DOTDIR}/$1 -t ${HOME}
 }
 
 FILES=(
