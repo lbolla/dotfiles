@@ -132,3 +132,6 @@ bindkey "^[Oc" forward-word
 
 # For white bg
 # export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
+
+# R libs
+export C_INCLUDE_PATH=/usr/lib/R/include
