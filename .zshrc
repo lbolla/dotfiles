@@ -68,7 +68,7 @@ ZSH_CUSTOM=$HOME/src/dotfiles/.oh-my-zsh/custom/
 export DISABLE_VENV_CD=1
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export XIVIEWER=eog
+export XIVIEWER=feh
 
 plugins=(
     cargo
@@ -131,7 +131,14 @@ bindkey "^[Od" backward-word
 bindkey "^[Oc" forward-word
 
 # For white bg
-# export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
+if [[ "$IN_X" = "no" ]]; then
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
+else
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+fi
 
 # R libs
 export C_INCLUDE_PATH=/usr/lib/R/include
+
+# GnuPG
+export GPG_TTY=$(tty)
