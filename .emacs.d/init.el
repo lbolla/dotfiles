@@ -273,6 +273,7 @@
 ;; (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
 
+;; (pinentry-start)
 (server-start)
 
 (provide 'init)
