@@ -24,6 +24,7 @@ export DISABLE_VENV_CD=1
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 export XIVIEWER=eog
+export KUBECONFIG=$HOME/src/devops/kubernetes/client/config
 
 PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node/bin:$PATH
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
