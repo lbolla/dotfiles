@@ -751,6 +751,10 @@
   :hook
   (org-mode . org-bullets-mode))
 
+(use-package org-mu4e
+  :ensure nil
+  :after (org mu4e))
+
 (use-package paredit
   :demand t
   :diminish
