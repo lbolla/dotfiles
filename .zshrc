@@ -64,12 +64,6 @@ ZSH_CUSTOM=$HOME/src/dotfiles/.oh-my-zsh/custom/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-# Don't automatically activate venvs
-export DISABLE_VENV_CD=1
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-export XIVIEWER=eog
-
 plugins=(
     cargo
     colored-man-pages

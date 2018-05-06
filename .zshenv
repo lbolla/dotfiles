@@ -20,6 +20,10 @@ export RUST_SRC_PATH=~/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib
 export CARGO_INCREMENTAL=1
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 export PATSHOME=/usr/local/lib/ats2-postiats-0.3.3
+export DISABLE_VENV_CD=1
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export XIVIEWER=eog
 
 PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node/bin:$PATH
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
