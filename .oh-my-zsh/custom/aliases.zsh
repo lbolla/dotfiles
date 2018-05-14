@@ -32,3 +32,14 @@ function docker-images-children {
 # Don't want history shared across terminals
 unsetopt inc_append_history
 unsetopt share_history
+
+# Emacs clever alias
+unalias e
+function e {
+    if [[ "$IN_X" = "yes" ]]
+    then
+        emacs $@
+    else
+        te $@
+    fi
+}
