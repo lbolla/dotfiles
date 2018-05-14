@@ -118,11 +118,16 @@ source $ZSH/oh-my-zsh.sh
 # Rehash automatically (https://wiki.archlinux.org/index.php/zsh#Persistent_rehash)
 zstyle ':completion:*' rehash true
 
-# Ctrl-arrow (xterm, urxvt)
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey "^[Od" backward-word
-bindkey "^[Oc" forward-word
+if [[ $IN_X = "yes" ]]
+then
+    # Ctrl-arrow (xterm, urxvt)
+    bindkey "^[[1;5C" forward-word
+    bindkey "^[[1;5D" backward-word
+    bindkey "^[Od" backward-word
+    bindkey "^[Oc" forward-word
+else
+    nocaps
+fi
 
 # For white bg
 if [[ "$IN_X" = "no" ]]; then
