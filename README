@@ -1,0 +1,5 @@
+My dotfiles.
+
+Use `stow` to manage them.
+
+Use `setup.sh` to install the ones I use.
