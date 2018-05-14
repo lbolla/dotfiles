@@ -363,6 +363,10 @@
                      (auto-fill-mode t)
                      (set-indent 4))))
 
+(use-package nim-mode
+  :hook
+  (nim-mode . nimsuggest-mode))
+
 (use-package mu4e
   ;; TODO add this to list of paths to search
   :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
