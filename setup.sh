@@ -5,6 +5,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 PACKAGES=(
+    X
     awesome
     bash
     emacs
@@ -14,7 +15,6 @@ PACKAGES=(
     python
     ripgrep
     virtualenv
-    X
     zsh
 )
 
