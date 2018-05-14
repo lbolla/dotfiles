@@ -79,10 +79,10 @@
  '(fci-rule-color "#383838")
  '(flycheck-check-syntax-automatically (quote (save idle-change new-line mode-enabled)))
  '(flycheck-idle-change-delay 3)
- '(flycheck-javascript-flow-args nil)
+ '(flycheck-javascript-flow-args nil t)
  '(flycheck-python-mypy-args
    (quote
-    ("--incremental" "--ignore-missing-imports" "--follow-imports=skip")))
+    ("--incremental" "--ignore-missing-imports" "--follow-imports=skip")) t)
  '(font-use-system-font t)
  '(gc-cons-threshold 5000000)
  '(godef-command "/home/lbolla/src/go/bin/godef")
@@ -96,18 +96,18 @@
  '(ivy-use-virtual-buffers t)
  '(js2-mode-show-strict-warnings nil t)
  '(linum-format " %7i ")
- '(magit-completing-read-function (quote ivy-completing-read))
+ '(magit-completing-read-function (quote ivy-completing-read) t)
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
  '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
  '(network-security-level (quote high))
- '(org-deadline-warning-days 9999)
+ '(org-deadline-warning-days 30)
  '(org-html-htmlize-output-type (quote css))
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (org-mu4e gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
