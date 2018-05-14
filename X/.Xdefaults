@@ -1,0 +1,99 @@
+! UXTerm*background: #000000
+! UXTerm*foreground: #9f9f9f
+! UXTerm*color0: #000000
+! UXTerm*color1: #9e1828
+! UXTerm*color2: #aece92
+! UXTerm*color3: #968a38
+! UXTerm*color4: #414171
+! UXTerm*color5: #963c59
+! UXTerm*color6: #418179
+! UXTerm*color7: #bebebe
+! UXTerm*color8: #666666
+! UXTerm*color9: #cf6171
+! UXTerm*color10: #c5f779
+! UXTerm*color11: #fff796
+! UXTerm*color12: #4186be
+! UXTerm*color13: #cf9ebe
+! UXTerm*color14: #71bebe
+! UXTerm*color15: #ffffff
+! UXTerm*renderFont: true
+! UXTerm*faceName: DejaVu Sans Mono
+! UXTerm*faceSize: 14
+
+! URxvt*foreground: #f2f2f2
+! URxvt*background: #101010
+! ! Normal
+! ! color0    black
+! ! color1    red
+! ! color2    green
+! ! color3    yellow
+! ! color4    blue
+! ! color5    purple
+! ! color6    cyan
+! ! color7    white
+! URxvt*color0: #6c6c6c
+! URxvt*color1: #e9897c
+! URxvt*color2: #b6e77d
+! URxvt*color3: #ecebbe
+! URxvt*color4: #a9cdeb
+! URxvt*color5: #ea96eb
+! URxvt*color6: #c9caec
+! URxvt*color7: #f2f2f2
+! URxvt*internalBorder: 10
+! URxvt*scrollBar: false
+! URxvt*scrollTtyOutput: false
+! URxvt*scrollWithBuffer: true
+! URxvt*scrollTtyKeypress: true
+! URxvt.secondaryScreen: 1
+! URxvt.secondaryScroll: 0
+! URxvt.secondaryWheel: 1
+! URxvt.font: xft:OperatorMono:size=14
+! URxvt.letterSpace: -1
+! URxvt.perl-ext-common: default,matcher,tabbed
+! URxvt.url-launcher: /usr/bin/xdg-open
+! URxvt.matcher.button: 1
+! URxvt.keysym.C-Delete: perl:matcher:last
+! URxvt.keysym.M-Delete: perl:matcher:list
+! URxvt.tabbed.tabbar-fg: 4
+! URxvt.tabbed.tabbar-bg: 0
+! URxvt.tabbed.tab-fg: 1
+! URxvt.tabbed.tab-bg: 0
+
+URxvt*foreground: white
+URxvt*background: black
+
+*color0:  #2E3436
+*color1:  #a40000
+*color2:  #4E9A06
+*color3:  #C4A000
+*color4:  #3465A4
+*color5:  #75507B
+*color6:  #ce5c00
+*color7:  #babdb9
+*color8:  #555753
+*color9:  #EF2929
+*color10: #8AE234
+*color11: #FCE94F
+*color12: #729FCF
+*color13: #AD7FA8
+*color14: #fcaf3e
+*color15: #EEEEEC
+
+URxvt*internalBorder: 10
+URxvt*scrollBar: false
+
+URxvt.font: 9x15,\
+    ! -misc-fixed-bold-r-normal--15-140-75-75-c-90-iso10646-1,\
+    ! -misc-fixed-medium-r-normal--15-140-75-75-c-90-iso10646-1, \
+    ! [codeset=JISX0208]xft:Kochi Gothic:antialias=false, \
+    xft:Operator Mono:antialias=false
+
+URxvt.perl-ext-common: default,matcher,tabbed
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.keysym.C-Delete: perl:matcher:last
+URxvt.keysym.M-Delete: perl:matcher:list
+URxvt.tabbed.tabbar-fg: 4
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 2
+URxvt.tabbed.tab-bg: 0

@@ -4,36 +4,26 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-DOTDIR=${HOME}/src/dotfiles
-
-function link {
-    echo $1
-    ln -sf ${DOTDIR}/$1 -t ${HOME}
-}
-
-FILES=(
-    .Xresources
-    .emacs.d
-    .gitconfig
-    .psqlrc
-    .pylintrc
-    .pyrc
-    .ripgreprc
-    .zshenv
-    .zshrc
+PACKAGES=(
+    X
+    ack
+    awesome
+    bash
+    emacs
+    git
+    gmrun
+    hg
+    indent
+    javascript
+    psql
+    python
+    ripgrep
+    splint
+    tmux
+    vim
+    virtualenv
+    w3m
+    zsh
 )
 
-for f in ${FILES[@]}; do
-    link $f
-done
-
-DIRS=(
-    .virtualenvs
-)
-
-for d in ${DIRS[@]}; do
-    mkdir -p ${HOME}/$d
-    for f in `ls ${DOTDIR}/$d`; do
-        link $d/$f
-    done
-done
+stow -v -t $HOME ${PACKAGES[@]}

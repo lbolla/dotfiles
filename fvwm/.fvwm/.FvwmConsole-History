@@ -1,0 +1,98 @@
+GotoDesk 0
+FvwmConsole version 2.6.5
+Style * SnapAttraction 10 SameType
+Style * SnapAttraction 10 10 SameType
+Style * SnapGrid 10 10
+Style * EWMHPlacementUseWorkingArea
+Style * EWMHMaximizeUseWorkingArea
+Style Conky EWMHUseStrutHints
+Style * EWMHUseStrutHints
+EwmhBaseStruts 0 0 0 30
+EwmhBaseStruts 0 100 30 0
+EwmhBaseStruts 300 0 50 0
+EwmhBaseStruts 0 300 50 0
+EwmhBaseStruts 0 250 40 0
+EwmhBaseStruts 0 200 40 0
+EwmhBaseStruts 0 100 40 0
+EwmhBaseStruts 0 300 40 0
+EwmhBaseStruts 0 350 40 0
+EwmhBaseStruts 0 310 40 0
+EwmhBaseStruts 0 320 40 0
+Xinerama
+Xinerama off
+Xinerama on
+Xinerama off
+Xinerama on
+Style gmrun PositionPlacement Move 50-50w 50-50w
+Style gmrun PositionPlacement Move m+0 m+0
+Style gmrun PositionPlacement Move 50 50
+Style gmrun PositionPlacement Move -0 -0
+Style gmrun PositionPlacement Move +-10 +-10
+Style gmrun PositionPlacement Move -50w -50w
+Style gmrun PositionPlacement Move -0 -0
+Style gmrun PositionPlacement Move 0 0
+Stick
+Key S A 4             Stick
+Key Left A 4C         Move w-5p
+Key Left A 4C         Move w-50p
+Key Left A 4C         Move w-100p w
+Key Right A 4C        Move w100p w
+Key Up A 4C           Move w w100p
+Key Down A 4C         Move w w-100p
+Key Left A 4C         Move w-100p w
+Key Right A 4C        Move w100p w
+Key Up A 4C           Move w w-100p
+Key Down A 4C         Move w w100p
+ey Left A 4C         Move w-10p w
+Key Right A 4C        Move w10p w
+Key Up A 4C           Move w w-10p
+Key Down A 4C         Move w w10p
+Key Left A 4C         Move w-10p w
+Key Right A 4C        Move w10p w
+Key Up A 4C           Move w w-10p
+Key Down A 4C         Move w w10p
+Key Tab A M WindowList Root c c NoDeskSort, SelectOnRelease Meta_L
+Key Down A 4C Direction South (AcceptsFocus) Focus
+Key Up A 4C Direction North (AcceptsFocus) Focus
+Key Left A 4C Direction West (AcceptsFocus) Focus
+Key Right A 4C Direction East (AcceptsFocus) Focus
+Key Down A 4C         Direction South (CurrentDesk AcceptsFocus) Focus
+Key Up A 4C           Direction North (CurrentDesk AcceptsFocus) Focus
+Key Left A 4C         Direction West (CurrentDesk AcceptsFocus) Focus
+Key Right A 4C        Direction East (CurrentDesk AcceptsFocus) Focus
+Key Right A 4C        Direction East (CurrentDesk AcceptsFocus) Focus Raise
+Key Right A 4C        Direction East (CurrentDesk AcceptsFocus) Raise
+Key Right A 4C        Direction East (CurrentDesk AcceptsFocus) Focus RaiseKey Down A 4C         Direction South (CurrentDesk AcceptsFocus) Raise
+Key Up A 4C           Direction North (CurrentDesk AcceptsFocus) Raise
+Key Left A 4C         Direction West (CurrentDesk AcceptsFocus) Raise
+Key Right A 4C        Direction East (CurrentDesk AcceptsFocus) Raise
+Key Down A 4C         Direction South (CurrentDesk AcceptsFocus) Move-or-Raise
+Key Up A 4C           Direction North (CurrentDesk AcceptsFocus) Move-or-Raise
+Key Left A 4C         Direction West (CurrentDesk AcceptsFocus) Move-or-Raise
+Key Right A 4C        Direction East (CurrentDesk AcceptsFocus) Move-or-Raise
+DestroyFunc Focus-and-Raise
+AddToFunc Focus-and-Raise
++ I Focus
++ I Raise
+Key Down A 4C         Direction South (CurrentDesk AcceptsFocus) Focus-and-Raise
+Key Up A 4C           Direction North (CurrentDesk AcceptsFocus) Focus-and-Raise
+Key Left A 4C         Direction West (CurrentDesk AcceptsFocus) Focus-and-Raise
+Key Right A 4C        Direction East (CurrentDesk AcceptsFocus) Focus-and-Raise
+Place
+PlaceAgaian
+PlaceAgain
+Maximize true grow grow
+Maximize grow grow
+Style FvwmPager HilightBack #ff0000
+Style FvwmPager Hilight #ff0000
+*FvwmPager: Hilight #111111
+*FvwmPager: Hilight #ff1111
+*FvwmPager: Hilight #000000
+*FvwmPager: Hilight #ff1111
+*FvwmPager: NoDeskHilight
+*FvwmPager: SmallFont none
+All Maximize
+All Maximize false
+All Maximize False
+RestartAndRearrange
+RestartAndRearrange

@@ -1,9 +1,0 @@
-source $HOME/.screenrc
-screen -t gmail $SHELL -i -c mutt-gmail
-screen -t pispo $SHELL -i -c mutt-pispo
-screen -t pispo-cs $SHELL -i -c mutt-pispo-customerservice
-#screen -t pispo-info $SHELL -i -c mutt-pispo-info
-screen -t networkscale $SHELL -i -c mutt-networkscale
-screen -t reddeer $SHELL -i -c mutt-reddeer
-screen -t chat $SHELL -i -c centerim
-#screen -t news $SHELL -i -c newsbeuter
