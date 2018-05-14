@@ -10,7 +10,6 @@ PACKAGES=(
     bash
     emacs
     git
-    oh-my-zsh
     psql
     python
     ripgrep
@@ -18,4 +17,4 @@ PACKAGES=(
     zsh
 )
 
-stow -t $HOME ${PACKAGES[@]}
+stow -v -t $HOME ${PACKAGES[@]}
