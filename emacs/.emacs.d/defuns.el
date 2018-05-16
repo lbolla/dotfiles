@@ -367,5 +367,11 @@ representation for the files to include, as returned by
   (let ((q (thing-at-point 'symbol)))
     (mu4e-headers-search-narrow q)))
 
+(defun true-color-p ()
+  "Return non-nil on displays that support 256 colors."
+  (or
+   (display-graphic-p)
+   (= (tty-display-color-cells) 16777216)))
+
 (provide 'defuns)
 ;;; defuns.el ends here
