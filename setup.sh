@@ -14,6 +14,7 @@ PACKAGES=(
     python
     ripgrep
     virtualenv
+    w3m
     zsh
 )
 
