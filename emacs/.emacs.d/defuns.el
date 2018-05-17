@@ -77,10 +77,13 @@
   (interactive)
   (browse-url "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"))
 
+(defcustom my/mu4e-get-mail-command "offlineimap"
+  "Shell command to run to retrieve email manually." :group 'Mu4e)
+
 (defun mu4e-refresh-headers (args)
   "Refresh headers calling 'offlineimap' if prefix is used and in ARGS."
   (interactive "P")
-  (let ((mu4e-get-mail-command (if args "offlineimap" "true")))
+  (let ((mu4e-get-mail-command (if args my/mu4e-get-mail-command "true")))
     (mu4e-update-mail-and-index nil))
   (mu4e-headers-rerun-search))
 
@@ -366,6 +369,12 @@ representation for the files to include, as returned by
   (interactive)
   (let ((q (thing-at-point 'symbol)))
     (mu4e-headers-search-narrow q)))
+
+(defun true-color-p ()
+  "Return non-nil on displays that support 256 colors."
+  (or
+   (display-graphic-p)
+   (= (tty-display-color-cells) 16777216)))
 
 (provide 'defuns)
 ;;; defuns.el ends here
