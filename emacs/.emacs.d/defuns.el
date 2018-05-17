@@ -77,10 +77,13 @@
   (interactive)
   (browse-url "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"))
 
+(defcustom my/mu4e-get-mail-command "offlineimap"
+  "Shell command to run to retrieve email manually." :group 'Mu4e)
+
 (defun mu4e-refresh-headers (args)
   "Refresh headers calling 'offlineimap' if prefix is used and in ARGS."
   (interactive "P")
-  (let ((mu4e-get-mail-command (if args "offlineimap" "true")))
+  (let ((mu4e-get-mail-command (if args my/mu4e-get-mail-command "true")))
     (mu4e-update-mail-and-index nil))
   (mu4e-headers-rerun-search))
 
