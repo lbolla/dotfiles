@@ -270,9 +270,9 @@
 ;;             (load-theme-quasi-monochrome)
 ;;             ))
 
-(load-theme-cyberpunk)
+;; (load-theme-cyberpunk)
 ;; (load-theme-leuven)
-;; (load-theme-quasi-monochrome)
+(load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
 
 (pinentry-start)
