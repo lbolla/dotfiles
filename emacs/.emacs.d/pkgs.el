@@ -439,8 +439,9 @@
    ;; Speed up indexing
    ;; mu4e-index-lazy-check t
    ;; convert html msgs to txt
-   ;; mu4e-html2text-command "html2text -utf8 -width 72"
+   ;; mu4e-html2text-command 'mu4e-shr2text
    mu4e-html2text-command "w3m -dump -cols 120 -T text/html"  ;;; Let Emacs do the line wrapping
+   ;; mu4e-html2text-command "html2text -utf8 -width 72"
    ;; mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain | iconv -f utf-8 | fold"
    ;; mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain --columns=120"
    ;; when to prefer html over text

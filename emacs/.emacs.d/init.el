@@ -101,8 +101,9 @@
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
  '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
+ '(my/mu4e-get-mail-command "mbsync -a")
  '(network-security-level (quote high))
- '(org-deadline-warning-days 30)
+ '(org-deadline-warning-days 30 t)
  '(org-html-htmlize-output-type (quote css) t)
  '(package-enable-at-startup nil)
  '(package-selected-packages
