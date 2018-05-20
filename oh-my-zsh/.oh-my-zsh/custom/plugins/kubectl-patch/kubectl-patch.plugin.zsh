@@ -1,5 +1,6 @@
 # Expand the official .oh-my-zsh kubectl plugin.
 
+alias k=kubectl
 # alias kubectl-create-secret="kubectl create secret generic"  # E.g. kubectl-create-secret test-production --from-literal=secret_key=secret
 # alias k="kubectl"
 alias kdesc="kubectl describe"

@@ -1,4 +1,4 @@
-if type "rg" > /dev/null
+if [ $commands[rg] ]
 then
     export FZF_DEFAULT_COMMAND='rg --files'
 fi

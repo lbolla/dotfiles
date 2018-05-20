@@ -12,7 +12,7 @@ local return_code="%(?:%{$FG[105]%}» :%{$my_orange%}» )"
 # Should really be used as plugin
 # source $HOME/.oh-my-zsh/plugins/kube-ps1/kube-ps1.zsh 
 function __k8s_ps1 {
-    if type "kubectl" > /dev/null
+    if [ $commands[kubectl] ]
     then
         echo "%{$my_gray%}`kubectl config get-contexts | awk '/\*/ { printf "(K8S:%s|%s)", $3, $5}'`%{$reset_color%}"
     fi
@@ -29,9 +29,9 @@ RPS1='${return_code}'
 # right prompt
 if type "virtualenv_prompt_info" > /dev/null
 then
-	RPROMPT='$(__k8s_ps1)$(virtualenv_prompt_info)%{$reset_color%}%'
+    RPROMPT='$(__k8s_ps1)$(virtualenv_prompt_info)%{$reset_color%}%'
 else
-	RPROMPT='$(__k8s_ps1){$reset_color%}%'
+    RPROMPT='$(__k8s_ps1){$reset_color%}%'
 fi
 
 # git settings
