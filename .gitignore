@@ -28,3 +28,4 @@ aliases
 /emacs/.emacs.d/session.*
 /emacs/.emacs.d/tramp
 /emacs/.emacs.d/url/
+/w3m/.w3m/.sessions
