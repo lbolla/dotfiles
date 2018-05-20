@@ -13,6 +13,7 @@ PACKAGES=(
     psql
     python
     ripgrep
+    tmux
     virtualenv
     w3m
     zsh
