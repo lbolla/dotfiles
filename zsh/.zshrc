@@ -1,3 +1,8 @@
+# Profile with:
+# $> for i in $(seq 1 10); do time $SHELL -i -c exit; done
+# Or enable profiling: (zprof at bottom of file, too)
+# zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -69,17 +74,18 @@ plugins=(
     colored-man-pages
     common-aliases
     docker
-    emacs
+    emacs # SLOW 50ms (checking emacs version is slow `require_tool`)
     fzf
     helm
     httpie
     git
-    kubectl
+    kubectl # SLOW 100ms (sourcing kubectl completion zsh)
     kubectl-patch
     paver
     stern
     virtualenv
-    virtualenvwrapper
+    # virtualenvwrapper # SLOW +200ms
+    virtualenvwrapper_lazy
     web-search
     zsh-autosuggestions
 )
@@ -141,3 +147,5 @@ export C_INCLUDE_PATH=/usr/lib/R/include
 
 # GnuPG
 export GPG_TTY=$(tty)
+
+# zprof
