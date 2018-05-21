@@ -34,7 +34,7 @@ unsetopt inc_append_history
 unsetopt share_history
 
 # Emacs clever alias
-# unalias e
+unalias e
 function e {
     if [[ "$IN_X" = "yes" ]]
     then
