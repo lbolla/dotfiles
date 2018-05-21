@@ -15,6 +15,7 @@ export PLAN9=/home/lbolla/src/plan9port
 export PYTHONHASHSEED=random
 export PYTHONSTARTUP=$HOME/.pyrc
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+export RUST_BACKTRACE=1
 export RUST_SRC_PATH=~/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 # export RUST_SRC_PATH=~/.multirust/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 export CARGO_INCREMENTAL=1
