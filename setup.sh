@@ -10,6 +10,7 @@ PACKAGES=(
     awesome
     bash
     emacs
+    fbcli
     git
     gmrun
     hg
