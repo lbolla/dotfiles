@@ -9,6 +9,7 @@ PACKAGES=(
     awesome
     bash
     emacs
+    fbcli
     git
     psql
     python
