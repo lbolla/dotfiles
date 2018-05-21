@@ -267,6 +267,11 @@
   :config
   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy) t))
 
+(use-package fbcli
+  :demand t
+  :mode ((rx ".fbcli_comment" eos) . fogbugz-mode)
+  :load-path "/home/lbolla/src/fbcli/")
+
 (use-package go-mode
   :disabled t
   :custom
@@ -901,7 +906,6 @@
 
 (use-package text-mode
   :ensure nil
-  :mode ((rx ".fbcli_comment" eos))
   :hook
   (text-mode . (lambda ()
                  (flyspell-mode t))))
