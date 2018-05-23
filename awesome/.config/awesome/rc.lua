@@ -467,15 +467,8 @@ awful.rules.rules = {
         },
         class = {
           "Arandr",
-          "Gpick",
-          "Kruler",
-          "MessageWin",  -- kalarm.
-          "Sxiv",
-          "Wpa_gui",
-          "pinentry",
-          "veromix",
-          "xtightvncviewer"},
-
+          "feh",
+        },
         name = {
           "Event Tester",  -- xev.
         },
