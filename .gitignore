@@ -1,5 +1,6 @@
 *.pyc
 *.bak
+*~
 tags
 .DS_Store
 secret
@@ -20,6 +21,7 @@ aliases
 /emacs/.emacs.d/eshell/history
 /emacs/.emacs.d/eshell/lastdir
 /emacs/.emacs.d/flycheck_private.el
+/emacs/.emacs.d/games/
 /emacs/.emacs.d/network-security.data
 /emacs/.emacs.d/private.el
 /emacs/.emacs.d/projectile-bookmarks.eld
