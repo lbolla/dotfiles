@@ -678,7 +678,7 @@
         org-log-into-drawer t
         org-publish-project-alist
         '(("home"
-           :base-directory "~/Private/"
+           :base-directory "~/Private/org/"
            :exclude "\\.*"
            :include ("home.org")
            :with-broken-links t
@@ -763,6 +763,7 @@
 
 (use-package org-mu4e
   :ensure nil
+  :demand t
   :after (org mu4e))
 
 (use-package paredit
