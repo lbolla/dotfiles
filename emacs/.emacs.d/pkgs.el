@@ -953,5 +953,7 @@
   :diminish
   :init (which-key-mode))
 
+(use-package zoom-window)
+
 (provide 'pkgs)
 ;;; pkgs.el ends here
