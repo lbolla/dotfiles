@@ -74,18 +74,17 @@ plugins=(
     colored-man-pages
     common-aliases
     docker
-    emacs # SLOW 50ms (checking emacs version is slow `require_tool`)
+    emacs
     fzf
     helm
     httpie
     git
-    kubectl # SLOW 100ms (sourcing kubectl completion zsh)
+    kubectl
     kubectl-patch
     paver
     stern
     virtualenv
-    # virtualenvwrapper # SLOW +200ms
-    virtualenvwrapper_lazy
+    virtualenvwrapper
     web-search
     zsh-autosuggestions
 )
