@@ -26,6 +26,7 @@
  '(auth-sources
    (quote
     ("secrets:session" "secrets:Login" "~/.authinfo.gpg")))
+ '(auto-hscroll-mode (quote current-line))
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
  '(browse-url-browser-function (quote browse-url-xdg-open))
  '(c-default-style
@@ -71,6 +72,7 @@
  '(elpy-modules
    (quote
     (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
+ '(epa-pinentry-mode (quote loopback))
  '(evil-lookup-func (quote man-at-point))
  '(evil-want-C-w-in-emacs-state t)
  '(evil-want-integration nil)
@@ -100,10 +102,10 @@
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
+ '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed" t)
  '(my/mu4e-get-mail-command "mbsync -a")
  '(network-security-level (quote high))
- '(org-deadline-warning-days 30 t)
+ '(org-deadline-warning-days 30)
  '(org-html-htmlize-output-type (quote css) t)
  '(package-enable-at-startup nil)
  '(package-selected-packages
@@ -138,7 +140,7 @@
  '(show-paren-mode t)
  '(tls-checktrust (quote ask))
  '(tool-bar-mode nil)
- '(tramp-default-method "ssh")
+ '(tramp-default-method "ssh" nil (tramp))
  '(undo-tree-visualizer-diff nil)
  '(undo-tree-visualizer-timestamps nil)
  '(user-full-name "Lorenzo Bolla")
@@ -236,6 +238,7 @@
                 (lambda ()
                   (interactive)
                   (find-file "~/.emacs.d/pkgs.el")))
+(global-set-key (kbd "C-c l") 'display-line-numbers-mode)
 ;; (global-set-key (kbd "C-c w") 'eww)
 (global-set-key (kbd "C-c w") 'w3m)
 (global-set-key (kbd "C-c z") 'zoom-window-zoom)
@@ -276,7 +279,6 @@
 (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
 
-(pinentry-start)
 (server-start)
 
 (provide 'init)
