@@ -127,6 +127,10 @@
   (ess-mode . (lambda ()
                  (modify-syntax-entry ?\_ "w"))))
 
+(use-package eyebrowse
+  :init
+  (eyebrowse-mode t))
+
 (use-package evil
   :demand t
   :custom
