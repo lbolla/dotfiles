@@ -128,8 +128,13 @@
                  (modify-syntax-entry ?\_ "w"))))
 
 (use-package eyebrowse
+  :custom
+  (eyebrowse-new-workspace t)
+  (eyebrowse-keymap-prefix (kbd "C-c e"))
   :init
-  (eyebrowse-mode t))
+  (eyebrowse-mode t)
+  :config
+  (eyebrowse-setup-opinionated-keys))
 
 (use-package evil
   :demand t
@@ -138,6 +143,8 @@
   (evil-want-integration nil)
   (evil-lookup-func 'man-at-point)
   (evil-want-C-w-in-emacs-state t)
+  ;; Or it masks <TAB> in non-graphical mode
+  (evil-want-C-i-jump nil)
 
   :init
   (evil-mode t)
@@ -503,6 +510,7 @@
   :custom
   (org-html-htmlize-output-type 'css)
   (org-deadline-warning-days 30)
+  (org-startup-indented t)
   :defines
   org-agenda-custom-commands
   org-agenda-include-diary
@@ -519,7 +527,6 @@
   yg-kiln-url
 
   :hook
-  (org-mode . org-indent-mode)
   (org-mode . auto-fill-mode)
   (org-mode . flyspell-mode)
 
@@ -557,7 +564,6 @@
         org-fast-tag-selection-single-key t
         org-treat-S-cursor-todo-selection-as-state-change nil
         org-src-fontify-natively t
-
         org-agenda-sorting-strategy
         '((agenda habit-down time-up deadline-up scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
           (todo priority-down category-keep alpha-up)
@@ -686,7 +692,7 @@
            :exclude "\\.*"
            :include ("home.org")
            :with-broken-links t
-           :publishing-directory "~/Private/"
+           :publishing-directory "~/Private/org/"
            :publishing-function org-html-publish-to-html
            ;; :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
            ;; "Async" CSS
@@ -891,7 +897,9 @@
 (use-package sh-script
   :mode (((rx "." (or "z" "ba") "sh") . shell-script-mode)
          ((rx ".sh" eos) . shell-script-mode)
-         ((rx ".env") . shell-script-mode)))
+         ((rx ".env") . shell-script-mode)
+         ;; Void package template files
+         ((rx bos "template" eos) . shell-script-mode)))
 
 (use-package smtpmail
   :custom

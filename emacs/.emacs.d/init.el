@@ -26,7 +26,7 @@
  '(auth-sources
    (quote
     ("secrets:session" "secrets:Login" "~/.authinfo.gpg")))
- '(auto-hscroll-mode (quote current-line))
+ '(auto-hscroll-mode t)
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
  '(browse-url-browser-function (quote browse-url-xdg-open))
  '(c-default-style
@@ -74,10 +74,13 @@
     (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
  '(epa-pinentry-mode (quote loopback))
  '(evil-lookup-func (quote man-at-point))
+ '(evil-want-C-i-jump nil)
  '(evil-want-C-w-in-emacs-state t)
  '(evil-want-integration nil)
  '(eww-search-prefix "https://www.ixquick.com/do/search?q=")
  '(explicit-shell-file-name "/usr/bin/bash")
+ '(eyebrowse-keymap-prefix "e")
+ '(eyebrowse-new-workspace t)
  '(fci-rule-color "#383838")
  '(flycheck-check-syntax-automatically (quote (save idle-change new-line mode-enabled)))
  '(flycheck-idle-change-delay 3)
@@ -107,6 +110,7 @@
  '(network-security-level (quote high))
  '(org-deadline-warning-days 30)
  '(org-html-htmlize-output-type (quote css))
+ '(org-startup-indented t)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
@@ -125,17 +129,18 @@
  '(rg-custom-type-aliases
    (quote
     ((#("gn" 0 1
-        (idx 36))
+        (idx 0))
       . "*.gn *.gni")
      (#("gyp" 0 1
-        (idx 40))
+        (idx 1))
       . "*.gyp *.gypi")
      (#("tmpl" 0 1
-        (idx 110))
+        (idx 2))
       . "*.tmpl"))))
  '(rg-define-toggle "--context 3" t)
  '(rg-group-result nil)
  '(rust-format-on-save t t)
+ '(safe-local-variable-values (quote ((eval setenv "LAUNCH_DB" "1"))))
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(tls-checktrust (quote ask))
@@ -206,9 +211,9 @@
      ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
      ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
      ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
- '(web-mode-code-indent-offset 4)
- '(web-mode-css-indent-offset 2)
- '(web-mode-markup-indent-offset 2)
+ '(web-mode-code-indent-offset 4 t)
+ '(web-mode-css-indent-offset 2 t)
+ '(web-mode-markup-indent-offset 2 t)
  '(whitespace-style (quote (face trailing lines-tail))))
 
 (custom-set-faces

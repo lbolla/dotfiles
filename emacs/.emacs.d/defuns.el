@@ -197,21 +197,27 @@
       (goto-char temp-point))))
 
 (defcustom my-fonts '(
+                      "Monoid-11"
+                      "Monoid-10"
                       "Operator Mono Light-14"
                       "Ubuntu Mono-12"
-                      "ProggyCleanTT-12"
                       "Terminus-12"
+                      "ProggyCleanTT-12"
                       "IBM 3270 Narrow-14"
                       "Input-12"
-                      "Monoid-11"
-                      ) "List of fonts I like." :group 'local)
+                      ) "List of fonts I like." :group 'local :type 'list)
 
-(defun cycle-fonts ()
-  "Cycle between the fonts I like."
+;; (defun cycle-fonts ()
+;;   "Cycle between the fonts I like."
+;;   (interactive)
+;;   (set-frame-font (car my-fonts))
+;;   (message "Using font %s" (car my-fonts))
+;;   (setq my-fonts (cycle my-fonts)))
+
+(defun choose-font ()
+  "Choose a font."
   (interactive)
-  (set-frame-font (car my-fonts))
-  (message "Using font %s" (car my-fonts))
-  (setq my-fonts (cycle my-fonts)))
+  (set-frame-font (ido-completing-read "Font: " my-fonts)))
 
 (defun icalendar-import-buffer-in-default-diary ()
   "Import icalendar files into default diary."
