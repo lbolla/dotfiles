@@ -2,7 +2,7 @@
 devops = search status:active project:devops
 brandindex = search status:active project:brandindex
 openedbyme = search openedby:me
-testing = edit sStatus:Testing
+testing = edit status=testing
 wontfix = resolve Resolved (Won't Fix)
 # duplicate = resolve Resolved (Duplicate)
 bydesign = resolve Resolved (By Design)
