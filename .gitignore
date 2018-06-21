@@ -31,3 +31,5 @@ aliases
 /emacs/.emacs.d/tramp
 /emacs/.emacs.d/url/
 /w3m/.w3m/.sessions
+/w3m/.w3m/cookie
+/w3m/.w3m/history
