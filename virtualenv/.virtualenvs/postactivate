@@ -3,10 +3,10 @@
 
 source <(pip completion --zsh)
 
-if [[ $VIRTUAL_ENV == "/home/lbolla/.virtualenvs/bixmodel" ]]; then
+if [[ $VIRTUAL_ENV == "/home/lbolla/.virtualenvs/bix_model" ]]; then
     export LAUNCH_DB=1
 fi;
 
-if [[ $VIRTUAL_ENV == "/home/lbolla/.virtualenvs/bix2ui" ]]; then
+if [[ $VIRTUAL_ENV == "/home/lbolla/.virtualenvs/bix2_ui" ]]; then
     export LAUNCH_DB=1
 fi;
