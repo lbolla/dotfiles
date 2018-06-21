@@ -1,5 +1,6 @@
 -- Standard awesome library
 local gears = require("gears")
+-- local lain  = require("lain")
 local awful = require("awful")
 require("awful.autofocus")
 -- Widget and layout library
@@ -49,6 +50,7 @@ terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 emacs_cmd = os.getenv("HOME") .. "/.oh-my-zsh/plugins/emacs/emacsclient.sh --no-wait"
+xlock_cmd = 'xscreensaver-command -lock'
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -286,10 +288,14 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey,           }, "b", function () awful.spawn("firefox") end,
               {description = "open firefox", group = "launcher"}),
+    awful.key({ modkey,           }, "c", function () awful.spawn("chromium") end,
+              {description = "open chromium", group = "launcher"}),
     awful.key({ modkey,           }, "e", function () awful.spawn(emacs_cmd) end,
               {description = "open emacs", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
+    awful.key({ modkey, "Shift"   }, "s", function () awful.spawn(xlock_cmd) end,
+              {description = "lock screen", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
