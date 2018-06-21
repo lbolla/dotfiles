@@ -11,6 +11,8 @@ PACKAGES=(
     emacs
     fbcli
     git
+    lftp
+    mime
     psql
     python
     ripgrep
