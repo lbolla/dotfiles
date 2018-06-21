@@ -43,3 +43,10 @@ function e {
         te $@
     fi
 }
+
+# From https://superuser.com/questions/285381/how-does-the-tmux-color-palette-work
+function list-colors-display {
+    for i in {0..255}; do
+        printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"
+    done
+}
