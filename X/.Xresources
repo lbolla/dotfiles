@@ -40,6 +40,10 @@ URxvt.keysym.M-Delete: matcher:list
 URxvt.matcher.pattern.1: sftp://[\\w\\-\\@;\\/?:&=%\\$.+!*\\x27,~#]*(\\([\\w\\-\\@;\\/?:&=%\\$.+!*\\x27,~#]*\\)|[\\w\\-\\@;\\/?:&=%\\$+*~])+
 URxvt.matcher.pattern.2: \\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}
 URxvt.colorUL: #4682B4
+URxvt.scrollTtyOutput: false
+URxvt.scrollWithBuffer: true
+URxvt.scrollTtyKeypress: true
+
 !!! TODO Change font size on Control-Plus/Minus
 ! URxvt.perl-ext-common: font-size
 ! URxvt.keysym.Control-0x2b: perl:font-size:increase
