@@ -8,6 +8,7 @@ PACKAGES=(
     X
     awesome
     bash
+    bin
     emacs
     fbcli
     git

@@ -19,6 +19,12 @@ alias -s json="jq . <"
 alias -s pdf="evince"
 alias -s tgz="tar tf"
 
+alias aws="/home/lbolla/.virtualenvs/aws-shell/bin/aws"
+alias aws-shell="/home/lbolla/.virtualenvs/aws-shell/bin/aws-shell"
+alias fb="/home/lbolla/.virtualenvs/fbcli/bin/fb"
+alias rust-update="/home/lbolla/src/cmd/rust-update"
+alias vcs-resolve="/home/lbolla/src/vcs-resolve/vcs-resolve.py"
+
 # We want this: https://github.com/sharkdp/fd
 unalias fd
 
