@@ -122,6 +122,16 @@
  :init
  (elpy-enable))
 
+(use-package erlang-start
+  :load-path "/usr/lib/erlang/lib/tools-3.0/emacs/"
+  :mode (((rx ".erl" eos) . erlang-mode)
+         ((rx ".hrl" eos) . erlang-mode))
+  :hook
+  (erlang-mode . (lambda ()
+                   (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)))
+  (erlang-shell-mode . (lambda ()
+                         (evil-define-key 'normal erlang-shell-mode-map (kbd "K") 'erlang-man-function))))
+
 (use-package ess
   :hook
   (ess-mode . (lambda ()
@@ -251,15 +261,14 @@
 
 (use-package flycheck-cython
   :load-path "/home/lbolla/src/emacs-flycheck-cython/"
-  :after flycheck)
-
-(use-package flycheck-mypy
-  :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
   :after flycheck
-  :custom
-  (flycheck-python-mypy-args '("--incremental" "--ignore-missing-imports" "--follow-imports=skip"))
+  :demand t)
+
+(use-package flycheck-dialyzer
+  :after flycheck
+  :demand t
   :config
-  (flycheck-add-next-checker 'python-pylint '(warning . python-mypy) t))
+  (flycheck-add-next-checker 'erlang '(warning . erlang-dialyzer) t))
 
 (use-package flycheck-flow
   :load-path "/home/lbolla/src/emacs-flycheck-flow/"
@@ -268,8 +277,23 @@
   ;; (flycheck-add-next-checker 'javascript-flow '(warning . javascript-flow-coverage) t)
   (flycheck-add-next-checker 'javascript-jshint '(warning . javascript-flow) t))
 
+(use-package flycheck-mypy
+  :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
+  :after flycheck
+  :demand t
+  :custom
+  (flycheck-python-mypy-args '("--incremental" "--ignore-missing-imports" "--follow-imports=skip"))
+  :config
+  (flycheck-add-next-checker 'python-pylint '(warning . python-mypy) t))
+
+(use-package flycheck-popup-tip
+  :after flycheck
+  :hook
+  (flycheck-mode . flycheck-popup-tip-mode))
+
 (use-package flycheck-rust
   :after rust-mode
+  :demand t
   :custom
   ;; Use 'cargo check' not 'cargo test'
   (flycheck-rust-check-tests nil)

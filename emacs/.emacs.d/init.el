@@ -87,7 +87,7 @@
  '(flycheck-javascript-flow-args nil t)
  '(flycheck-python-mypy-args
    (quote
-    ("--incremental" "--ignore-missing-imports" "--follow-imports=skip")) t)
+    ("--incremental" "--ignore-missing-imports" "--follow-imports=skip")))
  '(font-use-system-font t)
  '(gc-cons-threshold 5000000)
  '(godef-command "/home/lbolla/src/go/bin/godef")
@@ -99,7 +99,7 @@
 
 ")
  '(ivy-use-virtual-buffers t)
- '(js2-mode-show-strict-warnings nil t)
+ '(js2-mode-show-strict-warnings nil)
  '(linum-format " %7i ")
  '(magit-completing-read-function (quote ivy-completing-read))
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
@@ -114,7 +114,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (eyebrowse nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (flycheck-popup-tip eyebrowse nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -211,9 +211,9 @@
      ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
      ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
      ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
- '(web-mode-code-indent-offset 4 t)
- '(web-mode-css-indent-offset 2 t)
- '(web-mode-markup-indent-offset 2 t)
+ '(web-mode-code-indent-offset 4)
+ '(web-mode-css-indent-offset 2)
+ '(web-mode-markup-indent-offset 2)
  '(whitespace-style (quote (face trailing lines-tail))))
 
 (custom-set-faces
@@ -221,8 +221,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Terminus" :weight light :height 120)))))
- ;; '(default ((t (:family "Monoid" :height 110)))))
+ '(default ((t (:family "Terminus" :weight light :height 120))))
+ '(fixed-pitch ((t (:family "Terminus")))))
 
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
 (setq auto-window-vscroll nil)

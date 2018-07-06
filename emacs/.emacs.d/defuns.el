@@ -30,6 +30,16 @@
       `no-indent'
     nil))
 
+(defun erlang-typer ()
+  "Run `typer` on current buffer."
+  (interactive)
+  (save-buffer)
+  (let ((outbuf (get-buffer-create "*Typer*")))
+    (shell-command (concat "typer " (buffer-file-name)) outbuf)
+    (with-current-buffer outbuf
+      (setq buffer-read-only t)
+      (display-buffer outbuf))))
+
 (defun eww-at-point ()
   "Run eww on thing at poing."
   (interactive)
