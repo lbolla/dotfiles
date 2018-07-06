@@ -3,8 +3,8 @@ export BROWSER=firefox
 # export BROWSER=google-chrome
 export EDITOR='emacsclient -nw'
 # export EDITOR='vim'
-export GOPATH=$HOME/src/go
-export GOROOT=/opt/go
+export GOPATH=$HOME
+export GOROOT=/usr/lib/go
 export LESS="-R"
 export MAIL=$HOME/Mail/YG/INBOX/
 export PAGER=less
@@ -28,11 +28,12 @@ export XIVIEWER=feh
 export KUBECONFIG=$HOME/src/yougov/devops/kubernetes/client/config
 export MAILDIR=$HOME/Mail
 
-PATH=/opt/emacs/src:/opt/emacs/lib-src:/opt/cisco/anyconnect/bin:/opt/flow:/opt/node/bin:$PATH
-PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-PATH=$HOME/.cargo/bin:$PATH
-PATH=$HOME/bin:$HOME/.local/bin:$HOME/.cache/rebar3/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH
-export PATH
+# Void sources /etc/profile *after* .zshenv, overriding $PATH. Reset in .zshrc
+# PATH=/opt/helm:/opt/node/bin:$PATH
+# PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+# PATH=$HOME/.cargo/bin:$PATH
+# PATH=$HOME/bin:$HOME/.local/bin:$HOME/.cache/rebar3/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH
+# export PATH
 
 if [[ -n "$DISPLAY" ]]
 then
@@ -46,24 +47,46 @@ else
     then
         # Nice terminal colors
         # http://askubuntu.com/questions/147462/how-can-i-change-the-tty-colors
-        echo -en "\e]P0232323" # black
-        echo -en "\e]P0000000" # black
-        echo -en "\e]P82B2B2B" # darkgrey
-        echo -en "\e]P1D75F5F" # darkred
-        echo -en "\e]P9E33636" # red
-        echo -en "\e]P287AF5F" # darkgreen
-        echo -en "\e]PA98E34D" # green
-        echo -en "\e]P3D7AF87" # brown
-        echo -en "\e]PBFFD75F" # yellow
-        echo -en "\e]P48787AF" # darkblue
-        echo -en "\e]PC7373C9" # blue
-        echo -en "\e]P5BD53A5" # darkmagenta
-        echo -en "\e]PDD633B2" # magenta
-        echo -en "\e]P65FAFAF" # darkcyan
-        echo -en "\e]PE44C9C9" # cyan
-        echo -en "\e]P7E5E5E5" # lightgrey
-        echo -en "\e]PFFFFFFF" # white
+        # Color codes:
+        #    e]P -> escape
+        #    x -> 0..F color to modify
+        #    RRGGBB -> hex color
+
+        # echo -en "\e]P0232323" # black
+        # echo -en "\e]P82B2B2B" # darkgrey
+        # echo -en "\e]P1D75F5F" # darkred
+        # echo -en "\e]P9E33636" # red
+        # echo -en "\e]P287AF5F" # darkgreen
+        # echo -en "\e]PA98E34D" # green
+        # echo -en "\e]P3D7AF87" # brown
+        # echo -en "\e]PBFFD75F" # yellow
+        # echo -en "\e]P48787AF" # darkblue
+        # echo -en "\e]PC7373C9" # blue
+        # echo -en "\e]P5BD53A5" # darkmagenta
+        # echo -en "\e]PDD633B2" # magenta
+        # echo -en "\e]P65FAFAF" # darkcyan
+        # echo -en "\e]PE44C9C9" # cyan
+        # echo -en "\e]P7E5E5E5" # lightgrey
+        # echo -en "\e]PFFFFFFF" # white
         # clear # for background artifacting
+
+        echo -en "\e]P0000000" # black
+        echo -en "\e]P1FF0000" # red
+        echo -en "\e]P200FF00" # green
+        echo -en "\e]P3FFFF00" # yellow
+        echo -en "\e]P40000FF" # blue
+        echo -en "\e]P5D633B2" # magenta
+        echo -en "\e]P644C9C9" # cyan
+        echo -en "\e]P7E5E5E5" # grey
+        echo -en "\e]P82B2B2B" # darkgrey
+        echo -en "\e]P9FF0000" # darkred
+        echo -en "\e]PA00FF00" # darkgreen
+        echo -en "\e]PBFFFF00" # darkyellow
+        echo -en "\e]PC0000FF" # darkblue
+        echo -en "\e]PDD633B2" # darkmagenta
+        echo -en "\e]PE44C9C9" # darkcyan
+        echo -en "\e]PF2B2B2B" # darkgrey
+
     fi
 fi
 

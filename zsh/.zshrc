@@ -4,7 +4,7 @@
 # zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/opt/helm:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/lbolla/.oh-my-zsh
@@ -136,7 +136,7 @@ fi
 
 # For white bg
 if [[ "$IN_X" = "no" ]]; then
-    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='bold'
 else
     export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 fi
