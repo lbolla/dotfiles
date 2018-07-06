@@ -476,6 +476,7 @@ awful.rules.rules = {
         class = {
           "Arandr",
           "feh",
+          "mupdf",
         },
         name = {
           "Event Tester",  -- xev.
