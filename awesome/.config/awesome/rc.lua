@@ -1,6 +1,7 @@
 -- Standard awesome library
 local gears = require("gears")
--- local lain  = require("lain")
+local gfs = require("gears.filesystem")
+local lain  = require("lain")
 local awful = require("awful")
 require("awful.autofocus")
 -- Widget and layout library
@@ -124,6 +125,20 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
+-- Battery
+baticon = wibox.widget.imagebox(gfs.get_configuration_dir() .. "/icons/bat.png")
+bat = lain.widget.bat({
+    settings = function()
+        local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "%" or bat_now.perc
+
+        if bat_now.status == 'Charging' or bat_now.status == 'Unknown' then
+            perc = perc .. " [plugged]"
+        end
+
+        widget:set_markup(lain.util.markup.fontfg("terminus 8", "#aaaaaa", perc .. " "))
+    end
+})
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -222,6 +237,8 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             -- mykeyboardlayout,
             wibox.widget.systray(),
+            baticon,
+            bat.widget,
             mytextclock,
             s.mylayoutbox,
         },
@@ -286,10 +303,14 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(terminal .. " -fg black -bg '#cecece'") end,
+              {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey,           }, "b", function () awful.spawn("firefox") end,
               {description = "open firefox", group = "launcher"}),
     awful.key({ modkey,           }, "c", function () awful.spawn("chromium") end,
               {description = "open chromium", group = "launcher"}),
+    awful.key({ modkey, "Control" }, "c", function () awful.spawn("chromium --incognito") end,
+              {description = "open chromium in incognito", group = "launcher"}),
     awful.key({ modkey,           }, "e", function () awful.spawn(emacs_cmd) end,
               {description = "open emacs", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -460,6 +481,7 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
+                     size_hints_honor = false,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
