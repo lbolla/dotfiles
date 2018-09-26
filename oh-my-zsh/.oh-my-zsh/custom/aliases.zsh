@@ -10,13 +10,18 @@ alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock 
 alias docker-images-tree="dockviz images -t -l"
 alias mkvirtualenv2="mkvirtualenv --python `which python2`"
 alias mkvirtualenv3="mkvirtualenv --python `which python3`"
+alias mkvirtualenv-pypy2="mkvirtualenv --python /opt/pypy-6.0.0-linux_x86_64-portable/bin/pypy"
+alias mkvirtualenv-pypy3="mkvirtualenv --python /opt/pypy3.5-6.0.0-linux_x86_64-portable/bin/pypy"
 alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Control/" | sudo loadkeys'
+unalias t; alias t=tmux
 alias ungron="gron --ungron"
 alias w=workon
+alias youtube=mpsyt
 
+alias -s epub="FBReader"
 alias -s gz="gunzip -c"
 alias -s json="jq . <"
-alias -s pdf="evince"
+alias -s pdf="mupdf"
 alias -s tgz="tar tf"
 
 alias aws="/home/lbolla/.virtualenvs/aws-shell/bin/aws"
@@ -24,6 +29,9 @@ alias aws-shell="/home/lbolla/.virtualenvs/aws-shell/bin/aws-shell"
 alias fb="/home/lbolla/.virtualenvs/fbcli/bin/fb"
 alias rust-update="/home/lbolla/src/cmd/rust-update"
 alias vcs-resolve="/home/lbolla/src/vcs-resolve/vcs-resolve.py"
+
+# alias vpn='sudo openvpn --config /home/lbolla/Private/vpn/AirVPN_Europe_UDP-443.ovpn --up "/home/lbolla/Private/vpn/bt-nameserver off" --down "/home/lbolla/Private/vpn/bt-nameserver on"'
+alias vpn='sudo openvpn --config /home/lbolla/Private/vpn/AirVPN_Europe_UDP-443.ovpn'
 
 # We want this: https://github.com/sharkdp/fd
 unalias fd

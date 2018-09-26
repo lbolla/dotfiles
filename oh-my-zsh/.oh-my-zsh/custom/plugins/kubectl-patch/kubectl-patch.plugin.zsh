@@ -10,7 +10,6 @@ alias klogs="kubectl logs"
 # alias ktail="kubetail"
 alias ktail="stern -t -s 1s"
 alias kview="kubectl get -o yaml"
-alias kevents="kubectl get events --sort-by=.lastTimestamp -ocustom-columns=LAST_TS:.lastTimestamp,NAME:.metadata.name,MSG:.message | grep -v 'Search Line limits were exceeded'"
 # TODO not working
 # alias knodes-count-pods="kubectl get po -o wide --all-namespaces | grep -v NODE | awk '{print $8}' | sort | uniq -c"
 
@@ -50,4 +49,8 @@ function ksearch {
     kget cm --all-namespaces --show-kind=true | fgrep -i "$*"
     kget sa --all-namespaces --show-kind=true | fgrep -i "$*"
     kget clusterrolebinding --all-namespaces --show-kind=true | fgrep -i "$*"
+}
+
+function kevents {
+    kubectl get events --sort-by=.lastTimestamp -ocustom-columns=LAST_TS:.lastTimestamp,NAME:.metadata.name,MSG:.message $* | grep -v 'Search Line limits were exceeded'
 }

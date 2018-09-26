@@ -1,7 +1,8 @@
 # export ALTERNATE_EDITOR=vim
 export BROWSER=firefox
 # export BROWSER=google-chrome
-export EDITOR='emacsclient -nw'
+export EDITOR='emacsclient'
+# export EDITOR='emacsclient -nw'
 # export EDITOR='vim'
 export GOPATH=$HOME
 export GOROOT=/usr/lib/go
@@ -9,8 +10,8 @@ export LESS="-R"
 export MAIL=$HOME/Mail/YG/INBOX/
 export PAGER=less
 export PGCLUSTER="9.6/main"  # Use latest PG
-export PIP_REQUIRE_VIRTUALENV=true
-export PIP_RESPECT_VIRTUALENV=true
+# export PIP_REQUIRE_VIRTUALENV=true
+# export PIP_RESPECT_VIRTUALENV=true
 export PLAN9=/home/lbolla/src/plan9port
 export PYTHONHASHSEED=random
 export PYTHONSTARTUP=$HOME/.pyrc
@@ -70,22 +71,22 @@ else
         # echo -en "\e]PFFFFFFF" # white
         # clear # for background artifacting
 
-        echo -en "\e]P0000000" # black
-        echo -en "\e]P1FF0000" # red
-        echo -en "\e]P200FF00" # green
-        echo -en "\e]P3FFFF00" # yellow
-        echo -en "\e]P40000FF" # blue
-        echo -en "\e]P5D633B2" # magenta
-        echo -en "\e]P644C9C9" # cyan
-        echo -en "\e]P7E5E5E5" # grey
-        echo -en "\e]P82B2B2B" # darkgrey
-        echo -en "\e]P9FF0000" # darkred
-        echo -en "\e]PA00FF00" # darkgreen
-        echo -en "\e]PBFFFF00" # darkyellow
-        echo -en "\e]PC0000FF" # darkblue
-        echo -en "\e]PDD633B2" # darkmagenta
-        echo -en "\e]PE44C9C9" # darkcyan
-        echo -en "\e]PF2B2B2B" # darkgrey
+        # echo -en "\e]P0000000" # black
+        # echo -en "\e]P1FF0000" # red
+        # echo -en "\e]P200FF00" # green
+        # echo -en "\e]P3FFFF00" # yellow
+        # echo -en "\e]P40000FF" # blue
+        # echo -en "\e]P5D633B2" # magenta
+        # echo -en "\e]P644C9C9" # cyan
+        # echo -en "\e]P7E5E5E5" # grey
+        # echo -en "\e]P82B2B2B" # darkgrey
+        # echo -en "\e]P9FF0000" # darkred
+        # echo -en "\e]PA00FF00" # darkgreen
+        # echo -en "\e]PBFFFF00" # darkyellow
+        # echo -en "\e]PC0000FF" # darkblue
+        # echo -en "\e]PDD633B2" # darkmagenta
+        # echo -en "\e]PE44C9C9" # darkcyan
+        # echo -en "\e]PF2B2B2B" # darkgrey
 
     fi
 fi

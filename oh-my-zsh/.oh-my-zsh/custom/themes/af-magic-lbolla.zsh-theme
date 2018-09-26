@@ -33,6 +33,8 @@ then
 else
     RPROMPT='$(__k8s_ps1){$reset_color%}%'
 fi
+# Don't show rprompt on previous commands
+setopt TRANSIENT_RPROMPT
 
 # git settings
 ZSH_THEME_GIT_PROMPT_PREFIX="$FG[075]($FG[078]"
