@@ -184,8 +184,10 @@
   (interactive "p")
   (defvar evil-shift-width)
   (defvar js-indent-level)
+  (defvar json-reformat:indent-width)
   (setq evil-shift-width size
         js-indent-level size
+        json-reformat:indent-width size
         tab-width size))
 
 (defun set-whitespace-line-column (width)

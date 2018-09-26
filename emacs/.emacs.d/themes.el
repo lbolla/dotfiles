@@ -16,7 +16,7 @@
 (defun switch-theme (theme)
   "Disable current theme and enable THEME."
   (disable-current-theme)
-  (load-theme theme)
+  (load-theme theme t)
   (setq current-theme theme))
 
 (defun load-theme-quasi-monochrome ()
@@ -57,6 +57,7 @@
   (switch-theme 'cyberpunk)
   (custom-theme-set-faces 'cyberpunk
    `(font-lock-warning-face            ((t (:foreground "#ff69b4" :inverse-video t :weight bold))))
+   `(highlight-indentation-face        ((t (:inherit (fringe) :background "gray5"))))
    `(hl-line                           ((t (:background "gray10"))))
    `(magit-section-highlight           ((t (:background "gray20"))))
    `(magit-diff-context-highlight      ((t (:background "gray10"))))
@@ -65,6 +66,7 @@
    `(magit-diff-added-highlight        ((t (:inherit (magit-diff-added) :background "gray10"))))
    `(mu4e-flagged-face                 ((t (:inherit (font-lock-constant-face) :foreground "firebrick" :weight bold))))
    `(mu4e-header-highlight-face        ((t (:inherit (region) :underline nil))))
+   `(mu4e-forwarded-face               ((t (:inherit (font-lock-builtin-face) :foreground "gray30" :weight bold))))
    `(mu4e-replied-face                 ((t (:inherit (font-lock-comment-face) :weight normal))))
    `(org-canc                          ((t (:foreground "gray30" :weight bold :box t))))
    `(org-defr                          ((t (:foreground "gray50" :weight bold :box t))))
@@ -89,6 +91,21 @@
    `(org-delg                          ((t (:inherit (org-todo) :foreground "gray")))))
   (zerodark-setup-modeline-format)
   (switch-theme 'zerodark))
+
+(defun load-theme-goose ()
+  "Load `goose` theme."
+  (interactive)
+  (use-package goose-theme
+    :demand t)
+  (switch-theme 'goose)
+  (custom-theme-set-faces 'goose
+   `(font-lock-string-face             ((t (:foreground "#666666" :slant italic))))
+   `(mu4e-flagged-face                 ((t (:inherit (font-lock-constant-face) :foreground "firebrick" :weight bold))))
+   `(org-canc                          ((t (:foreground "#666666" :weight bold))))
+   `(org-scheduled                     ((t (:inherit (default)))))
+   `(org-scheduled-previously          ((t (:foreground "#666666" :weight normal))))
+   `(org-scheduled-today               ((t (:inherit (default)))))))
+
 
 (provide 'themes)
 ;;; themes.el ends here

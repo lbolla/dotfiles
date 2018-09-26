@@ -66,6 +66,7 @@
      ("Asia/Tokyo" "Tokyo")
      ("Australia/Sydney" "Sydney"))))
  '(dumb-jump-selector (quote ivy))
+ '(dumb-jump-window (quote other))
  '(dump-jump-prefer-searcher (quote rg) t)
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
@@ -99,7 +100,7 @@
 
 ")
  '(ivy-use-virtual-buffers t)
- '(js2-mode-show-strict-warnings nil)
+ '(js2-mode-show-strict-warnings nil t)
  '(linum-format " %7i ")
  '(magit-completing-read-function (quote ivy-completing-read))
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
@@ -108,13 +109,14 @@
  '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
  '(my/mu4e-get-mail-command "mbsync -a")
  '(network-security-level (quote high))
+ '(org-agenda-tags-column (quote auto))
  '(org-deadline-warning-days 30)
  '(org-html-htmlize-output-type (quote css))
  '(org-startup-indented t)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (flycheck-popup-tip eyebrowse nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump org leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode flycheck-rust lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-mypy flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -122,8 +124,8 @@
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "dist" ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache")))
- '(projectile-globally-ignored-file-suffixes (quote ("pyc")))
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist" ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache")))
+ '(projectile-globally-ignored-file-suffixes (quote ("pyc" "beam")))
  '(projectile-switch-project-action (quote projectile-dired))
  '(recentf-max-saved-items 100)
  '(rg-custom-type-aliases
@@ -143,6 +145,7 @@
  '(safe-local-variable-values (quote ((eval setenv "LAUNCH_DB" "1"))))
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
+ '(shr-use-fonts nil)
  '(tls-checktrust (quote ask))
  '(tool-bar-mode nil)
  '(tramp-default-method "ssh" nil (tramp))
@@ -173,6 +176,7 @@
  '(vc-annotate-very-old-color "#161616")
  '(vc-follow-symlinks nil)
  '(vc-log-show-limit 50)
+ '(vcs-resolve-exe "/home/lbolla/src/vcs-resolve/vcs-resolve.py" t)
  '(w3m-home-page "about:")
  '(w3m-search-default-engine "startpage")
  '(w3m-search-engine-alist
@@ -211,10 +215,11 @@
      ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
      ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
      ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
- '(web-mode-code-indent-offset 4)
- '(web-mode-css-indent-offset 2)
- '(web-mode-markup-indent-offset 2)
- '(whitespace-style (quote (face trailing lines-tail))))
+ '(web-mode-code-indent-offset 4 t)
+ '(web-mode-css-indent-offset 2 t)
+ '(web-mode-markup-indent-offset 2 t)
+ '(whitespace-style (quote (face trailing lines-tail)))
+ '(yas-indent-line (quote fixed)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -263,6 +268,14 @@
 (require 'pkgs "~/.emacs.d/pkgs.el")
 (require 'themes "~/.emacs.d/themes.el")
 
+;; https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#235069
+;; bury *scratch* buffer instead of kill it
+(defadvice kill-buffer (around kill-buffer-around-advice activate)
+  (let ((buffer-to-kill (ad-get-arg 0)))
+    (if (equal buffer-to-kill "*scratch*")
+        (bury-buffer)
+      ad-do-it)))
+
 (blink-cursor-mode 0)
 (column-number-mode 1)
 (global-hl-line-mode)
@@ -280,6 +293,7 @@
 ;;             ))
 
 ;; (load-theme-cyberpunk)
+;; (load-theme-goose)
 ;; (load-theme-leuven)
 (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)

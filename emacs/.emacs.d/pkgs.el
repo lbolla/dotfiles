@@ -102,6 +102,7 @@
   :custom
   (dump-jump-prefer-searcher 'rg)
   (dumb-jump-selector 'ivy)
+  (dumb-jump-window 'other)
   :init
   (dumb-jump-mode))
 
@@ -125,7 +126,13 @@
 (use-package erlang-start
   :load-path "/usr/lib/erlang/lib/tools-3.0/emacs/"
   :mode (((rx ".erl" eos) . erlang-mode)
-         ((rx ".hrl" eos) . erlang-mode))
+         ((rx ".app.src" eos) . erlang-mode)
+         ((rx ".hrl" eos) . erlang-mode)
+         ((rx ".config" eos) . erlang-mode)
+         ((rx "rebar") . erlang-mode))
+  :defines
+  erlang-mode-map
+  erlang-shell-mode-map
   :hook
   (erlang-mode . (lambda ()
                    (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)))
@@ -136,15 +143,6 @@
   :hook
   (ess-mode . (lambda ()
                  (modify-syntax-entry ?\_ "w"))))
-
-(use-package eyebrowse
-  :custom
-  (eyebrowse-new-workspace t)
-  (eyebrowse-keymap-prefix (kbd "C-c e"))
-  :init
-  (eyebrowse-mode t)
-  :config
-  (eyebrowse-setup-opinionated-keys))
 
 (use-package evil
   :demand t
@@ -257,6 +255,7 @@
         flycheck-pylintrc nil
         flycheck-python-flake8-executable "/home/lbolla/bin/flake8")
   (flycheck-add-next-checker 'python-flake8 'python-pylint t)
+  (flycheck-add-next-checker 'python-flake8 '(warning .  python-mypy) t)
   (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t))
 
 (use-package flycheck-cython
@@ -277,15 +276,6 @@
   ;; (flycheck-add-next-checker 'javascript-flow '(warning . javascript-flow-coverage) t)
   (flycheck-add-next-checker 'javascript-jshint '(warning . javascript-flow) t))
 
-(use-package flycheck-mypy
-  :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
-  :after flycheck
-  :demand t
-  :custom
-  (flycheck-python-mypy-args '("--incremental" "--ignore-missing-imports" "--follow-imports=skip"))
-  :config
-  (flycheck-add-next-checker 'python-pylint '(warning . python-mypy) t))
-
 (use-package flycheck-popup-tip
   :after flycheck
   :hook
@@ -295,12 +285,12 @@
   :after rust-mode
   :demand t
   :custom
-  ;; Use 'cargo check' not 'cargo test'
   (flycheck-rust-check-tests nil)
   :hook
   (flycheck-mode . flycheck-rust-setup)
   :config
-  (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy) t))
+  ;; (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy))
+  )
 
 (use-package fbcli
   :demand t
@@ -347,7 +337,7 @@
   :hook
   (js2-mode . (lambda ()
                 (set-whitespace-line-column 80)
-                (set-indent 4)
+                (set-indent 2)
                 (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
 
 (use-package json-mode
@@ -530,18 +520,22 @@
 (use-package olivetti)
 
 (use-package org
+  :load-path "/home/lbolla/src/org-mode/lisp/"
   :after evil
+
   :custom
-  (org-html-htmlize-output-type 'css)
+  (org-agenda-tags-column 'auto)
   (org-deadline-warning-days 30)
+  (org-html-htmlize-output-type 'css)
+  (org-src-tab-acts-natively t)
   (org-startup-indented t)
+
   :defines
   org-agenda-custom-commands
   org-agenda-include-diary
   org-agenda-sorting-strategy
   org-agenda-span
   org-agenda-start-on-weekday
-  org-agenda-tags-column
   org-capture-templates
   org-clock-out-remove-zero-time-clocks
   org-clock-out-when-done
@@ -653,7 +647,6 @@
         org-archive-location "%s_archive::* Archived Tasks"
 
         ;; Tags
-        org-agenda-tags-column -130
         org-tag-alist
         '((:startgroup)
           ("@family" . ?f)
@@ -729,7 +722,7 @@
            :publishing-directory "~/src/lbolla.info/html/"
            :recursive t
            :publishing-function org-publish-attachment)
-          ("lbolla.info-cv"
+          ("lbolla.info-cv.pdf"
            :base-directory "~/src/lbolla.info/org/"
            :exclude "\\.*"
            :include ("cv.org")
@@ -815,7 +808,20 @@
     cider-repl-mode-hook
     scheme-mode-hook) . enable-paredit-mode))
 
-(use-package pass)
+(use-package pass
+  :config
+  (defun password-store-change (entry &optional password-length)
+    "Change password for ENTRY with PASSWORD-LENGTH.
+
+Default PASSWORD-LENGTH is `password-store-password-length'."
+    (interactive (list (read-string "Password entry: ")
+                       (when current-prefix-arg
+                         (abs (prefix-numeric-value current-prefix-arg)))))
+    (unless password-length (setq password-length password-store-password-length))
+    ;; A message with the output of the command is not printed because
+    ;; the output contains the password.
+    (password-store--run "generate" "--in-place" entry (number-to-string password-length))
+    nil))
 
 (use-package prog-mode
   :ensure nil
@@ -829,11 +835,14 @@
   :diminish
   :custom
   (projectile-globally-ignored-directories
-   '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "dist" ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
-  (projectile-globally-ignored-file-suffixes '("pyc"))
+   '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
+   ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist"
+   ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
+  (projectile-globally-ignored-file-suffixes '("pyc" "beam"))
   (projectile-switch-project-action 'projectile-dired)
   :init
   (projectile-mode)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (global-set-key (kbd "<f5>") 'projectile-compile-project))
 
 (use-package nsm
@@ -880,10 +889,10 @@
 (use-package racer
   :diminish
   :after (evil rust-mode)
-  ;; :hook
-  ;; (rust-mode . racer-mode)
-  ;; (racer-mode . eldoc-mode)
-  ;; (racer-mode . company-mode)
+  :hook
+  (rust-mode . racer-mode)
+  (racer-mode . eldoc-mode)
+  (racer-mode . company-mode)
   :init
   (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
   (evil-define-key 'normal racer-help-mode-map (kbd "K") 'racer-describe)
@@ -952,6 +961,8 @@
 
 (use-package vcs-resolve
   :load-path "/home/lbolla/src/vcs-resolve/"
+  :custom
+  (vcs-resolve-exe "/home/lbolla/src/vcs-resolve/vcs-resolve.py")
   :commands (vcs-resolve-at-point
              vcs-resolve-buffer
              vcs-resolve-region))
@@ -981,6 +992,8 @@
                  (flyspell-mode nil))))
 
 (use-package yasnippet
+  :custom
+  (yas-indent-line 'fixed)
   :init
   (eval-after-load 'yasnippet '(diminish 'yas-minor-mode))
   (yas-global-mode 1))

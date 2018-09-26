@@ -41,6 +41,15 @@
   :init (progn
           ))
 
+(use-package eyebrowse
+  :custom
+  (eyebrowse-new-workspace t)
+  (eyebrowse-keymap-prefix (kbd "C-c e"))
+  :init
+  (eyebrowse-mode t)
+  :config
+  (eyebrowse-setup-opinionated-keys))
+
 (use-package ffap
   :config
   (add-to-list 'ffap-c-path "../deps")
@@ -219,7 +228,6 @@
                    )))
 
 (use-package rcirc
-  :disabled t
   :config (progn
             (defun my-rcirc-print-hook (process sender response target text)
               "In PROCESS, if SENDER is not self, ignore RESPONSE and TARGET, beep when TEXT equals current nick."
@@ -237,9 +245,9 @@
                         (flyspell-mode t)))
             (setq rcirc-server-alist
                   `(
-                    ;; rcirc-server-yg
-                    ,rcirc-server-yg-slack
-                    ;; rcirc-server-freenode
+                    ;; ,rcirc-server-yg
+                    ;; ,rcirc-server-yg-slack
+                    ,rcirc-server-freenode
                     ;; ,rcirc-server-mozilla
                     ))
             (defun-rcirc-command reconnect (arg)
@@ -428,3 +436,24 @@
 ;; (use-package org-mu4e
 ;;   :demand t
 ;;   :after (org mu4e))
+
+;; Included in flycheck.el
+;; (use-package flycheck-mypy
+;;   :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
+;;   :after flycheck
+;;   :demand t
+;;   :custom
+;;   (flycheck-python-mypy-args '("--incremental" "--ignore-missing-imports" "--follow-imports=skip"))
+;;   :config
+;;   (flycheck-add-next-checker 'python-pylint '(warning . python-mypy) t))
+
+;; (use-package flycheck-rust
+;;   :after rust-mode
+;;   :demand t
+;;   :custom
+;;   ;; Use 'cargo check' not 'cargo test'
+;;   (flycheck-rust-check-tests nil)
+;;   :hook
+;;   (flycheck-mode . flycheck-rust-setup)
+;;   :config
+;;   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
