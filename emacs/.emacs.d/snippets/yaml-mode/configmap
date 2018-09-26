@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: configmap
+# key: cm
+# group: kubernetes
+# --
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${1:name}
+data:
+  config.yaml: |
+    db:
+      dsn: abc
+      secret: password
