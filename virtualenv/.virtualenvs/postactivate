@@ -10,3 +10,12 @@ fi;
 if [[ $VIRTUAL_ENV == "/home/lbolla/.virtualenvs/bix2_ui" ]]; then
     export LAUNCH_DB=1
 fi;
+
+if [[ $VIRTUAL_ENV == "/home/lbolla/.virtualenvs/bb8" ]]; then
+    export BB8_ADDITIONAL_CONFIGS=$HOME/etc/brandindex/bb8/devel.yaml
+fi;
+
+if [[ $VIRTUAL_ENV == "/home/lbolla/.virtualenvs/cube-rs" ]]; then
+    export RUST_LOG="api=debug,rocket=debug"
+    export ROCKET_ENV=development
+fi;
