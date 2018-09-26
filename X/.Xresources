@@ -10,10 +10,9 @@ URxvt.loginShell: true
 URxvt.internalBorder: 3
 URxvt.lineSpace: 3
 URxvt*saveLines: 12000
-! URxvt*foreground: #000000
-! URxvt*background: #ffffff
 URxvt*foreground: #ffffff
 URxvt*background: #000000
+! URxvt*background: #262626
 
 ! URxvt*font: xft:Terminus:pixelsize=14
 
@@ -44,13 +43,10 @@ URxvt.scrollTtyOutput: false
 URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
 
-!!! TODO Change font size on Control-Plus/Minus
-! URxvt.perl-ext-common: font-size
-! URxvt.keysym.Control-0x2b: perl:font-size:increase
-! URxvt.keysym.Control-0x2d: perl:font-size:decrease
-! URxvt.keysym.C-Up:     perl:font-size:increase
-! URxvt.keysym.C-Down:   perl:font-size:decrease
-! URxvt.keysym.C-S-Up:   perl:font-size:incglobal
-! URxvt.keysym.C-S-Down: perl:font-size:decglobal
-! URxvt.keysym.C-equal:  perl:font-size:reset
-! URxvt.keysym.C-slash:  perl:font-size:show
+! TODO Change font size on Control-Plus/Minus
+URxvt.keysym.C-Up:     perl:font-size:increase
+URxvt.keysym.C-Down:   perl:font-size:decrease
+URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+URxvt.keysym.C-S-Down: perl:font-size:decglobal
+URxvt.keysym.C-equal:  perl:font-size:reset
+URxvt.keysym.C-slash:  perl:font-size:show

@@ -30,6 +30,7 @@ aliases
 /emacs/.emacs.d/session.*
 /emacs/.emacs.d/tramp
 /emacs/.emacs.d/url/
+/lftp/.lftp/*_history
 /w3m/.w3m/.sessions
 /w3m/.w3m/cookie
 /w3m/.w3m/history

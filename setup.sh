@@ -17,6 +17,7 @@ PACKAGES=(
     psql
     python
     ripgrep
+    rust
     tmux
     virtualenv
     w3m
