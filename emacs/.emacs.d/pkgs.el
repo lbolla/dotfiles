@@ -255,7 +255,7 @@
         flycheck-pylintrc nil
         flycheck-python-flake8-executable "/home/lbolla/bin/flake8")
   (flycheck-add-next-checker 'python-flake8 'python-pylint t)
-  (flycheck-add-next-checker 'python-flake8 '(warning .  python-mypy) t)
+  ;; (flycheck-add-next-checker 'python-flake8 '(warning .  python-mypy) t)
   (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t))
 
 (use-package flycheck-cython
@@ -270,6 +270,7 @@
   (flycheck-add-next-checker 'erlang '(warning . erlang-dialyzer) t))
 
 (use-package flycheck-flow
+  :disabled t
   :load-path "/home/lbolla/src/emacs-flycheck-flow/"
   :after flycheck
   :config
@@ -345,12 +346,6 @@
   (json-mode . (lambda ()
                  (set-indent 2))))
 
-(use-package kubernetes
-  :disabled t
-  :load-path "/home/lbolla/src/kubernetes-el/"
-  :config (progn
-            (kubernetes-global-mode t)))
-
 (use-package leuven-theme)
 
 (use-package lisp-mode
@@ -395,7 +390,11 @@
 
 (use-package nim-mode
   :hook
-  (nim-mode . nimsuggest-mode))
+  (nim-mode . nimsuggest-mode)
+  (nimsuggest-mode . (lambda ()
+                       (set-indent 2)
+                       (evil-define-key 'normal nimsuggest-mode-map (kbd "K") 'nimsuggest-show-doc)
+                       (evil-define-key 'normal nimsuggest-mode-map (kbd "M-.") 'nimsuggest-find-definition))))
 
 (use-package mu4e
   ;; TODO add this to list of paths to search
@@ -916,6 +915,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                              . "*.tmpl")))
   :config
   (rg-define-toggle "--context 3" "x" nil))
+
+(use-package rmsbolt)
 
 (use-package rst
   :hook

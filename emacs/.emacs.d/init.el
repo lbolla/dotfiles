@@ -96,6 +96,7 @@
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
+ '(initial-major-mode (quote fundamental-mode))
  '(initial-scratch-message ";; SCRATCH
 
 ")
@@ -112,11 +113,12 @@
  '(org-agenda-tags-column (quote auto))
  '(org-deadline-warning-days 30)
  '(org-html-htmlize-output-type (quote css))
+ '(org-src-tab-acts-natively t)
  '(org-startup-indented t)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -127,7 +129,7 @@
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist" ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache")))
  '(projectile-globally-ignored-file-suffixes (quote ("pyc" "beam")))
  '(projectile-switch-project-action (quote projectile-dired))
- '(recentf-max-saved-items 100)
+ '(recentf-max-saved-items nil)
  '(rg-custom-type-aliases
    (quote
     ((#("gn" 0 1
@@ -141,7 +143,7 @@
       . "*.tmpl"))))
  '(rg-define-toggle "--context 3" t)
  '(rg-group-result nil)
- '(rust-format-on-save t t)
+ '(rust-format-on-save t)
  '(safe-local-variable-values (quote ((eval setenv "LAUNCH_DB" "1"))))
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)

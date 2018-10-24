@@ -153,6 +153,12 @@
 ;;             (lambda ()
 ;;               (evil-motion-state 0))))
 
+(use-package kubernetes
+  :disabled t
+  :load-path "/home/lbolla/src/kubernetes-el/"
+  :config (progn
+            (kubernetes-global-mode t)))
+
 (use-package ido
   :disabled t
   :init (progn
