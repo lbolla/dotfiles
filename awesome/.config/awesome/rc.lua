@@ -313,6 +313,8 @@ globalkeys = gears.table.join(
               {description = "open chromium in incognito", group = "launcher"}),
     awful.key({ modkey,           }, "e", function () awful.spawn(emacs_cmd) end,
               {description = "open emacs", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "F12", function () awful.spawn("gscreenshot") end,
+              {description = "open gscreenshot", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "s", function () awful.spawn(xlock_cmd) end,
@@ -516,6 +518,10 @@ awful.rules.rules = {
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
+    --   properties = { screen = 1, tag = "9" } },
+    -- { rule = { class = "Emacs" },
+    --   properties = { screen = 1, tag = "1" } },
+    -- { rule = { class = "urxvt" },
     --   properties = { screen = 1, tag = "2" } },
 }
 -- }}}
