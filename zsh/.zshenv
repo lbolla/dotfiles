@@ -30,11 +30,6 @@ export KUBECONFIG=$HOME/src/yougov/devops/kubernetes/client/config
 export MAILDIR=$HOME/Mail
 
 # Void sources /etc/profile *after* .zshenv, overriding $PATH. Reset in .zshrc
-# PATH=/opt/helm:/opt/node/bin:$PATH
-# PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-# PATH=$HOME/.cargo/bin:$PATH
-# PATH=$HOME/bin:$HOME/.local/bin:$HOME/.cache/rebar3/bin:$HOME/.cabal/bin:$HOME/src/cmd:$HOME/node_modules/.bin/:$HOME/.cache/rebar3/bin:$PATH
-# export PATH
 
 if [[ -n "$DISPLAY" ]]
 then
