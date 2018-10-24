@@ -14,6 +14,7 @@ alias mkvirtualenv-pypy2="mkvirtualenv --python /opt/pypy-6.0.0-linux_x86_64-por
 alias mkvirtualenv-pypy3="mkvirtualenv --python /opt/pypy3.5-6.0.0-linux_x86_64-portable/bin/pypy"
 alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Control/" | sudo loadkeys'
 unalias t; alias t=tmux
+alias ssh='TERM=xterm ssh'
 alias ungron="gron --ungron"
 alias w=workon
 alias youtube=mpsyt
@@ -23,6 +24,7 @@ alias -s gz="gunzip -c"
 alias -s json="jq . <"
 alias -s pdf="mupdf"
 alias -s tgz="tar tf"
+alias -s xlsx="libreoffice"
 
 alias aws="/home/lbolla/.virtualenvs/aws-shell/bin/aws"
 alias aws-shell="/home/lbolla/.virtualenvs/aws-shell/bin/aws-shell"

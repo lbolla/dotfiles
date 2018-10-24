@@ -2,14 +2,12 @@
 
 alias k=kubectl
 # alias kubectl-create-secret="kubectl create secret generic"  # E.g. kubectl-create-secret test-production --from-literal=secret_key=secret
-# alias k="kubectl"
 alias kdesc="kubectl describe"
 alias kget="kubectl get -o wide"
 alias kedit="kubectl edit"
 alias klogs="kubectl logs"
 # alias ktail="kubetail"
 alias ktail="stern -t -s 1s"
-alias kview="kubectl get -o yaml"
 # TODO not working
 # alias knodes-count-pods="kubectl get po -o wide --all-namespaces | grep -v NODE | awk '{print $8}' | sort | uniq -c"
 
