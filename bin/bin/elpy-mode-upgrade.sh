@@ -15,4 +15,4 @@ PACKAGES=(
     flake8
 )
 
-pip install -U ${PACKAGES[@]}
+pip install --upgrade ${PACKAGES[@]}
