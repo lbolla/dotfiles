@@ -67,6 +67,8 @@
   :config
   (setq fzf/executable (expand-file-name "~/.fzf/bin/fzf")))
 
+(use-package gnu-apl-mode)
+
 (use-package auto-revert-tail-mode
   :mode ("\\.log\\'" . auto-revert-tail-mode))
 
@@ -355,6 +357,11 @@
   ;; (define-key evil-normal-state-map (kbd ",K") 'eww-at-point)
   ;; (define-key evil-visual-state-map (kbd ",K") 'eww-region)
 
+;; TODO merged into evil-collections
+;; (use-package evil-mu4e
+;;   :demand t
+;;   :load-path "/home/lbolla/src/evil-mu4e/"
+;;   :after (evil mu4e))
 
 ;; (defun venv-cdproject ()
 ;;   "Change directory to the current project directory, if set."

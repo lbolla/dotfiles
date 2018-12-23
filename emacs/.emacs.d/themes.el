@@ -106,6 +106,11 @@
    `(org-scheduled-previously          ((t (:foreground "#666666" :weight normal))))
    `(org-scheduled-today               ((t (:inherit (default)))))))
 
+(use-package doom-themes
+  :demand t)
+
+(use-package poet-theme
+  :demand t)
 
 (provide 'themes)
 ;;; themes.el ends here

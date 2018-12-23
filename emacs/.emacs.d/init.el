@@ -49,6 +49,7 @@
      ("America/Los_Angeles" "palmcal")
      ("America/Sao_Paulo" "diogo")
      ("America/New_York" "fesh")
+     ("IST-5:30" "shashikant")
      ("America/Los_Angeles" "Palo Alto")
      ("America/Mexico_City" "Mexico City")
      ("America/Lima" "Lima")
@@ -60,6 +61,7 @@
      ("Europe/Moscow" "Moscow")
      ("Asia/Jakarta" "Jakarta")
      ("Asia/Bangkok" "Bangkok")
+     ("IST-5:30" "Mumbai")
      ("Asia/Singapore" "Singapore")
      ("Asia/Kuala_Lumpur" "Kuala Lumpur")
      ("Asia/Shanghai" "Shanghai")
@@ -118,7 +120,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda gnu-apl-mode olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (doom-themes poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e org-bullets zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -143,7 +145,7 @@
       . "*.tmpl"))))
  '(rg-define-toggle "--context 3" t)
  '(rg-group-result nil)
- '(rust-format-on-save t)
+ '(rust-format-on-save t t)
  '(safe-local-variable-values (quote ((eval setenv "LAUNCH_DB" "1"))))
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
@@ -229,7 +231,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Terminus" :weight light :height 120))))
- '(fixed-pitch ((t (:family "Terminus")))))
+ '(fixed-pitch ((t (:family "Terminus"))))
+ '(variable-pitch ((t (:height 120 :family "SourceSerifPro")))))
 
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
 (setq auto-window-vscroll nil)
@@ -297,8 +300,9 @@
 ;; (load-theme-cyberpunk)
 ;; (load-theme-goose)
 ;; (load-theme-leuven)
-(load-theme-quasi-monochrome)
+;; (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
+(switch-theme 'poet-dark-monochrome)
 
 (server-start)
 

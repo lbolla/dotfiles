@@ -31,8 +31,6 @@
 ;; Necessary to use use-package's :bind
 (require 'bind-key)
 
-(use-package gnu-apl-mode)
-
 ;; TODO builtin, move to init?
 (use-package cc-mode
   :init
@@ -168,7 +166,7 @@
   (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
   (define-key evil-normal-state-map (kbd ",ff") 'counsel-imenu)
 
-  (define-key evil-normal-state-map (kbd ",gb") 'magit-blame)
+  (define-key evil-normal-state-map (kbd ",gb") 'magit-blame-addition)
   (define-key evil-normal-state-map (kbd ",gf") 'counsel-git)
   (define-key evil-normal-state-map (kbd ",gg") 'counsel-git-grep)
 
@@ -196,11 +194,6 @@
 (use-package evil-magit
   :demand t
   :after (evil magit))
-
-(use-package evil-mu4e
-  :demand t
-  :load-path "/home/lbolla/src/evil-mu4e/"
-  :after (evil mu4e))
 
 (use-package evil-nerd-commenter
   :demand t
@@ -338,10 +331,11 @@
   :hook
   (js2-mode . (lambda ()
                 (set-whitespace-line-column 80)
-                (set-indent 2)
+                (set-indent 4)
                 (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
 
 (use-package json-mode
+  :mode ((rx ".ipynb" eos))
   :hook
   (json-mode . (lambda ()
                  (set-indent 2))))
@@ -374,7 +368,8 @@
   (define-key magit-log-mode-map (kbd ",vp") 'vcs-resolve-at-point)
   (define-key magit-revision-mode-map (kbd ",vp") 'vcs-resolve-at-point)
   (define-key magit-status-mode-map (kbd "C-p") 'projectile-find-file)
-  (evil-define-key 'normal magit-blame-mode-map (kbd "q") 'magit-blame-quit)
+  ;; TODO fixed in evil-collection-magit
+  ;; (evil-define-key 'normal magit-blame-mode-map (kbd "q") 'magit-blame-quit)
   (evil-define-key 'normal magit-blame-mode-map (kbd "RET") 'magit-show-commit))
 
 (use-package make-mode
@@ -710,11 +705,12 @@
            :with-broken-links t
            :publishing-directory "~/Private/org/"
            :publishing-function org-html-publish-to-html
+           :description "My links"
            ;; :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
            ;; "Async" CSS
            :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
           ("lbolla.info"
-           :components ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv"))
+           :components ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
           ("lbolla.info-static"
            :base-directory "~/src/lbolla.info/static/"
            :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css"
@@ -739,6 +735,7 @@
            :sitemap-style tree
            :sitemap-title "Sitemap"
            :with-toc nil
+           :description "Lorenzo Bolla homepage"
            :html-doctype "html5"
            :html-head-include-default-style nil
            :html-head-include-scripts nil
@@ -932,6 +929,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :mode (((rx "." (or "z" "ba") "sh") . shell-script-mode)
          ((rx ".sh" eos) . shell-script-mode)
          ((rx ".env") . shell-script-mode)
+         ((rx ".venv") . shell-script-mode)
          ;; Void package template files
          ((rx bos "template" eos) . shell-script-mode)))
 
@@ -977,6 +975,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (web-mode-code-indent-offset 4)
   (web-mode-css-indent-offset 2)
   (web-mode-markup-indent-offset 2)
+  :init
+  (evil-define-key 'normal web-mode-map (kbd "%") 'web-mode-tag-match)
+  (evil-define-key 'visual web-mode-map (kbd "%") 'web-mode-tag-match)
   :hook
   (web-mode . (lambda ()
                  (modify-syntax-entry ?\- "w"))))
