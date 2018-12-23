@@ -86,9 +86,11 @@ plugins=(
     kubectl-patch
     paver
     stern
+    tmux
     virtualenv
     virtualenvwrapper
     web-search
+    z
     zsh-autosuggestions
 )
 

@@ -4,6 +4,7 @@ export BROWSER=firefox
 export EDITOR='emacsclient'
 # export EDITOR='emacsclient -nw'
 # export EDITOR='vim'
+export FZF_TMUX=1
 export GOPATH=$HOME
 export GOROOT=/usr/lib/go
 export LESS="-R"
