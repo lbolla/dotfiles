@@ -25,6 +25,7 @@ alias -s json="jq . <"
 alias -s pdf="mupdf"
 alias -s tgz="tar tf"
 alias -s xlsx="libreoffice"
+alias -s doc="libreoffice"
 
 alias aws="/home/lbolla/.virtualenvs/aws-shell/bin/aws"
 alias aws-shell="/home/lbolla/.virtualenvs/aws-shell/bin/aws-shell"
