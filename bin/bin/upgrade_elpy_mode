@@ -9,9 +9,9 @@ echo "Upgrading elpy-mode deps in $VIRTUAL_ENV"
 PACKAGES=(
     elpy
     jedi
-    # autopep8
+    autopep8
     # yapf
-    # black
+    black
     flake8
 )
 
