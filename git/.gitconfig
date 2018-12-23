@@ -68,5 +68,8 @@
 
 [diff]
 	tool = meld
+
 [magit]
 	hideCampaign = true
+[gpg]
+	program = gpg2
