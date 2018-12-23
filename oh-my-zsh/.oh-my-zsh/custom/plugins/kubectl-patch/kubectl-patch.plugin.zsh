@@ -17,7 +17,10 @@ function kctx {
     if [[ $# -eq 0 ]]; then
         kubectl config get-contexts
     else
-        kubectl config use-context $@
+        kubectl config use-context $1
+        if [[ $# -eq 2 ]]; then
+            kns $2
+        fi
     fi
 }
 
