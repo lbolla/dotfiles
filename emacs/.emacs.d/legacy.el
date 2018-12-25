@@ -470,3 +470,5 @@
 ;;   (flycheck-mode . flycheck-rust-setup)
 ;;   :config
 ;;   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
+
+  ;; (define-key evil-normal-state-map (kbd ",=") 'c-indent)

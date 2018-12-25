@@ -7,6 +7,10 @@
 ;;; TODO faces not defined when theme is enabled
 
 (defvar current-theme 'nil "The current theme.")
+(defcustom my-themes '(
+                       doom-tomorrow-day
+                       doom-tomorrow-night
+                       ) "List of themes I like." :group 'local :type 'list)
 
 (defun disable-current-theme ()
   "Disable current theme."
@@ -18,6 +22,12 @@
   (disable-current-theme)
   (load-theme theme t)
   (setq current-theme theme))
+
+(defun cycle-themes ()
+  "Cycle between themes."
+  (interactive)
+  (switch-theme (car my-themes))
+  (setq my-themes (cycle my-themes)))
 
 (defun load-theme-quasi-monochrome ()
   "Load `quasi-monochrome` theme."
@@ -107,9 +117,14 @@
    `(org-scheduled-today               ((t (:inherit (default)))))))
 
 (use-package doom-themes
-  :demand t)
+  :defer t
+  :demand t
+  :custom
+  (doom-tomorrow-day-padded-modeline t)
+  (doom-tomorrow-night-padded-modeline t))
 
 (use-package poet-theme
+  :defer t
   :demand t)
 
 (provide 'themes)

@@ -255,6 +255,7 @@
                   (find-file "~/.emacs.d/pkgs.el")))
 (global-set-key (kbd "C-c l") 'display-line-numbers-mode)
 ;; (global-set-key (kbd "C-c w") 'eww)
+(global-set-key (kbd "C-c t") 'cycle-themes)
 (global-set-key (kbd "C-c w") 'w3m)
 (global-set-key (kbd "C-c z") 'zoom-window-zoom)
 (global-set-key (kbd "C-c C-q")
@@ -302,7 +303,7 @@
 ;; (load-theme-leuven)
 ;; (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
-(switch-theme 'poet-dark-monochrome)
+(load-theme 'doom-tomorrow-night t)
 
 (server-start)
 

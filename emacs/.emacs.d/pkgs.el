@@ -122,7 +122,7 @@
  (elpy-enable))
 
 (use-package erlang-start
-  :load-path "/usr/lib/erlang/lib/tools-3.0/emacs/"
+  :load-path "/usr/lib/erlang/lib/tools-3.0.2/emacs/"
   :mode (((rx ".erl" eos) . erlang-mode)
          ((rx ".app.src" eos) . erlang-mode)
          ((rx ".hrl" eos) . erlang-mode)
@@ -161,7 +161,6 @@
   (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
   (define-key evil-normal-state-map (kbd "gp") 'counsel-yank-pop)
 
-  (define-key evil-normal-state-map (kbd ",=") 'c-indent)
   (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
   (define-key evil-visual-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
   (define-key evil-normal-state-map (kbd ",ff") 'counsel-imenu)
