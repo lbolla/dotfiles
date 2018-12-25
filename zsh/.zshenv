@@ -30,6 +30,9 @@ export XIVIEWER=feh
 export KUBECONFIG=$HOME/src/yougov/devops/kubernetes/client/config
 export MAILDIR=$HOME/Mail
 
+# Enable Erlang shell history
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # Void sources /etc/profile *after* .zshenv, overriding $PATH. Reset in .zshrc
 
 if [[ -n "$DISPLAY" ]]
