@@ -45,14 +45,17 @@ end
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/default/theme.lua")
+theme = beautiful.get()
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 emacs_cmd = os.getenv("HOME") .. "/.oh-my-zsh/plugins/emacs/emacsclient.sh --no-wait"
-xlock_cmd = 'xscreensaver-command -lock'
+xlock_cmd = "xscreensaver-command -lock"
 xrandr_cmd = os.getenv("HOME") .. "/bin/xrandr.sh"
+-- dmenu_run_cmd = "dmenu_run -i -fn " .. theme.font .. " -nb '" .. theme.bg_normal .. "' -nf '" .. theme.fg_normal .. "' -sb '" .. theme.bg_focus .. "' -sf '" .. theme.fg_focus .. "'"
+dmenu_run_cmd = "dmenu_run -i -fn '" .. theme.font_name .. "-12' -nb '" .. theme.bg_normal .. "' -nf '" .. theme.fg_normal .. "' -sb '" .. theme.bg_focus .. "' -sf '" .. theme.fg_focus .. "'"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -136,7 +139,7 @@ bat = lain.widget.bat({
             perc = perc .. " [plugged]"
         end
 
-        widget:set_markup(lain.util.markup.fontfg("terminus 8", "#aaaaaa", perc .. " "))
+        widget:set_markup(lain.util.markup.fontfg(theme.font, "#aaaaaa", perc .. " "))
     end
 })
 
@@ -358,7 +361,7 @@ globalkeys = gears.table.join(
     --           {description = "run prompt", group = "launcher"}),
     awful.key({ modkey,           }, "p", function () awful.spawn("passmenu") end,
               {description = "open passmenu", group = "launcher"}),
-    awful.key({ modkey,           }, "r", function () awful.spawn("dmenu_run") end,
+    awful.key({ modkey,           }, "r", function () awful.spawn(dmenu_run_cmd) end,
               {description = "open dmenu", group = "launcher"}),
 
     awful.key({ modkey }, "x",
