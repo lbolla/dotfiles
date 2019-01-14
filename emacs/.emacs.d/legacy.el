@@ -450,6 +450,27 @@
 ;;   :demand t
 ;;   :after (org mu4e))
 
+(use-package org-bullets
+  :after org
+  :demand t
+  :hook
+  (org-mode . org-bullets-mode))
+
+;; org keybindings
+  ;; (global-set-key (kbd "C-c o a") 'org-agenda)
+  ;; (global-set-key (kbd "C-c o k") 'org-capture)
+  ;; (global-set-key (kbd "C-c o l s") 'org-store-link)
+  ;; (global-set-key (kbd "C-c o l i") 'org-insert-link)
+  ;; (global-set-key (kbd "C-c o l o") 'org-open-at-point)
+
+  ;; (global-set-key (kbd "<f9>") 'org-capture)
+  ;; (global-set-key (kbd "C-<f9>") 'org-store-link)
+  ;; (global-set-key (kbd "S-<f9>") 'org-insert-link)
+  ;; (global-set-key (kbd "<f12>") (lambda () (interactive) (org-agenda nil (kbd "SPC") nil)))
+  ;; (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view t match)))
+  ;; ;; (global-set-key (kbd "C-<f12>") (lambda (c) (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
+  ;; (global-set-key (kbd "M-<f12>") 'org-search-view)
+
 ;; Included in flycheck.el
 ;; (use-package flycheck-mypy
 ;;   :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
@@ -472,3 +493,26 @@
 ;;   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
 
   ;; (define-key evil-normal-state-map (kbd ",=") 'c-indent)
+
+;; (global-set-key (kbd "C-c f h")
+;;                 (lambda ()
+;;                   (interactive)
+;;                   (find-file "~/Private/home.org")))
+;; (global-set-key (kbd "C-c f i")
+;;                 (lambda ()
+;;                   (interactive)
+;;                   (find-file "~/.emacs.d/init.el")))
+;; (global-set-key (kbd "C-c f p")
+;;                 (lambda ()
+;;                   (interactive)
+;;                   (find-file "~/.emacs.d/pkgs.el")))
+;; (global-set-key (kbd "C-c l") 'display-line-numbers-mode)
+;; (global-set-key (kbd "C-c w") 'eww)
+
+;; TODO https://www.reddit.com/r/emacs/comments/8fyzjd/theme_not_loading_completly_with_emacsserver/
+;; (add-hook 'after-make-frame-functions
+;;           (lambda (frame)
+;;             (select-frame frame)
+;;             ;; (load-theme-leuven)
+;;             (load-theme-quasi-monochrome)
+;;             ))

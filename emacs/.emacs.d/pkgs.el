@@ -1,12 +1,9 @@
 ;;; package --- lbolla pkgs.el file
 ;;; Commentary:
 ;;; 7 November 2016
-;;; TODO use :defines/:functions to silence linter
-;;; TODO use :custom to customize variables
 
 ;;; Code:
 
-;;; Note: keep the `setq` here to allow commented out archives
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")
@@ -109,17 +106,13 @@
   (electric-indent-mode t))
 
 (use-package elpy
-  :commands
-  elpy-enable
   :diminish
   :custom
   (elpy-modules '(elpy-module-sane-defaults
                   elpy-module-company
                   elpy-module-eldoc
                   elpy-module-highlight-indentation
-                  elpy-module-pyvenv))
- :init
- (elpy-enable))
+                  elpy-module-pyvenv)))
 
 (use-package erlang-start
   :load-path "/usr/lib/erlang/lib/tools-3.0.2/emacs/"
@@ -142,11 +135,17 @@
   (ess-mode . (lambda ()
                  (modify-syntax-entry ?\_ "w"))))
 
+(use-package esup)
+
 (use-package evil
   :demand t
   :custom
-  ;; (evil-emacs-state-modes '(picture-mode))
-  (evil-want-integration nil)
+  ;; (evil-want-keybinding t)
+  ;; (evil-want-integration nil)
+  ;; TODO
+  (evil-want-keybinding nil)
+  (evil-want-integration t)
+
   (evil-lookup-func 'man-at-point)
   (evil-want-C-w-in-emacs-state t)
   ;; Or it masks <TAB> in non-graphical mode
@@ -218,6 +217,20 @@
   :custom
   (flycheck-idle-change-delay 3)
   (flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
+  (flycheck-highlighting-mode 'lines)
+  (flycheck-ghc-language-extensions ())
+  (flycheck-clang-include-path '("/usr/include/glib-2.0"
+                                 "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+                                 "../deps"
+                                 "../../deps"))
+  (flycheck-clang-language-standard "c++11")
+  (flycheck-cppcheck-checks '("all"))
+  (flycheck-cppcheck-suppressions '("constStatement"))
+  (flycheck-flake8rc nil)
+  (flycheck-gcc-language-standard "c++1y")
+  (flycheck-javascript-flow-args nil)
+  (flycheck-pylintrc nil)
+  (flycheck-python-flake8-executable "/home/lbolla/bin/flake8")
   :defines
   flycheck-javascript-flow-args
   :hook
@@ -231,31 +244,18 @@
                  (side            . bottom)
                  (window-height   . 0.20)))
   :config
-  (setq flycheck-highlighting-mode 'lines
-        flycheck-ghc-language-extensions ()
-        flycheck-clang-include-path '("/usr/include/glib-2.0"
-                                      "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
-                                      "../deps"
-                                      "../../deps")
-
-        flycheck-clang-language-standard "c++11"
-        flycheck-cppcheck-checks '("all")
-        flycheck-cppcheck-suppressions '("constStatement")
-        flycheck-flake8rc nil
-        flycheck-gcc-language-standard "c++1y"
-        flycheck-javascript-flow-args nil
-        flycheck-pylintrc nil
-        flycheck-python-flake8-executable "/home/lbolla/bin/flake8")
   (flycheck-add-next-checker 'python-flake8 'python-pylint t)
   ;; (flycheck-add-next-checker 'python-flake8 '(warning .  python-mypy) t)
   (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t))
 
 (use-package flycheck-cython
+  :disabled t
   :load-path "/home/lbolla/src/emacs-flycheck-cython/"
   :after flycheck
   :demand t)
 
 (use-package flycheck-dialyzer
+  :disabled t
   :after flycheck
   :demand t
   :config
@@ -356,20 +356,28 @@
   :defines
   magit-branch-arguments
   magit-push-always-verify
+  :custom
+  (magit-log-section-commit-count 0)
+  (magit-branch-arguments nil)
+  (magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
+  (magit-push-always-verify nil)
+  :bind (:map magit-log-mode-map
+         (",vp" . vcs-resolve-at-point)
+         :map magit-revision-mode-map
+         (",vp" . vcs-resolve-at-point)
+         :map magit-status-mode-map
+         ("C-p" . projectile-find-file))
   :config
-  (setq
-   ;; No recent commits -- confusing
-   magit-log-section-commit-count 0
-   magit-branch-arguments nil
-   magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)
-   magit-push-always-verify nil)
-
-  (define-key magit-log-mode-map (kbd ",vp") 'vcs-resolve-at-point)
-  (define-key magit-revision-mode-map (kbd ",vp") 'vcs-resolve-at-point)
-  (define-key magit-status-mode-map (kbd "C-p") 'projectile-find-file)
-  ;; TODO fixed in evil-collection-magit
-  ;; (evil-define-key 'normal magit-blame-mode-map (kbd "q") 'magit-blame-quit)
   (evil-define-key 'normal magit-blame-mode-map (kbd "RET") 'magit-show-commit))
+
+(use-package magit-todos
+  :after magit
+  :custom
+  (magit-todos-keyword-suffix ":")
+  (magit-todos-update 60)
+  (magit-todos-exclude-globs '("concatenated" "node_modules" "vendor"))
+  :hook
+  (magit-mode . magit-todos-mode))
 
 (use-package make-mode
   :hook
@@ -391,38 +399,38 @@
                        (evil-define-key 'normal nimsuggest-mode-map (kbd "M-.") 'nimsuggest-find-definition))))
 
 (use-package mu4e
-  ;; TODO add this to list of paths to search
-  :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
+  :load-path "/usr/share/emacs/site-lisp/mu4e/"
   :ensure nil  ;; installed system-wide
   :demand t
-  :bind (
-         ("C-c m m" . mu4e)
-         ("C-c m r" . (lambda () (interactive) (mu4e~request-contacts)))
-         ("C-c m n" . mu4e-compose-new))
+
   :defines
+  mu4e-view-actions
+  mu4e-headers-mode-map
   yg-smtp-user
+
   :functions
-  mu4e-refresh-headers
-  :config
-  (setq
+  my/mu4e-headers-narrow-thing-at-point
+  my/mu4e-refresh-headers
 
-   ;; who am I?
-   user-mail-address yg-smtp-user
-   user-full-name  "Lorenzo Bolla"
+  :bind (("C-c m m" . mu4e)
+         ("C-c m r" . (lambda () (interactive) (mu4e~request-contacts)))
+         ("C-c m n" . mu4e-compose-new)
+         :map mu4e-headers-mode-map
+         ("C-c /" . my/mu4e-headers-narrow-thing-at-point)
+         ("C-c C-u" . my/mu4e-refresh-headers))
 
-   ;; Maildirs
-   mu4e-maildir "/home/lbolla/Mail"
-   mu4e-drafts-folder "/YG/Drafts"
-   mu4e-sent-folder "/YG/Sent Items"
-   mu4e-trash-folder "/YG/Deleted Items"
-
-   ;; Shortcuts
-   mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
+  :custom
+  (user-mail-address yg-smtp-user)
+  (user-full-name  "Lorenzo Bolla")
+  (mu4e-maildir "/home/lbolla/Mail")
+  (mu4e-drafts-folder "/YG/Drafts")
+  (mu4e-sent-folder "/YG/Sent Items")
+  (mu4e-trash-folder "/YG/Deleted Items")
+  (mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
                             ("/YG/Sent Items" . ?s)
                             ("/YG/Errors" . ?e)
-                            ("/YG/Tickets" . ?t))
-   ;; Bookmarks
-   mu4e-bookmarks '(("flag:unread OR flag:flagged AND NOT flag:trashed" "Unread/flagged" ?u)
+                            ("/YG/Tickets" . ?t)))
+  (mu4e-bookmarks '(("flag:unread OR flag:flagged AND NOT flag:trashed" "Unread/flagged" ?u)
                     ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" ?i)
                     ("maildir:/YG/Errors AND flag:unread AND NOT flag:trashed" "Unread errors" ?e)
                     ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" ?t)
@@ -432,77 +440,43 @@
                     ;; ("date:7d..now" "Last 7 days" ?w)
                     ;; ("mime:image/*" "Messages with images" ?p)
                     ;; ("maildir:/YG/INBOX AND date:20170101..20171231" "2017" ?y)
-                    )
+                    ))
+  (mail-user-agent 'mu4e-user-agent)
+  (mu4e-compose-complete-addresses t)
+  (mu4e-compose-complete-only-after nil)
+  (mu4e-compose-complete-only-personal nil)
+  (mu4e-user-mail-address-list `(,yg-smtp-user))
+  (mu4e-compose-dont-reply-to-self t)
+  (mu4e-use-fancy-chars nil)
+  (mu4e-get-mail-command "true")
+  (mu4e-update-interval 300)
+  (mu4e-html2text-command "w3m -dump -cols 120 -T text/html")
+  (mu4e-view-html-plaintext-ratio-heuristic 20)
+  (message-kill-buffer-on-exit t)
+  (mu4e-view-scroll-to-next nil)
+  (mu4e-attachment-dir "/tmp")
+  (mu4e-headers-skip-duplicates t)
+  (mu4e-headers-date-format "%x %X")
+  (mu4e-headers-fields '((:human-date . 18)
+                         (:flags . 6)
+                         (:mailing-list . 10)
+                         (:from . 22)
+                         (:subject)))
+  (mu4e-headers-include-related t)
+  (mu4e-view-show-addresses t)
+  (mu4e-view-show-images t)
 
-   ;; Actions
-   mu4e-view-actions '(("capture message" . mu4e-action-capture-message)
-                       ("view as pdf" . mu4e-action-view-as-pdf)
-                       ("show this thread" . mu4e-action-show-thread)
-                       ("browse" . mu4e-action-view-in-browser))
-
-   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-   ;; mu4e-sent-messages-behavior 'delete
-   ;; Default MUA
-   mail-user-agent 'mu4e-user-agent
-   ;; Autocompletion
-   mu4e-compose-complete-addresses t
-   mu4e-compose-complete-only-after nil
-   mu4e-compose-complete-only-personal nil
-   ;; Don't include me in reply
-   mu4e-user-mail-address-list `(,yg-smtp-user)
-   mu4e-compose-dont-reply-to-self t
-   ;; I like UTF-8
-   mu4e-use-fancy-chars nil
-   ;; allow for updating mail using 'U' in the main view:
-   ;; mu4e-get-mail-command "offlineimap"
-   ;; use crontab to call offlineimap
-   mu4e-get-mail-command "true"
-   ;; Update every 5 minutes
-   mu4e-update-interval 300
-   ;; Speed up indexing
-   ;; mu4e-index-lazy-check t
-   ;; convert html msgs to txt
-   ;; mu4e-html2text-command 'mu4e-shr2text
-   mu4e-html2text-command "w3m -dump -cols 120 -T text/html"  ;;; Let Emacs do the line wrapping
-   ;; mu4e-html2text-command "html2text -utf8 -width 72"
-   ;; mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain | iconv -f utf-8 | fold"
-   ;; mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain --columns=120"
-   ;; when to prefer html over text
-   mu4e-view-html-plaintext-ratio-heuristic 20
-   ;; don't keep message buffers around
-   message-kill-buffer-on-exit t
-   ;; don't show next message when scrolling with SPC
-   mu4e-view-scroll-to-next nil
-   ;; where to save attachments
-   mu4e-attachment-dir "/tmp"
-   ;; skip duplicates introduced by gmail and offlineimap
-   mu4e-headers-skip-duplicates t
-   ;; Date format
-   mu4e-headers-date-format "%x %X"
-
-   mu4e-headers-fields
-   '((:human-date . 18)
-     (:flags . 6)
-     (:mailing-list . 10)
-     (:from . 22)
-     (:subject))
-   mu4e-headers-include-related t
-   mu4e-view-show-addresses t
-   mu4e-view-show-images t)
-
-  (define-key mu4e-headers-mode-map (kbd "U") (lambda () (interactive) (mu4e-refresh-headers nil)))
-  (define-key mu4e-headers-mode-map (kbd "C-u U") (lambda () (interactive) (mu4e-refresh-headers t)))
-  (define-key mu4e-headers-mode-map (kbd "C-u /") 'mu4e-headers-narrow-thing-at-point)
-
-  ;; Force adding contacts
-  ;; (mu4e~request-contacts))
+  :config
   ;; Force starting automatic updates
-  ;; TODO only start if not already started
   (mu4e~start)
-  )
+  (setq mu4e-view-actions '(("capture message" . mu4e-action-capture-message)
+                            ("view as pdf" . mu4e-action-view-as-pdf)
+                            ("show this thread" . mu4e-action-show-thread)
+                            ("browse" . mu4e-action-view-in-browser))))
 
 (use-package mu4e-alert
-  :bind (("C-c m u" . mu4e-alert-view-unread-mails))
+  :bind
+  ("C-c m u" . mu4e-alert-view-unread-mails)
   :custom
   (mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
   :config
@@ -515,13 +489,6 @@
 (use-package org
   :load-path "/home/lbolla/src/org-mode/lisp/"
   :after evil
-
-  :custom
-  (org-agenda-tags-column 'auto)
-  (org-deadline-warning-days 30)
-  (org-html-htmlize-output-type 'css)
-  (org-src-tab-acts-natively t)
-  (org-startup-indented t)
 
   :defines
   org-agenda-custom-commands
@@ -537,251 +504,218 @@
   yg-fogbugz-url
   yg-kiln-url
 
+  :custom
+  (org-agenda-tags-column 'auto)
+  (org-deadline-warning-days 30)
+  (org-html-htmlize-output-type 'css)
+  (org-src-tab-acts-natively t)
+  (org-startup-indented t)
+  (org-fontify-quote-and-verse-blocks  t)
+  (org-agenda-files '("~/org/"))
+  (org-agenda-include-diary t)
+  (org-agenda-start-on-weekday nil)
+  (org-agenda-span 1)
+  (org-default-notes-file "~/org/refile.org")
+  (org-fast-tag-selection-single-key t)
+  (org-treat-S-cursor-todo-selection-as-state-change nil)
+  (org-src-fontify-natively t)
+  (org-default-priority 68)
+  (org-fontify-whole-heading-line t)
+  (org-priority-start-cycle-with-default nil)
+  (org-return-follows-link t)
+  (org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
+                                 (todo priority-down category-keep alpha-up)
+                                 (tags priority-down category-keep)
+                                 (search category-keep)))
+  (org-priority-faces '((65 . font-lock-warning-face)  ; A
+                        (67 . font-lock-comment-face))) ; C
+  (org-stuck-projects '("+LEVEL=2/-DONE"
+                        ("TODO" "STRT" "WAIT" "CANC" "DELG")
+                        ("@ignore") ""))
+  ;; See https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
+  (org-agenda-custom-commands '((" " "Agenda"
+                                 ((agenda "" nil)
+                                  (tags "REFILE"
+                                        ((org-agenda-overriding-header "Tasks to Refile")
+                                         (org-tags-match-list-sublevels nil)))
+                                  (tags "-REFILE/"
+                                        ((org-agenda-overriding-header "Tasks to Archive")
+                                         (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                                         (org-tags-match-list-sublevels nil)))))
+                                ("n" "Notes" tags "NOTE"
+                                 ((org-agenda-overriding-header "Notes")
+                                  (org-tags-match-list-sublevels nil)))
+                                ("i" "Ideas" tags "IDEA"
+                                 ((org-agenda-overriding-header "Ideas")
+                                  (org-tags-match-list-sublevels nil)))
+                                ("A" agenda "Prioritized tasks"
+                                 ((org-agenda-skip-function
+                                   (lambda nil
+                                     (org-agenda-skip-entry-if 'notregexp "\\=.*\\[#\[ABC\]\\]")))
+                                  (org-agenda-overriding-header "Prioritized tasks")))
+                                ("u" . "Unscheduled")
+                                ("ut" "Unscheduled TODO" todo "TODO"
+                                 ((org-agenda-skip-function
+                                   (lambda nil
+                                     (org-agenda-skip-entry-if 'scheduled 'deadline)))
+                                  (org-agenda-overriding-header "Unscheduled TODO")))
+                                ("ud" "Unscheduled DONE|CANC" todo "DONE|CANC"
+                                 ((org-agenda-skip-function
+                                   (lambda nil
+                                     (org-agenda-skip-entry-if 'scheduled 'deadline)))
+                                  (org-agenda-overriding-header "Unscheduled DONE|CANC")))
+                                ("c" . "Filter by category")
+                                ("cb" "BrandIndex" tags-todo "+CATEGORY=\"BrandIndex\"")
+                                ("cd" "DevOps" tags-todo "+CATEGORY=\"DevOps\"")
+                                ("ce" "Emacs" tags-todo "+CATEGORY=\"Emacs\"")
+                                ("cp" "Python" tags-todo "+CATEGORY=\"Python\"")
+                                ("cr" "Rust" tags-todo "+CATEGORY=\"Rust\"")
+                                ;; ("d" todo "DELG" nil)
+                                ;; ("c" todo "DONE|DEFR|CANC" nil)
+                                ;; ("w" todo "WAIT" nil)
+                                ;; ("W" agenda "21 days" ((org-agenda-ndays 21)))
+                                ))
+  (org-archive-location "%s_archive::* Archived Tasks")
+  (org-tag-alist '((:startgroup)
+                   ("@family" . ?f)
+                   ("@home" . ?h)
+                   ;; ("@work" . ?w)
+                   ("@ignore" . ?i)
+                   (:endgroup)
+                   ("NOTE" . ?n)
+                   ("MEET" . ?m)
+                   ("PHON" . ?p)
+                   ("FLAGGED" . ?+)))
+  (org-link-abbrev-alist `(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
+                           ("GH" . github-issue-url)
+                           ("GL" . yg-gitlab-issue-url)
+                           ("MR" . yg-gitlab-merge-request-url)))
+  (org-refile-targets '((org-agenda-files :level . 1)))
+  (org-refile-use-outline-path t)
+  (org-outline-path-complete-in-steps nil)
+  (org-refile-allow-creating-parent-nodes 'confirm)
+  (org-clock-out-remove-zero-time-clocks t)
+  (org-clock-out-when-done t)
+  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)")
+                       (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "MEET(m@)")))
+  (org-todo-keyword-faces '(("TODO" . org-todo)
+                            ("STRT" . org-strt)
+                            ("WAIT" . org-wait)
+                            ("DELG" . org-delg)
+                            ("MEET" . org-meet)
+                            ("CANC" . org-canc)
+                            ("DEFR" . org-defr)
+                            ("DONE" . org-done)))
+  (org-log-done 'time)
+  (org-log-into-drawer t)
+  (org-publish-project-alist '(("home"
+                                :base-directory "~/Private/org/"
+                                :exclude "\\.*"
+                                :include ("home.org")
+                                :with-broken-links t
+                                :publishing-directory "~/Private/org/"
+                                :publishing-function org-html-publish-to-html
+                                :description "My links"
+                                ;; :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
+                                ;; "Async" CSS
+                                :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
+                               ("lbolla.info"
+                                :components ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
+                               ("lbolla.info-static"
+                                :base-directory "~/src/lbolla.info/static/"
+                                :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css"
+                                :publishing-directory "~/src/lbolla.info/html/"
+                                :recursive t
+                                :publishing-function org-publish-attachment)
+                               ("lbolla.info-cv.pdf"
+                                :base-directory "~/src/lbolla.info/org/"
+                                :exclude "\\.*"
+                                :include ("cv.org")
+                                :publishing-directory "~/src/lbolla.info/html/"
+                                :publishing-function org-latex-publish-to-pdf)
+                               ("lbolla.info-html"
+                                :base-directory "~/src/lbolla.info/org/"
+                                :publishing-directory "~/src/lbolla.info/html/"
+                                :recursive t
+                                :section-numbers nil
+                                :auto-sitemap t
+                                :sitemap-format-entry lbolla.info/org-publish-sitemap-format-entry
+                                :sitemap-function lbolla.info/org-publish-sitemap-function
+                                :sitemap-sort-files anti-chronologically
+                                :sitemap-style tree
+                                :sitemap-title "Sitemap"
+                                :with-toc nil
+                                :description "Lorenzo Bolla homepage"
+                                :html-doctype "html5"
+                                :html-head-include-default-style nil
+                                :html-head-include-scripts nil
+                                :html-link-home "<ignored>"
+                                :html-link-up "<ignored>"
+                                :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles\">Articles</a> | <a accesskey=\"c\" href=\"/cv\">CV</a> (<a href=\"/cv.pdf\">pdf</a>)</div>"
+                                :html-preamble lbolla.info/html-preamble
+                                :html-postamble nil
+                                :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\">"
+                                :html-head-extra "<link rel=\"stylesheet\" href=\"./css/extra.css\" type=\"text/css\">"
+                                :publishing-function org-html-publish-to-html)
+                               ("kubernetes"
+                                :components ("kubernetes-org" "kubernetes-html"))
+                               ("kubernetes-org"
+                                :base-directory "~/work/kubernetes/"
+                                :base-extension "org"
+                                :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/"
+                                :publishing-function org-org-publish-to-org
+                                :recursive t)
+                               ("kubernetes-html"
+                                :base-directory "~/work/kubernetes/"
+                                :base-extension "org"
+                                :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/"
+                                :publishing-function org-html-publish-to-html
+                                :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">"
+                                :recursive t)
+                               ("cubeapi"
+                                :components ("cubeapi-notes" "cubeapi-static"))
+                               ("cubeapi-notes"
+                                :base-directory "~/work/cubeapi/notes/"
+                                :base-extension "org"
+                                :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
+                                :publishing-function org-html-publish-to-html
+                                :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">"
+                                :recursive t)
+                               ("cubeapi-static"
+                                :base-directory "~/work/cubeapi/notes/"
+                                :base-extension "png\\|jpg"
+                                :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
+                                :recursive t
+                                :publishing-function org-publish-attachment)))
+  (org-capture-templates '(("t" "Todo"      entry (file "~/org/refile.org") "* TODO %?\n%i\n%a\n")
+                           ("c" "Clipboard" entry (file "~/org/refile.org") "* TODO %?\n%i\n%x\n")
+                           ("m" "Meeting"   entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
+                           ("p" "Phone"     entry (file "~/org/refile.org") "* TODO Phone %? :PHON:\n%U")
+                           ("n" "Note"      entry (file "~/org/notes.org")  "* %? :NOTE:\n%U\n%a\n")
+                           ("i" "Idea"      entry (file "~/org/ideas.org")  "* %? :IDEA:\n%U\n%a\n")
+                           ("j" "Journal"   entry (file+olp+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a")))
+  
   :hook
   (org-mode . auto-fill-mode)
   (org-mode . flyspell-mode)
 
+  :bind
+  ;; From https://orgmode.org/manual/Activation.html#Activation
+  ("C-c a" . org-agenda)
+  ("C-c c" . org-capture)
+  ("C-c l" . org-store-link)
+  ("C-c C-l" . org-insert-link)
+
   :init
-  (global-set-key (kbd "C-c o a") 'org-agenda)
-  (global-set-key (kbd "C-c o b") 'org-iswitchb)
-  (global-set-key (kbd "C-c o k") 'org-capture)
-  (global-set-key (kbd "C-c o l s") 'org-store-link)
-  (global-set-key (kbd "C-c o l i") 'org-insert-link)
-  (global-set-key (kbd "C-c o l o") 'org-open-at-point)
-
-  (global-set-key (kbd "<f9>") 'org-capture)
-  (global-set-key (kbd "C-<f9>") 'org-store-link)
-  (global-set-key (kbd "S-<f9>") 'org-insert-link)
-  (global-set-key (kbd "<f12>") (lambda () (interactive) (org-agenda nil (kbd "SPC") nil)))
-  (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view t match)))
-  ;; (global-set-key (kbd "C-<f12>") (lambda (c) (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
-  (global-set-key (kbd "M-<f12>") 'org-search-view)
-
   (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
 
   :config
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
   (defface org-wait '((t (:inherit org-todo :foreground "gold"))) "Face used for waiting tasks." :group 'org-faces)
-  (defface org-delg '((t (:inherit org-todo :foregrouund "dark gray"))) "Face used for delegated tasks." :group 'org-faces)
-  (defface org-meet '((t (:inherit org-todo :foregrouund "deep sky blue"))) "Face used for meeting tasks." :group 'org-faces)
-  (defface org-canc '((t (:inherit org-todo :foregrouund "dim gray"))) "Face used for cancelled tasks." :group 'org-faces)
-  (defface org-defr '((t (:inherit org-todo :foregrouund "blue"))) "Face used for deferred tasks." :group 'org-faces)
-
-  (setq org-agenda-files '("~/org/")
-        org-agenda-include-diary t
-        org-agenda-start-on-weekday nil
-        org-agenda-span 1
-        org-default-notes-file "~/org/refile.org"
-        org-fast-tag-selection-single-key t
-        org-treat-S-cursor-todo-selection-as-state-change nil
-        org-src-fontify-natively t
-        org-agenda-sorting-strategy
-        '((agenda habit-down time-up deadline-up scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
-          (todo priority-down category-keep alpha-up)
-          (tags priority-down category-keep)
-          (search category-keep))
-        org-default-priority 68
-        org-fontify-whole-heading-line t
-        org-priority-faces '((65 . font-lock-warning-face)  ; A
-                             (67 . font-lock-comment-face)) ; C
-        org-priority-start-cycle-with-default nil
-        org-return-follows-link t
-        org-stuck-projects '("+LEVEL=2/-DONE"
-                             ("TODO" "NEXT" "NEXTACTION" "CANC")
-                             nil "")
-
-        ;; Commands
-        ;; https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
-        org-agenda-custom-commands
-        '((" " "Agenda"
-           ((agenda "" nil)
-            (tags "REFILE"
-                  ((org-agenda-overriding-header "Tasks to Refile")
-                   (org-tags-match-list-sublevels nil)))
-            (tags "-REFILE/"
-                  ((org-agenda-overriding-header "Tasks to Archive")
-                   (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-                   (org-tags-match-list-sublevels nil)))))
-          ("n" "Notes" tags "NOTE"
-           ((org-agenda-overriding-header "Notes")
-            (org-tags-match-list-sublevels t)))
-          ("i" "Ideas" tags "IDEA"
-           ((org-agenda-overriding-header "Ideas")
-            (org-tags-match-list-sublevels t)))
-          ("A" agenda "Prioritized tasks"
-           ((org-agenda-skip-function
-             (lambda nil
-               (org-agenda-skip-entry-if 'notregexp "\\=.*\\[#\[ABC\]\\]")))
-            (org-agenda-overriding-header "Prioritized tasks")))
-          ("u" . "Unscheduled")
-          ("ut" "Unscheduled TODO" todo "TODO"
-           ((org-agenda-skip-function
-             (lambda nil
-               (org-agenda-skip-entry-if 'scheduled 'deadline)))
-            (org-agenda-overriding-header "Unscheduled TODO")))
-          ("ud" "Unscheduled DONE|CANC" todo "DONE|CANC"
-           ((org-agenda-skip-function
-             (lambda nil
-               (org-agenda-skip-entry-if 'scheduled 'deadline)))
-            (org-agenda-overriding-header "Unscheduled DONE|CANC")))
-          ("c" . "Filter by category")
-          ("cb" "BrandIndex" tags-todo "+CATEGORY=\"BrandIndex\"")
-          ("cd" "DevOps" tags-todo "+CATEGORY=\"DevOps\"")
-          ("ce" "Emacs" tags-todo "+CATEGORY=\"Emacs\"")
-          ("cp" "Python" tags-todo "+CATEGORY=\"Python\"")
-          ("cr" "Rust" tags-todo "+CATEGORY=\"Rust\"")
-          ;; ("d" todo "DELG" nil)
-          ;; ("c" todo "DONE|DEFR|CANC" nil)
-          ;; ("w" todo "WAIT" nil)
-          ;; ("W" agenda "21 days" ((org-agenda-ndays 21)))
-          )
-
-        ;; Archiving
-        org-archive-location "%s_archive::* Archived Tasks"
-
-        ;; Tags
-        org-tag-alist
-        '((:startgroup)
-          ("@family" . ?f)
-          ("@home" . ?h)
-          ("@work" . ?w)
-          (:endgroup)
-          ("NOTE" . ?n)
-          ("MEET" . ?m)
-          ("PHON" . ?p)
-          ("FLAGGED" . ?+))
-
-        ;; Templates
-        org-capture-templates
-        '(("t" "Todo"      entry (file "~/org/refile.org") "* TODO %?\n%i\n%a\n")
-          ("c" "Clipboard" entry (file "~/org/refile.org") "* TODO %?\n%i\n%x\n")
-          ("f" "Fogbugz"   entry (file "~/org/refile.org") "* TODO [[FB:%? %:subject :FOGB:\n%i\n%a\n")
-          ("m" "Meeting"   entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
-          ("p" "Phone"     entry (file "~/org/refile.org") "* TODO Phone %? :PHON:\n%U")
-          ("n" "Note"      entry (file "~/org/notes.org")  "* %? :NOTE:\n%U\n%a\n")
-          ("i" "Idea"      entry (file "~/org/ideas.org")  "* %? :IDEA:\n%U\n%a\n")
-          ("j" "Journal"   entry (file+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a"))
-
-        ;; Abbreviations
-        org-link-abbrev-alist `(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
-                                ;; ("KR" . ,(concat yg-kiln-url "/Review/K%h"))
-                                ("GH" . github-issue-url)
-                                ("GL" . yg-gitlab-issue-url)
-                                ("MR" . yg-gitlab-merge-request-url))
-        ;; Refiling
-        org-refile-targets
-        ;; '((nil :maxlevel . 9)
-        ;;   (org-agenda-files :maxlevel . 9))
-        '((org-agenda-files :level . 1))
-        org-refile-use-outline-path t
-        org-outline-path-complete-in-steps nil
-        org-refile-allow-creating-parent-nodes 'confirm
-
-        ;; Clocking
-        org-clock-out-remove-zero-time-clocks t
-        org-clock-out-when-done t
-
-        ;; Todos
-        org-todo-keywords
-        '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)")
-          (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "MEET(m@)"))
-        org-todo-keyword-faces
-        '(("TODO" . org-todo)
-          ("STRT" . org-strt)
-          ("WAIT" . org-wait)
-          ("DELG" . org-delg)
-          ("MEET" . org-meet)
-          ("CANC" . org-canc)
-          ("DEFR" . org-defr)
-          ("DONE" . org-done))
-        org-log-done 'time
-        org-log-into-drawer t
-        org-publish-project-alist
-        '(("home"
-           :base-directory "~/Private/org/"
-           :exclude "\\.*"
-           :include ("home.org")
-           :with-broken-links t
-           :publishing-directory "~/Private/org/"
-           :publishing-function org-html-publish-to-html
-           :description "My links"
-           ;; :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
-           ;; "Async" CSS
-           :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
-          ("lbolla.info"
-           :components ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
-          ("lbolla.info-static"
-           :base-directory "~/src/lbolla.info/static/"
-           :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css"
-           :publishing-directory "~/src/lbolla.info/html/"
-           :recursive t
-           :publishing-function org-publish-attachment)
-          ("lbolla.info-cv.pdf"
-           :base-directory "~/src/lbolla.info/org/"
-           :exclude "\\.*"
-           :include ("cv.org")
-           :publishing-directory "~/src/lbolla.info/html/"
-           :publishing-function org-latex-publish-to-pdf)
-          ("lbolla.info-html"
-           :base-directory "~/src/lbolla.info/org/"
-           :publishing-directory "~/src/lbolla.info/html/"
-           :recursive t
-           :section-numbers nil
-           :auto-sitemap t
-           :sitemap-format-entry lbolla.info/org-publish-sitemap-format-entry
-           :sitemap-function lbolla.info/org-publish-sitemap-function
-           :sitemap-sort-files anti-chronologically
-           :sitemap-style tree
-           :sitemap-title "Sitemap"
-           :with-toc nil
-           :description "Lorenzo Bolla homepage"
-           :html-doctype "html5"
-           :html-head-include-default-style nil
-           :html-head-include-scripts nil
-           :html-link-home "<ignored>"
-           :html-link-up "<ignored>"
-           :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles\">Articles</a> | <a accesskey=\"c\" href=\"/cv\">CV</a> (<a href=\"/cv.pdf\">pdf</a>)</div>"
-           :html-preamble lbolla.info/html-preamble
-           :html-postamble nil
-           :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\">"
-           :html-head-extra "<link rel=\"stylesheet\" href=\"./css/extra.css\" type=\"text/css\">"
-           :publishing-function org-html-publish-to-html)
-          ("kubernetes"
-           :components ("kubernetes-org" "kubernetes-html"))
-          ("kubernetes-org"
-           :base-directory "~/work/kubernetes/"
-           :base-extension "org"
-           :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/"
-           :publishing-function org-org-publish-to-org
-           :recursive t)
-          ("kubernetes-html"
-           :base-directory "~/work/kubernetes/"
-           :base-extension "org"
-           :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/"
-           :publishing-function org-html-publish-to-html
-           :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">"
-           :recursive t)
-          ("cubeapi"
-           :components ("cubeapi-notes" "cubeapi-static"))
-          ("cubeapi-notes"
-           :base-directory "~/work/cubeapi/notes/"
-           :base-extension "org"
-           :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
-           :publishing-function org-html-publish-to-html
-           :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">"
-           :recursive t)
-          ("cubeapi-static"
-           :base-directory "~/work/cubeapi/notes/"
-           :base-extension "png\\|jpg"
-           :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
-           :recursive t
-           :publishing-function org-publish-attachment))))
-
-(use-package org-bullets
-  :after org
-  :demand t
-  :hook
-  (org-mode . org-bullets-mode))
+  (defface org-delg '((t (:inherit org-todo :foreground "dark gray"))) "Face used for delegated tasks." :group 'org-faces)
+  (defface org-meet '((t (:inherit org-todo :foreground "deep sky blue"))) "Face used for meeting tasks." :group 'org-faces)
+  (defface org-canc '((t (:inherit org-todo :foreground "dim gray"))) "Face used for cancelled tasks." :group 'org-faces)
+  (defface org-defr '((t (:inherit org-todo :foreground "blue"))) "Face used for deferred tasks." :group 'org-faces))
 
 (use-package org-mu4e
   :ensure nil
@@ -804,6 +738,9 @@
     scheme-mode-hook) . enable-paredit-mode))
 
 (use-package pass
+  :bind
+  ("C-c x" . pass)
+  ("C-c C-x" . password-store-copy)
   :config
   (defun password-store-change (entry &optional password-length)
     "Change password for ENTRY with PASSWORD-LENGTH.
@@ -846,7 +783,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package python
   :after evil
-  :bind (("C-c v w" . venv-workon-and-cdproject))
+  :bind
+  ("C-c v w" . venv-workon-and-cdproject)
   :mode (((rx ".pyi" eos) . python-mode) ;; type stub files
          ((rx ".mk" eos) . python-mode) ;; check-mk config files
          ((rx ".pyrc" eos) . python-mode))
@@ -859,6 +797,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :hook
   (python-mode . hs-minor-mode)
   (python-mode . (lambda ()
+                   (elpy-enable)
                    (electric-indent-local-mode -1)
                    (set-whitespace-line-column 79)
                    (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
@@ -933,16 +872,16 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
          ((rx bos "template" eos) . shell-script-mode)))
 
 (use-package smtpmail
-  :custom
-  (send-mail-function 'smtpmail-send-it)
   :defines
   yg-smtp-server
   yg-smtp-port
-  :init
-  (setq smtpmail-smtp-server yg-smtp-server
-        smtpmail-smtp-service yg-smtp-port
-        smtpmail-mail-address yg-smtp-user
-        smtpmail-stream-type 'starttls))
+  yg-smtp-user
+  :custom
+  (send-mail-function 'smtpmail-send-it)
+  (smtpmail-smtp-server yg-smtp-server)
+  (smtpmail-smtp-service yg-smtp-port)
+  (smtpmail-mail-address yg-smtp-user)
+  (smtpmail-stream-type 'starttls))
 
 (use-package swiper
   :init
@@ -952,6 +891,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :ensure nil
   :hook
   (text-mode . (lambda ()
+                 (variable-pitch-mode 1)
                  (flyspell-mode t))))
 
 (use-package toml-mode
@@ -990,6 +930,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                  (modify-syntax-entry ?\- "w")
                  (modify-syntax-entry ?\$ ".")
                  (set-indent 2)
+                 (variable-pitch-mode 0)
                  (flyspell-mode nil))))
 
 (use-package yasnippet

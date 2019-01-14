@@ -90,7 +90,7 @@
 (defcustom my/mu4e-get-mail-command "offlineimap"
   "Shell command to run to retrieve email manually." :group 'Mu4e)
 
-(defun mu4e-refresh-headers (args)
+(defun my/mu4e-refresh-headers (args)
   "Refresh headers calling 'offlineimap' if prefix is used and in ARGS."
   (interactive "P")
   (let ((mu4e-get-mail-command (if args my/mu4e-get-mail-command "true")))
@@ -209,14 +209,15 @@
       (goto-char temp-point))))
 
 (defcustom my-fonts '(
-                      "Monoid-11"
                       "Monoid-10"
-                      "Operator Mono Light-14"
-                      "Ubuntu Mono-12"
+                      ;; "Operator Mono Light-14"
+                      ;; "Ubuntu Mono-12"
                       "Terminus-12"
                       "ProggyCleanTT-12"
-                      "IBM 3270 Narrow-14"
+                      ;; "IBM 3270 Narrow-14"
                       "Input-12"
+                      "DejaVu Sans Mono-12"
+                      "Iosevka-12"
                       ) "List of fonts I like." :group 'local :type 'list)
 
 ;; (defun cycle-fonts ()
@@ -335,7 +336,7 @@
   "Activate VENV and cd to it."
   (interactive
    (list
-    (completing-read "Work on: " (pyvenv-virtualenv-list)
+    (completing-read "Work on: " (progn (elpy-enable) (pyvenv-virtualenv-list))
                      nil t nil 'pyvenv-workon-history nil nil)))
   (pyvenv-workon venv)
   (elpy-rpc-restart)
@@ -382,7 +383,7 @@ representation for the files to include, as returned by
     (when (and date (> (length date) 0))
       (format "<span class=\"timestamp\"><%s></span> by <em>%s</em>" (format-time-string "%Y-%m-%d" (org-time-string-to-time date)) author))))
 
-(defun mu4e-headers-narrow-thing-at-point ()
+(defun my/mu4e-headers-narrow-thing-at-point ()
   "Narrow mu4e search querying for thing at point."
   (interactive)
   (let ((q (thing-at-point 'symbol)))
