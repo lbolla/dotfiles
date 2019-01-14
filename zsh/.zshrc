@@ -84,6 +84,7 @@ plugins=(
     git
     kubectl
     kubectl-patch
+    kube-ps1
     paver
     stern
     tmux
