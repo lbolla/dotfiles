@@ -16,15 +16,17 @@ URxvt*background: #000000
 
 ! URxvt*font: xft:Terminus:pixelsize=14
 
-URxvt*font: -xos4-terminus-medium-*-*-*-14-*-*-*-*-*-iso8859-15,xft:terminus:pixelsize:12
-URxvt*boldFont: -xos4-terminus-bold-*-*-*-14-*-*-*-*-*-iso8859-15,xft:terminus:bold:pixelsize:12
-URxvt*italicFont: xft:Bitstream Vera Sans Mono:italic:autohint=true:pixelsize=12
-URxvt*boldItalicFont: xft:Bitstream Vera Sans Mono:bold:italic:autohint=true:pixelsize=12
+! URxvt*font: -xos4-terminus-medium-*-*-*-14-*-*-*-*-*-iso8859-15,xft:terminus:pixelsize:12
+! URxvt*boldFont: -xos4-terminus-bold-*-*-*-14-*-*-*-*-*-iso8859-15,xft:terminus:bold:pixelsize:12
+! URxvt*italicFont: xft:Bitstream Vera Sans Mono:italic:autohint=true:pixelsize=12
+! URxvt*boldItalicFont: xft:Bitstream Vera Sans Mono:bold:italic:autohint=true:pixelsize=12
 
 ! URxvt*font: xft:Operator Mono Light:pixelsize=14
 ! URxvt*boldFont: xft:Operator Mono Medium:pixelsize=14
 ! URxvt*italicFont: xft:Operator Mono LightItalic:pixelsize=14
 ! URxvt*boldItalicFont: xft:Operator Mono MediumLight:pixelsize=14
+
+URxvt*font: xft:Iosevka:pixelsize=16
 
 URxvt*letterSpace: 0
 URxvt*scrollBar: none
