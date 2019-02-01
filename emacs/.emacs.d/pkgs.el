@@ -481,7 +481,7 @@
   (mu4e-alert-set-default-style 'libnotify))
 
 (use-package org
-  :load-path "/home/lbolla/src/org-mode/lisp/"
+  :load-path "/home/lbolla/src/code.orgmode.org/bzg/org-mode/lisp/"
   :after evil
 
   :defines
