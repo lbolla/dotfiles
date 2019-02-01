@@ -1,0 +1,22 @@
+* Things to do on a new system
+
+** git clone to src/github.com/lbolla/dotfiles
+
+** pkg install
+    curl
+    emacs
+    git
+    mu4e
+    isync
+    pinentry
+    stow
+    virtualenvwrapper
+    w3m
+    zsh
+
+** More installs
+    Iosevka
+    EBGaramond
+    oh-my-zsh (from github)
+    ripgrep (from github)
+    kubectl
