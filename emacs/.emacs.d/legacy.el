@@ -95,6 +95,7 @@
                       (set-indent 2))))
 
 (use-package erlang
+  :disabled t
   :mode (("\\.erl\\'" . erlang-mode)
          ("\\vars.config\\'" . erlang-mode)
          ("\\rebar.config\\'" . erlang-mode))
@@ -111,6 +112,7 @@
   :after flycheck)
 
 (use-package flycheck-dialyzer
+  :disabled t
   :load-path "/home/lbolla/src/emacs-flycheck-dialyzer/"
   :after flycheck
   :config (progn
@@ -516,3 +518,70 @@
 ;;             ;; (load-theme-leuven)
 ;;             (load-theme-quasi-monochrome)
 ;;             ))
+
+(defun load-theme-doom ()
+  "Load `doom` theme."
+  (interactive)
+  (use-package doom-themes
+    :demand t
+    :custom
+    (doom-tomorrow-day-padded-modeline t)
+    (doom-tomorrow-night-padded-modeline t))
+  (use-package doom-modeline
+    :ensure t
+    :disabled t
+    :defer t
+    :after doom-themes
+    :custom
+    (doom-modeline-icon t)
+    (doom-modeline-bar-width 3)
+    (doom-modeline-github nil)
+    ;; :hook
+    ;; (after-init . doom-modeline-init)
+    :init
+    (doom-modeline-init))
+  (switch-theme 'doom-Iosvkem))
+
+(defun load-theme-zerodark ()
+  "Load `zerodark` theme."
+  (interactive)
+  (use-package zerodark-theme
+    :demand t)
+  (custom-theme-set-faces 'zerodark
+   `(highlight-indentation-face        ((t (:inherit (fringe) :background "#24282f"))))
+   `(org-canc                          ((t (:inherit (org-todo) :foreground "dark gray" :strike-through t))))
+   `(org-delg                          ((t (:inherit (org-todo) :foreground "gray")))))
+  (zerodark-setup-modeline-format)
+  (switch-theme 'zerodark))
+
+(use-package restclient
+  :mode (((rx ".http" eos) . restclient-mode)))
+
+(use-package w3m)
+
+(use-package fbcli
+  :demand t
+  :mode ((rx ".fbcli_comment" eos) . fogbugz-mode)
+  :load-path "/home/lbolla/src/fbcli/")
+
+(use-package htmlize)
+
+(use-package nsm
+  :demand t
+  :custom (network-security-level 'high))
+
+(use-package olivetti)
+
+(use-package prettier-js
+  :diminish
+  :commands (prettier-js)
+  ;; :hook
+  ;; (js2-mode . prettier-js-mode)
+  ;; (web-mode . prettier-js-mode)
+  :custom
+  (prettier-js-args '(
+                      "--bracket-spacing" "false"
+                      "--single-quote" "true"
+                      "--tab-width" "4"
+                      "--trailing-comma" "none"
+                      )))

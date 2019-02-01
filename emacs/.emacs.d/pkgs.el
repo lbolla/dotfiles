@@ -131,11 +131,17 @@
                          (evil-define-key 'normal erlang-shell-mode-map (kbd "K") 'erlang-man-function))))
 
 (use-package ess
+  :disabled t
   :hook
   (ess-mode . (lambda ()
                  (modify-syntax-entry ?\_ "w"))))
 
-(use-package esup)
+(use-package esup
+  :disabled t)
+
+(use-package expand-region
+  :bind
+  ("C-=" . er/expand-region))
 
 (use-package evil
   :demand t
@@ -282,13 +288,7 @@
   :hook
   (flycheck-mode . flycheck-rust-setup)
   :config
-  ;; (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy))
-  )
-
-(use-package fbcli
-  :demand t
-  :mode ((rx ".fbcli_comment" eos) . fogbugz-mode)
-  :load-path "/home/lbolla/src/fbcli/")
+  (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
 
 (use-package go-mode
   :disabled t
@@ -301,8 +301,6 @@
 
 (use-package highlight-indentation
   :diminish)
-
-(use-package htmlize)
 
 (use-package ivy
   :demand t
@@ -373,7 +371,7 @@
 (use-package magit-todos
   :after magit
   :custom
-  (magit-todos-keyword-suffix ":")
+  (magit-todos-keyword-suffix (rx (or ":" eol)))
   (magit-todos-update 60)
   (magit-todos-exclude-globs '("concatenated" "node_modules" "vendor"))
   :hook
@@ -391,6 +389,7 @@
                      (set-indent 4))))
 
 (use-package nim-mode
+  :disabled t
   :hook
   (nim-mode . nimsuggest-mode)
   (nimsuggest-mode . (lambda ()
@@ -483,8 +482,6 @@
   (mu4e-alert-enable-notifications)
   (mu4e-alert-enable-mode-line-display)
   (mu4e-alert-set-default-style 'libnotify))
-
-(use-package olivetti)
 
 (use-package org
   :load-path "/home/lbolla/src/org-mode/lisp/"
@@ -623,7 +620,7 @@
                                 :components ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
                                ("lbolla.info-static"
                                 :base-directory "~/src/lbolla.info/static/"
-                                :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css"
+                                :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css\\|woff2"
                                 :publishing-directory "~/src/lbolla.info/html/"
                                 :recursive t
                                 :publishing-function org-publish-attachment)
@@ -777,10 +774,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (global-set-key (kbd "<f5>") 'projectile-compile-project))
 
-(use-package nsm
-  :demand t
-  :custom (network-security-level 'high))
-
 (use-package python
   :after evil
   :bind
@@ -806,20 +799,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                    (evil-define-key 'normal python-mode-map (kbd "K") 'elpy-doc)
                    (evil-define-key 'normal python-mode-map (kbd "gf") (lambda () (interactive) (elpy-find-file t))))))
 
-(use-package prettier-js
-  :diminish
-  :commands (prettier-js)
-  ;; :hook
-  ;; (js2-mode . prettier-js-mode)
-  ;; (web-mode . prettier-js-mode)
-  :custom
-  (prettier-js-args '(
-                      "--bracket-spacing" "false"
-                      "--single-quote" "true"
-                      "--tab-width" "4"
-                      "--trailing-comma" "none"
-                      )))
-
 (use-package racer
   :diminish
   :after (evil rust-mode)
@@ -832,9 +811,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (evil-define-key 'normal racer-help-mode-map (kbd "K") 'racer-describe)
   (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition)
   (evil-define-key 'normal racer-help-mode-map (kbd "C-]") 'racer-find-definition))
-
-(use-package restclient
-  :mode (((rx ".http" eos) . restclient-mode)))
 
 (use-package rg
   :custom
@@ -851,7 +827,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :config
   (rg-define-toggle "--context 3" "x" nil))
 
-(use-package rmsbolt)
+(use-package rmsbolt
+  :disabled t)
 
 (use-package rst
   :hook
@@ -904,8 +881,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :commands (vcs-resolve-at-point
              vcs-resolve-buffer
              vcs-resolve-region))
-
-(use-package w3m)
 
 (use-package web-mode
   :mode ((rx ".html" eos)

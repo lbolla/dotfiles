@@ -75,8 +75,8 @@
  '(evil-lookup-func (quote man-at-point))
  '(evil-want-C-i-jump nil)
  '(evil-want-C-w-in-emacs-state t)
- '(evil-want-integration nil)
- '(evil-want-keybinding t)
+ '(evil-want-integration t)
+ '(evil-want-keybinding nil)
  '(eww-search-prefix "https://www.ixquick.com/do/search?q=")
  '(explicit-shell-file-name "/usr/bin/bash")
  '(eyebrowse-keymap-prefix "e")
@@ -113,21 +113,22 @@
 ")
  '(ivy-use-virtual-buffers t)
  '(js2-mode-show-strict-warnings nil t)
+ '(line-spacing 0.2)
  '(linum-format " %7i ")
- '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read) t)
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
- '(magit-log-section-commit-count 0 t)
+ '(magit-branch-arguments nil)
+ '(magit-completing-read-function (quote ivy-completing-read))
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
+ '(magit-log-section-commit-count 0)
  '(magit-push-always-verify nil t)
  '(magit-todos-exclude-globs (quote ("concatenated" "node_modules" "vendor")))
- '(magit-todos-keyword-suffix ":")
+ '(magit-todos-keyword-suffix ":\\|$")
  '(magit-todos-update 60)
  '(mail-user-agent (quote mu4e-user-agent))
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed" t)
+ '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
@@ -171,7 +172,7 @@
  '(mu4e-view-show-addresses t)
  '(mu4e-view-show-images t)
  '(my/mu4e-get-mail-command "mbsync -a")
- '(network-security-level (quote high))
+ '(network-security-level (quote high) nil nil "Customized with use-package nsm")
  '(org-agenda-custom-commands
    (quote
     ((" " "Agenda"
@@ -269,7 +270,7 @@
       "* %?
 Entered on %U
   %i
-  %a"))) t)
+  %a"))))
  '(org-clock-out-remove-zero-time-clocks t t)
  '(org-clock-out-when-done t t)
  '(org-deadline-warning-days 30)
@@ -278,7 +279,7 @@ Entered on %U
  '(org-fast-tag-selection-single-key t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
- '(org-html-htmlize-output-type (quote css) t)
+ '(org-html-htmlize-output-type (quote css))
  '(org-link-abbrev-alist
    (quote
     (("FB" . "https://yougov.fogbugz.com/f/cases/%h")
@@ -300,7 +301,7 @@ Entered on %U
       :with-broken-links t :publishing-directory "~/Private/org/" :publishing-function org-html-publish-to-html :description "My links" :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
      ("lbolla.info" :components
       ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
-     ("lbolla.info-static" :base-directory "~/src/lbolla.info/static/" :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css" :publishing-directory "~/src/lbolla.info/html/" :recursive t :publishing-function org-publish-attachment)
+     ("lbolla.info-static" :base-directory "~/src/lbolla.info/static/" :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css\\|woff2" :publishing-directory "~/src/lbolla.info/html/" :recursive t :publishing-function org-publish-attachment)
      ("lbolla.info-cv.pdf" :base-directory "~/src/lbolla.info/org/" :exclude "\\.*" :include
       ("cv.org")
       :publishing-directory "~/src/lbolla.info/html/" :publishing-function org-latex-publish-to-pdf)
@@ -312,7 +313,7 @@ Entered on %U
      ("cubeapi" :components
       ("cubeapi-notes" "cubeapi-static"))
      ("cubeapi-notes" :base-directory "~/work/cubeapi/notes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
-     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))) t)
+     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))))
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(org-refile-use-outline-path t)
@@ -355,7 +356,7 @@ Entered on %U
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (esup magit-todos nnir doom-modeline doom-themes poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda olivetti prettier-js elpy which-key diminish zerodark-theme dumb-jump leuven-theme htmlize evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode w3m use-package swiper spinner restclient queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -386,9 +387,9 @@ Entered on %U
  '(show-paren-mode t)
  '(shr-use-fonts t)
  '(smtpmail-mail-address "lorenzo.bolla@yougov.com" t)
- '(smtpmail-smtp-server "smtp.yougov.com" t)
- '(smtpmail-smtp-service 465 t)
- '(smtpmail-stream-type (quote starttls) t)
+ '(smtpmail-smtp-server "smtp.yougov.com")
+ '(smtpmail-smtp-service 465)
+ '(smtpmail-stream-type (quote starttls))
  '(tls-checktrust (quote ask))
  '(tool-bar-mode nil)
  '(tramp-default-method "ssh" nil (tramp))
@@ -474,6 +475,7 @@ Entered on %U
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :weight light :height 120))))
  '(fixed-pitch ((t (:family "Iosevka" :height 120))))
+ '(region ((t (:background "#c1caa1" :distant-foreground "black"))))
  '(variable-pitch ((t (:family "EBGaramond" :height 140)))))
 
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
@@ -511,6 +513,7 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 
 (blink-cursor-mode 0)
 (column-number-mode 1)
+(delete-selection-mode 1)
 (global-hl-line-mode)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)

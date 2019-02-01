@@ -7,12 +7,8 @@
 ;;; TODO poet: filename of org files in switch buffer are big
 
 (defcustom my-themes '(
+                       poet-dark
                        poet
-                       poet-dark-monochrome
-                       ;; doom-tomorrow-night
-                       ;; doom-tomorrow-day
-                       ;; doom-Iosvkem
-                       ;; doom-solarized-light
                        ) "List of themes I like." :group 'local :type 'list)
 
 (defun disable-custom-themes ()
@@ -91,18 +87,6 @@
    `(org-todo                          ((t (:foreground "white" :weight bold :box t))))
    `(org-wait                          ((t (:foreground "yellow" :weight bold :box t))))))
 
-(defun load-theme-zerodark ()
-  "Load `zerodark` theme."
-  (interactive)
-  (use-package zerodark-theme
-    :demand t)
-  (custom-theme-set-faces 'zerodark
-   `(highlight-indentation-face        ((t (:inherit (fringe) :background "#24282f"))))
-   `(org-canc                          ((t (:inherit (org-todo) :foreground "dark gray" :strike-through t))))
-   `(org-delg                          ((t (:inherit (org-todo) :foreground "gray")))))
-  (zerodark-setup-modeline-format)
-  (switch-theme 'zerodark))
-
 (defun load-theme-goose ()
   "Load `goose` theme."
   (interactive)
@@ -116,29 +100,6 @@
    `(org-scheduled                     ((t (:inherit (default)))))
    `(org-scheduled-previously          ((t (:foreground "#666666" :weight normal))))
    `(org-scheduled-today               ((t (:inherit (default)))))))
-
-(defun load-theme-doom ()
-  "Load `doom` theme."
-  (interactive)
-  (use-package doom-themes
-    :demand t
-    :custom
-    (doom-tomorrow-day-padded-modeline t)
-    (doom-tomorrow-night-padded-modeline t))
-  (use-package doom-modeline
-    :ensure t
-    :disabled t
-    :defer t
-    :after doom-themes
-    :custom
-    (doom-modeline-icon t)
-    (doom-modeline-bar-width 3)
-    (doom-modeline-github nil)
-    ;; :hook
-    ;; (after-init . doom-modeline-init)
-    :init
-    (doom-modeline-init))
-  (switch-theme 'doom-Iosvkem))
 
 (use-package poet-theme
   :defer t
