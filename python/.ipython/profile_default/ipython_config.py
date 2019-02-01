@@ -155,6 +155,10 @@ c.TerminalIPythonApp.force_interact = True
 # Start IPython quickly by skipping the loading of config files.
 # c.TerminalIPythonApp.quick = False
 
+# c.TerminalIPythonApp.extensions = [
+#     'line_profiler',
+# ]
+
 #------------------------------------------------------------------------------
 # InteractiveShell configuration
 #------------------------------------------------------------------------------
