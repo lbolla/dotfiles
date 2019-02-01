@@ -316,7 +316,6 @@
    '(yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-no-prompt)
    yas-snippet-dirs (quote (yas-installed-snippets-dir))))
 
-;; TODO
 ;; (use-package virtualenvwrapper
 ;;   ;; :defer t
 ;;   :bind (("C-c v w" . venv-workon-and-cdproject))

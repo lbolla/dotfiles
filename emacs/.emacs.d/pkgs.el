@@ -146,9 +146,6 @@
 (use-package evil
   :demand t
   :custom
-  ;; (evil-want-keybinding t)
-  ;; (evil-want-integration nil)
-  ;; TODO
   (evil-want-keybinding nil)
   (evil-want-integration t)
 
