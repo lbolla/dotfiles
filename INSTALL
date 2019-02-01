@@ -6,10 +6,13 @@
     curl
     emacs
     git
+    make
+    mosh
     mu4e
     isync
     pinentry
     stow
+    texinfo
     virtualenvwrapper
     w3m
     zsh
