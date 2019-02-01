@@ -1,11 +1,12 @@
 [aliases]
 mycases = search assignedTo:me status:active
-devops = search status:active project:devops
-brandindex = search status:active project:brandindex
 openedbyme = search openedby:me
-outages = search project:outages
+brandindex = search status:active project:brandindex
+devops = search status:active project:devops
+systems = search status:active project:systems
+outages = search status:active project:outages
 testing = edit status=testing
-wontfix = resolve Resolved (Won't Fix)
-# duplicate = resolve Resolved (Duplicate)
 bydesign = resolve Resolved (By Design)
 cantreproduce = resolve Resolved (Not Reproducible)
+# duplicate = resolve Resolved (Duplicate)
+wontfix = resolve Resolved (Won't Fix)
