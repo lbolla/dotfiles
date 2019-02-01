@@ -481,7 +481,8 @@
   (mu4e-alert-set-default-style 'libnotify))
 
 (use-package org
-  :load-path "/home/lbolla/src/code.orgmode.org/bzg/org-mode/lisp/"
+  ;; No need, if I "make install" it
+  ;; :load-path "/home/lbolla/src/code.orgmode.org/bzg/org-mode/lisp/"
   :after evil
 
   :defines
@@ -499,7 +500,7 @@
   yg-kiln-url
 
   :custom
-  (org-agenda-tags-column 'auto)
+  ;; TODO (org-agenda-tags-column 'auto)
   (org-deadline-warning-days 30)
   (org-html-htmlize-output-type 'css)
   (org-src-tab-acts-natively t)
