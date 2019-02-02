@@ -6,10 +6,13 @@
     curl
     emacs
     git
+    htop
+    httpie
     make
     mosh
     mu4e
     isync
+    openconnect
     pinentry
     stow
     texinfo
@@ -23,3 +26,5 @@
     oh-my-zsh (from github)
     ripgrep (from github)
     kubectl
+    fzf (from github)
+    zsh-autosuggestions (from github)
