@@ -34,3 +34,4 @@ aliases
 /w3m/.w3m/.sessions
 /w3m/.w3m/cookie
 /w3m/.w3m/history
+/python/.ipython/profile_default/history.sqlite
