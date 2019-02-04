@@ -412,7 +412,7 @@
          ("C-c m r" . (lambda () (interactive) (mu4e~request-contacts)))
          ("C-c m n" . mu4e-compose-new)
          :map mu4e-headers-mode-map
-         ("C-c /" . my/mu4e-headers-narrow-thing-at-point)
+         ("C-c /" . my/mu4e-headers-narrow-ticket)
          ("C-c C-u" . my/mu4e-refresh-headers))
 
   :custom
@@ -481,9 +481,9 @@
   (mu4e-alert-set-default-style 'libnotify))
 
 (use-package org
-  ;; No need, if I "make install" it
+  ;; Install from Org's elpa
   ;; :load-path "/home/lbolla/src/code.orgmode.org/bzg/org-mode/lisp/"
-  :after evil
+  ;; :load-path "/usr/share/emacs/site-lisp/org/"
 
   :defines
   org-agenda-custom-commands
@@ -500,7 +500,7 @@
   yg-kiln-url
 
   :custom
-  ;; TODO (org-agenda-tags-column 'auto)
+  (org-agenda-tags-column 'auto)
   (org-deadline-warning-days 30)
   (org-html-htmlize-output-type 'css)
   (org-src-tab-acts-natively t)
@@ -873,9 +873,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :mode ((rx "Cargo")))
 
 (use-package vcs-resolve
-  :load-path "/home/lbolla/src/vcs-resolve/"
+  :load-path "/home/lbolla/src/github.com/lbolla/vcs-resolve/"
   :custom
-  (vcs-resolve-exe "/home/lbolla/src/vcs-resolve/vcs-resolve.py")
+  (vcs-resolve-exe "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py")
   :commands (vcs-resolve-at-point
              vcs-resolve-buffer
              vcs-resolve-region))

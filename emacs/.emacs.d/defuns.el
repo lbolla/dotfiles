@@ -91,7 +91,7 @@
   "Shell command to run to retrieve email manually." :group 'Mu4e)
 
 (defun my/mu4e-refresh-headers (args)
-  "Refresh headers calling 'offlineimap' if prefix is used and in ARGS."
+  "Refresh headers calling 'my/mu4e-get-mail-command' if ARGS."
   (interactive "P")
   (let ((mu4e-get-mail-command (if args my/mu4e-get-mail-command "true")))
     (mu4e-update-mail-and-index nil))
@@ -388,6 +388,13 @@ representation for the files to include, as returned by
   (interactive)
   (let ((q (thing-at-point 'symbol)))
     (mu4e-headers-search-narrow q)))
+
+(defun my/mu4e-headers-narrow-ticket ()
+  "Narrow mu4e search querying for ticket."
+  (interactive)
+  (evil-beginning-of-line)
+  (evil-forward-word-begin 16)
+  (my/mu4e-headers-narrow-thing-at-point))
 
 (defun true-color-p ()
   "Return non-nil on displays that support 256 colors."

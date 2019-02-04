@@ -77,7 +77,7 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(elpy-modules
    (quote
-    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
+    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)) t)
  '(epa-pinentry-mode (quote loopback))
  '(evil-lookup-func (quote man-at-point))
  '(evil-want-C-i-jump nil)
@@ -122,10 +122,10 @@
  '(js2-mode-show-strict-warnings nil t)
  '(line-spacing 0.2)
  '(linum-format " %7i ")
- '(magit-branch-arguments nil)
- '(magit-completing-read-function (quote ivy-completing-read))
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
- '(magit-log-section-commit-count 0)
+ '(magit-branch-arguments nil t)
+ '(magit-completing-read-function (quote ivy-completing-read) t)
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
+ '(magit-log-section-commit-count 0 t)
  '(magit-push-always-verify nil t)
  '(magit-todos-exclude-globs (quote ("concatenated" "node_modules" "vendor")))
  '(magit-todos-keyword-suffix ":\\|$")
@@ -135,7 +135,7 @@
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
+ '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed" t)
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
@@ -236,7 +236,7 @@
      (search category-keep))))
  '(org-agenda-span 1)
  '(org-agenda-start-on-weekday nil)
- '(org-agenda-tags-column (quote auto))
+ '(org-agenda-tags-column -120)
  '(org-archive-location "%s_archive::* Archived Tasks")
  '(org-capture-templates
    (quote
@@ -286,7 +286,7 @@ Entered on %U
  '(org-fast-tag-selection-single-key t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
- '(org-html-htmlize-output-type (quote css))
+ '(org-html-htmlize-output-type (quote css) t)
  '(org-link-abbrev-alist
    (quote
     (("FB" . "https://yougov.fogbugz.com/f/cases/%h")
@@ -320,7 +320,7 @@ Entered on %U
      ("cubeapi" :components
       ("cubeapi-notes" "cubeapi-static"))
      ("cubeapi-notes" :base-directory "~/work/cubeapi/notes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
-     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))))
+     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))) t)
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(org-refile-use-outline-path t)
@@ -363,7 +363,7 @@ Entered on %U
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -399,7 +399,7 @@ Entered on %U
  '(smtpmail-stream-type (quote starttls))
  '(tls-checktrust (quote ask))
  '(tool-bar-mode nil)
- '(tramp-default-method "ssh" nil (tramp))
+ '(tramp-default-method "ssh")
  '(undo-tree-visualizer-diff nil)
  '(undo-tree-visualizer-timestamps nil)
  '(user-full-name "Lorenzo Bolla")
