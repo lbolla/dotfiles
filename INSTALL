@@ -5,6 +5,7 @@
 ** pkg install
     curl
     emacs
+    gcc
     git
     htop
     httpie
@@ -13,7 +14,13 @@
     mu4e
     isync
     openconnect
+    pass
+    pkg-config
     pinentry
+    postgresql-client
+    python-dev
+    python3-dev
+    r-recommended
     stow
     texinfo
     virtualenvwrapper
