@@ -4,7 +4,6 @@
 ;;; 24 November 2017
 
 ;;; Code:
-;;; TODO poet: filename of org files in switch buffer are big
 
 (defcustom my-themes '(
                        poet-dark

@@ -2,7 +2,7 @@
 ;; Commentary:
 ;; 13 November 2017
 
-;; TODO use C-w hjkl instead
+;; use C-w hjkl instead
 (global-set-key (kbd "C-c h") 'windmove-left)
 (global-set-key (kbd "C-c j") 'windmove-down)
 (global-set-key (kbd "C-c k") 'windmove-up)
@@ -282,8 +282,8 @@
                                rcirc-default-user-name
                                rcirc-default-full-name
                                channels
-                               ;; TODO password
-                               ;; TODO encryption
+                               ;; password
+                               ;; encryption
                                )))))
 
 (use-package slime
@@ -358,7 +358,7 @@
   ;; (define-key evil-normal-state-map (kbd ",K") 'eww-at-point)
   ;; (define-key evil-visual-state-map (kbd ",K") 'eww-region)
 
-;; TODO merged into evil-collections
+;; merged into evil-collections
 ;; (use-package evil-mu4e
 ;;   :demand t
 ;;   :load-path "/home/lbolla/src/evil-mu4e/"
@@ -397,7 +397,7 @@
 ;;   (other-window 1)
 ;;   )
 
-;; TODO elpy C-c C-t is better
+;; elpy C-c C-t is better
 ;; (defmacro venv-pytest (&rest what)
 ;;   `(async-shell-command
 ;;     (concat
@@ -446,7 +446,7 @@
 ;;   ;; :config (global-evil-matchit-mode 1)
 ;;   )
 
-;; TODO not capturing email
+;; not capturing email
 ;; (use-package org-mu4e
 ;;   :demand t
 ;;   :after (org mu4e))
@@ -517,7 +517,7 @@
 ;; (global-set-key (kbd "C-c l") 'display-line-numbers-mode)
 ;; (global-set-key (kbd "C-c w") 'eww)
 
-;; TODO https://www.reddit.com/r/emacs/comments/8fyzjd/theme_not_loading_completly_with_emacsserver/
+;; https://www.reddit.com/r/emacs/comments/8fyzjd/theme_not_loading_completly_with_emacsserver/
 ;; (add-hook 'after-make-frame-functions
 ;;           (lambda (frame)
 ;;             (select-frame frame)

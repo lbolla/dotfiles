@@ -106,7 +106,7 @@ ${color}${font Monospace:style=Bold:pixelsize=18}CPU ${hr 1 }
 ${font Monospace:size=10}
 ${exec cat /proc/cpuinfo | grep -Po 'model\s+name\s+:\s+\K.*?GHz' | head -1}
 
-TEMP: ${color #39ff14}$alignr${hwmon 1 temp 1}°C${color}
+TEMPERATURE: ${color #39ff14}$alignr${hwmon 1 temp 1}°C${color}
 USAGE: ${color #39ff14}$alignr${cpu cpu0}%
 ${color #cc0000}${cpubar cpu0 15}
 # ${color #cc0000}${cpugraph cpu1 15 #ff0000 #00ff00}
