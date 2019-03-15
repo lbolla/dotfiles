@@ -131,13 +131,16 @@ zstyle ':completion:*' rehash true
 
 if [[ $IN_X = "yes" ]]
 then
-    # Ctrl-arrow (xterm, urxvt)
-    bindkey "^[[1;5C" forward-word
-    bindkey "^[[1;5D" backward-word
-    bindkey "^[Od" backward-word
-    bindkey "^[Oc" forward-word
-else
-    nocaps
+    if [[ -z "$GNOME_TERMINAL_SCREEN" ]]
+    then
+        # Ctrl-arrow (xterm, urxvt)
+        bindkey "^[[1;5C" forward-word
+        bindkey "^[[1;5D" backward-word
+        bindkey "^[Od" backward-word
+        bindkey "^[Oc" forward-word
+    fi
+# else
+#     nocaps
 fi
 
 # For white bg
