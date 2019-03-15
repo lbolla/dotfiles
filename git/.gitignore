@@ -1,2 +1,4 @@
-.dir-locals.el
-.venv
+/.dir-locals.el
+/.mypy_cache
+/.paver_targets
+/.pycheckers
