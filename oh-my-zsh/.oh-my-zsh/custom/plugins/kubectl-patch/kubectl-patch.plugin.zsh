@@ -1,5 +1,17 @@
 # Expand the official .oh-my-zsh kubectl plugin.
 
+KUBECTL=$(which kubectl)
+KUBECTL_OLD=$(which kubectl-old)
+
+function kubectl {
+    CTX=$($KUBECTL config current-context)
+    if [[ $CTX == "us2" || $CTX == "ldc2" ]]; then
+        $KUBECTL $*
+    else
+        $KUBECTL_OLD $*
+    fi
+}
+
 alias k=kubectl
 # alias kubectl-create-secret="kubectl create secret generic"  # E.g. kubectl-create-secret test-production --from-literal=secret_key=secret
 alias kdesc="kubectl describe"
