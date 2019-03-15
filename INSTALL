@@ -3,24 +3,35 @@
 ** git clone to src/github.com/lbolla/dotfiles
 
 ** pkg install
+    apt-file
     curl
+    docker
+    docker-compose
     emacs
     gcc
     git
     htop
     httpie
+    libxml2-dev
+    libxslt1-dev
     make
     mosh
     mu4e
+    net-tools
+    npm
     isync
     openconnect
+    openssh-server
     pass
     pkg-config
     pinentry
     postgresql-client
     python-dev
     python3-dev
+    r-mathlib
     r-recommended
+    rdiff-backup
+    redis
     stow
     texinfo
     virtualenvwrapper
@@ -28,8 +39,7 @@
     zsh
 
 ** More installs
-    Iosevka
-    EBGaramond
+    fonts (Iosevka, EBGaramond)
     oh-my-zsh (from github)
     ripgrep (from github)
     kubectl
