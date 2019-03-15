@@ -451,6 +451,13 @@
 ;;   :demand t
 ;;   :after (org mu4e))
 
+;; Use mu4e attachment actions A
+;; (defun icalendar-import-buffer-in-default-diary ()
+;;   "Import icalendar files into default diary."
+;;   (interactive)
+;;   (defvar diary-file)
+;;   (icalendar-import-buffer diary-file t t))
+
 (use-package org-bullets
   :after org
   :demand t

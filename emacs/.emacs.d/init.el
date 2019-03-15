@@ -77,7 +77,7 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(elpy-modules
    (quote
-    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)) t)
+    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
  '(epa-pinentry-mode (quote loopback))
  '(evil-lookup-func (quote man-at-point))
  '(evil-want-C-i-jump nil)
@@ -89,6 +89,7 @@
  '(eyebrowse-keymap-prefix "e")
  '(eyebrowse-new-workspace t)
  '(fci-rule-color "#383838")
+ '(fill-column 79)
  '(flycheck-check-syntax-automatically (quote (save idle-change new-line mode-enabled)))
  '(flycheck-clang-include-path
    (quote
@@ -96,14 +97,11 @@
  '(flycheck-clang-language-standard "c++11")
  '(flycheck-cppcheck-checks (quote ("all")))
  '(flycheck-cppcheck-suppressions (quote ("constStatement")))
- '(flycheck-flake8rc nil)
+ '(flycheck-flake8rc "setup.cfg")
  '(flycheck-gcc-language-standard "c++1y")
  '(flycheck-ghc-language-extensions nil)
  '(flycheck-highlighting-mode (quote lines))
- '(flycheck-idle-change-delay 3)
  '(flycheck-javascript-flow-args nil t)
- '(flycheck-pylintrc nil)
- '(flycheck-python-flake8-executable "/home/lbolla/bin/flake8")
  '(flycheck-python-mypy-args
    (quote
     ("--incremental" "--ignore-missing-imports" "--follow-imports=skip")))
@@ -122,24 +120,26 @@
  '(js2-mode-show-strict-warnings nil t)
  '(line-spacing 0.2)
  '(linum-format " %7i ")
+ '(load-prefer-newer t)
  '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read) t)
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
- '(magit-log-section-commit-count 0 t)
+ '(magit-completing-read-function (quote ivy-completing-read))
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
+ '(magit-log-section-commit-count 0)
+ '(magit-pull-or-fetch t)
  '(magit-push-always-verify nil t)
  '(magit-todos-exclude-globs (quote ("concatenated" "node_modules" "vendor")))
- '(magit-todos-keyword-suffix ":\\|$")
+ '(magit-todos-keyword-suffix ":\\| \\|$")
  '(magit-todos-update 60)
  '(mail-user-agent (quote mu4e-user-agent))
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed" t)
+ '(mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
-    (("flag:unread OR flag:flagged AND NOT flag:trashed" "Unread/flagged" 117)
+    (("(flag:unread OR flag:flagged) AND NOT flag:trashed" "Unread/flagged" 117)
      ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" 105)
      ("maildir:/YG/Errors AND flag:unread AND NOT flag:trashed" "Unread errors" 101)
      ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" 116)
@@ -161,7 +161,7 @@
      (:subject))))
  '(mu4e-headers-include-related t)
  '(mu4e-headers-skip-duplicates t)
- '(mu4e-html2text-command "w3m -dump -cols 120 -T text/html")
+ '(mu4e-html2text-command "w3m -dump -cols 80 -T text/html")
  '(mu4e-maildir "/home/lbolla/Mail")
  '(mu4e-maildir-shortcuts
    (quote
@@ -236,8 +236,15 @@
      (search category-keep))))
  '(org-agenda-span 1)
  '(org-agenda-start-on-weekday nil)
- '(org-agenda-tags-column -120)
+ '(org-agenda-tags-column (quote auto))
  '(org-archive-location "%s_archive::* Archived Tasks")
+ '(org-babel-load-languages
+   (quote
+    ((emacs-lisp . t)
+     (ledger . t)
+     (shell . t)
+     (sql . t)
+     (python . t))))
  '(org-capture-templates
    (quote
     (("t" "Todo" entry
@@ -291,8 +298,7 @@ Entered on %U
    (quote
     (("FB" . "https://yougov.fogbugz.com/f/cases/%h")
      ("GH" . github-issue-url)
-     ("GL" . yg-gitlab-issue-url)
-     ("MR" . yg-gitlab-merge-request-url))))
+     ("GL" . yg-gitlab-object-url))))
  '(org-log-done (quote time))
  '(org-log-into-drawer t)
  '(org-outline-path-complete-in-steps nil)
@@ -363,7 +369,7 @@ Entered on %U
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -428,7 +434,8 @@ Entered on %U
  '(vc-annotate-very-old-color "#161616")
  '(vc-follow-symlinks nil)
  '(vc-log-show-limit 50)
- '(vcs-resolve-exe "/home/lbolla/src/vcs-resolve/vcs-resolve.py" t)
+ '(vcs-resolve-exe
+   "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py")
  '(w3m-home-page "about:")
  '(w3m-search-default-engine "startpage")
  '(w3m-search-engine-alist
@@ -533,8 +540,6 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 ;; (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
 (cycle-themes)
-
-;; (server-start)
 
 (provide 'init)
 ;;; init.el ends here

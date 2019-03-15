@@ -11,20 +11,16 @@
 (defvar yg-fogbugz-password)
 (defvar yg-paste-base-url)
 
-(defun yg-gitlab-object-url (object tag)
+(defun yg-gitlab-object-url (tag)
   "Generate a YG GitLab OBJECT url for TAG."
-  (let* ((tokens (reverse (split-string tag "#")))
-         (issue (car tokens))
-         (repo (mapconcat 'identity (reverse (cdr tokens)) "/")))
-    (format "https://gitlab.yougov.net/%s/%s/%s" repo object (url-hexify-string issue))))
-
-(defun yg-gitlab-issue-url (tag)
-  "Generate a YG GitLab issue url for TAG."
-  (yg-gitlab-object-url "issues" tag))
-
-(defun yg-gitlab-merge-request-url (tag)
-  "Generate a YG GitLab merge request url for TAG."
-  (yg-gitlab-object-url "merge_requests" tag))
+  (let ((gitlab "https://gitlab.yougov.net/")
+        (issue-re (rx (group (one-or-more (not (any "#")))) "#" (group (one-or-more digit))))
+        (mr-re (rx (group (one-or-more (not (any "!")))) "!" (group (one-or-more digit)))))
+  (cond
+   ((string-match issue-re tag)
+    (concat gitlab (match-string 1 tag) "/issues/" (match-string 2 tag)))
+   ((string-match mr-re tag)
+    (concat gitlab (match-string 1 tag) "/merge_request/" (match-string 2 tag))))))
 
 (defun yg-fogbugz-cli ()
   "Open FogBugz command line interface."

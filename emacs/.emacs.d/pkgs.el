@@ -52,7 +52,8 @@
   (after-init . global-company-mode))
 
 (use-package conf-mode
-  :mode (((rx "rc" eos). conf-unix-mode)
+  :mode (((rx "rc" eos) . conf-unix-mode)
+         ((rx ".pycheckers" eos) . conf-unix-mode)
          ((rx "requirements") . conf-unix-mode)))
 
 (use-package counsel)
@@ -63,7 +64,10 @@
   (css-mode . (lambda ()
                 (modify-syntax-entry ?\- "w"))))
 
-(use-package csv-mode)
+(use-package csv-mode
+  :hook
+  (csv-mode . (lambda ()
+                 (variable-pitch-mode 0))))
 
 (use-package cython-mode
   :after evil
@@ -218,7 +222,7 @@
 (use-package flycheck
   :diminish
   :custom
-  (flycheck-idle-change-delay 3)
+  ;; (flycheck-idle-change-delay 3)
   (flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
   (flycheck-highlighting-mode 'lines)
   (flycheck-ghc-language-extensions ())
@@ -229,11 +233,12 @@
   (flycheck-clang-language-standard "c++11")
   (flycheck-cppcheck-checks '("all"))
   (flycheck-cppcheck-suppressions '("constStatement"))
-  (flycheck-flake8rc nil)
+  (flycheck-flake8rc "setup.cfg")
   (flycheck-gcc-language-standard "c++1y")
   (flycheck-javascript-flow-args nil)
-  (flycheck-pylintrc nil)
-  (flycheck-python-flake8-executable "/home/lbolla/bin/flake8")
+  ;; (flycheck-pylintrc nil)
+  ;; (flycheck-python-flake8-executable nil)
+  ;; (flycheck-python-mypy-cache-dir "/dev/null")
   :defines
   flycheck-javascript-flow-args
   :hook
@@ -247,9 +252,12 @@
                  (side            . bottom)
                  (window-height   . 0.20)))
   :config
-  (flycheck-add-next-checker 'python-flake8 'python-pylint t)
-  ;; (flycheck-add-next-checker 'python-flake8 '(warning .  python-mypy) t)
   (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t))
+
+(use-package flycheck-color-mode-line
+  :after flycheck
+  :hook
+  (flycheck-mode . flycheck-color-mode-line-mode))
 
 (use-package flycheck-cython
   :disabled t
@@ -276,6 +284,13 @@
   :after flycheck
   :hook
   (flycheck-mode . flycheck-popup-tip-mode))
+
+(use-package flycheck-pycheckers
+  :after flycheck
+  :custom
+  (flycheck-pycheckers-checkers '(flake8 mypy3))
+  :hook
+  (flycheck-mode . flycheck-pycheckers-setup))
 
 (use-package flycheck-rust
   :after rust-mode
@@ -330,6 +345,9 @@
 
 (use-package json-mode
   :mode ((rx ".ipynb" eos))
+  :config
+  (evil-define-key 'normal json-mode-map (kbd "=") 'json-mode-beautify)
+  (evil-define-key 'visual json-mode-map (kbd "=") 'json-mode-beautify)
   :hook
   (json-mode . (lambda ()
                  (set-indent 2))))
@@ -356,6 +374,7 @@
   (magit-branch-arguments nil)
   (magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
   (magit-push-always-verify nil)
+  (magit-pull-or-fetch t)
   :bind (:map magit-log-mode-map
          (",vp" . vcs-resolve-at-point)
          :map magit-revision-mode-map
@@ -368,9 +387,9 @@
 (use-package magit-todos
   :after magit
   :custom
-  (magit-todos-keyword-suffix (rx (or ":" eol)))
+  (magit-todos-keyword-suffix (rx (or ":" " " eol)))
   (magit-todos-update 60)
-  (magit-todos-exclude-globs '("concatenated" "node_modules" "vendor"))
+  (magit-todos-exclude-globs '(".git" "concatenated" "node_modules" "vendor"))
   :hook
   (magit-mode . magit-todos-mode))
 
@@ -426,7 +445,7 @@
                             ("/YG/Sent Items" . ?s)
                             ("/YG/Errors" . ?e)
                             ("/YG/Tickets" . ?t)))
-  (mu4e-bookmarks '(("flag:unread OR flag:flagged AND NOT flag:trashed" "Unread/flagged" ?u)
+  (mu4e-bookmarks '(("(flag:unread OR flag:flagged) AND NOT flag:trashed" "Unread/flagged" ?u)
                     ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" ?i)
                     ("maildir:/YG/Errors AND flag:unread AND NOT flag:trashed" "Unread errors" ?e)
                     ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" ?t)
@@ -446,7 +465,7 @@
   (mu4e-use-fancy-chars nil)
   (mu4e-get-mail-command "true")
   (mu4e-update-interval 300)
-  (mu4e-html2text-command "w3m -dump -cols 120 -T text/html")
+  (mu4e-html2text-command "w3m -dump -cols 80 -T text/html")
   (mu4e-view-html-plaintext-ratio-heuristic 20)
   (message-kill-buffer-on-exit t)
   (mu4e-view-scroll-to-next nil)
@@ -474,7 +493,7 @@
   :bind
   ("C-c m u" . mu4e-alert-view-unread-mails)
   :custom
-  (mu4e-alert-interesting-mail-query "flag:unread OR flag:flagged AND NOT flag:trashed")
+  (mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
   :config
   (mu4e-alert-enable-notifications)
   (mu4e-alert-enable-mode-line-display)
@@ -484,6 +503,9 @@
   ;; Install from Org's elpa
   ;; :load-path "/home/lbolla/src/code.orgmode.org/bzg/org-mode/lisp/"
   ;; :load-path "/usr/share/emacs/site-lisp/org/"
+
+  :demand t
+  :after evil
 
   :defines
   org-agenda-custom-commands
@@ -510,6 +532,12 @@
   (org-agenda-include-diary t)
   (org-agenda-start-on-weekday nil)
   (org-agenda-span 1)
+  (org-babel-load-languages
+   '((emacs-lisp . t)
+     (ledger . t)
+     (shell . t)
+     (sql . t)
+     (python . t)))
   (org-default-notes-file "~/org/refile.org")
   (org-fast-tag-selection-single-key t)
   (org-treat-S-cursor-todo-selection-as-state-change nil)
@@ -583,8 +611,7 @@
                    ("FLAGGED" . ?+)))
   (org-link-abbrev-alist `(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
                            ("GH" . github-issue-url)
-                           ("GL" . yg-gitlab-issue-url)
-                           ("MR" . yg-gitlab-merge-request-url)))
+                           ("GL" . yg-gitlab-object-url)))
   (org-refile-targets '((org-agenda-files :level . 1)))
   (org-refile-use-outline-path t)
   (org-outline-path-complete-in-steps nil)
@@ -793,6 +820,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                    (set-whitespace-line-column 79)
                    (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
                    (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
+                   (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
                    (evil-define-key 'normal python-mode-map (kbd "C-]") 'elpy-goto-definition)
                    (evil-define-key 'normal python-mode-map (kbd "K") 'elpy-doc)
                    (evil-define-key 'normal python-mode-map (kbd "gf") (lambda () (interactive) (elpy-find-file t))))))
@@ -835,8 +863,16 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package rust-mode
   :after evil
+  :hook
+  (rust-mode . hs-minor-mode)
   :custom
   (rust-format-on-save t))
+
+(use-package server
+  :demand t
+  :config
+  (unless (server-running-p)
+    (server-start)))
 
 (use-package sh-script
   :mode (((rx "." (or "z" "ba") "sh") . shell-script-mode)
@@ -864,8 +900,10 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package text-mode
   :ensure nil
+  :mode ((rx ".fbcli_comment" eos) . text-mode)
   :hook
   (text-mode . (lambda ()
+                 (modify-syntax-entry ?\_ "w")
                  (variable-pitch-mode 1)
                  (flyspell-mode t))))
 
@@ -874,11 +912,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package vcs-resolve
   :load-path "/home/lbolla/src/github.com/lbolla/vcs-resolve/"
+  :demand t
   :custom
-  (vcs-resolve-exe "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py")
-  :commands (vcs-resolve-at-point
-             vcs-resolve-buffer
-             vcs-resolve-region))
+  (vcs-resolve-exe "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"))
 
 (use-package web-mode
   :mode ((rx ".html" eos)

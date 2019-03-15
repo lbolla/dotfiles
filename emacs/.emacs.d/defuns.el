@@ -232,12 +232,6 @@
   (interactive)
   (set-frame-font (ido-completing-read "Font: " my-fonts)))
 
-(defun icalendar-import-buffer-in-default-diary ()
-  "Import icalendar files into default diary."
-  (interactive)
-  (defvar diary-file)
-  (icalendar-import-buffer diary-file t t))
-
 (defun cppref-search ()
   "Search word at point in cppreference.com."
   (interactive)
@@ -258,10 +252,10 @@
          (repo (mapconcat 'identity (reverse (cdr tokens)) "/")))
     (format "https://github.com/%s/issues/%s" repo (url-hexify-string issue))))
 
-(defun python-insert-breakpoint (pdb)
-  "Insert Python PDB breakpoint above point."
+(defun python-insert-breakpoint (ipdb)
+  "Insert Python PDB or IPDB breakpoint above point."
   (interactive "P")
-  (let ((mod (if pdb "pdb" "ipdb")))
+  (let ((mod (if ipdb "ipdb" "pdb")))
     (evil-open-above 1)
     (insert (format "import %s; %s.set_trace()  # BREAKPOINT" mod mod))
     (evil-normal-state)))
@@ -285,12 +279,18 @@
       (insert "# pylint: disable=")))
   (evil-insert-state))
 
-(defun python-insert-type-annotation ()
-  "Insert type annotation."
-  (interactive)
-  (end-of-line)
-  (insert "  # type: ")
-  (evil-insert-state))
+(defun python-insert-type-annotation (eol)
+  "Insert type annotation possibly at EOL."
+  (interactive "P")
+  (if eol
+      (progn
+        (end-of-line)
+        (insert "  # type: ")
+        (evil-insert-state))
+    (progn
+      (evil-open-below 1)
+      (insert "# type: ")
+      (evil-insert-state))))
 
 (defun python--run-in-new-buffer (cmd args bufname)
   "Run CMD + ARGS and output to BUFNAME."
@@ -392,8 +392,7 @@ representation for the files to include, as returned by
 (defun my/mu4e-headers-narrow-ticket ()
   "Narrow mu4e search querying for ticket."
   (interactive)
-  (evil-beginning-of-line)
-  (evil-forward-word-begin 16)
+  (search-forward-regexp (rx "Manuscript (" (one-or-more letter) " " (one-or-more digit)))
   (my/mu4e-headers-narrow-thing-at-point))
 
 (defun true-color-p ()
