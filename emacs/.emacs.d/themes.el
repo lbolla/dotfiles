@@ -14,15 +14,15 @@
   "Disable custom themes."
   (mapc #'disable-theme custom-enabled-themes))
 
-(defun switch-theme (theme)
+(defun my/switch-theme (theme)
   "Switch to THEME, disable others first."
   (disable-custom-themes)
   (load-theme theme t))
 
-(defun cycle-themes ()
+(defun my/cycle-themes ()
   "Cycle between themes."
   (interactive)
-  (switch-theme (car my-themes))
+  (my/switch-theme (car my-themes))
   (setq my-themes (cycle my-themes)))
 
 (defun load-theme-quasi-monochrome ()
@@ -32,12 +32,12 @@
     :load-path "/home/lbolla/src/emacs-quasi-monochrome/"
     :demand t)
   (quasi-monochrome-setup-modeline-format)
-  (switch-theme 'quasi-monochrome))
+  (my/switch-theme 'quasi-monochrome))
 
 (defun load-theme-leuven ()
   "Load `leuven` theme."
   (interactive)
-  (switch-theme 'leuven)
+  (my/switch-theme 'leuven)
   (custom-theme-set-faces 'leuven
    `(highlight-indentation-face        ((t (:inherit (fringe) :background "gray97"))))
   ;;  `(magit-diff-file-heading-highlight ((t (:background "gray80"))))
@@ -60,7 +60,7 @@
   (interactive)
   (use-package cyberpunk-theme
     :demand t)
-  (switch-theme 'cyberpunk)
+  (my/switch-theme 'cyberpunk)
   (custom-theme-set-faces 'cyberpunk
    `(font-lock-warning-face            ((t (:foreground "#ff69b4" :inverse-video t :weight bold))))
    `(highlight-indentation-face        ((t (:inherit (fringe) :background "gray5"))))
@@ -91,7 +91,7 @@
   (interactive)
   (use-package goose-theme
     :demand t)
-  (switch-theme 'goose)
+  (my/switch-theme 'goose)
   (custom-theme-set-faces 'goose
    `(font-lock-string-face             ((t (:foreground "#666666" :slant italic))))
    `(mu4e-flagged-face                 ((t (:inherit (font-lock-constant-face) :foreground "firebrick" :weight bold))))

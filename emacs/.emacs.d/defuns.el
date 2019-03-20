@@ -3,15 +3,17 @@
 ;;; 7 November 2016
 
 ;;; Code:
+;;; TODO replace evil-* and other non-Emacs functions with Emacs ones
+;;; TODO rename file to "my.el"
 
-(defun split-window-below-and-switch-buffer ()
+(defun my/split-window-below-and-switch-buffer ()
   "Split window below and select a buffer."
   (interactive)
   (split-window-below)
   (windmove-down)
   (ivy-switch-buffer))
 
-(defun split-window-right-and-switch-buffer ()
+(defun my/split-window-right-and-switch-buffer ()
   "Split window right and select a buffer."
   (interactive)
   (split-window-right)
@@ -90,6 +92,9 @@
 (defcustom my/mu4e-get-mail-command "offlineimap"
   "Shell command to run to retrieve email manually." :group 'Mu4e)
 
+(defcustom my/minimal-evil t
+  "Only load minimal evil configuration." :group 'local)
+
 (defun my/mu4e-refresh-headers (args)
   "Refresh headers calling 'my/mu4e-get-mail-command' if ARGS."
   (interactive "P")
@@ -104,6 +109,7 @@
     ;; Consider only tasks with done todo headings as archivable candidates
     (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
           (subtree-end (save-excursion (org-end-of-subtree t))))
+      ;; (message "Headline %s -- %s %s in? %s" (thing-at-point 'line t) next-headline (org-get-todo-state) org-done-keywords)
       (if (member (org-get-todo-state) org-todo-keywords-1)
           (if (member (org-get-todo-state) org-done-keywords)
               (let* ((daynr (string-to-number (format-time-string "%d" (current-time))))
@@ -114,6 +120,7 @@
                                            (forward-line 1)
                                            (and (< (point) subtree-end)
                                                 (re-search-forward (concat last-month "\\|" this-month) subtree-end t)))))
+                (message "  current: %s" subtree-is-current)
                 (if subtree-is-current
                     subtree-end ; Has a date in this month or last month, skip it
                   nil))  ; available to archive
@@ -395,11 +402,27 @@ representation for the files to include, as returned by
   (search-forward-regexp (rx "Manuscript (" (one-or-more letter) " " (one-or-more digit)))
   (my/mu4e-headers-narrow-thing-at-point))
 
-(defun true-color-p ()
+(defun my/true-color-p ()
   "Return non-nil on displays that support 256 colors."
   (or
    (display-graphic-p)
    (= (tty-display-color-cells) 16777216)))
+
+(defun my/open-line-above ()
+  "Insert an empty line above the current line.
+Position the cursor at it's beginning, according to the current mode."
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun my/open-line ()
+  "Insert an empty line after the current line.
+Position the cursor at its beginning, according to the current mode."
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
 
 (provide 'defuns)
 ;;; defuns.el ends here

@@ -152,6 +152,7 @@
   :custom
   (evil-want-keybinding nil)
   (evil-want-integration t)
+  (evil-default-state 'emacs)
 
   (evil-lookup-func 'man-at-point)
   (evil-want-C-w-in-emacs-state t)
@@ -192,20 +193,24 @@
 
 (use-package evil-collection
   :demand t
+  :disabled (not my/minimal-evil)
   :after evil
   :config
   (evil-collection-init))
 
 (use-package evil-magit
   :demand t
+  :disabled (not my/minimal-evil)
   :after (evil magit))
 
 (use-package evil-nerd-commenter
   :demand t
+  :disabled (not my/minimal-evil)
   :after evil)
 
 (use-package evil-org
   :demand t
+  :disabled (not my/minimal-evil)
   :diminish
   :after (evil org)
   :hook
@@ -216,6 +221,7 @@
 (use-package evil-org-agenda
   :ensure nil  ;; Part of evil-org
   :demand t
+  :disabled (not my/minimal-evil)
   :after evil-org
   :config (evil-org-agenda-set-keys))
 
@@ -321,13 +327,16 @@
   (ivy-use-virtual-buffers t)
   (magit-completing-read-function 'ivy-completing-read)
   (projectile-completion-system 'ivy)
+  :defines
+  magit-completing-read-function
+  projectile-completion-system
   :config
   (ivy-mode t)
-  (defvar magit-completing-read-function)
-  (defvar projectile-completion-system)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  ;; (global-set-key (kbd "M-x") 'counsel-M-x)
-  )
+  (global-set-key (kbd "M-x") 'counsel-M-x))
+
+(use-package ivy-hydra
+  :demand t)
 
 (use-package js2-mode
   :after evil
@@ -816,7 +825,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (python-mode . hs-minor-mode)
   (python-mode . (lambda ()
                    (elpy-enable)
-                   (electric-indent-local-mode -1)
                    (set-whitespace-line-column 79)
                    (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
                    (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
@@ -839,6 +847,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (evil-define-key 'normal racer-help-mode-map (kbd "C-]") 'racer-find-definition))
 
 (use-package rg
+  :bind
+  ("C-c r G" . rg-dwim)
+  ("C-c r g" . counsel-rg)
+  ("C-c r p" . rg-project)
+  ("C-c r r" . rg)
   :custom
   (rg-group-result nil)
   (rg-custom-type-aliases '((#("gn" 0 1

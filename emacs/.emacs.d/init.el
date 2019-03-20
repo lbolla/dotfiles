@@ -79,9 +79,10 @@
    (quote
     (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
  '(epa-pinentry-mode (quote loopback))
+ '(evil-default-state (quote emacs))
  '(evil-lookup-func (quote man-at-point))
  '(evil-want-C-i-jump nil)
- '(evil-want-C-w-in-emacs-state t)
+ '(evil-want-C-w-in-emacs-state nil)
  '(evil-want-integration t)
  '(evil-want-keybinding nil)
  '(eww-search-prefix "https://www.ixquick.com/do/search?q=")
@@ -127,7 +128,7 @@
  '(magit-log-section-commit-count 0)
  '(magit-pull-or-fetch t)
  '(magit-push-always-verify nil t)
- '(magit-todos-exclude-globs (quote ("concatenated" "node_modules" "vendor")))
+ '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")))
  '(magit-todos-keyword-suffix ":\\| \\|$")
  '(magit-todos-update 60)
  '(mail-user-agent (quote mu4e-user-agent))
@@ -285,15 +286,15 @@
 Entered on %U
   %i
   %a"))))
- '(org-clock-out-remove-zero-time-clocks t t)
- '(org-clock-out-when-done t t)
+ '(org-clock-out-remove-zero-time-clocks t)
+ '(org-clock-out-when-done t)
  '(org-deadline-warning-days 30)
  '(org-default-notes-file "~/org/refile.org")
  '(org-default-priority 68)
  '(org-fast-tag-selection-single-key t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
- '(org-html-htmlize-output-type (quote css) t)
+ '(org-html-htmlize-output-type (quote css))
  '(org-link-abbrev-alist
    (quote
     (("FB" . "https://yougov.fogbugz.com/f/cases/%h")
@@ -326,7 +327,7 @@ Entered on %U
      ("cubeapi" :components
       ("cubeapi-notes" "cubeapi-static"))
      ("cubeapi-notes" :base-directory "~/work/cubeapi/notes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
-     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))) t)
+     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))))
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(org-refile-use-outline-path t)
@@ -369,7 +370,7 @@ Entered on %U
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (ivy-hydra flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -474,9 +475,9 @@ Entered on %U
      ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
      ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
      ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
- '(web-mode-code-indent-offset 4 t)
- '(web-mode-css-indent-offset 2 t)
- '(web-mode-markup-indent-offset 2 t)
+ '(web-mode-code-indent-offset 4)
+ '(web-mode-css-indent-offset 2)
+ '(web-mode-markup-indent-offset 2)
  '(whitespace-style (quote (face trailing lines-tail)))
  '(yas-indent-line (quote fixed)))
 
@@ -496,20 +497,15 @@ Entered on %U
 (setq auto-window-vscroll nil)
 
 ;; Standard pkgs bindings
-(global-set-key (kbd "C-x 2") 'split-window-below-and-switch-buffer)
-(global-set-key (kbd "C-x 3") 'split-window-right-and-switch-buffer)
+(global-set-key (kbd "M-o") 'my/open-line)
+(global-set-key (kbd "M-O") 'my/open-line-above)
+(global-set-key (kbd "C-x 2") 'my/split-window-below-and-switch-buffer)
+(global-set-key (kbd "C-x 3") 'my/split-window-right-and-switch-buffer)
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
 (global-set-key (kbd "C-c f") 'variable-pitch-mode)
-(global-set-key (kbd "C-c t") 'cycle-themes)
+(global-set-key (kbd "C-c t") 'my/cycle-themes)
 (global-set-key (kbd "C-c w") 'w3m)
 (global-set-key (kbd "C-c z") 'zoom-window-zoom)
-;; (global-set-key (kbd "C-c C-q")
-;;                 (lambda ()
-;;                   (interactive)
-;;                   ;; Kill daemonized Emacs
-;;                   (when (y-or-n-p "Quit Emacs? ")
-;;                     (save-buffers-kill-emacs))))
-;; (global-set-key (kbd "<f10>") 'menu-bar-mode)
 
 (require 'defuns "~/.emacs.d/defuns.el")
 (require 'private "~/.emacs.d/private.el")
@@ -539,7 +535,7 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 ;; (load-theme-leuven)
 ;; (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
-(cycle-themes)
+(my/cycle-themes)
 
 (provide 'init)
 ;;; init.el ends here
