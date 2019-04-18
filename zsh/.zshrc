@@ -5,9 +5,10 @@
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-export PATH=/opt/helm:$PATH
-export PATH=/opt/texlive/2018/bin/x86_64-linux:$PATH
-export PATH=/home/lbolla/.nimble/bin:$PATH
+# export PATH=/opt/helm:$PATH
+# export PATH=/opt/texlive/2018/bin/x86_64-linux:$PATH
+# export PATH=/home/lbolla/.nimble/bin:$PATH
+export PATH=/home/lbolla/.cache/rebar3/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/lbolla/.oh-my-zsh

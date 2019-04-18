@@ -16,20 +16,20 @@ alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Co
 # unalias t; alias t=tmux
 alias ssh='TERM=xterm ssh'
 alias ungron="gron --ungron"
-alias w=workon
+# alias w=workon
 alias youtube=mpsyt
 
 alias -s epub="FBReader"
 alias -s gz="gunzip -c"
 alias -s json="jq . <"
-alias -s pdf="mupdf"
+alias -s pdf="xdg-open"
 alias -s tgz="tar tf"
 alias -s xlsx="libreoffice"
 alias -s doc="libreoffice"
 
 alias aws="/home/lbolla/.virtualenvs/aws-shell/bin/aws"
 alias aws-shell="/home/lbolla/.virtualenvs/aws-shell/bin/aws-shell"
-alias fb="/home/lbolla/.virtualenvs/fbcli/bin/fb"
+# alias fb="/home/lbolla/.virtualenvs/fbcli/bin/fb"
 alias rust-update="/home/lbolla/src/cmd/rust-update"
 alias vcs-resolve="/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"
 
@@ -67,4 +67,26 @@ function list-colors-display {
     for i in {0..255}; do
         printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"
     done
+}
+
+function maybe-tmux-rename-window {
+    if [[ -n "$TMUX" ]]; then
+        tmux rename-window $1
+    fi
+}
+
+function w {
+    if [[ $# -eq 0 ]]; then
+        workon
+    else
+        workon $1
+        if [[ $? -eq 0 ]]; then
+            maybe-tmux-rename-window $1
+        fi
+    fi
+}
+
+function fb {
+    maybe-tmux-rename-window fb
+    /home/lbolla/.virtualenvs/fbcli/bin/fb $*
 }
