@@ -8,6 +8,11 @@
     docker
     docker-compose
     emacs
+    erlang
+    erlang-man
+    erlang-dialyzer
+    erlang-observer
+    erlang-src
     gcc
     git
     htop
@@ -34,6 +39,7 @@
     redis
     stow
     texinfo
+    texlive-latex-base
     virtualenvwrapper
     w3m
     zsh
