@@ -1,0 +1,12 @@
+# key: sqlalchemy
+# name: sqlalchemy
+# --
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+DSN = 'postgresql+psycopg2://postgres:@localhost/test'
+
+engine = create_engine(DSN, echo=True)
+Session = sessionmaker(bind=engine)
+session = Session()
+
