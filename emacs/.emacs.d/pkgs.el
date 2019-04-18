@@ -4,6 +4,9 @@
 
 ;;; Code:
 
+(defvar my/lesser-evil)
+(defvar package-archives)
+
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")
@@ -98,6 +101,8 @@
   :mode ((rx "Dockerfile")))
 
 (use-package dumb-jump
+  :functions
+  dumb-jump-mode
   :custom
   (dump-jump-prefer-searcher 'rg)
   (dumb-jump-selector 'ivy)
@@ -119,18 +124,27 @@
                   elpy-module-pyvenv)))
 
 (use-package erlang-start
-  :load-path "/usr/lib/erlang/lib/tools-3.0.2/emacs/"
+  :load-path "/usr/lib/erlang/lib/tools-3.1/emacs/"
   :mode (((rx ".erl" eos) . erlang-mode)
          ((rx ".app.src" eos) . erlang-mode)
          ((rx ".hrl" eos) . erlang-mode)
          ((rx ".config" eos) . erlang-mode)
          ((rx "rebar") . erlang-mode))
+  :custom
+  (erlang-root-dir "/usr")
   :defines
   erlang-mode-map
   erlang-shell-mode-map
+  erlang-man-file-regexp
   :hook
   (erlang-mode . (lambda ()
-                   (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)))
+                   (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)
+                   ;; Only consider 3erl man files
+                   (setq erlang-man-file-regexp
+                         "\\(.*\\)/man[^/]*/\\([^.]+\\.3erl\\)\\(\\.gz\\)?$")
+                   (defun erlang-man-get-files (dir)
+                     "Return files in directory DIR."
+                     (directory-files dir t ".+\\.3erl\\(\\.gz\\)?\\'"))))
   (erlang-shell-mode . (lambda ()
                          (evil-define-key 'normal erlang-shell-mode-map (kbd "K") 'erlang-man-function))))
 
@@ -152,10 +166,10 @@
   :custom
   (evil-want-keybinding nil)
   (evil-want-integration t)
-  (evil-default-state 'emacs)
+  (evil-default-state 'normal)
 
   (evil-lookup-func 'man-at-point)
-  (evil-want-C-w-in-emacs-state t)
+  (evil-want-C-w-in-emacs-state (not my/lesser-evil))
   ;; Or it masks <TAB> in non-graphical mode
   (evil-want-C-i-jump nil)
 
@@ -163,6 +177,10 @@
   (evil-mode t)
 
   :config
+
+  (add-to-list 'evil-emacs-state-modes 'dired-mode)
+  (add-to-list 'evil-emacs-state-modes 'pass-mode)
+
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)
   (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
@@ -191,39 +209,39 @@
   ;; Avoid that visual selecting a region copies it to kill-ring
   (fset 'evil-visual-update-x-selection 'ignore))
 
-(use-package evil-collection
-  :demand t
-  :disabled (not my/minimal-evil)
-  :after evil
-  :config
-  (evil-collection-init))
+(unless my/lesser-evil
+  (use-package evil-collection
+    :demand t
+    :after evil
+    :config
+    (evil-collection-init)))
 
-(use-package evil-magit
-  :demand t
-  :disabled (not my/minimal-evil)
-  :after (evil magit))
+(unless my/lesser-evil
+  (use-package evil-magit
+    :demand t
+    :after (evil magit)))
 
-(use-package evil-nerd-commenter
-  :demand t
-  :disabled (not my/minimal-evil)
-  :after evil)
+(unless my/lesser-evil
+  (use-package evil-nerd-commenter
+    :demand t
+    :after evil))
 
-(use-package evil-org
-  :demand t
-  :disabled (not my/minimal-evil)
-  :diminish
-  :after (evil org)
-  :hook
-  (org-mode . evil-org-mode)
-  (evil-org-mode . (lambda ()
-                     (evil-org-set-key-theme))))
+(unless my/lesser-evil
+  (use-package evil-org
+    :demand t
+    :diminish
+    :after (evil org)
+    :hook
+    (org-mode . evil-org-mode)
+    (evil-org-mode . (lambda ()
+                       (evil-org-set-key-theme)))))
 
-(use-package evil-org-agenda
-  :ensure nil  ;; Part of evil-org
-  :demand t
-  :disabled (not my/minimal-evil)
-  :after evil-org
-  :config (evil-org-agenda-set-keys))
+(unless my/lesser-evil
+  (use-package evil-org-agenda
+    :ensure nil  ;; Part of evil-org
+    :demand t
+    :after evil-org
+    :config (evil-org-agenda-set-keys)))
 
 (use-package flycheck
   :diminish
@@ -374,24 +392,22 @@
 (use-package lua-mode)
 
 (use-package magit
-  :after evil
-  :defines
-  magit-branch-arguments
-  magit-push-always-verify
+  ;; :after evil
   :custom
-  (magit-log-section-commit-count 0)
+  (magit-log-section-commit-count 10)
   (magit-branch-arguments nil)
   (magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
   (magit-push-always-verify nil)
   (magit-pull-or-fetch t)
-  :bind (:map magit-log-mode-map
-         (",vp" . vcs-resolve-at-point)
-         :map magit-revision-mode-map
-         (",vp" . vcs-resolve-at-point)
-         :map magit-status-mode-map
-         ("C-p" . projectile-find-file))
-  :config
-  (evil-define-key 'normal magit-blame-mode-map (kbd "RET") 'magit-show-commit))
+  :bind (
+         ;; :map magit-log-mode-map
+         ;; (",vp" . vcs-resolve-at-point)
+         ;; :map magit-revision-mode-map
+         ;; (",vp" . vcs-resolve-at-point)
+         ;; :map magit-status-mode-map
+         ;; ("C-p" . projectile-find-file)
+         :map magit-blame-mode-map
+         ("C-c <RET>" . magit-show-commit)))
 
 (use-package magit-todos
   :after magit
@@ -474,7 +490,8 @@
   (mu4e-use-fancy-chars nil)
   (mu4e-get-mail-command "true")
   (mu4e-update-interval 300)
-  (mu4e-html2text-command "w3m -dump -cols 80 -T text/html")
+  ;; TODO
+  ;; (mu4e-html2text-command "w3m -dump -cols 80 -T text/html")
   (mu4e-view-html-plaintext-ratio-heuristic 20)
   (message-kill-buffer-on-exit t)
   (mu4e-view-scroll-to-next nil)
@@ -515,6 +532,8 @@
 
   :demand t
   :after evil
+
+  :mode ((rx bos "diary" eos))
 
   :defines
   org-agenda-custom-commands
@@ -653,20 +672,20 @@
                                ("lbolla.info"
                                 :components ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
                                ("lbolla.info-static"
-                                :base-directory "~/src/lbolla.info/static/"
+                                :base-directory "~/src/github.com/lbolla/lbolla.info/static/"
                                 :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css\\|woff2"
-                                :publishing-directory "~/src/lbolla.info/html/"
+                                :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/"
                                 :recursive t
                                 :publishing-function org-publish-attachment)
                                ("lbolla.info-cv.pdf"
-                                :base-directory "~/src/lbolla.info/org/"
+                                :base-directory "~/src/github.com/lbolla/lbolla.info/org/"
                                 :exclude "\\.*"
                                 :include ("cv.org")
-                                :publishing-directory "~/src/lbolla.info/html/"
+                                :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/"
                                 :publishing-function org-latex-publish-to-pdf)
                                ("lbolla.info-html"
-                                :base-directory "~/src/lbolla.info/org/"
-                                :publishing-directory "~/src/lbolla.info/html/"
+                                :base-directory "~/src/github.com/lbolla/lbolla.info/org/"
+                                :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/"
                                 :recursive t
                                 :section-numbers nil
                                 :auto-sitemap t
@@ -810,8 +829,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package python
   :after evil
-  :bind
-  ("C-c v w" . venv-workon-and-cdproject)
   :mode (((rx ".pyi" eos) . python-mode) ;; type stub files
          ((rx ".mk" eos) . python-mode) ;; check-mk config files
          ((rx ".pyrc" eos) . python-mode))
@@ -826,6 +843,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (python-mode . (lambda ()
                    (elpy-enable)
                    (set-whitespace-line-column 79)
+                   (define-key python-mode-map (kbd "C-c b") 'python-insert-breakpoint)
                    (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
                    (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
                    (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
@@ -926,6 +944,10 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 (use-package vcs-resolve
   :load-path "/home/lbolla/src/github.com/lbolla/vcs-resolve/"
   :demand t
+  :bind
+  ("C-c v b" . vcs-resolve-buffer)
+  ("C-c v p" . vcs-resolve-at-point)
+  ("C-c v r" . vcs-resolve-region)
   :custom
   (vcs-resolve-exe "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"))
 

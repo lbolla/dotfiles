@@ -77,7 +77,7 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(elpy-modules
    (quote
-    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
+    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)) t)
  '(epa-pinentry-mode (quote loopback))
  '(evil-default-state (quote emacs))
  '(evil-lookup-func (quote man-at-point))
@@ -123,10 +123,10 @@
  '(linum-format " %7i ")
  '(load-prefer-newer t)
  '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read))
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
- '(magit-log-section-commit-count 0)
- '(magit-pull-or-fetch t)
+ '(magit-completing-read-function (quote ivy-completing-read) t)
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
+ '(magit-log-section-commit-count 0 t)
+ '(magit-pull-or-fetch t t)
  '(magit-push-always-verify nil t)
  '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")))
  '(magit-todos-keyword-suffix ":\\| \\|$")
@@ -136,7 +136,7 @@
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
+ '(mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed" t)
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
@@ -162,7 +162,6 @@
      (:subject))))
  '(mu4e-headers-include-related t)
  '(mu4e-headers-skip-duplicates t)
- '(mu4e-html2text-command "w3m -dump -cols 80 -T text/html")
  '(mu4e-maildir "/home/lbolla/Mail")
  '(mu4e-maildir-shortcuts
    (quote
@@ -286,15 +285,15 @@
 Entered on %U
   %i
   %a"))))
- '(org-clock-out-remove-zero-time-clocks t)
- '(org-clock-out-when-done t)
+ '(org-clock-out-remove-zero-time-clocks t t)
+ '(org-clock-out-when-done t t)
  '(org-deadline-warning-days 30)
  '(org-default-notes-file "~/org/refile.org")
  '(org-default-priority 68)
  '(org-fast-tag-selection-single-key t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
- '(org-html-htmlize-output-type (quote css))
+ '(org-html-htmlize-output-type (quote css) t)
  '(org-link-abbrev-alist
    (quote
     (("FB" . "https://yougov.fogbugz.com/f/cases/%h")
@@ -327,7 +326,7 @@ Entered on %U
      ("cubeapi" :components
       ("cubeapi-notes" "cubeapi-static"))
      ("cubeapi-notes" :base-directory "~/work/cubeapi/notes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
-     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))))
+     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))) t)
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(org-refile-use-outline-path t)
@@ -475,9 +474,9 @@ Entered on %U
      ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
      ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
      ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
- '(web-mode-code-indent-offset 4)
- '(web-mode-css-indent-offset 2)
- '(web-mode-markup-indent-offset 2)
+ '(web-mode-code-indent-offset 4 t)
+ '(web-mode-css-indent-offset 2 t)
+ '(web-mode-markup-indent-offset 2 t)
  '(whitespace-style (quote (face trailing lines-tail)))
  '(yas-indent-line (quote fixed)))
 
@@ -491,7 +490,7 @@ Entered on %U
  '(default ((t (:family "Iosevka" :weight light :height 120))))
  '(fixed-pitch ((t (:family "Iosevka" :height 120))))
  '(region ((t (:background "#c1caa1" :distant-foreground "black"))))
- '(variable-pitch ((t (:family "EBGaramond" :height 140)))))
+ '(variable-pitch ((t (:family "Gentium" :height 140)))))
 
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
 (setq auto-window-vscroll nil)
@@ -502,9 +501,10 @@ Entered on %U
 (global-set-key (kbd "C-x 2") 'my/split-window-below-and-switch-buffer)
 (global-set-key (kbd "C-x 3") 'my/split-window-right-and-switch-buffer)
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
-(global-set-key (kbd "C-c f") 'variable-pitch-mode)
-(global-set-key (kbd "C-c t") 'my/cycle-themes)
-(global-set-key (kbd "C-c w") 'w3m)
+;; (global-set-key (kbd "C-c f") 'variable-pitch-mode)
+;; (global-set-key (kbd "C-c t") 'my/cycle-themes)
+(global-set-key (kbd "C-c v w") 'venv-workon-and-cdproject)
+;; (global-set-key (kbd "C-c w") 'w3m)
 (global-set-key (kbd "C-c z") 'zoom-window-zoom)
 
 (require 'defuns "~/.emacs.d/defuns.el")
@@ -535,7 +535,7 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 ;; (load-theme-leuven)
 ;; (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
-(my/cycle-themes)
+;; (my/cycle-themes)
 
 (provide 'init)
 ;;; init.el ends here

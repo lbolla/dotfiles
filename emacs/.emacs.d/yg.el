@@ -20,7 +20,7 @@
    ((string-match issue-re tag)
     (concat gitlab (match-string 1 tag) "/issues/" (match-string 2 tag)))
    ((string-match mr-re tag)
-    (concat gitlab (match-string 1 tag) "/merge_request/" (match-string 2 tag))))))
+    (concat gitlab (match-string 1 tag) "/merge_requests/" (match-string 2 tag))))))
 
 (defun yg-fogbugz-cli ()
   "Open FogBugz command line interface."

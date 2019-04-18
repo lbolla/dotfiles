@@ -29,7 +29,7 @@
   "Load `quasi-monochrome` theme."
   (interactive)
   (use-package quasi-monochrome-theme
-    :load-path "/home/lbolla/src/emacs-quasi-monochrome/"
+    :load-path "/home/lbolla/src/github.com/lbolla/emacs-quasi-monochrome/"
     :demand t)
   (quasi-monochrome-setup-modeline-format)
   (my/switch-theme 'quasi-monochrome))

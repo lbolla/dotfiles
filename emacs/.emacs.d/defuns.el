@@ -92,7 +92,7 @@
 (defcustom my/mu4e-get-mail-command "offlineimap"
   "Shell command to run to retrieve email manually." :group 'Mu4e)
 
-(defcustom my/minimal-evil t
+(defcustom my/lesser-evil t
   "Only load minimal evil configuration." :group 'local)
 
 (defun my/mu4e-refresh-headers (args)
@@ -399,7 +399,7 @@ representation for the files to include, as returned by
 (defun my/mu4e-headers-narrow-ticket ()
   "Narrow mu4e search querying for ticket."
   (interactive)
-  (search-forward-regexp (rx "Manuscript (" (one-or-more letter) " " (one-or-more digit)))
+  (search-forward-regexp (rx (or "FogBugz" "Manuscript") " (" (one-or-more letter) " " (one-or-more digit)))
   (my/mu4e-headers-narrow-thing-at-point))
 
 (defun my/true-color-p ()
