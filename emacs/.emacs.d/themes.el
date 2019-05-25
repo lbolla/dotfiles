@@ -104,5 +104,10 @@
   :defer t
   :demand t)
 
+(use-package spacemacs-theme
+  ;; https://github.com/nashamri/spacemacs-theme
+  :defer t
+  :demand t)
+
 (provide 'themes)
 ;;; themes.el ends here
