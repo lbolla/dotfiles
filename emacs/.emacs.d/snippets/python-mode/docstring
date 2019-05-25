@@ -1,0 +1,11 @@
+# key: docstring
+# name: docstring reST/Sphinx style
+# --
+"""${1:Some docstring}
+
+${2:Description}
+
+:param ${3:x}: Description for param x.
+:returns: Description for return value.
+:raises ${4:KeyError}: Raises some exception
+"""
