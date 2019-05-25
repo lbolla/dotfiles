@@ -15,6 +15,7 @@
     erlang-src
     gcc
     git
+    golang
     htop
     httpie
     libxml2-dev
@@ -39,7 +40,8 @@
     redis
     stow
     texinfo
-    texlive-latex-base
+    texlive
+    texlive-latex-extra
     virtualenvwrapper
     w3m
     zsh
