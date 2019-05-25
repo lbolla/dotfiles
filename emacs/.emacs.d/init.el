@@ -77,7 +77,7 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(elpy-modules
    (quote
-    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)) t)
+    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
  '(epa-pinentry-mode (quote loopback))
  '(evil-default-state (quote emacs))
  '(evil-lookup-func (quote man-at-point))
@@ -118,15 +118,15 @@
 
 ")
  '(ivy-use-virtual-buffers t)
- '(js2-mode-show-strict-warnings nil t)
+ '(js2-mode-show-strict-warnings nil)
  '(line-spacing 0.2)
  '(linum-format " %7i ")
  '(load-prefer-newer t)
  '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read) t)
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
- '(magit-log-section-commit-count 0 t)
- '(magit-pull-or-fetch t t)
+ '(magit-completing-read-function (quote ivy-completing-read))
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
+ '(magit-log-section-commit-count 0)
+ '(magit-pull-or-fetch t)
  '(magit-push-always-verify nil t)
  '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")))
  '(magit-todos-keyword-suffix ":\\| \\|$")
@@ -136,7 +136,7 @@
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed" t)
+ '(mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
@@ -285,15 +285,15 @@
 Entered on %U
   %i
   %a"))))
- '(org-clock-out-remove-zero-time-clocks t t)
- '(org-clock-out-when-done t t)
+ '(org-clock-out-remove-zero-time-clocks t)
+ '(org-clock-out-when-done t)
  '(org-deadline-warning-days 30)
  '(org-default-notes-file "~/org/refile.org")
  '(org-default-priority 68)
  '(org-fast-tag-selection-single-key t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
- '(org-html-htmlize-output-type (quote css) t)
+ '(org-html-htmlize-output-type (quote css))
  '(org-link-abbrev-alist
    (quote
     (("FB" . "https://yougov.fogbugz.com/f/cases/%h")
@@ -326,7 +326,7 @@ Entered on %U
      ("cubeapi" :components
       ("cubeapi-notes" "cubeapi-static"))
      ("cubeapi-notes" :base-directory "~/work/cubeapi/notes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
-     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))) t)
+     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))))
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(org-refile-use-outline-path t)
@@ -369,7 +369,7 @@ Entered on %U
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (ivy-hydra flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (spacemacs-theme ivy-hydra flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -394,8 +394,15 @@ Entered on %U
       . "*.tmpl"))))
  '(rg-define-toggle "--context 3" t)
  '(rg-group-result nil)
- '(rust-format-on-save t t)
- '(safe-local-variable-values (quote ((eval setenv "LAUNCH_DB" "1"))))
+ '(rust-format-on-save t)
+ '(safe-local-variable-values
+   (quote
+    ((eval add-hook
+           (quote after-save-hook)
+           (lambda nil
+             (org-html-export-to-html nil))
+           t t)
+     (eval setenv "LAUNCH_DB" "1"))))
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(shr-use-fonts t)
@@ -474,9 +481,9 @@ Entered on %U
      ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
      ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
      ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
- '(web-mode-code-indent-offset 4 t)
- '(web-mode-css-indent-offset 2 t)
- '(web-mode-markup-indent-offset 2 t)
+ '(web-mode-code-indent-offset 4)
+ '(web-mode-css-indent-offset 2)
+ '(web-mode-markup-indent-offset 2)
  '(whitespace-style (quote (face trailing lines-tail)))
  '(yas-indent-line (quote fixed)))
 
@@ -513,6 +520,12 @@ Entered on %U
 (require 'pkgs "~/.emacs.d/pkgs.el")
 (require 'themes "~/.emacs.d/themes.el")
 
+;; Quick navigation
+(global-set-key (kbd "C-c f l") 'my/find-file-linkz)
+(global-set-key (kbd "C-c f i") 'my/find-file-init)
+(global-set-key (kbd "C-c f p") 'my/find-file-pkgs)
+
+;; TODO move to defun
 (defadvice kill-buffer (around kill-buffer-around-advice activate)
   "Bury *scratch* buffer instead of killing it.
 See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#235069"
@@ -520,6 +533,20 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
     (if (equal buffer-to-kill "*scratch*")
         (bury-buffer)
       ad-do-it)))
+
+;; TODO move to defun
+;; https://www.reddit.com/r/emacs/comments/8xobt3/tip_in_modeline_show_buffer_file_path_relative_to/
+(with-eval-after-load 'subr-x
+  (setq-default mode-line-buffer-identification
+                '(:eval (format-mode-line
+                         (propertized-buffer-identification
+                          (or (when-let* ((buffer-file-truename buffer-file-truename)
+                                          (prj (cdr-safe (project-current)))
+                                          (prj-parent (file-name-directory (directory-file-name (expand-file-name prj)))))
+                                (concat (file-relative-name
+                                         (file-name-directory buffer-file-truename)
+                                         prj-parent) (file-name-nondirectory buffer-file-truename)))
+                              "%b"))))))
 
 (blink-cursor-mode 0)
 (column-number-mode 1)
@@ -530,12 +557,13 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 (show-paren-mode 1)
 (tool-bar-mode 0)
 
+;; (load-theme 'spacemacs-dark)
+;; (load-theme 'poet-dark)
 ;; (load-theme-cyberpunk)
 ;; (load-theme-goose)
 ;; (load-theme-leuven)
 ;; (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
-;; (my/cycle-themes)
 
 (provide 'init)
 ;;; init.el ends here

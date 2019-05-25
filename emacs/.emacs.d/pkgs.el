@@ -57,7 +57,11 @@
 (use-package conf-mode
   :mode (((rx "rc" eos) . conf-unix-mode)
          ((rx ".pycheckers" eos) . conf-unix-mode)
-         ((rx "requirements") . conf-unix-mode)))
+         ((rx "requirements") . conf-unix-mode))
+
+  :hook
+  (conf-mode . (lambda ()
+                 (modify-syntax-entry ?\_ "w"))))
 
 (use-package counsel)
 
@@ -115,13 +119,16 @@
   (electric-indent-mode t))
 
 (use-package elpy
+  :after python
   :diminish
   :custom
   (elpy-modules '(elpy-module-sane-defaults
                   elpy-module-company
                   elpy-module-eldoc
                   elpy-module-highlight-indentation
-                  elpy-module-pyvenv)))
+                  elpy-module-pyvenv))
+  :init
+  (elpy-enable))
 
 (use-package erlang-start
   :load-path "/usr/lib/erlang/lib/tools-3.1/emacs/"
@@ -415,8 +422,9 @@
   (magit-todos-keyword-suffix (rx (or ":" " " eol)))
   (magit-todos-update 60)
   (magit-todos-exclude-globs '(".git" "concatenated" "node_modules" "vendor"))
-  :hook
-  (magit-mode . magit-todos-mode))
+  ;; :hook
+  ;; (magit-mode . magit-todos-mode)
+  )
 
 (use-package make-mode
   :hook
@@ -439,7 +447,8 @@
                        (evil-define-key 'normal nimsuggest-mode-map (kbd "M-.") 'nimsuggest-find-definition))))
 
 (use-package mu4e
-  :load-path "/usr/share/emacs/site-lisp/mu4e/"
+  ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
+  :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
   :ensure nil  ;; installed system-wide
   :demand t
 
@@ -504,8 +513,10 @@
                          (:from . 22)
                          (:subject)))
   (mu4e-headers-include-related t)
+  ;; (mu4e-headers-results-limit 500)
   (mu4e-view-show-addresses t)
-  (mu4e-view-show-images t)
+  (mu4e-view-show-images nil)
+  (mu4e-view-use-gnus nil)
 
   :config
   ;; Force starting automatic updates
@@ -646,6 +657,7 @@
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-clock-out-remove-zero-time-clocks t)
   (org-clock-out-when-done t)
+  (org-html-validation-link nil)
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)")
                        (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "MEET(m@)")))
   (org-todo-keyword-faces '(("TODO" . org-todo)
@@ -738,12 +750,15 @@
                                 :recursive t
                                 :publishing-function org-publish-attachment)))
   (org-capture-templates '(("t" "Todo"      entry (file "~/org/refile.org") "* TODO %?\n%i\n%a\n")
-                           ("c" "Clipboard" entry (file "~/org/refile.org") "* TODO %?\n%i\n%x\n")
                            ("m" "Meeting"   entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
-                           ("p" "Phone"     entry (file "~/org/refile.org") "* TODO Phone %? :PHON:\n%U")
                            ("n" "Note"      entry (file "~/org/notes.org")  "* %? :NOTE:\n%U\n%a\n")
                            ("i" "Idea"      entry (file "~/org/ideas.org")  "* %? :IDEA:\n%U\n%a\n")
-                           ("j" "Journal"   entry (file+olp+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a")))
+                           ("l" "Link"      entry (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX") "* %a" :immediate-finish t)
+                           ;; ("c" "Clipboard" entry (file "~/org/refile.org") "* TODO %?\n%i\n%x\n")
+                           ;; ("p" "Phone"     entry (file "~/org/refile.org") "* TODO Phone %? :PHON:\n%U")
+                           ;; ("j" "Journal"   entry (file+olp+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a")
+                           ))
+  (org-protocol-default-template-key "l")
   
   :hook
   (org-mode . auto-fill-mode)
@@ -758,6 +773,7 @@
 
   :init
   (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
+  (require 'org-protocol)
 
   :config
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
@@ -818,8 +834,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (projectile-globally-ignored-directories
    '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
-   ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist"
-   ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
+     ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist"
+     ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
   (projectile-globally-ignored-file-suffixes '("pyc" "beam"))
   (projectile-switch-project-action 'projectile-dired)
   :init
@@ -841,7 +857,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :hook
   (python-mode . hs-minor-mode)
   (python-mode . (lambda ()
-                   (elpy-enable)
+                   ;; (elpy-enable)
                    (set-whitespace-line-column 79)
                    (define-key python-mode-map (kbd "C-c b") 'python-insert-breakpoint)
                    (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)

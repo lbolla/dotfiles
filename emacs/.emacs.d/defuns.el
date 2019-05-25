@@ -20,6 +20,21 @@
   (windmove-right)
   (ivy-switch-buffer))
 
+(defun my/find-file-linkz ()
+  "Visit file Linkz."
+  (interactive)
+  (find-file "~/Private/org/org-linkz/Linkz.org"))
+
+(defun my/find-file-pkgs ()
+  "Visit file pkgs.el."
+  (interactive)
+  (find-file "~/.emacs.d/pkgs.el"))
+
+(defun my/find-file-init ()
+  "Visit file init.el."
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
 (defun cython-show-annotated ()
   "Show annotated cython code."
   (interactive)
@@ -423,6 +438,25 @@ Position the cursor at its beginning, according to the current mode."
   (interactive)
   (move-end-of-line nil)
   (newline-and-indent))
+
+;; From https://www.emacswiki.org/emacs/RecreateScratchBuffer
+(defun create-scratch-buffer ()
+  "Create a scratch buffer."
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*scratch*"))
+  (insert initial-scratch-message)
+  (lisp-interaction-mode))
+
+;; From https://www.emacswiki.org/emacs/RecreateScratchBuffer
+(defun unkillable-scratch-buffer ()
+  "Clear instead of delete scratch buffer."
+  (if (equal (buffer-name (current-buffer)) "*scratch*")
+      (progn
+        (delete-region (point-min) (point-max))
+        nil)
+    t))
+
+(add-hook 'kill-buffer-query-functions 'unkillable-scratch-buffer)
 
 (provide 'defuns)
 ;;; defuns.el ends here

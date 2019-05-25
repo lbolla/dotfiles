@@ -7,7 +7,7 @@ IFS=$'\n\t'
 echo "Upgrading elpy-mode deps in $VIRTUAL_ENV"
 
 PACKAGES=(
-    elpy
+    # elpy
     jedi
     autopep8
     # yapf
