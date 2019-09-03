@@ -11,15 +11,16 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+ ;; '(ansi-color-faces-vector
+ ;;   [default default default italic underline success warning error])
+ ;; '(ansi-color-names-vector
+ ;;   ["#282c34" "#ff6c6b" "#98be65" "#da8548" "#61afef" "#c678dd" "#1f5582" "#abb2bf"])
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#282c34" "#ff6c6b" "#98be65" "#da8548" "#61afef" "#c678dd" "#1f5582" "#abb2bf"])
  '(auth-source-debug nil)
  '(auth-sources
    (quote
@@ -79,14 +80,14 @@
    (quote
     (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
  '(epa-pinentry-mode (quote loopback))
- '(evil-default-state (quote emacs))
+ '(erlang-root-dir "/usr" t)
+ '(evil-default-state (quote normal))
  '(evil-lookup-func (quote man-at-point))
  '(evil-want-C-i-jump nil)
- '(evil-want-C-w-in-emacs-state nil)
+ '(evil-want-C-w-in-emacs-state t)
  '(evil-want-integration t)
  '(evil-want-keybinding nil)
- '(eww-search-prefix "https://www.ixquick.com/do/search?q=")
- '(explicit-shell-file-name "/usr/bin/bash")
+ '(eww-search-prefix "https://www.startpage.com/do/search?q=")
  '(eyebrowse-keymap-prefix "e")
  '(eyebrowse-new-workspace t)
  '(fci-rule-color "#383838")
@@ -103,6 +104,7 @@
  '(flycheck-ghc-language-extensions nil)
  '(flycheck-highlighting-mode (quote lines))
  '(flycheck-javascript-flow-args nil t)
+ '(flycheck-pycheckers-checkers (quote (flake8 mypy3)))
  '(flycheck-python-mypy-args
    (quote
     ("--incremental" "--ignore-missing-imports" "--follow-imports=skip")))
@@ -118,34 +120,38 @@
 
 ")
  '(ivy-use-virtual-buffers t)
- '(js2-mode-show-strict-warnings nil)
+ '(js2-mode-show-strict-warnings nil t)
  '(line-spacing 0.2)
  '(linum-format " %7i ")
  '(load-prefer-newer t)
+ '(lsp-prefer-flymake nil)
+ '(lsp-ui-flycheck-enable t)
+ '(lsp-ui-sideline-enable nil)
  '(magit-branch-arguments nil t)
  '(magit-completing-read-function (quote ivy-completing-read))
  '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
- '(magit-log-section-commit-count 0)
+ '(magit-log-section-commit-count 10)
  '(magit-pull-or-fetch t)
  '(magit-push-always-verify nil t)
- '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")))
- '(magit-todos-keyword-suffix ":\\| \\|$")
- '(magit-todos-update 60)
+ '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")) t)
+ '(magit-todos-keyword-suffix ":\\| \\|$" t)
+ '(magit-todos-update 60 t)
  '(mail-user-agent (quote mu4e-user-agent))
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
-    (("(flag:unread OR flag:flagged) AND NOT flag:trashed" "Unread/flagged" 117)
+    (("flag:unread AND NOT flag:trashed" "Unread/flagged" 117)
      ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" 105)
      ("maildir:/YG/Errors AND flag:unread AND NOT flag:trashed" "Unread errors" 101)
      ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" 116)
+     ("maildir:/YG/GitLab AND flag:unread AND NOT flag:trashed" "Unread GitLab" 103)
      ("flag:flagged" "Flagged" 102)
      ("flag:attach" "With attachment" 97))))
+ '(mu4e-change-filenames-when-moving t)
  '(mu4e-compose-complete-addresses t)
  '(mu4e-compose-complete-only-after nil)
  '(mu4e-compose-complete-only-personal nil)
@@ -168,7 +174,9 @@
     (("/YG/INBOX" . 105)
      ("/YG/Sent Items" . 115)
      ("/YG/Errors" . 101)
+     ("/YG/GitLab" . 103)
      ("/YG/Tickets" . 116))))
+ '(mu4e-mailing-list-patterns (quote ("\\([^.]*\\)\\.yougov\\.net")))
  '(mu4e-sent-folder "/YG/Sent Items")
  '(mu4e-trash-folder "/YG/Deleted Items")
  '(mu4e-update-interval 300)
@@ -177,7 +185,8 @@
  '(mu4e-view-html-plaintext-ratio-heuristic 20)
  '(mu4e-view-scroll-to-next nil)
  '(mu4e-view-show-addresses t)
- '(mu4e-view-show-images t)
+ '(mu4e-view-show-images nil)
+ '(mu4e-view-use-gnus nil)
  '(my/mu4e-get-mail-command "mbsync -a")
  '(network-security-level (quote high) nil nil "Customized with use-package nsm")
  '(org-agenda-custom-commands
@@ -230,7 +239,7 @@
  '(org-agenda-include-diary t)
  '(org-agenda-sorting-strategy
    (quote
-    ((agenda habit-down time-up deadline-up scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
+    ((agenda habit-down time-up deadline-up scheduled-up timestamp-up priority-down todo-state-down alpha-up category-keep tag-up)
      (todo priority-down category-keep alpha-up)
      (tags priority-down category-keep)
      (search category-keep))))
@@ -250,22 +259,13 @@
     (("t" "Todo" entry
       (file "~/org/refile.org")
       "* TODO %?
+SCHEDULED: %t
 %i
 %a
-")
-     ("c" "Clipboard" entry
-      (file "~/org/refile.org")
-      "* TODO %?
-%i
-%x
 ")
      ("m" "Meeting" entry
       (file "~/org/refile.org")
       "* TODO Meeting %? :MEET:
-%U")
-     ("p" "Phone" entry
-      (file "~/org/refile.org")
-      "* TODO Phone %? :PHON:
 %U")
      ("n" "Note" entry
       (file "~/org/notes.org")
@@ -279,14 +279,12 @@
 %U
 %a
 ")
-     ("j" "Journal" entry
-      (file+olp+datetree "~/org/diary.org")
-      "* %?
-Entered on %U
-  %i
-  %a"))))
- '(org-clock-out-remove-zero-time-clocks t)
- '(org-clock-out-when-done t)
+     ("l" "Link" entry
+      (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX")
+      "* %a
+%i" :immediate-finish t))) t)
+ '(org-clock-out-remove-zero-time-clocks t t)
+ '(org-clock-out-when-done t t)
  '(org-deadline-warning-days 30)
  '(org-default-notes-file "~/org/refile.org")
  '(org-default-priority 68)
@@ -294,6 +292,7 @@ Entered on %U
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
  '(org-html-htmlize-output-type (quote css))
+ '(org-html-validation-link nil)
  '(org-link-abbrev-alist
    (quote
     (("FB" . "https://yougov.fogbugz.com/f/cases/%h")
@@ -307,6 +306,7 @@ Entered on %U
     ((65 . font-lock-warning-face)
      (67 . font-lock-comment-face))))
  '(org-priority-start-cycle-with-default nil)
+ '(org-protocol-default-template-key "l")
  '(org-publish-project-alist
    (quote
     (("home" :base-directory "~/Private/org/" :exclude "\\.*" :include
@@ -314,11 +314,11 @@ Entered on %U
       :with-broken-links t :publishing-directory "~/Private/org/" :publishing-function org-html-publish-to-html :description "My links" :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
      ("lbolla.info" :components
       ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
-     ("lbolla.info-static" :base-directory "~/src/lbolla.info/static/" :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css\\|woff2" :publishing-directory "~/src/lbolla.info/html/" :recursive t :publishing-function org-publish-attachment)
-     ("lbolla.info-cv.pdf" :base-directory "~/src/lbolla.info/org/" :exclude "\\.*" :include
+     ("lbolla.info-static" :base-directory "~/src/github.com/lbolla/lbolla.info/static/" :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css\\|woff2" :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/" :recursive t :publishing-function org-publish-attachment)
+     ("lbolla.info-cv.pdf" :base-directory "~/src/github.com/lbolla/lbolla.info/org/" :exclude "\\.*" :include
       ("cv.org")
-      :publishing-directory "~/src/lbolla.info/html/" :publishing-function org-latex-publish-to-pdf)
-     ("lbolla.info-html" :base-directory "~/src/lbolla.info/org/" :publishing-directory "~/src/lbolla.info/html/" :recursive t :section-numbers nil :auto-sitemap t :sitemap-format-entry lbolla\.info/org-publish-sitemap-format-entry :sitemap-function lbolla\.info/org-publish-sitemap-function :sitemap-sort-files anti-chronologically :sitemap-style tree :sitemap-title "Sitemap" :with-toc nil :description "Lorenzo Bolla homepage" :html-doctype "html5" :html-head-include-default-style nil :html-head-include-scripts nil :html-link-home "<ignored>" :html-link-up "<ignored>" :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles\">Articles</a> | <a accesskey=\"c\" href=\"/cv\">CV</a> (<a href=\"/cv.pdf\">pdf</a>)</div>" :html-preamble lbolla\.info/html-preamble :html-postamble nil :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\">" :html-head-extra "<link rel=\"stylesheet\" href=\"./css/extra.css\" type=\"text/css\">" :publishing-function org-html-publish-to-html)
+      :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/" :publishing-function org-latex-publish-to-pdf)
+     ("lbolla.info-html" :base-directory "~/src/github.com/lbolla/lbolla.info/org/" :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/" :recursive t :section-numbers nil :auto-sitemap t :sitemap-format-entry lbolla\.info/org-publish-sitemap-format-entry :sitemap-function lbolla\.info/org-publish-sitemap-function :sitemap-sort-files anti-chronologically :sitemap-style tree :sitemap-title "Sitemap" :with-toc nil :description "Lorenzo Bolla homepage" :html-doctype "html5" :html-head-include-default-style nil :html-head-include-scripts nil :html-link-home "<ignored>" :html-link-up "<ignored>" :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles\">Articles</a> | <a accesskey=\"c\" href=\"/cv\">CV</a> (<a href=\"/cv.pdf\">pdf</a>)</div>" :html-preamble lbolla\.info/html-preamble :html-postamble nil :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\">" :html-head-extra "<link rel=\"stylesheet\" href=\"./css/extra.css\" type=\"text/css\">" :publishing-function org-html-publish-to-html)
      ("kubernetes" :components
       ("kubernetes-org" "kubernetes-html"))
      ("kubernetes-org" :base-directory "~/work/kubernetes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/" :publishing-function org-org-publish-to-org :recursive t)
@@ -363,13 +363,13 @@ Entered on %U
      ("DONE" . org-done))))
  '(org-todo-keywords
    (quote
-    ((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)")
-     (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "MEET(m@)"))))
+    ((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)")
+     (sequence "WAIT(w@/!)" "|" "DEFR(f@)"))))
  '(org-treat-S-cursor-todo-selection-as-state-change nil)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (spacemacs-theme ivy-hydra flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (eyebrowse company-lsp lsp-ui lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -394,7 +394,7 @@ Entered on %U
       . "*.tmpl"))))
  '(rg-define-toggle "--context 3" t)
  '(rg-group-result nil)
- '(rust-format-on-save t)
+ '(rust-format-on-save t t)
  '(safe-local-variable-values
    (quote
     ((eval add-hook
@@ -481,9 +481,9 @@ Entered on %U
      ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
      ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
      ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
- '(web-mode-code-indent-offset 4)
- '(web-mode-css-indent-offset 2)
- '(web-mode-markup-indent-offset 2)
+ '(web-mode-code-indent-offset 4 t)
+ '(web-mode-css-indent-offset 2 t)
+ '(web-mode-markup-indent-offset 2 t)
  '(whitespace-style (quote (face trailing lines-tail)))
  '(yas-indent-line (quote fixed)))
 
@@ -496,7 +496,6 @@ Entered on %U
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :weight light :height 120))))
  '(fixed-pitch ((t (:family "Iosevka" :height 120))))
- '(region ((t (:background "#c1caa1" :distant-foreground "black"))))
  '(variable-pitch ((t (:family "Gentium" :height 140)))))
 
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
@@ -507,7 +506,8 @@ Entered on %U
 (global-set-key (kbd "M-O") 'my/open-line-above)
 (global-set-key (kbd "C-x 2") 'my/split-window-below-and-switch-buffer)
 (global-set-key (kbd "C-x 3") 'my/split-window-right-and-switch-buffer)
-(global-set-key (kbd "C-x C-b") 'buffer-menu)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+;; (global-set-key (kbd "C-c e") 'eshell)
 ;; (global-set-key (kbd "C-c f") 'variable-pitch-mode)
 ;; (global-set-key (kbd "C-c t") 'my/cycle-themes)
 (global-set-key (kbd "C-c v w") 'venv-workon-and-cdproject)
@@ -548,22 +548,24 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
                                          prj-parent) (file-name-nondirectory buffer-file-truename)))
                               "%b"))))))
 
-(blink-cursor-mode 0)
+;; (blink-cursor-mode 0)
 (column-number-mode 1)
 (delete-selection-mode 1)
-(global-hl-line-mode)
+;; (global-hl-line-mode)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (show-paren-mode 1)
 (tool-bar-mode 0)
 
-;; (load-theme 'spacemacs-dark)
 ;; (load-theme 'poet-dark)
 ;; (load-theme-cyberpunk)
+;; (load-theme-deeper-blue)
 ;; (load-theme-goose)
 ;; (load-theme-leuven)
 ;; (load-theme-quasi-monochrome)
 ;; (load-theme-zerodark)
+;; (load-theme 'eziam-light)
+;; (my/cycle-themes)
 
 (provide 'init)
 ;;; init.el ends here

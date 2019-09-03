@@ -6,8 +6,8 @@
 ;;; Code:
 
 (defcustom my-themes '(
-                       poet-dark
                        poet
+                       poet-dark
                        ) "List of themes I like." :group 'local :type 'list)
 
 (defun disable-custom-themes ()
@@ -24,6 +24,14 @@
   (interactive)
   (my/switch-theme (car my-themes))
   (setq my-themes (cycle my-themes)))
+
+(defun load-theme-deeper-blue ()
+  "Load `deeper-blue` theme."
+  (interactive)
+  (my/switch-theme 'deeper-blue)
+  (custom-set-faces
+   `(mode-line        ((t (:background "gray55"))))
+   `(region           ((t (:background "#50506f"))))))
 
 (defun load-theme-quasi-monochrome ()
   "Load `quasi-monochrome` theme."
@@ -101,11 +109,6 @@
    `(org-scheduled-today               ((t (:inherit (default)))))))
 
 (use-package poet-theme
-  :defer t
-  :demand t)
-
-(use-package spacemacs-theme
-  ;; https://github.com/nashamri/spacemacs-theme
   :defer t
   :demand t)
 

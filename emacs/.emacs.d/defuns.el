@@ -107,7 +107,7 @@
 (defcustom my/mu4e-get-mail-command "offlineimap"
   "Shell command to run to retrieve email manually." :group 'Mu4e)
 
-(defcustom my/lesser-evil t
+(defcustom my/lesser-evil nil
   "Only load minimal evil configuration." :group 'local)
 
 (defun my/mu4e-refresh-headers (args)
@@ -409,7 +409,7 @@ representation for the files to include, as returned by
   "Narrow mu4e search querying for thing at point."
   (interactive)
   (let ((q (thing-at-point 'symbol)))
-    (mu4e-headers-search-narrow q)))
+    (mu4e-headers-search-narrow (concat "s:" q))))
 
 (defun my/mu4e-headers-narrow-ticket ()
   "Narrow mu4e search querying for ticket."

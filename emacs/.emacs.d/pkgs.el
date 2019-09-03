@@ -54,9 +54,14 @@
   :hook
   (after-init . global-company-mode))
 
+(use-package company-lsp
+  :config
+  (push 'company-lsp company-backends))
+
 (use-package conf-mode
   :mode (((rx "rc" eos) . conf-unix-mode)
          ((rx ".pycheckers" eos) . conf-unix-mode)
+         ((rx ".importlinter" eos) . conf-unix-mode)
          ((rx "requirements") . conf-unix-mode))
 
   :hook
@@ -118,17 +123,18 @@
   :config
   (electric-indent-mode t))
 
-(use-package elpy
-  :after python
-  :diminish
-  :custom
-  (elpy-modules '(elpy-module-sane-defaults
-                  elpy-module-company
-                  elpy-module-eldoc
-                  elpy-module-highlight-indentation
-                  elpy-module-pyvenv))
-  :init
-  (elpy-enable))
+;; TODO lsp
+;; (use-package elpy
+;;   :after python
+;;   :diminish
+;;   :custom
+;;   (elpy-modules '(elpy-module-sane-defaults
+;;                   elpy-module-company
+;;                   elpy-module-eldoc
+;;                   elpy-module-highlight-indentation
+;;                   elpy-module-pyvenv))
+;;   :init
+;;   (elpy-enable))
 
 (use-package erlang-start
   :load-path "/usr/lib/erlang/lib/tools-3.1/emacs/"
@@ -164,6 +170,11 @@
 (use-package esup
   :disabled t)
 
+(use-package eyebrowse
+  :demand t
+  :config
+  (eyebrowse-mode t))
+
 (use-package expand-region
   :bind
   ("C-=" . er/expand-region))
@@ -185,8 +196,10 @@
 
   :config
 
-  (add-to-list 'evil-emacs-state-modes 'dired-mode)
-  (add-to-list 'evil-emacs-state-modes 'pass-mode)
+  (evil-set-initial-state 'dired-mode 'emacs)
+  (evil-set-initial-state 'eshell-mode 'emacs)
+  (evil-set-initial-state 'eww-mode 'emacs)
+  (evil-set-initial-state 'pass-mode 'emacs)
 
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)
@@ -374,7 +387,7 @@
   :hook
   (js2-mode . (lambda ()
                 (set-whitespace-line-column 80)
-                (set-indent 4)
+                (set-indent 2)
                 (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
 
 (use-package json-mode
@@ -395,6 +408,29 @@
                        ;; Dash and tilde are part of a lisp word
                        (modify-syntax-entry ?\- "w")
                        (modify-syntax-entry ?\~ "w"))))
+
+;; TODO lsp
+;; https://github.com/emacs-lsp/lsp-mode
+;; For Python: pip install "python-language-server[all]"
+(use-package lsp-mode
+  :custom
+  (lsp-prefer-flymake nil)
+  :hook
+  ;; (python-mode . lsp-deferred)
+  ;; (rust-mode . lsp-deferred)
+  ;; TODO maybe just prog-mode
+  (prog-mode . lsp-deferred)
+  :commands (lsp lsp-deferred)
+  :config
+  (evil-define-key 'normal prog-mode-map (kbd "C-]") 'lsp-find-definition)
+  (evil-define-key 'normal prog-mode-map (kbd "C-u C-]") 'lsp-find-references)
+  (evil-define-key 'normal prog-mode-map (kbd "K") 'lsp-describe-thing-at-point))
+
+(use-package lsp-ui
+  :custom
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-flycheck-enable t)
+  :commands lsp-ui-mode)
 
 (use-package lua-mode)
 
@@ -475,14 +511,17 @@
   (mu4e-drafts-folder "/YG/Drafts")
   (mu4e-sent-folder "/YG/Sent Items")
   (mu4e-trash-folder "/YG/Deleted Items")
+  (mu4e-change-filenames-when-moving t)
   (mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
                             ("/YG/Sent Items" . ?s)
                             ("/YG/Errors" . ?e)
+                            ("/YG/GitLab" . ?g)
                             ("/YG/Tickets" . ?t)))
-  (mu4e-bookmarks '(("(flag:unread OR flag:flagged) AND NOT flag:trashed" "Unread/flagged" ?u)
+  (mu4e-bookmarks '(("flag:unread AND NOT flag:trashed" "Unread/flagged" ?u)
                     ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" ?i)
                     ("maildir:/YG/Errors AND flag:unread AND NOT flag:trashed" "Unread errors" ?e)
                     ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" ?t)
+                    ("maildir:/YG/GitLab AND flag:unread AND NOT flag:trashed" "Unread GitLab" ?g)
                     ("flag:flagged" "Flagged" ?f)
                     ("flag:attach" "With attachment" ?a)
                     ;; ("date:today..now" "Today's messages" ?t)
@@ -512,6 +551,8 @@
                          (:mailing-list . 10)
                          (:from . 22)
                          (:subject)))
+
+  (mu4e-mailing-list-patterns '("\\([^.]*\\)\\.yougov\\.net"))
   (mu4e-headers-include-related t)
   ;; (mu4e-headers-results-limit 500)
   (mu4e-view-show-addresses t)
@@ -529,8 +570,8 @@
 (use-package mu4e-alert
   :bind
   ("C-c m u" . mu4e-alert-view-unread-mails)
-  :custom
-  (mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
+  ;; :custom
+  ;; (mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
   :config
   (mu4e-alert-enable-notifications)
   (mu4e-alert-enable-mode-line-display)
@@ -658,8 +699,8 @@
   (org-clock-out-remove-zero-time-clocks t)
   (org-clock-out-when-done t)
   (org-html-validation-link nil)
-  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)")
-                       (sequence "WAIT(w@/!)" "DELG(l@)" "|" "DEFR(f@)" "MEET(m@)")))
+  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)")
+                       (sequence "WAIT(w@/!)" "|" "DEFR(f@)")))
   (org-todo-keyword-faces '(("TODO" . org-todo)
                             ("STRT" . org-strt)
                             ("WAIT" . org-wait)
@@ -749,11 +790,11 @@
                                 :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
                                 :recursive t
                                 :publishing-function org-publish-attachment)))
-  (org-capture-templates '(("t" "Todo"      entry (file "~/org/refile.org") "* TODO %?\n%i\n%a\n")
+  (org-capture-templates '(("t" "Todo"      entry (file "~/org/refile.org") "* TODO %?\nSCHEDULED: %t\n%i\n%a\n")
                            ("m" "Meeting"   entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
                            ("n" "Note"      entry (file "~/org/notes.org")  "* %? :NOTE:\n%U\n%a\n")
                            ("i" "Idea"      entry (file "~/org/ideas.org")  "* %? :IDEA:\n%U\n%a\n")
-                           ("l" "Link"      entry (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX") "* %a" :immediate-finish t)
+                           ("l" "Link"      entry (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX") "* %a\n%i" :immediate-finish t)
                            ;; ("c" "Clipboard" entry (file "~/org/refile.org") "* TODO %?\n%i\n%x\n")
                            ;; ("p" "Phone"     entry (file "~/org/refile.org") "* TODO Phone %? :PHON:\n%U")
                            ;; ("j" "Journal"   entry (file+olp+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a")
@@ -863,22 +904,25 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                    (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
                    (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
                    (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
-                   (evil-define-key 'normal python-mode-map (kbd "C-]") 'elpy-goto-definition)
-                   (evil-define-key 'normal python-mode-map (kbd "K") 'elpy-doc)
-                   (evil-define-key 'normal python-mode-map (kbd "gf") (lambda () (interactive) (elpy-find-file t))))))
+                   ;; TODO lsp
+                   ;; (evil-define-key 'normal python-mode-map (kbd "C-]") 'elpy-goto-definition)
+                   ;; (evil-define-key 'normal python-mode-map (kbd "K") 'elpy-doc)
+                   ;; (evil-define-key 'normal python-mode-map (kbd "gf") (lambda () (interactive) (elpy-find-file t))))))
+                   )))
 
-(use-package racer
-  :diminish
-  :after (evil rust-mode)
-  :hook
-  (rust-mode . racer-mode)
-  (racer-mode . eldoc-mode)
-  (racer-mode . company-mode)
-  :init
-  (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
-  (evil-define-key 'normal racer-help-mode-map (kbd "K") 'racer-describe)
-  (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition)
-  (evil-define-key 'normal racer-help-mode-map (kbd "C-]") 'racer-find-definition))
+;; TODO lsp
+;; (use-package racer
+;;   :diminish
+;;   :after (evil rust-mode)
+;;   :hook
+;;   (rust-mode . racer-mode)
+;;   (racer-mode . eldoc-mode)
+;;   (racer-mode . company-mode)
+;;   :init
+;;   (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
+;;   (evil-define-key 'normal racer-help-mode-map (kbd "K") 'racer-describe)
+;;   (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition)
+;;   (evil-define-key 'normal racer-help-mode-map (kbd "C-]") 'racer-find-definition))
 
 (use-package rg
   :bind
@@ -951,7 +995,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :hook
   (text-mode . (lambda ()
                  (modify-syntax-entry ?\_ "w")
-                 (variable-pitch-mode 1)
+                 (variable-pitch-mode 0)
                  (flyspell-mode t))))
 
 (use-package toml-mode
