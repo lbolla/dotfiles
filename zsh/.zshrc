@@ -85,9 +85,10 @@ plugins=(
     git
     kubectl
     kubectl-patch
-    kube-ps1
-    nvm
+    # kube-ps1  # Slow!
+    nvm # Slow!
     paver
+    # pyenv
     stern
     tmux
     virtualenv
