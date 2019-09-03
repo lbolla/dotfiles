@@ -17,7 +17,7 @@ alias k=kubectl
 alias kdesc="kubectl describe"
 alias kget="kubectl get -o wide"
 alias kedit="kubectl edit"
-alias klogs="kubectl logs"
+alias klogs="kubectl logs --timestamps=true"
 # alias ktail="kubetail"
 alias ktail="stern -t -s 1s"
 # TODO not working

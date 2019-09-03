@@ -1,5 +1,5 @@
 alias -g GV="| grep -v"
-alias -g J="| jq ."
+alias -g J="| jq . | less -nF"
 alias -g S="| sort"
 alias -g SN="| sort -n"
 # alias -g T="| tar t"
@@ -32,6 +32,8 @@ alias aws-shell="/home/lbolla/.virtualenvs/aws-shell/bin/aws-shell"
 # alias fb="/home/lbolla/.virtualenvs/fbcli/bin/fb"
 alias rust-update="/home/lbolla/src/cmd/rust-update"
 alias vcs-resolve="/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"
+
+alias lbolla-tmux='mosh lbolla.info tmux attach'
 
 # alias vpn='sudo openvpn --config /home/lbolla/Private/vpn/AirVPN_Europe_UDP-443.ovpn --up "/home/lbolla/Private/vpn/bt-nameserver off" --down "/home/lbolla/Private/vpn/bt-nameserver on"'
 alias vpn='sudo openvpn --config /home/lbolla/Private/vpn/AirVPN_Europe_UDP-443.ovpn'

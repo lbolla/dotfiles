@@ -6,8 +6,13 @@
 eval my_gray='$FG[242]'
 eval my_orange='$FG[214]'
 
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
+if [[ $UID -eq 0 ]]; then NCOLOR="red"; else NCOLOR="green"; fi
 local return_code="%(?:%{$FG[105]%}» :%{$my_orange%}» )"
+
+if [[ ${KUBE_PS1_ENABLED} != 'true' ]]
+then
+    kube_ps1() {}
+fi
 
 # From kube_ps1 oh-my-zsh plugin
 export KUBE_PS1_SYMBOL_ENABLE=false
@@ -23,9 +28,11 @@ RPS1='${return_code}'
 # right prompt
 if type "virtualenv_prompt_info" > /dev/null
 then
-    RPROMPT='$(kube_ps1)$(virtualenv_prompt_info)%{$reset_color%}%'
+    # RPROMPT='$(kube_ps1)$(virtualenv_prompt_info)%{$reset_color%}%'
+    RPROMPT='$(virtualenv_prompt_info)%{$reset_color%}%'
 else
-    RPROMPT='$(kube_ps1){$reset_color%}%'
+    # RPROMPT='$(kube_ps1){$reset_color%}%'
+    RPROMPT='{$reset_color%}%'
 fi
 # Don't show rprompt on previous commands
 setopt TRANSIENT_RPROMPT
