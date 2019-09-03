@@ -33,7 +33,7 @@ URxvt*scrollBar: none
 URxvt*scrollBar_right: false
 URxvt*scrollstyle: plain
 
-URxvt.perl-ext-common: default,matcher,font-size
+URxvt.perl-ext-common: default,matcher,font-size,tabbed
 ! selection-to-clipboard
 URxvt.url-launcher: /usr/bin/firefox
 URxvt.keysym.C-Delete: matcher:last
