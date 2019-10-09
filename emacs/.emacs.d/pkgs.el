@@ -172,6 +172,8 @@
 
 (use-package eyebrowse
   :demand t
+  :custom
+  (eyebrowse-default-workspace-slot 0)
   :config
   (eyebrowse-mode t))
 
@@ -196,7 +198,8 @@
 
   :config
 
-  (evil-set-initial-state 'dired-mode 'emacs)
+  (evil-set-initial-state 'calculator-mode 'emacs)
+  ;; (evil-set-initial-state 'dired-mode 'emacs)
   (evil-set-initial-state 'eshell-mode 'emacs)
   (evil-set-initial-state 'eww-mode 'emacs)
   (evil-set-initial-state 'pass-mode 'emacs)
@@ -387,7 +390,7 @@
   :hook
   (js2-mode . (lambda ()
                 (set-whitespace-line-column 80)
-                (set-indent 2)
+                (set-indent 4)
                 (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
 
 (use-package json-mode
@@ -430,6 +433,7 @@
   :custom
   (lsp-ui-sideline-enable nil)
   (lsp-ui-flycheck-enable t)
+  (lsp-ui-doc-enable nil)
   :commands lsp-ui-mode)
 
 (use-package lua-mode)
@@ -570,12 +574,12 @@
 (use-package mu4e-alert
   :bind
   ("C-c m u" . mu4e-alert-view-unread-mails)
-  ;; :custom
+  :custom
   ;; (mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
+  (mu4e-alert-style 'message)
   :config
   (mu4e-alert-enable-notifications)
-  (mu4e-alert-enable-mode-line-display)
-  (mu4e-alert-set-default-style 'libnotify))
+  (mu4e-alert-enable-mode-line-display))
 
 (use-package org
   ;; Install from Org's elpa
@@ -626,7 +630,7 @@
   (org-fontify-whole-heading-line t)
   (org-priority-start-cycle-with-default nil)
   (org-return-follows-link t)
-  (org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
+  (org-agenda-sorting-strategy '((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
                                  (todo priority-down category-keep alpha-up)
                                  (tags priority-down category-keep)
                                  (search category-keep)))
