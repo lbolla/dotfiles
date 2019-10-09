@@ -82,7 +82,7 @@ plugins=(
     fzf
     helm
     httpie
-    git
+    gitfast
     kubectl
     kubectl-patch
     # kube-ps1  # Slow!
