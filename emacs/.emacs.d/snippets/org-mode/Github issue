@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Github issue
+# key: gh#
+# --
+[[GH:${1:user}/${2:project}#${3:issue}]] ${4:title}

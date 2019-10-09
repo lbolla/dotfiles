@@ -8,7 +8,7 @@ kind: Service
 metadata:
   name: ${1:name}
   annotations:
-    yougov.infrastructure.stingray/max_reply_time: "90"
+    yougov.infrastructure.stingray/max_reply_time: "30"
   labels:
     app: ${2:app}
 spec:
