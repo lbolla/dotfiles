@@ -36,6 +36,10 @@ function kctx {
     fi
 }
 
+function kuser {
+    kubectl config set-context $1 --user=$2
+}
+
 function kns {
     if [[ $# -eq 0 ]]; then
         kubectl get ns
@@ -45,7 +49,7 @@ function kns {
 }
 
 function kview {
-    kubectl get -o yaml $* | $PAGER
+    kubectl get -o yaml $*
 }
 
 function kbash {
