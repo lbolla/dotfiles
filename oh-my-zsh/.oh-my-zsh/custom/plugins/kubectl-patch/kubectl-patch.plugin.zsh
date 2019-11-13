@@ -69,5 +69,5 @@ function ksearch {
 }
 
 function kevents {
-    kubectl get events --sort-by=.lastTimestamp -ocustom-columns=LAST_TS:.lastTimestamp,NAME:.metadata.name,MSG:.message $* | grep -v 'Search Line limits were exceeded'
+    kubectl get events --sort-by=.metadata.creationTimestamp -ocustom-columns=LAST_TS:.lastTimestamp,NAME:.metadata.name,MSG:.message $* | grep -v 'Search Line limits were exceeded'
 }

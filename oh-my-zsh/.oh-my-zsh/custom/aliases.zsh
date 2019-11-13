@@ -10,9 +10,12 @@ alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock 
 alias docker-images-tree="dockviz images -t -l"
 alias mkvirtualenv2="mkvirtualenv --python `which python2`"
 alias mkvirtualenv3="mkvirtualenv --python `which python3`"
-alias mkvirtualenv-pypy2="mkvirtualenv --python /opt/pypy-6.0.0-linux_x86_64-portable/bin/pypy"
-alias mkvirtualenv-pypy3="mkvirtualenv --python /opt/pypy3.5-6.0.0-linux_x86_64-portable/bin/pypy"
-alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Control/" | sudo loadkeys'
+alias mkvirtualenv36="mkvirtualenv --python `which python3.6`"
+alias mkvirtualenv37="mkvirtualenv --python `which python3.7`"
+alias mkvirtualenv38="mkvirtualenv --python `which python3.8`"
+# alias mkvirtualenv-pypy2="mkvirtualenv --python /opt/pypy-6.0.0-linux_x86_64-portable/bin/pypy"
+# alias mkvirtualenv-pypy3="mkvirtualenv --python /opt/pypy3.5-6.0.0-linux_x86_64-portable/bin/pypy"
+# alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Control/" | sudo loadkeys'
 # unalias t; alias t=tmux
 alias ssh='TERM=xterm ssh'
 alias ungron="gron --ungron"

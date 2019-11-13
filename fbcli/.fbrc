@@ -6,6 +6,7 @@ devops = search status:active project:devops
 systems = search status:active project:systems
 outages = search status:active project:outages
 testing = edit status=testing
+needinfo = edit status=Need more information
 bydesign = resolve Resolved (By Design)
 cantreproduce = resolve Resolved (Not Reproducible)
 # duplicate = resolve Resolved (Duplicate)

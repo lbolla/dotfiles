@@ -86,14 +86,14 @@ plugins=(
     kubectl
     kubectl-patch
     # kube-ps1  # Slow!
-    nvm # Slow!
+    nvm # Slow! but required by bb8
     paver
     # pyenv
     stern
     tmux
     virtualenv
     virtualenvwrapper
-    web-search
+    # web-search
     z
     zsh-autosuggestions
 )
@@ -150,7 +150,7 @@ fi
 if [[ "$IN_X" = "no" ]]; then
     export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=1'
 else
-    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 fi
 
 # R libs
@@ -160,3 +160,5 @@ export C_INCLUDE_PATH=/usr/lib/R/include
 export GPG_TTY=$(tty)
 
 # zprof
+
+PATH="/home/lbolla/perl5/bin${PATH:+:${PATH}}"; export PATH;
