@@ -1,9 +1,13 @@
 * Things to do on a new system
 
+I should really use [[https://nixos.org/][NixOS]].
+
 ** git clone to src/github.com/lbolla/dotfiles
 
 ** pkg install
     apt-file
+    aspell-de
+    aspell-it
     curl
     docker
     docker-compose
