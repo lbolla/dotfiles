@@ -2,4 +2,4 @@
 # name: Gitlab merge request
 # key: gl!
 # --
-[[GL:${1:namespace}/${2:project}!${3:issue}]] ${4:title}
+[[GL:${1:namespace}/${2:project}!${3:merge_request}]]

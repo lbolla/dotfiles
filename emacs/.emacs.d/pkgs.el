@@ -203,6 +203,7 @@
   (evil-set-initial-state 'eshell-mode 'emacs)
   (evil-set-initial-state 'eww-mode 'emacs)
   (evil-set-initial-state 'pass-mode 'emacs)
+  (evil-set-initial-state 'kubernetes-mode 'emacs)
 
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)
@@ -402,7 +403,11 @@
   (json-mode . (lambda ()
                  (set-indent 2))))
 
-(use-package leuven-theme)
+(use-package kubernetes
+  :bind
+  ("C-c k" . kubernetes-overview)
+  :custom
+  (kubernetes-kubectl-flags '("--kubeconfig=/home/lbolla/src/yougov/devops/kubernetes/client/config")))
 
 (use-package lisp-mode
   :ensure nil ;; builtin
@@ -425,7 +430,7 @@
   (prog-mode . lsp-deferred)
   :commands (lsp lsp-deferred)
   :config
-  (evil-define-key 'normal prog-mode-map (kbd "C-]") 'lsp-find-definition)
+  (evil-define-key 'normal prog-mode-map (kbd "C-]") (lambda () (interactive) (lsp-find-definition :display-action 'window)))
   (evil-define-key 'normal prog-mode-map (kbd "C-u C-]") 'lsp-find-references)
   (evil-define-key 'normal prog-mode-map (kbd "K") 'lsp-describe-thing-at-point))
 
@@ -468,7 +473,8 @@
 
 (use-package make-mode
   :hook
-  (make-mode . (lambda ()
+  (makefile-mode . (lambda ()
+                 (modify-syntax-entry ?\- "w")
                  (setq indent-tabs-mode t))))
 
 (use-package markdown-mode
@@ -505,7 +511,7 @@
          ("C-c m r" . (lambda () (interactive) (mu4e~request-contacts)))
          ("C-c m n" . mu4e-compose-new)
          :map mu4e-headers-mode-map
-         ("C-c /" . my/mu4e-headers-narrow-ticket)
+         ("C-c /" . my/mu4e-headers-narrow)
          ("C-c C-u" . my/mu4e-refresh-headers))
 
   :custom

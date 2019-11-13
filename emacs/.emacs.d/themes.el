@@ -45,6 +45,7 @@
 (defun load-theme-leuven ()
   "Load `leuven` theme."
   (interactive)
+  (use-package leuven-theme)
   (my/switch-theme 'leuven)
   (custom-theme-set-faces 'leuven
    `(highlight-indentation-face        ((t (:inherit (fringe) :background "gray97"))))

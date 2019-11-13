@@ -405,17 +405,33 @@ representation for the files to include, as returned by
     (when (and date (> (length date) 0))
       (format "<span class=\"timestamp\"><%s></span> by <em>%s</em>" (format-time-string "%Y-%m-%d" (org-time-string-to-time date)) author))))
 
+(defun my/mu4e-headers-narrow-subject (q)
+  "Narrow m4e search by subject Q."
+  (mu4e-headers-search-narrow (concat "s:" q)))
+
 (defun my/mu4e-headers-narrow-thing-at-point ()
   "Narrow mu4e search querying for thing at point."
   (interactive)
   (let ((q (thing-at-point 'symbol)))
-    (mu4e-headers-search-narrow (concat "s:" q))))
+    (my/mu4e-headers-narrow-subject q)))
 
-(defun my/mu4e-headers-narrow-ticket ()
+(defun my/mu4e-headers-narrow ()
   "Narrow mu4e search querying for ticket."
   (interactive)
-  (search-forward-regexp (rx (or "FogBugz" "Manuscript") " (" (one-or-more letter) " " (one-or-more digit)))
-  (my/mu4e-headers-narrow-thing-at-point))
+  (beginning-of-line)
+  ;; (if (search-forward-regexp (rx (or "FogBugz" "Manuscript") " (" (one-or-more letter) " " (one-or-more digit))
+  ;;                            (point-at-eol) t)
+  ;;     (my/mu4e-headers-narrow-thing-at-point)
+  ;;   (if (search-forward-regexp (rx (or "Context" "weighting"))
+  ;;                              (point-at-eol) t)
+  ;;       (my/mu4e-headers-narrow-thing-at-point))))
+  (cond
+   ((search-forward-regexp (rx (or "FogBugz" "Manuscript") " (" (one-or-more letter) " " (one-or-more digit)) (point-at-eol) t)
+    (my/mu4e-headers-narrow-thing-at-point))
+   ((search-forward-regexp (rx (or "Context" "weighting")) (point-at-eol) t)
+    (my/mu4e-headers-narrow-thing-at-point))
+   ((search-forward-regexp (rx "Bix2 " (one-or-more letter) " Error") (point-at-eol) t)
+    (my/mu4e-headers-narrow-subject (match-string 0)))))
 
 (defun my/true-color-p ()
   "Return non-nil on displays that support 256 colors."

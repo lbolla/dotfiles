@@ -88,6 +88,7 @@
  '(evil-want-integration t)
  '(evil-want-keybinding nil)
  '(eww-search-prefix "https://www.startpage.com/do/search?q=")
+ '(eyebrowse-default-workspace-slot 0)
  '(eyebrowse-keymap-prefix "e")
  '(eyebrowse-new-workspace t)
  '(fci-rule-color "#383838")
@@ -121,17 +122,21 @@
 ")
  '(ivy-use-virtual-buffers t)
  '(js2-mode-show-strict-warnings nil t)
+ '(kubernetes-kubectl-flags
+   (quote
+    ("--kubeconfig=/home/lbolla/src/yougov/devops/kubernetes/client/config")) t)
  '(line-spacing 0.2)
  '(linum-format " %7i ")
  '(load-prefer-newer t)
  '(lsp-prefer-flymake nil)
- '(lsp-ui-flycheck-enable t)
- '(lsp-ui-sideline-enable nil)
+ '(lsp-ui-doc-enable nil t)
+ '(lsp-ui-flycheck-enable t t)
+ '(lsp-ui-sideline-enable nil t)
  '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read))
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
- '(magit-log-section-commit-count 10)
- '(magit-pull-or-fetch t)
+ '(magit-completing-read-function (quote ivy-completing-read) t)
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
+ '(magit-log-section-commit-count 10 t)
+ '(magit-pull-or-fetch t t)
  '(magit-push-always-verify nil t)
  '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")) t)
  '(magit-todos-keyword-suffix ":\\| \\|$" t)
@@ -141,6 +146,7 @@
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
+ '(mu4e-alert-style (quote message))
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
@@ -239,7 +245,7 @@
  '(org-agenda-include-diary t)
  '(org-agenda-sorting-strategy
    (quote
-    ((agenda habit-down time-up deadline-up scheduled-up timestamp-up priority-down todo-state-down alpha-up category-keep tag-up)
+    ((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
      (todo priority-down category-keep alpha-up)
      (tags priority-down category-keep)
      (search category-keep))))
@@ -282,9 +288,9 @@ SCHEDULED: %t
      ("l" "Link" entry
       (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX")
       "* %a
-%i" :immediate-finish t))) t)
- '(org-clock-out-remove-zero-time-clocks t t)
- '(org-clock-out-when-done t t)
+%i" :immediate-finish t))))
+ '(org-clock-out-remove-zero-time-clocks t)
+ '(org-clock-out-when-done t)
  '(org-deadline-warning-days 30)
  '(org-default-notes-file "~/org/refile.org")
  '(org-default-priority 68)
@@ -369,7 +375,7 @@ SCHEDULED: %t
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (eyebrowse company-lsp lsp-ui lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (kubernetes-evil kubernetes eyebrowse company-lsp lsp-ui lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -405,6 +411,7 @@ SCHEDULED: %t
      (eval setenv "LAUNCH_DB" "1"))))
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
+ '(shr-use-colors nil)
  '(shr-use-fonts t)
  '(smtpmail-mail-address "lorenzo.bolla@yougov.com" t)
  '(smtpmail-smtp-server "smtp.yougov.com")
@@ -563,7 +570,6 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 ;; (load-theme-goose)
 ;; (load-theme-leuven)
 ;; (load-theme-quasi-monochrome)
-;; (load-theme-zerodark)
 ;; (load-theme 'eziam-light)
 ;; (my/cycle-themes)
 
