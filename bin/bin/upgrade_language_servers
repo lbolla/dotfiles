@@ -12,16 +12,16 @@ fi
 file_count=$(find . -name "*.js" | wc -l)
 if [[ $file_count -gt 0 ]]; then
     echo "Upgrading Javascript"
-    npm install -g typescript-language-server
-    npm install -g typescript
+    npm install typescript-language-server
+    npm install typescript
 fi
 
 # HTML
 file_count=$(find . -name "*.html" | wc -l)
 if [[ $file_count -gt 0 ]]; then
     echo "Upgrading HTML"
-    npm install -g vscode-html-languageserver-bin
-    npm install -g @angular/language-service
+    npm install vscode-html-languageserver-bin
+    npm install @angular/language-service
 fi
 
 # Rust
