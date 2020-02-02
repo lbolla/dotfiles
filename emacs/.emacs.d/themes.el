@@ -6,8 +6,8 @@
 ;;; Code:
 
 (defcustom my-themes '(
-                       poet
-                       poet-dark
+                       tao-yang
+                       tao-yin
                        ) "List of themes I like." :group 'local :type 'list)
 
 (defun disable-custom-themes ()
@@ -109,7 +109,15 @@
    `(org-scheduled-previously          ((t (:foreground "#666666" :weight normal))))
    `(org-scheduled-today               ((t (:inherit (default)))))))
 
+(use-package doom-themes
+  :defer t
+  :demand t)
+
 (use-package poet-theme
+  :defer t
+  :demand t)
+
+(use-package tao-theme
   :defer t
   :demand t)
 

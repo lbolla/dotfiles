@@ -237,6 +237,46 @@
                    ;; (local-set-key (kbd "RET") 'newline-and-indent)
                    )))
 
+(defun my/beep ()
+  "Play an alert sound."
+  (let ((alert "/usr/share/sounds/gnome/default/alerts/glass.ogg"))
+    (start-process "beep" nil "mplayer" (expand-file-name alert))))
+
+;; (defun insert-x-primary-selection ()
+;;   "Insert selection from X primary clipboard."
+;;   (interactive)
+;;   (insert (gui-get-primary-selection)))
+
+;; (defun cycle-fonts ()
+;;   "Cycle between the fonts I like."
+;;   (interactive)
+;;   (set-frame-font (car my-fonts))
+;;   (message "Using font %s" (car my-fonts))
+;;   (setq my-fonts (cycle my-fonts)))
+
+(defmacro hook-into-modes (func modes)
+  "Add FUNC to MODES hooks."
+  `(dolist (mode-hook ,modes)
+     (add-hook mode-hook ,func)))
+
+;; (defmacro with-basic-http-auth (&rest body)
+;;   "Execute BODY with basic http auth."
+;;   `(let ((url-request-extra-headers
+;;           (cons `("Authorization" . ,(concat "Basic "
+;;                                              (base64-encode-string
+;;                                               (concat (read-string "Username: " "lorenzo.bolla")
+;;                                                       ":"
+;;                                                       (read-passwd "Password: "))))) url-request-extra-headers)))
+;;      (progn ,@body)))
+
+(defmacro timeit (what &rest body)
+  "Time WHAT and run BODY and report real time taken to do so."
+  `(let ((start-time (float-time)))
+     (progn ,@body)
+     (let ((elapsed-time (- (float-time) start-time)))
+       (message "Completed %s in %.4f seconds" ,what elapsed-time)
+       elapsed-time)))
+
 (use-package rcirc
   :config (progn
             (defun my-rcirc-print-hook (process sender response target text)
@@ -245,7 +285,7 @@
               (when (and (string-match (concat "@?" (rcirc-nick process)) text)
                          (not (string= (rcirc-nick process) sender))
                          (not (string= (rcirc-server-name process) sender)))
-                (my-beep)))
+                (my/beep)))
             (add-hook 'rcirc-print-functions 'my-rcirc-print-hook)
             (add-hook 'rcirc-mode-hook
                       (lambda ()
@@ -591,3 +631,38 @@
                       "--tab-width" "4"
                       "--trailing-comma" "none"
                       )))
+
+(use-package js2-mode
+  :disabled t
+  :after evil
+  :mode ((rx ".js" eos))
+  :custom
+  (js2-mode-show-strict-warnings nil)
+  :functions
+  set-indent
+  set-whitespace-line-column
+  :hook
+  (js2-mode . (lambda ()
+                (set-whitespace-line-column 80)
+                (set-indent 4)
+                (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
+
+(defun set-indent (size)
+  "Set indent equal to SIZE."
+  (interactive "p")
+  (defvar evil-shift-width)
+  (defvar js-indent-level)
+  (defvar json-reformat:indent-width)
+  (setq evil-shift-width size
+        js-indent-level size
+        json-reformat:indent-width size
+        tab-width size))
+
+(use-package kubernetes
+  :bind
+  ("C-c k" . kubernetes-overview)
+  :custom
+  (kubernetes-kubectl-flags '("--kubeconfig=/home/lbolla/src/yougov/devops/kubernetes/client/config")))
+
+(use-package rmsbolt
+  :disabled t)

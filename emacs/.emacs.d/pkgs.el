@@ -55,6 +55,10 @@
   (after-init . global-company-mode))
 
 (use-package company-lsp
+  :after lsp-mode
+  :custom
+  (company-lsp-cache-candidates 'auto)
+  (company-lsp-enable-snippet nil)
   :config
   (push 'company-lsp company-backends))
 
@@ -67,6 +71,15 @@
   :hook
   (conf-mode . (lambda ()
                  (modify-syntax-entry ?\_ "w"))))
+
+(use-package copy-as-format
+  :bind
+  ("C-c w j" . copy-as-format-jira)
+  ("C-c w s" . copy-as-format-slack)
+  ("C-c w w" . (lambda ()
+                 (interactive)
+                 (let ((current-prefix-arg 4))
+                   (copy-as-format)))))
 
 (use-package counsel)
 
@@ -118,6 +131,12 @@
   (dumb-jump-window 'other)
   :init
   (dumb-jump-mode))
+
+;; Required by FF add-on "Edit with Emacs"
+(use-package edit-server
+  :init
+  (unless (process-status "edit-server")
+    (edit-server-start)))
 
 (use-package electric
   :config
@@ -198,12 +217,13 @@
 
   :config
 
-  (evil-set-initial-state 'calculator-mode 'emacs)
+  (evil-set-initial-state 'calc-mode 'emacs)
+  (evil-set-initial-state 'custom-mode 'emacs)
   ;; (evil-set-initial-state 'dired-mode 'emacs)
   (evil-set-initial-state 'eshell-mode 'emacs)
   (evil-set-initial-state 'eww-mode 'emacs)
   (evil-set-initial-state 'pass-mode 'emacs)
-  (evil-set-initial-state 'kubernetes-mode 'emacs)
+  ;; (evil-set-initial-state 'kubernetes-mode 'emacs)
 
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)
@@ -309,7 +329,7 @@
 
 (use-package flycheck-cython
   :disabled t
-  :load-path "/home/lbolla/src/emacs-flycheck-cython/"
+  :load-path "/home/lbolla/src/github.com/lbolla/emacs-flycheck-cython/"
   :after flycheck
   :demand t)
 
@@ -322,7 +342,7 @@
 
 (use-package flycheck-flow
   :disabled t
-  :load-path "/home/lbolla/src/emacs-flycheck-flow/"
+  :load-path "/home/lbolla/src/github.com/lbolla/emacs-flycheck-flow/"
   :after flycheck
   :config
   ;; (flycheck-add-next-checker 'javascript-flow '(warning . javascript-flow-coverage) t)
@@ -380,34 +400,13 @@
 (use-package ivy-hydra
   :demand t)
 
-(use-package js2-mode
-  :after evil
-  :mode ((rx ".js" eos))
-  :custom
-  (js2-mode-show-strict-warnings nil)
-  :functions
-  set-indent
-  set-whitespace-line-column
-  :hook
-  (js2-mode . (lambda ()
-                (set-whitespace-line-column 80)
-                (set-indent 4)
-                (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
-
 (use-package json-mode
   :mode ((rx ".ipynb" eos))
   :config
   (evil-define-key 'normal json-mode-map (kbd "=") 'json-mode-beautify)
   (evil-define-key 'visual json-mode-map (kbd "=") 'json-mode-beautify)
-  :hook
-  (json-mode . (lambda ()
-                 (set-indent 2))))
-
-(use-package kubernetes
-  :bind
-  ("C-c k" . kubernetes-overview)
   :custom
-  (kubernetes-kubectl-flags '("--kubeconfig=/home/lbolla/src/yougov/devops/kubernetes/client/config")))
+  (json-reformat:indent-width 2))
 
 (use-package lisp-mode
   :ensure nil ;; builtin
@@ -423,23 +422,41 @@
 (use-package lsp-mode
   :custom
   (lsp-prefer-flymake nil)
+  (lsp-rust-clippy-preference "on")
+  (lsp-enable-snippet nil)
+  (lsp-response-timeout 5)
   :hook
-  ;; (python-mode . lsp-deferred)
-  ;; (rust-mode . lsp-deferred)
-  ;; TODO maybe just prog-mode
   (prog-mode . lsp-deferred)
   :commands (lsp lsp-deferred)
   :config
-  (evil-define-key 'normal prog-mode-map (kbd "C-]") (lambda () (interactive) (lsp-find-definition :display-action 'window)))
-  (evil-define-key 'normal prog-mode-map (kbd "C-u C-]") 'lsp-find-references)
+  (defun my/lsp-find-definition-other-window ()
+    "Find definiton in other window."
+    (interactive)
+    (lsp-find-definition :display-action 'window)) ; or nil or 'frame
+  (evil-define-key 'normal prog-mode-map (kbd "C-]") 'my/lsp-find-definition-other-window)
+  ;; (evil-define-key 'normal prog-mode-map (kbd ", ,") 'my/lsp-find-definition-other-window)
+  (evil-define-key 'normal prog-mode-map (kbd "C-}") 'lsp-find-definition)
+  ;; (evil-define-key 'normal prog-mode-map (kbd ", .") 'lsp-find-definition)
+  (evil-define-key 'normal prog-mode-map (kbd "C-c C-]") 'lsp-find-references)
   (evil-define-key 'normal prog-mode-map (kbd "K") 'lsp-describe-thing-at-point))
 
+(use-package lsp-python-ms
+  :demand t  ; TODO use :commands
+  :after lsp-mode
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp-deferred))))
+
+
 (use-package lsp-ui
+  :after lsp-mode
   :custom
-  (lsp-ui-sideline-enable nil)
-  (lsp-ui-flycheck-enable t)
   (lsp-ui-doc-enable nil)
-  :commands lsp-ui-mode)
+  (lsp-ui-flycheck-enable t)
+  (lsp-ui-sideline-enable nil)
+  :commands lsp-ui-mode
+  :hook (python-mode . (lambda ()
+                         (flycheck-add-next-checker 'lsp-ui 'python-pycheckers t))))
 
 (use-package lua-mode)
 
@@ -478,17 +495,16 @@
                  (setq indent-tabs-mode t))))
 
 (use-package markdown-mode
+  :bind (("<C-return>" . markdown-follow-link-at-point))
   :hook
   (markdown-mode . (lambda ()
-                     (auto-fill-mode t)
-                     (set-indent 4))))
+                     (auto-fill-mode t))))
 
 (use-package nim-mode
   :disabled t
   :hook
   (nim-mode . nimsuggest-mode)
   (nimsuggest-mode . (lambda ()
-                       (set-indent 2)
                        (evil-define-key 'normal nimsuggest-mode-map (kbd "K") 'nimsuggest-show-doc)
                        (evil-define-key 'normal nimsuggest-mode-map (kbd "M-.") 'nimsuggest-find-definition))))
 
@@ -512,7 +528,8 @@
          ("C-c m n" . mu4e-compose-new)
          :map mu4e-headers-mode-map
          ("C-c /" . my/mu4e-headers-narrow)
-         ("C-c C-u" . my/mu4e-refresh-headers))
+         ("C-c C-u" . my/mu4e-refresh-headers)
+         ("<backspace>" . mu4e-headers-query-prev))
 
   :custom
   (user-mail-address yg-smtp-user)
@@ -592,6 +609,7 @@
   ;; :load-path "/home/lbolla/src/code.orgmode.org/bzg/org-mode/lisp/"
   ;; :load-path "/usr/share/emacs/site-lisp/org/"
 
+  :ensure org-plus-contrib
   :demand t
   :after evil
 
@@ -609,118 +627,94 @@
   org-publish-project-alist
   org-stuck-projects
   yg-fogbugz-url
-  yg-kiln-url
+  yg-jira-url
 
   :custom
-  (org-agenda-tags-column 'auto)
-  (org-deadline-warning-days 30)
-  (org-html-htmlize-output-type 'css)
-  (org-src-tab-acts-natively t)
-  (org-startup-indented t)
-  (org-fontify-quote-and-verse-blocks  t)
+  (org-agenda-block-separator "")
+  (org-agenda-custom-commands '(
+                                ("." "Agenda/Refile/Archive"
+                                 ((agenda "" nil)
+                                  (tags-todo "-REFILE/NEXT|WAIT"
+                                        ((org-agenda-overriding-header "Next tasks")
+                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
+                                         (org-agenda-files '("~/org/"))))
+                                  (tags-todo "-REFILE/TODO"
+                                        ((org-agenda-overriding-header "Unscheduled tasks")
+                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
+                                         (org-agenda-files '("~/org/"))))
+                                  (tags "REFILE"
+                                        ((org-agenda-overriding-header "[[~/org/refile.org][Tasks to Refile]]")
+                                         (org-agenda-files '("~/org/refile.org"))))
+                                  (org-ql-block '(and
+                                                  (done)
+                                                  (ts :to -30))
+                                                ((org-ql-block-header "Tasks to archive")))))))
+
   (org-agenda-files '("~/org/"))
   (org-agenda-include-diary t)
-  (org-agenda-start-on-weekday nil)
+  (org-agenda-log-mode-items `(clock closed))
+  (org-agenda-sorting-strategy '((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
+                                 (todo todo-state-down priority-down category-up alpha-up)
+                                 (tags todo-state-down priority-down category-up alpha-up)
+                                 (search todo-state-down priority-down category-up alpha-up)))
   (org-agenda-span 1)
+  (org-agenda-start-on-weekday nil)
+  (org-agenda-start-with-log-mode t)
+  (org-agenda-tags-column 'auto)
+  ;; (org-archive-location "%s_archive::* Archived Tasks")
   (org-babel-load-languages
    '((emacs-lisp . t)
      (ledger . t)
      (shell . t)
      (sql . t)
      (python . t)))
+  (org-capture-templates '(("t" "Todo"        entry (file "~/org/refile.org") "* TODO %?")
+                           ("y" "Todo (yank)" entry (file "~/org/refile.org") "* TODO %?\n%i\n%a\n")
+                           ("m" "Meeting"     entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
+                           ("h" "Habit"       entry (file "~/org/refile.org") "* TODO %?\n:PROPERTIES:\n:STYLE:    habit\n:END:\n")
+                           ("n" "Note"        entry (file "~/org/notes.org")  "* %? \n%U\n%a\n")
+                           ("i" "Idea"        entry (file "~/org/ideas.org")  "* %? \n%U\n%a\n")
+                           ("l" "Link"        entry (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX") "* %a\n%i" :immediate-finish t)
+                           ))
+  (org-clock-into-drawer "CLOCKS")
+  (org-clock-out-remove-zero-time-clocks t)
+  (org-clock-out-when-done '("WAIT" "DONE" "CANC" "DELG"))
+  (org-columns-default-format "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
+  (org-deadline-warning-days 30)
   (org-default-notes-file "~/org/refile.org")
-  (org-fast-tag-selection-single-key t)
-  (org-treat-S-cursor-todo-selection-as-state-change nil)
-  (org-src-fontify-natively t)
   (org-default-priority 68)
+  (org-export-backends '(ascii html icalendar latex odt confluence))
+  (org-fast-tag-selection-single-key t)
+  (org-fontify-quote-and-verse-blocks  t)
   (org-fontify-whole-heading-line t)
-  (org-priority-start-cycle-with-default nil)
-  (org-return-follows-link t)
-  (org-agenda-sorting-strategy '((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
-                                 (todo priority-down category-keep alpha-up)
-                                 (tags priority-down category-keep)
-                                 (search category-keep)))
-  (org-priority-faces '((65 . font-lock-warning-face)  ; A
-                        (67 . font-lock-comment-face))) ; C
-  (org-stuck-projects '("+LEVEL=2/-DONE"
-                        ("TODO" "STRT" "WAIT" "CANC" "DELG")
-                        ("@ignore") ""))
-  ;; See https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
-  (org-agenda-custom-commands '((" " "Agenda"
-                                 ((agenda "" nil)
-                                  (tags "REFILE"
-                                        ((org-agenda-overriding-header "Tasks to Refile")
-                                         (org-tags-match-list-sublevels nil)))
-                                  (tags "-REFILE/"
-                                        ((org-agenda-overriding-header "Tasks to Archive")
-                                         (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-                                         (org-tags-match-list-sublevels nil)))))
-                                ("n" "Notes" tags "NOTE"
-                                 ((org-agenda-overriding-header "Notes")
-                                  (org-tags-match-list-sublevels nil)))
-                                ("i" "Ideas" tags "IDEA"
-                                 ((org-agenda-overriding-header "Ideas")
-                                  (org-tags-match-list-sublevels nil)))
-                                ("A" agenda "Prioritized tasks"
-                                 ((org-agenda-skip-function
-                                   (lambda nil
-                                     (org-agenda-skip-entry-if 'notregexp "\\=.*\\[#\[ABC\]\\]")))
-                                  (org-agenda-overriding-header "Prioritized tasks")))
-                                ("u" . "Unscheduled")
-                                ("ut" "Unscheduled TODO" todo "TODO"
-                                 ((org-agenda-skip-function
-                                   (lambda nil
-                                     (org-agenda-skip-entry-if 'scheduled 'deadline)))
-                                  (org-agenda-overriding-header "Unscheduled TODO")))
-                                ("ud" "Unscheduled DONE|CANC" todo "DONE|CANC"
-                                 ((org-agenda-skip-function
-                                   (lambda nil
-                                     (org-agenda-skip-entry-if 'scheduled 'deadline)))
-                                  (org-agenda-overriding-header "Unscheduled DONE|CANC")))
-                                ("c" . "Filter by category")
-                                ("cb" "BrandIndex" tags-todo "+CATEGORY=\"BrandIndex\"")
-                                ("cd" "DevOps" tags-todo "+CATEGORY=\"DevOps\"")
-                                ("ce" "Emacs" tags-todo "+CATEGORY=\"Emacs\"")
-                                ("cp" "Python" tags-todo "+CATEGORY=\"Python\"")
-                                ("cr" "Rust" tags-todo "+CATEGORY=\"Rust\"")
-                                ;; ("d" todo "DELG" nil)
-                                ;; ("c" todo "DONE|DEFR|CANC" nil)
-                                ;; ("w" todo "WAIT" nil)
-                                ;; ("W" agenda "21 days" ((org-agenda-ndays 21)))
-                                ))
-  (org-archive-location "%s_archive::* Archived Tasks")
-  (org-tag-alist '((:startgroup)
-                   ("@family" . ?f)
-                   ("@home" . ?h)
-                   ;; ("@work" . ?w)
-                   ("@ignore" . ?i)
-                   (:endgroup)
-                   ("NOTE" . ?n)
-                   ("MEET" . ?m)
-                   ("PHON" . ?p)
-                   ("FLAGGED" . ?+)))
+  (org-html-htmlize-output-type 'css)
+  (org-html-validation-link nil)
   (org-link-abbrev-alist `(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
+                           ("BSD" . ,(concat yg-jira-url "/browse/BSD-%h"))
+                           ("BRI" . ,(concat yg-jira-url "/browse/BRI-%h"))
+                           ("DEVO" . ,(concat yg-jira-url "/browse/DEVO-%h"))
                            ("GH" . github-issue-url)
                            ("GL" . yg-gitlab-object-url)))
-  (org-refile-targets '((org-agenda-files :level . 1)))
-  (org-refile-use-outline-path t)
-  (org-outline-path-complete-in-steps nil)
-  (org-refile-allow-creating-parent-nodes 'confirm)
-  (org-clock-out-remove-zero-time-clocks t)
-  (org-clock-out-when-done t)
-  (org-html-validation-link nil)
-  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)")
-                       (sequence "WAIT(w@/!)" "|" "DEFR(f@)")))
-  (org-todo-keyword-faces '(("TODO" . org-todo)
-                            ("STRT" . org-strt)
-                            ("WAIT" . org-wait)
-                            ("DELG" . org-delg)
-                            ("MEET" . org-meet)
-                            ("CANC" . org-canc)
-                            ("DEFR" . org-defr)
-                            ("DONE" . org-done)))
   (org-log-done 'time)
   (org-log-into-drawer t)
+  (org-module '(org-habit
+                ox-confluence
+                org-protocol
+                ol-w3m
+                ol-bbdb
+                ol-bibtex
+                ol-docview
+                ol-gnus
+                ol-info
+                ol-irc
+                ol-mhe
+                ol-rmail
+                ol-eww))
+  (org-outline-path-complete-in-steps nil)
+  (org-priority-faces '((65 . font-lock-warning-face)  ; A
+                        (67 . font-lock-comment-face))) ; C
+  (org-priority-start-cycle-with-default nil)
+  (org-protocol-default-template-key "l")
   (org-publish-project-alist '(("home"
                                 :base-directory "~/Private/org/"
                                 :exclude "\\.*"
@@ -800,16 +794,33 @@
                                 :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
                                 :recursive t
                                 :publishing-function org-publish-attachment)))
-  (org-capture-templates '(("t" "Todo"      entry (file "~/org/refile.org") "* TODO %?\nSCHEDULED: %t\n%i\n%a\n")
-                           ("m" "Meeting"   entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
-                           ("n" "Note"      entry (file "~/org/notes.org")  "* %? :NOTE:\n%U\n%a\n")
-                           ("i" "Idea"      entry (file "~/org/ideas.org")  "* %? :IDEA:\n%U\n%a\n")
-                           ("l" "Link"      entry (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX") "* %a\n%i" :immediate-finish t)
-                           ;; ("c" "Clipboard" entry (file "~/org/refile.org") "* TODO %?\n%i\n%x\n")
-                           ;; ("p" "Phone"     entry (file "~/org/refile.org") "* TODO Phone %? :PHON:\n%U")
-                           ;; ("j" "Journal"   entry (file+olp+datetree "~/org/diary.org") "* %?\nEntered on %U\n  %i\n  %a")
-                           ))
-  (org-protocol-default-template-key "l")
+  (org-refile-allow-creating-parent-nodes 'confirm)
+  (org-refile-targets '((org-agenda-files :level . 1)))
+  (org-refile-use-outline-path t)
+  (org-return-follows-link t)
+  (org-src-fontify-natively t)
+  (org-src-tab-acts-natively t)
+  (org-startup-indented t)
+  (org-stuck-projects '("+LEVEL=2/-DONE"
+                        ("TODO" "NEXT" "SOMEDAY" "WAIT" "CANC" "DELG")
+                        ("@ignore") ""))
+  (org-tag-alist '((:startgroup)
+                   ("@family" . ?f)
+                   ("@home" . ?h)
+                   ("@work" . ?w)
+                   ("@ignore" . ?i)
+                   (:endgroup)
+                   ("MEET" . ?m)
+                   ("FLAG" . ?+)))
+  (org-todo-keywords '((sequence "TODO(t)" "NEXT(n!)" "WAIT(w@/!)" "SDAY(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)")))
+  (org-todo-keyword-faces '(("TODO" . org-todo)
+                            ("NEXT" . org-strt)
+                            ("SDAY" . org-sday)
+                            ("WAIT" . org-wait)
+                            ("DELG" . org-delg)
+                            ("CANC" . org-canc)
+                            ("DONE" . org-done)))
+  (org-treat-S-cursor-todo-selection-as-state-change nil)
   
   :hook
   (org-mode . auto-fill-mode)
@@ -817,22 +828,47 @@
 
   :bind
   ;; From https://orgmode.org/manual/Activation.html#Activation
-  ("C-c a" . org-agenda)
-  ("C-c c" . org-capture)
-  ("C-c l" . org-store-link)
-  ("C-c C-l" . org-insert-link)
-
-  :init
-  (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
-  (require 'org-protocol)
+  ("C-c o a" . org-agenda)
+  ("C-c o c" . org-capture)
+  ("C-c o l" . org-store-link)
+  ("C-c o C-l" . org-insert-link)
 
   :config
+  (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
   (defface org-wait '((t (:inherit org-todo :foreground "gold"))) "Face used for waiting tasks." :group 'org-faces)
   (defface org-delg '((t (:inherit org-todo :foreground "dark gray"))) "Face used for delegated tasks." :group 'org-faces)
+  (defface org-sday '((t (:inherit org-todo :foreground "dark gray"))) "Face used for someday tasks." :group 'org-faces)
   (defface org-meet '((t (:inherit org-todo :foreground "deep sky blue"))) "Face used for meeting tasks." :group 'org-faces)
-  (defface org-canc '((t (:inherit org-todo :foreground "dim gray"))) "Face used for cancelled tasks." :group 'org-faces)
-  (defface org-defr '((t (:inherit org-todo :foreground "blue"))) "Face used for deferred tasks." :group 'org-faces))
+  (defface org-canc '((t (:inherit org-todo :foreground "dim gray"))) "Face used for cancelled tasks." :group 'org-faces))
+
+(use-package org-ql
+  :defines
+  org-ql-views
+  :bind
+  ("C-c o /" . org-ql-search)
+  ("C-c o v" . org-ql-view)
+  :config
+  (use-package org-ql-view
+    :ensure nil
+    :config
+    (add-to-list 'org-ql-views
+                 '("Overview: Someday" :buffers-files org-agenda-files
+                   :query (todo "SDAY")
+                   :super-groups ((:auto-parent t))
+                   :title "Someday") t)
+    (add-to-list 'org-ql-views
+                 '("Overview: Prioritized tasks" :buffers-files org-agenda-files
+                   :query (and (todo) (priority >= "C"))
+                   :title "Prioritized tasks") t)
+    (add-to-list 'org-ql-views
+                 '("Personal: Ideas" :buffers-files org-agenda-files
+                   :query (and (tags "IDEA") (level 1))
+                   :title "Ideas") t)
+    (add-to-list 'org-ql-views
+                 '("Personal: Notes" :buffers-files org-agenda-files
+                   :query (and (tags "NOTE") (level 1))
+                   :title "Notes") t)))
 
 (use-package org-mu4e
   :ensure nil
@@ -889,10 +925,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
      ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
   (projectile-globally-ignored-file-suffixes '("pyc" "beam"))
   (projectile-switch-project-action 'projectile-dired)
-  :init
-  (projectile-mode)
+  :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (global-set-key (kbd "<f5>") 'projectile-compile-project))
+  (global-set-key (kbd "<f5>") 'projectile-compile-project)
+  :init
+  (projectile-mode +1))
 
 (use-package python
   :after evil
@@ -910,11 +947,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (python-mode . (lambda ()
                    ;; (elpy-enable)
                    (set-whitespace-line-column 79)
-                   (define-key python-mode-map (kbd "C-c b") 'python-insert-breakpoint)
+                   ;; (define-key python-mode-map (kbd "C-c b") 'python-insert-breakpoint)
                    (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
                    (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
                    (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
-                   ;; TODO lsp
+                   (evil-define-key 'normal python-mode-map (kbd ",d") 'my/elpy-test-at-point)
                    ;; (evil-define-key 'normal python-mode-map (kbd "C-]") 'elpy-goto-definition)
                    ;; (evil-define-key 'normal python-mode-map (kbd "K") 'elpy-doc)
                    ;; (evil-define-key 'normal python-mode-map (kbd "gf") (lambda () (interactive) (elpy-find-file t))))))
@@ -954,8 +991,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :config
   (rg-define-toggle "--context 3" "x" nil))
 
-(use-package rmsbolt
-  :disabled t)
+(use-package rjsx-mode
+  :mode ((rx ".js" eos)))
 
 (use-package rst
   :hook
@@ -1011,9 +1048,13 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 (use-package toml-mode
   :mode ((rx "Cargo")))
 
+(use-package undo-tree
+  :custom
+  (undo-tree-auto-save-history t))
+
 (use-package vcs-resolve
   :load-path "/home/lbolla/src/github.com/lbolla/vcs-resolve/"
-  :demand t
+  ;; :demand t
   :bind
   ("C-c v b" . vcs-resolve-buffer)
   ("C-c v p" . vcs-resolve-at-point)
@@ -1024,10 +1065,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 (use-package web-mode
   :mode ((rx ".html" eos)
          (rx ".tmpl" eos))
-  :custom
-  (web-mode-code-indent-offset 4)
-  (web-mode-css-indent-offset 2)
-  (web-mode-markup-indent-offset 2)
+  ;; Use .dir-locals.el
+  ;; :custom
+  ;; (web-mode-code-indent-offset 4)
+  ;; (web-mode-css-indent-offset 2)
+  ;; (web-mode-markup-indent-offset 2)
   :init
   (evil-define-key 'normal web-mode-map (kbd "%") 'web-mode-tag-match)
   (evil-define-key 'visual web-mode-map (kbd "%") 'web-mode-tag-match)
@@ -1043,7 +1085,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                  (modify-syntax-entry ?\_ "w")
                  (modify-syntax-entry ?\- "w")
                  (modify-syntax-entry ?\$ ".")
-                 (set-indent 2)
                  (variable-pitch-mode 0)
                  (flyspell-mode nil))))
 

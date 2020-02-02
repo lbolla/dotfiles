@@ -47,11 +47,21 @@
 
 (define-abbrev-table 'SAS-mode-abbrev-table '())
 
+(define-abbrev-table 'bibtex-mode-abbrev-table '())
+
+(define-abbrev-table 'calendar-mode-abbrev-table '())
+
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
 
+(define-abbrev-table 'diary-fancy-display-mode-abbrev-table '())
+
+(define-abbrev-table 'diary-mode-abbrev-table '())
+
 (define-abbrev-table 'diff-mode-abbrev-table '())
+
+(define-abbrev-table 'dig-mode-abbrev-table '())
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
@@ -60,6 +70,12 @@
 (define-abbrev-table 'elpy-refactor-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-info-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-key-list-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-key-mode-abbrev-table '())
 
 (define-abbrev-table 'eshell-mode-abbrev-table '())
 
@@ -93,15 +109,41 @@
 
 (define-abbrev-table 'ess-watch-mode-abbrev-table '())
 
+(define-abbrev-table 'evil-command-window-mode-abbrev-table '())
+
+(define-abbrev-table 'evil-list-view-mode-abbrev-table '())
+
 (define-abbrev-table 'ffip-diff-mode-abbrev-table '())
+
+(define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
+
+(define-abbrev-table 'flycheck-error-message-mode-abbrev-table '())
+
+(define-abbrev-table 'flymake-diagnostics-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
+(define-abbrev-table 'gfm-mode-abbrev-table '())
+
+(define-abbrev-table 'gfm-view-mode-abbrev-table '())
+
 (define-abbrev-table 'global-abbrev-table '())
+
+(define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
+
+(define-abbrev-table 'gnus-article-mode-abbrev-table '())
+
+(define-abbrev-table 'gnus-group-mode-abbrev-table '())
+
+(define-abbrev-table 'gnus-sticky-article-mode-abbrev-table '())
 
 (define-abbrev-table 'grep-mode-abbrev-table '())
 
 (define-abbrev-table 'help-mode-abbrev-table '())
+
+(define-abbrev-table 'html-mode-abbrev-table '())
+
+(define-abbrev-table 'ibuffer-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-ess-julia-mode-abbrev-table '())
 
@@ -123,13 +165,35 @@
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
+(define-abbrev-table 'lsp-browser-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-log-io-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-rust-analyzer-status-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-rust-analyzer-syntax-tree-mode-abbrev-table '())
+
+(define-abbrev-table 'markdown-mode-abbrev-table '())
+
+(define-abbrev-table 'markdown-view-mode-abbrev-table '())
+
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
+(define-abbrev-table 'mu4e-compose-mode-abbrev-table '())
+
+(define-abbrev-table 'mu4e-org-mode-abbrev-table '())
+
+(define-abbrev-table 'mu4e~update-mail-mode-abbrev-table '())
+
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
+
+(define-abbrev-table 'org-export-stack-mode-abbrev-table '())
+
+(define-abbrev-table 'org-mode-abbrev-table '())
 
 (define-abbrev-table 'outline-mode-abbrev-table '())
 
@@ -147,13 +211,19 @@
   '(
    ))
 
+(define-abbrev-table 'rg-mode-abbrev-table '())
+
 (define-abbrev-table 'sas-dir-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
+(define-abbrev-table 'sgml-mode-abbrev-table '())
+
 (define-abbrev-table 'sh-mode-abbrev-table '())
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
+
+(define-abbrev-table 'smime-mode-abbrev-table '())
 
 (define-abbrev-table 'snippet-mode-abbrev-table '())
 
@@ -170,6 +240,20 @@
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
 
 (define-abbrev-table 'use-package-statistics-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-bzr-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-hg-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-mtn-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 

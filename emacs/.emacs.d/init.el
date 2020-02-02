@@ -40,6 +40,8 @@
    (quote
     ("." "/usr/include" "/usr/local/include/*" "../deps" "../../deps")))
  '(company-idle-delay 0.2)
+ '(company-lsp-cache-candidates (quote auto) t)
+ '(company-lsp-enable-snippet nil t)
  '(company-tooltip-align-annotations t)
  '(custom-safe-themes t)
  '(delete-old-versions t)
@@ -47,8 +49,9 @@
    (quote
     (("UTC" "UTC/GMT/Zulu")
      ("America/Los_Angeles" "palmcal")
-     ("America/Sao_Paulo" "diogo")
      ("America/New_York" "fesh")
+     ("America/Lima" "mbc")
+     ("America/Sao_Paulo" "diogo")
      ("IST-5:30" "shashikant")
      ("America/Los_Angeles" "Palo Alto")
      ("America/Mexico_City" "Mexico City")
@@ -67,10 +70,6 @@
      ("Asia/Shanghai" "Shanghai")
      ("Asia/Tokyo" "Tokyo")
      ("Australia/Sydney" "Sydney"))))
- '(doom-modeline-bar-width 3 t)
- '(doom-modeline-icon t t)
- '(doom-tomorrow-day-padded-modeline t t)
- '(doom-tomorrow-night-padded-modeline t)
  '(dumb-jump-selector (quote ivy))
  '(dumb-jump-window (quote other))
  '(dump-jump-prefer-searcher (quote rg) t)
@@ -116,19 +115,71 @@
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
- '(initial-major-mode (quote fundamental-mode))
  '(initial-scratch-message ";; SCRATCH
 
 ")
+ '(ivy-posframe-display-functions-alist (quote ((t . ivy-posframe-display-at-frame-top-center))))
+ '(ivy-posframe-height-alist (quote ((t . 20))))
+ '(ivy-posframe-parameters (quote ((internal-border-width . 1))))
+ '(ivy-posframe-width 90)
+ '(ivy-rich-display-transformers-list
+   (quote
+    (ivy-switch-buffer
+     (:columns
+      ((ivy-rich-switch-buffer-icon
+        (:width 2))
+       (ivy-rich-candidate
+        (:width 45))
+       (ivy-rich-switch-buffer-project
+        (:width 15 :face success))
+       (ivy-rich-switch-buffer-major-mode
+        (:width 13 :face warning)))
+      :predicate
+      (function
+       (lambda
+         (cand)
+         (get-buffer cand))))
+     counsel-M-x
+     (:columns
+      ((counsel-M-x-transformer
+        (:width 35))
+       (ivy-rich-counsel-function-docstring
+        (:width 54 :face font-lock-doc-face))))
+     counsel-describe-function
+     (:columns
+      ((counsel-describe-function-transformer
+        (:width 35))
+       (ivy-rich-counsel-function-docstring
+        (:width 54 :face font-lock-doc-face))))
+     counsel-describe-variable
+     (:columns
+      ((counsel-describe-variable-transformer
+        (:width 35))
+       (ivy-rich-counsel-variable-docstring
+        (:width 54 :face font-lock-doc-face))))
+     package-install
+     (:columns
+      ((ivy-rich-candidate
+        (:width 25))
+       (ivy-rich-package-version
+        (:width 12 :face font-lock-comment-face))
+       (ivy-rich-package-archive-summary
+        (:width 7 :face font-lock-builtin-face))
+       (ivy-rich-package-install-summary
+        (:width 43 :face font-lock-doc-face)))))))
  '(ivy-use-virtual-buffers t)
- '(js2-mode-show-strict-warnings nil t)
+ '(js2-mode-show-strict-warnings nil)
+ '(json-reformat:indent-width 2 t)
  '(kubernetes-kubectl-flags
    (quote
     ("--kubeconfig=/home/lbolla/src/yougov/devops/kubernetes/client/config")) t)
  '(line-spacing 0.2)
  '(linum-format " %7i ")
  '(load-prefer-newer t)
+ '(lsp-enable-snippet nil)
  '(lsp-prefer-flymake nil)
+ '(lsp-response-timeout 5)
+ '(lsp-rust-clippy-preference "on")
  '(lsp-ui-doc-enable nil t)
  '(lsp-ui-flycheck-enable t t)
  '(lsp-ui-sideline-enable nil t)
@@ -146,7 +197,7 @@
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-style (quote message))
+ '(mu4e-alert-style (quote message) t)
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
@@ -195,62 +246,74 @@
  '(mu4e-view-use-gnus nil)
  '(my/mu4e-get-mail-command "mbsync -a")
  '(network-security-level (quote high) nil nil "Customized with use-package nsm")
+ '(org-agenda-block-separator "")
  '(org-agenda-custom-commands
    (quote
-    ((" " "Agenda"
+    (("." "Agenda/Refile/Archive"
       ((agenda "" nil)
+       (tags-todo "-REFILE/NEXT|WAIT"
+                  ((org-agenda-overriding-header "Next tasks")
+                   (org-agenda-skip-function
+                    (quote my/org-agenda-skip-scheduled))
+                   (org-agenda-files
+                    (quote
+                     ("~/org/")))))
+       (tags-todo "-REFILE/TODO"
+                  ((org-agenda-overriding-header "Unscheduled tasks")
+                   (org-agenda-skip-function
+                    (quote my/org-agenda-skip-scheduled))
+                   (org-agenda-files
+                    (quote
+                     ("~/org/")))))
        (tags "REFILE"
-             ((org-agenda-overriding-header "Tasks to Refile")
-              (org-tags-match-list-sublevels nil)))
-       (tags "-REFILE/"
-             ((org-agenda-overriding-header "Tasks to Archive")
-              (org-agenda-skip-function
-               (quote bh/skip-non-archivable-tasks))
-              (org-tags-match-list-sublevels nil)))))
-     ("n" "Notes" tags "NOTE"
-      ((org-agenda-overriding-header "Notes")
-       (org-tags-match-list-sublevels nil)))
-     ("i" "Ideas" tags "IDEA"
-      ((org-agenda-overriding-header "Ideas")
-       (org-tags-match-list-sublevels nil)))
-     ("A" agenda "Prioritized tasks"
-      ((org-agenda-skip-function
-        (lambda nil
-          (org-agenda-skip-entry-if
-           (quote notregexp)
-           "\\=.*\\[#[ABC]\\]")))
-       (org-agenda-overriding-header "Prioritized tasks")))
-     ("u" . "Unscheduled")
-     ("ut" "Unscheduled TODO" todo "TODO"
-      ((org-agenda-skip-function
-        (lambda nil
-          (org-agenda-skip-entry-if
-           (quote scheduled)
-           (quote deadline))))
-       (org-agenda-overriding-header "Unscheduled TODO")))
-     ("ud" "Unscheduled DONE|CANC" todo "DONE|CANC"
-      ((org-agenda-skip-function
-        (lambda nil
-          (org-agenda-skip-entry-if
-           (quote scheduled)
-           (quote deadline))))
-       (org-agenda-overriding-header "Unscheduled DONE|CANC")))
-     ("c" . "Filter by category")
-     ("cb" "BrandIndex" tags-todo "+CATEGORY=\"BrandIndex\"")
-     ("cd" "DevOps" tags-todo "+CATEGORY=\"DevOps\"")
-     ("ce" "Emacs" tags-todo "+CATEGORY=\"Emacs\"")
-     ("cp" "Python" tags-todo "+CATEGORY=\"Python\"")
-     ("cr" "Rust" tags-todo "+CATEGORY=\"Rust\""))))
+             ((org-agenda-overriding-header "[[~/org/refile.org][Tasks to Refile]]")
+              (org-agenda-files
+               (quote
+                ("~/org/refile.org")))))
+       (org-ql-block
+        (quote
+         (and
+          (done)
+          (ts :to -30)))
+        ((org-ql-block-header "Tasks to archive")))))
+     ("s" "Someday"
+      ((org-ql-block
+        (quote
+         (todo "SDAY"))
+        ((org-ql-block-header "Someday")))))
+     ("n" "Notes"
+      ((org-ql-block
+        (quote
+         (and
+          (tags "NOTE")
+          (level 2)))
+        ((org-ql-block-header "Notes")))))
+     ("i" "Ideas"
+      ((org-ql-block
+        (quote
+         (and
+          (tags "IDEA")
+          (level 2)))
+        ((org-ql-block-header "Ideas")))))
+     ("A" "Prioritized tasks"
+      ((org-ql-block
+        (quote
+         (and
+          (todo)
+          (priority >= "C")))
+        ((org-ql-block-header "Prioritized tasks"))))))))
  '(org-agenda-files (quote ("~/org/")))
  '(org-agenda-include-diary t)
+ '(org-agenda-log-mode-items (quote (closed)))
  '(org-agenda-sorting-strategy
    (quote
-    ((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-keep tag-up)
-     (todo priority-down category-keep alpha-up)
-     (tags priority-down category-keep)
-     (search category-keep))))
+    ((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
+     (todo todo-state-down priority-down category-up alpha-up)
+     (tags todo-state-down priority-down category-up alpha-up)
+     (search todo-state-down priority-down category-up alpha-up))))
  '(org-agenda-span 1)
  '(org-agenda-start-on-weekday nil)
+ '(org-agenda-start-with-log-mode t)
  '(org-agenda-tags-column (quote auto))
  '(org-archive-location "%s_archive::* Archived Tasks")
  '(org-babel-load-languages
@@ -264,8 +327,10 @@
    (quote
     (("t" "Todo" entry
       (file "~/org/refile.org")
+      "* TODO %?")
+     ("y" "Todo (yank)" entry
+      (file "~/org/refile.org")
       "* TODO %?
-SCHEDULED: %t
 %i
 %a
 ")
@@ -273,6 +338,13 @@ SCHEDULED: %t
       (file "~/org/refile.org")
       "* TODO Meeting %? :MEET:
 %U")
+     ("h" "Habit" entry
+      (file "~/org/refile.org")
+      "* TODO %?
+:PROPERTIES:
+:STYLE:    habit
+:END:
+")
      ("n" "Note" entry
       (file "~/org/notes.org")
       "* %? :NOTE:
@@ -288,12 +360,16 @@ SCHEDULED: %t
      ("l" "Link" entry
       (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX")
       "* %a
-%i" :immediate-finish t))))
- '(org-clock-out-remove-zero-time-clocks t)
- '(org-clock-out-when-done t)
+%i" :immediate-finish t))) t)
+ '(org-clock-into-drawer "CLOCKS" t)
+ '(org-clock-out-remove-zero-time-clocks t t)
+ '(org-clock-out-when-done (quote ("WAIT" "DONE CANC" "DELG")) t)
+ '(org-columns-default-format
+   "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
  '(org-deadline-warning-days 30)
  '(org-default-notes-file "~/org/refile.org")
  '(org-default-priority 68)
+ '(org-export-backends (quote (ascii html icalendar latex odt confluence)) nil nil "Customized with use-package org")
  '(org-fast-tag-selection-single-key t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
@@ -302,10 +378,19 @@ SCHEDULED: %t
  '(org-link-abbrev-alist
    (quote
     (("FB" . "https://yougov.fogbugz.com/f/cases/%h")
+     ("BSD" . "https://jira.yougov.net/browse/BSD-%h")
+     ("BRI" . "https://jira.yougov.net/browse/BRI-%h")
+     ("DEVO" . "https://jira.yougov.net/browse/DEVO-%h")
      ("GH" . github-issue-url)
      ("GL" . yg-gitlab-object-url))))
  '(org-log-done (quote time))
  '(org-log-into-drawer t)
+ '(org-module
+   (quote
+    (org-habit ox-confluence org-protocol ol-w3m ol-bbdb ol-bibtex ol-docview ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-eww)) t)
+ '(org-modules
+   (quote
+    (org-habit ox-confluence org-protocol ol-w3m ol-bbdb ol-bibtex ol-docview ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-eww)))
  '(org-outline-path-complete-in-steps nil)
  '(org-priority-faces
    (quote
@@ -343,7 +428,7 @@ SCHEDULED: %t
  '(org-stuck-projects
    (quote
     ("+LEVEL=2/-DONE"
-     ("TODO" "STRT" "WAIT" "CANC" "DELG")
+     ("TODO" "NEXT" "SOMEDAY" "WAIT" "CANC" "DELG")
      ("@ignore")
      "")))
  '(org-tag-alist
@@ -351,31 +436,30 @@ SCHEDULED: %t
     ((:startgroup)
      ("@family" . 102)
      ("@home" . 104)
+     ("@work" . 119)
      ("@ignore" . 105)
      (:endgroup)
      ("NOTE" . 110)
      ("MEET" . 109)
      ("PHON" . 112)
-     ("FLAGGED" . 43))))
+     ("FLAG" . 43))))
  '(org-todo-keyword-faces
    (quote
     (("TODO" . org-todo)
-     ("STRT" . org-strt)
+     ("NEXT" . org-strt)
+     ("SDAY" . org-sday)
      ("WAIT" . org-wait)
      ("DELG" . org-delg)
-     ("MEET" . org-meet)
      ("CANC" . org-canc)
-     ("DEFR" . org-defr)
      ("DONE" . org-done))))
  '(org-todo-keywords
    (quote
-    ((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)")
-     (sequence "WAIT(w@/!)" "|" "DEFR(f@)"))))
+    ((sequence "TODO(t)" "NEXT(n!)" "WAIT(w@/!)" "SDAY(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)"))))
  '(org-treat-S-cursor-todo-selection-as-state-change nil)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (kubernetes-evil kubernetes eyebrowse company-lsp lsp-ui lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers org expand-region esup magit-todos nnir poet-theme rmsbolt goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse company-lsp lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(prettier-js-args
    (quote
@@ -411,8 +495,8 @@ SCHEDULED: %t
      (eval setenv "LAUNCH_DB" "1"))))
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
- '(shr-use-colors nil)
- '(shr-use-fonts t)
+ '(shr-use-colors t)
+ '(shr-use-fonts nil)
  '(smtpmail-mail-address "lorenzo.bolla@yougov.com" t)
  '(smtpmail-smtp-server "smtp.yougov.com")
  '(smtpmail-smtp-service 465)
@@ -449,7 +533,7 @@ SCHEDULED: %t
  '(vc-follow-symlinks nil)
  '(vc-log-show-limit 50)
  '(vcs-resolve-exe
-   "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py")
+   "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py" t)
  '(w3m-home-page "about:")
  '(w3m-search-default-engine "startpage")
  '(w3m-search-engine-alist
@@ -488,9 +572,9 @@ SCHEDULED: %t
      ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
      ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
      ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
- '(web-mode-code-indent-offset 4 t)
- '(web-mode-css-indent-offset 2 t)
- '(web-mode-markup-indent-offset 2 t)
+ '(web-mode-code-indent-offset 4)
+ '(web-mode-css-indent-offset 2)
+ '(web-mode-markup-indent-offset 2)
  '(whitespace-style (quote (face trailing lines-tail)))
  '(yas-indent-line (quote fixed)))
 
@@ -504,6 +588,8 @@ SCHEDULED: %t
  '(default ((t (:family "Iosevka" :weight light :height 120))))
  '(fixed-pitch ((t (:family "Iosevka" :height 120))))
  '(variable-pitch ((t (:family "Gentium" :height 140)))))
+ ;; '(mode-line ((t (:background "gray55"))))
+ ;; '(region ((t (:background "#50506f"))))
 
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
 (setq auto-window-vscroll nil)
