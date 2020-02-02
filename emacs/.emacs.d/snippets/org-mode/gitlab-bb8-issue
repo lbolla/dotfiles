@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: bb8 issue
+# key: bb8#
+# --
+[[GL:brandindex/bb8#${1:issue}]]

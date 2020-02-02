@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: persistent-volume
+# key: pv
+# group: kubernetes
+# See https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+# --
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ${1:name}
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: slow
+  hostPath:
+    path: /path/to/data
+    type: ""

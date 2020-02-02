@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: cowboy_handler
+# key: cowboy_handler
+# --
+
+-module(hello_handler).
+-behavior(cowboy_handler).
+
+-export([init/2]).
+
+init(Req0, State) ->
+    Name = cowboy_req:binding(name, Req0, <<"Erlang">>),
+    Req = cowboy_req:reply(
+            200,
+            #{<<"content-type">> => <<"text/plain">>},
+            [<<"Hello ">>, Name],
+            Req0),
+    {ok, Req, State}.

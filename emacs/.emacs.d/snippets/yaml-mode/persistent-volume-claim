@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: persistent-volume-claim
+# key: pvc
+# group: kubernetes
+# See https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+# --
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: ${1:name}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ${2:glusterfs-storage}

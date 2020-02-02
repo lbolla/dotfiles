@@ -1,0 +1,4 @@
+/.dir-locals.el
+/.mypy_cache
+/.paver_targets
+/.pycheckers

@@ -2,11 +2,4 @@
 # This hook is run after every virtualenv is activated.
 
 source <(pip completion --zsh)
-
-if [[ $VIRTUAL_ENV == "/home/lbolla/.virtualenvs/bixmodel" ]]; then
-    export LAUNCH_DB=1
-fi;
-
-if [[ $VIRTUAL_ENV == "/home/lbolla/.virtualenvs/bix2ui" ]]; then
-    export LAUNCH_DB=1
-fi;
+[[ -f ".venv" ]] && source ".venv"

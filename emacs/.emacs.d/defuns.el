@@ -3,20 +3,52 @@
 ;;; 7 November 2016
 
 ;;; Code:
+;;; TODO replace evil-* and other non-Emacs functions with Emacs ones
+;;; TODO rename file to "my.el"
 
-(defun split-window-below-and-switch-buffer ()
+(defun my/split-window-below-and-switch-buffer ()
   "Split window below and select a buffer."
   (interactive)
   (split-window-below)
   (windmove-down)
   (ivy-switch-buffer))
 
-(defun split-window-right-and-switch-buffer ()
+(defun my/split-window-right-and-switch-buffer ()
   "Split window right and select a buffer."
   (interactive)
   (split-window-right)
   (windmove-right)
   (ivy-switch-buffer))
+
+(defun my/find-file-linkz ()
+  "Visit file Linkz."
+  (interactive)
+  (find-file "~/Private/org/org-linkz/Linkz.org"))
+
+(defun my/find-file-pkgs ()
+  "Visit file pkgs.el."
+  (interactive)
+  (find-file "~/.emacs.d/pkgs.el"))
+
+(defun my/find-file-init ()
+  "Visit file init.el."
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+(defun my/elpy-test-at-point (top file module test)
+  "Find Python test at point."
+  (interactive (elpy-test-at-point))
+  (cond
+   (test
+    (let ((test-list (split-string test "\\.")))
+      (message (kill-new
+                (mapconcat #'identity
+                           (cons file test-list)
+                           "::")))))
+   (file
+    (message (kill-new file)))
+   (t
+    (message "No test"))))
 
 (defun cython-show-annotated ()
   "Show annotated cython code."
@@ -29,6 +61,16 @@
   (if (equal major-mode 'python-mode)
       `no-indent'
     nil))
+
+(defun erlang-typer ()
+  "Run `typer` on current buffer."
+  (interactive)
+  (save-buffer)
+  (let ((outbuf (get-buffer-create "*Typer*")))
+    (shell-command (concat "typer " (buffer-file-name)) outbuf)
+    (with-current-buffer outbuf
+      (setq buffer-read-only t)
+      (display-buffer outbuf))))
 
 (defun eww-at-point ()
   "Run eww on thing at poing."
@@ -80,20 +122,28 @@
 (defcustom my/mu4e-get-mail-command "offlineimap"
   "Shell command to run to retrieve email manually." :group 'Mu4e)
 
-(defun mu4e-refresh-headers (args)
-  "Refresh headers calling 'offlineimap' if prefix is used and in ARGS."
+(defcustom my/lesser-evil nil
+  "Only load minimal evil configuration." :group 'local)
+
+(defun my/mu4e-refresh-headers (args)
+  "Refresh headers calling 'my/mu4e-get-mail-command' if ARGS."
   (interactive "P")
   (let ((mu4e-get-mail-command (if args my/mu4e-get-mail-command "true")))
     (mu4e-update-mail-and-index nil))
   (mu4e-headers-rerun-search))
 
-(defun bh/skip-non-archivable-tasks ()
+(defun my/org-agenda-skip-scheduled ()
+  "Sckip org trees that are not scheduled."
+  (org-agenda-skip-entry-if 'scheduled 'deadline))
+
+(defun my/org-agenda-skip-non-archivable ()
   "Skip org trees that are not available for archiving."
   (save-restriction
     (widen)
     ;; Consider only tasks with done todo headings as archivable candidates
     (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
           (subtree-end (save-excursion (org-end-of-subtree t))))
+      ;; (message "Headline %s -- %s %s in? %s %s" (thing-at-point 'line t) next-headline (org-get-todo-state) org-done-keywords org-todo-keywords-1)
       (if (member (org-get-todo-state) org-todo-keywords-1)
           (if (member (org-get-todo-state) org-done-keywords)
               (let* ((daynr (string-to-number (format-time-string "%d" (current-time))))
@@ -104,20 +154,13 @@
                                            (forward-line 1)
                                            (and (< (point) subtree-end)
                                                 (re-search-forward (concat last-month "\\|" this-month) subtree-end t)))))
+                ;; (message "  current: %s" subtree-is-current)
                 (if subtree-is-current
-                    subtree-end ; Has a date in this month or last month, skip it
+                    ;; Has a date in this month or last month, skip it
+                    subtree-end
                   nil))  ; available to archive
             (or subtree-end (point-max)))
         next-headline))))
-
-(defun my-log (msg)
-  "Log a timestamped MSG."
-  (message (concat (number-to-string (float-time)) " " msg)))
-
-(defun insert-x-primary-selection ()
-  "Insert selection from X primary clipboard."
-  (interactive)
-  (insert (gui-get-primary-selection)))
 
 (defun chomp (str)
   "Chomp leading and tailing whitespace from STR."
@@ -132,11 +175,6 @@
     (insert-file-contents fn)
     (buffer-string)))
 
-(defun my-beep ()
-  "Play an alert sound."
-  (let ((alert "/usr/share/sounds/gnome/default/alerts/glass.ogg"))
-    (start-process "beep" nil "mplayer" (expand-file-name alert))))
-
 (defun cycle (lst)
   "Cycle elements of LST."
   (let ((item (pop lst)))
@@ -145,38 +183,6 @@
 (defun is-theme-enabled (theme)
   "Check if THEME is enabled."
   (member theme custom-enabled-themes))
-
-(defmacro timeit (what &rest body)
-  "Time WHAT and run BODY and report real time taken to do so."
-  `(let ((start-time (float-time)))
-     (progn ,@body)
-     (let ((elapsed-time (- (float-time) start-time)))
-       (message "Completed %s in %.4f seconds" ,what elapsed-time)
-       elapsed-time)))
-
-(defmacro hook-into-modes (func modes)
-  "Add FUNC to MODES hooks."
-  `(dolist (mode-hook ,modes)
-     (add-hook mode-hook ,func)))
-
-;; (defmacro with-basic-http-auth (&rest body)
-;;   "Execute BODY with basic http auth."
-;;   `(let ((url-request-extra-headers
-;;           (cons `("Authorization" . ,(concat "Basic "
-;;                                              (base64-encode-string
-;;                                               (concat (read-string "Username: " "lorenzo.bolla")
-;;                                                       ":"
-;;                                                       (read-passwd "Password: "))))) url-request-extra-headers)))
-;;      (progn ,@body)))
-
-(defun set-indent (size)
-  "Set indent equal to SIZE."
-  (interactive "p")
-  (defvar evil-shift-width)
-  (defvar js-indent-level)
-  (setq evil-shift-width size
-        js-indent-level size
-        tab-width size))
 
 (defun set-whitespace-line-column (width)
   "Configure whitespace mode for line WIDTH."
@@ -197,27 +203,21 @@
       (goto-char temp-point))))
 
 (defcustom my-fonts '(
-                      "Operator Mono Light-14"
-                      "Ubuntu Mono-12"
-                      "ProggyCleanTT-12"
+                      "Monoid-10"
+                      ;; "Operator Mono Light-14"
+                      ;; "Ubuntu Mono-12"
                       "Terminus-12"
-                      "IBM 3270 Narrow-14"
+                      "ProggyCleanTT-12"
+                      ;; "IBM 3270 Narrow-14"
                       "Input-12"
-                      "Monoid-11"
-                      ) "List of fonts I like." :group 'local)
+                      "DejaVu Sans Mono-12"
+                      "Iosevka-12"
+                      ) "List of fonts I like." :group 'local :type 'list)
 
-(defun cycle-fonts ()
-  "Cycle between the fonts I like."
+(defun choose-font ()
+  "Choose a font."
   (interactive)
-  (set-frame-font (car my-fonts))
-  (message "Using font %s" (car my-fonts))
-  (setq my-fonts (cycle my-fonts)))
-
-(defun icalendar-import-buffer-in-default-diary ()
-  "Import icalendar files into default diary."
-  (interactive)
-  (defvar diary-file)
-  (icalendar-import-buffer diary-file t t))
+  (set-frame-font (ido-completing-read "Font: " my-fonts)))
 
 (defun cppref-search ()
   "Search word at point in cppreference.com."
@@ -239,10 +239,10 @@
          (repo (mapconcat 'identity (reverse (cdr tokens)) "/")))
     (format "https://github.com/%s/issues/%s" repo (url-hexify-string issue))))
 
-(defun python-insert-breakpoint (pdb)
-  "Insert Python PDB breakpoint above point."
+(defun python-insert-breakpoint (ipdb)
+  "Insert Python PDB or IPDB breakpoint above point."
   (interactive "P")
-  (let ((mod (if pdb "pdb" "ipdb")))
+  (let ((mod (if ipdb "ipdb" "pdb")))
     (evil-open-above 1)
     (insert (format "import %s; %s.set_trace()  # BREAKPOINT" mod mod))
     (evil-normal-state)))
@@ -266,12 +266,18 @@
       (insert "# pylint: disable=")))
   (evil-insert-state))
 
-(defun python-insert-type-annotation ()
-  "Insert type annotation."
-  (interactive)
-  (end-of-line)
-  (insert "  # type: ")
-  (evil-insert-state))
+(defun python-insert-type-annotation (eol)
+  "Insert type annotation possibly at EOL."
+  (interactive "P")
+  (if eol
+      (progn
+        (end-of-line)
+        (insert "  # type: ")
+        (evil-insert-state))
+    (progn
+      (evil-open-below 1)
+      (insert "# type: ")
+      (evil-insert-state))))
 
 (defun python--run-in-new-buffer (cmd args bufname)
   "Run CMD + ARGS and output to BUFNAME."
@@ -317,7 +323,7 @@
   "Activate VENV and cd to it."
   (interactive
    (list
-    (completing-read "Work on: " (pyvenv-virtualenv-list)
+    (completing-read "Work on: " (progn (elpy-enable) (pyvenv-virtualenv-list))
                      nil t nil 'pyvenv-workon-history nil nil)))
   (pyvenv-workon venv)
   (elpy-rpc-restart)
@@ -325,6 +331,8 @@
     (when (not (string-equal (getenv "HOME") dir))
       (delete-other-windows)
       (dired dir)
+      (when (functionp 'eyebrowse-rename-window-config)
+        (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) venv))
       (projectile-switch-project-by-name dir)
       (projectile-vc dir)
       (other-window 1))))
@@ -364,17 +372,141 @@ representation for the files to include, as returned by
     (when (and date (> (length date) 0))
       (format "<span class=\"timestamp\"><%s></span> by <em>%s</em>" (format-time-string "%Y-%m-%d" (org-time-string-to-time date)) author))))
 
-(defun mu4e-headers-narrow-thing-at-point ()
+(defun my/mu4e-headers-narrow-subject (q)
+  "Narrow m4e search by subject Q."
+  (let ((query (concat "s:/" q "/")))
+    (message query)
+    (mu4e-headers-search-narrow query)))
+
+(defun my/mu4e-headers-narrow-thing-at-point ()
   "Narrow mu4e search querying for thing at point."
   (interactive)
-  (let ((q (thing-at-point 'symbol)))
-    (mu4e-headers-search-narrow q)))
+  (let ((q (thing-at-point 'filename)))
+    (my/mu4e-headers-narrow-subject q)))
 
-(defun true-color-p ()
+(defun my/mu4e-headers-narrow ()
+  "Narrow mu4e search querying for ticket."
+  (interactive)
+  (beginning-of-line)
+  (cond
+   ((or (search-forward-regexp (rx (or "FogBugz" "Manuscript") " (" (one-or-more letter) " " (one-or-more digit)) (point-at-eol) t)
+        (search-forward-regexp (rx "JIRA:  Updates for " (>= 3 upper-case) "-" (one-or-more digit)) (point-at-eol) t)
+        (search-forward-regexp (rx (>= 3 upper-case) "-" (one-or-more digit)) (point-at-eol) t)
+        (search-forward-regexp (rx (or "#" "!") (one-or-more digit)) (point-at-eol) t)
+        (search-forward-regexp (rx (or "Context" "weighting" "Template")) (point-at-eol) t))
+    (my/mu4e-headers-narrow-thing-at-point))
+   ((search-forward-regexp (rx "Bix2 " (one-or-more letter) " Error") (point-at-eol) t)
+    (my/mu4e-headers-narrow-subject (match-string 0)))))
+
+(defun my/true-color-p ()
   "Return non-nil on displays that support 256 colors."
   (or
    (display-graphic-p)
    (= (tty-display-color-cells) 16777216)))
+
+(defun my/open-line-above ()
+  "Insert an empty line above the current line.
+Position the cursor at it's beginning, according to the current mode."
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun my/open-line ()
+  "Insert an empty line after the current line.
+Position the cursor at its beginning, according to the current mode."
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
+
+;; ;; From https://github.com/jethrokuan/.emacs.d/blob/master/init.el
+;; (defun my/org-process-inbox ()
+;;   "Called in org-agenda-mode, processes all inbox items."
+;;   (interactive)
+;;   (org-agenda-bulk-mark-regexp "inbox:")
+;;   (my/bulk-process-entries))
+
+;; (defun my/bulk-process-entries ()
+;;   "Bulk process inbox entries."
+;;   (if (not (null org-agenda-bulk-marked-entries))
+;;       (let ((entries (reverse org-agenda-bulk-marked-entries))
+;;             (processed 0)
+;;             (skipped 0))
+;;         (dolist (e entries)
+;;           (let ((pos (text-property-any (point-min) (point-max) 'org-hd-marker e)))
+;;             (if (not pos)
+;;                 (progn (message "Skipping removed entry at %s" e)
+;;                        (cl-incf skipped))
+;;               (goto-char pos)
+;;               (let (org-loop-over-headlines-in-active-region) (funcall 'my/org-agenda-process-inbox-item))
+;;               ;; `post-command-hook' is not run yet.  We make sure any
+;;               ;; pending log note is processed.
+;;               (when (or (memq 'org-add-log-note (default-value 'post-command-hook))
+;;                         (memq 'org-add-log-note post-command-hook))
+;;                 (org-add-log-note))
+;;               (cl-incf processed))))
+;;         (org-agenda-redo)
+;;         (unless org-agenda-persistent-marks (org-agenda-bulk-unmark-all))
+;;         (message "Acted on %d entries%s%s"
+;;                  processed
+;;                  (if (= skipped 0)
+;;                      ""
+;;                    (format ", skipped %d (disappeared before their turn)"
+;;                            skipped))
+;;                  (if (not org-agenda-persistent-marks) "" " (kept marked)")))))
+
+;; (defun my/org-agenda-process-inbox-item ()
+;;   "Process a single item in the org-agenda."
+;;   (interactive)
+;;   (org-with-wide-buffer
+;;    (org-agenda-set-tags)
+;;    (org-agenda-priority)
+;;    (call-interactively 'my/org-agenda-set-effort)
+;;    (org-agenda-refile nil nil t)))
+
+;; (defcustom my/org-current-effort "1:00" "Current effort for agenda items." :group 'local :type 'list)
+
+;; (defun my/org-agenda-set-effort (effort)
+;;   "Set the effort property for the current headline."
+;;   (interactive
+;;    (list (read-string (format "Effort [%s]: " my/org-current-effort) nil nil my/org-current-effort)))
+;;   (setq my/org-current-effort effort)
+;;   (org-agenda-check-no-diary)
+;;   (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
+;;                        (org-agenda-error)))
+;;          (buffer (marker-buffer hdmarker))
+;;          (pos (marker-position hdmarker))
+;;          (inhibit-read-only t)
+;;          newhead)
+;;     (org-with-remote-undo buffer
+;;       (with-current-buffer buffer
+;;         (widen)
+;;         (goto-char pos)
+;;         (org-show-context 'agenda)
+;;         (funcall-interactively 'org-set-effort nil my/org-current-effort)
+;;         (end-of-line 1)
+;;         (setq newhead (org-get-heading)))
+;;       (org-agenda-change-all-lines newhead hdmarker))))
+
+;; From https://www.emacswiki.org/emacs/RecreateScratchBuffer
+(defun create-scratch-buffer ()
+  "Create a scratch buffer."
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*scratch*"))
+  (insert initial-scratch-message)
+  (lisp-interaction-mode))
+
+;; From https://www.emacswiki.org/emacs/RecreateScratchBuffer
+(defun unkillable-scratch-buffer ()
+  "Clear instead of delete scratch buffer."
+  (if (equal (buffer-name (current-buffer)) "*scratch*")
+      (progn
+        (delete-region (point-min) (point-max))
+        nil)
+    t))
+
+(add-hook 'kill-buffer-query-functions 'unkillable-scratch-buffer)
 
 (provide 'defuns)
 ;;; defuns.el ends here

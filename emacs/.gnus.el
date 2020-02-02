@@ -11,13 +11,13 @@
 ;;@see https://github.com/jwiegley/dot-emacs/blob/master/dot-gnus.el
 
 (use-package gnus
-  :init (progn
-          (use-package nnir)
-          (use-package epa))
-  :config (progn
-            (setq gnus-select-method '(nntp "nntp.aioe.org"))
-            (setq gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s\n")
-            (add-to-list 'gnus-secondary-select-methods '(nntp "news.gmane.org"))))
+  :custom
+  (gnus-select-method '(nntp "nntp.aioe.org"))
+  (gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s\n")
+  :defines
+  gnus-secondary-select-methods
+  :config
+  (add-to-list 'gnus-secondary-select-methods '(nntp "news.gmane.org")))
 
 (provide '.gnus)
 ;;; .gnus ends here

@@ -2,7 +2,7 @@
 ;; Commentary:
 ;; 13 November 2017
 
-;; TODO use C-w hjkl instead
+;; use C-w hjkl instead
 (global-set-key (kbd "C-c h") 'windmove-left)
 (global-set-key (kbd "C-c j") 'windmove-down)
 (global-set-key (kbd "C-c k") 'windmove-up)
@@ -41,6 +41,15 @@
   :init (progn
           ))
 
+(use-package eyebrowse
+  :custom
+  (eyebrowse-new-workspace t)
+  (eyebrowse-keymap-prefix (kbd "C-c e"))
+  :init
+  (eyebrowse-mode t)
+  :config
+  (eyebrowse-setup-opinionated-keys))
+
 (use-package ffap
   :config
   (add-to-list 'ffap-c-path "../deps")
@@ -57,6 +66,8 @@
   :defer t
   :config
   (setq fzf/executable (expand-file-name "~/.fzf/bin/fzf")))
+
+(use-package gnu-apl-mode)
 
 (use-package auto-revert-tail-mode
   :mode ("\\.log\\'" . auto-revert-tail-mode))
@@ -84,6 +95,7 @@
                       (set-indent 2))))
 
 (use-package erlang
+  :disabled t
   :mode (("\\.erl\\'" . erlang-mode)
          ("\\vars.config\\'" . erlang-mode)
          ("\\rebar.config\\'" . erlang-mode))
@@ -100,6 +112,7 @@
   :after flycheck)
 
 (use-package flycheck-dialyzer
+  :disabled t
   :load-path "/home/lbolla/src/emacs-flycheck-dialyzer/"
   :after flycheck
   :config (progn
@@ -143,6 +156,12 @@
 ;;   (add-hook 'help-mode-hook
 ;;             (lambda ()
 ;;               (evil-motion-state 0))))
+
+(use-package kubernetes
+  :disabled t
+  :load-path "/home/lbolla/src/kubernetes-el/"
+  :config (progn
+            (kubernetes-global-mode t)))
 
 (use-package ido
   :disabled t
@@ -218,8 +237,47 @@
                    ;; (local-set-key (kbd "RET") 'newline-and-indent)
                    )))
 
+(defun my/beep ()
+  "Play an alert sound."
+  (let ((alert "/usr/share/sounds/gnome/default/alerts/glass.ogg"))
+    (start-process "beep" nil "mplayer" (expand-file-name alert))))
+
+;; (defun insert-x-primary-selection ()
+;;   "Insert selection from X primary clipboard."
+;;   (interactive)
+;;   (insert (gui-get-primary-selection)))
+
+;; (defun cycle-fonts ()
+;;   "Cycle between the fonts I like."
+;;   (interactive)
+;;   (set-frame-font (car my-fonts))
+;;   (message "Using font %s" (car my-fonts))
+;;   (setq my-fonts (cycle my-fonts)))
+
+(defmacro hook-into-modes (func modes)
+  "Add FUNC to MODES hooks."
+  `(dolist (mode-hook ,modes)
+     (add-hook mode-hook ,func)))
+
+;; (defmacro with-basic-http-auth (&rest body)
+;;   "Execute BODY with basic http auth."
+;;   `(let ((url-request-extra-headers
+;;           (cons `("Authorization" . ,(concat "Basic "
+;;                                              (base64-encode-string
+;;                                               (concat (read-string "Username: " "lorenzo.bolla")
+;;                                                       ":"
+;;                                                       (read-passwd "Password: "))))) url-request-extra-headers)))
+;;      (progn ,@body)))
+
+(defmacro timeit (what &rest body)
+  "Time WHAT and run BODY and report real time taken to do so."
+  `(let ((start-time (float-time)))
+     (progn ,@body)
+     (let ((elapsed-time (- (float-time) start-time)))
+       (message "Completed %s in %.4f seconds" ,what elapsed-time)
+       elapsed-time)))
+
 (use-package rcirc
-  :disabled t
   :config (progn
             (defun my-rcirc-print-hook (process sender response target text)
               "In PROCESS, if SENDER is not self, ignore RESPONSE and TARGET, beep when TEXT equals current nick."
@@ -227,7 +285,7 @@
               (when (and (string-match (concat "@?" (rcirc-nick process)) text)
                          (not (string= (rcirc-nick process) sender))
                          (not (string= (rcirc-server-name process) sender)))
-                (my-beep)))
+                (my/beep)))
             (add-hook 'rcirc-print-functions 'my-rcirc-print-hook)
             (add-hook 'rcirc-mode-hook
                       (lambda ()
@@ -237,9 +295,9 @@
                         (flyspell-mode t)))
             (setq rcirc-server-alist
                   `(
-                    ;; rcirc-server-yg
-                    ,rcirc-server-yg-slack
-                    ;; rcirc-server-freenode
+                    ;; ,rcirc-server-yg
+                    ;; ,rcirc-server-yg-slack
+                    ,rcirc-server-freenode
                     ;; ,rcirc-server-mozilla
                     ))
             (defun-rcirc-command reconnect (arg)
@@ -264,8 +322,8 @@
                                rcirc-default-user-name
                                rcirc-default-full-name
                                channels
-                               ;; TODO password
-                               ;; TODO encryption
+                               ;; password
+                               ;; encryption
                                )))))
 
 (use-package slime
@@ -298,7 +356,6 @@
    '(yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-no-prompt)
    yas-snippet-dirs (quote (yas-installed-snippets-dir))))
 
-;; TODO
 ;; (use-package virtualenvwrapper
 ;;   ;; :defer t
 ;;   :bind (("C-c v w" . venv-workon-and-cdproject))
@@ -341,6 +398,11 @@
   ;; (define-key evil-normal-state-map (kbd ",K") 'eww-at-point)
   ;; (define-key evil-visual-state-map (kbd ",K") 'eww-region)
 
+;; merged into evil-collections
+;; (use-package evil-mu4e
+;;   :demand t
+;;   :load-path "/home/lbolla/src/evil-mu4e/"
+;;   :after (evil mu4e))
 
 ;; (defun venv-cdproject ()
 ;;   "Change directory to the current project directory, if set."
@@ -375,7 +437,7 @@
 ;;   (other-window 1)
 ;;   )
 
-;; TODO elpy C-c C-t is better
+;; elpy C-c C-t is better
 ;; (defmacro venv-pytest (&rest what)
 ;;   `(async-shell-command
 ;;     (concat
@@ -424,7 +486,183 @@
 ;;   ;; :config (global-evil-matchit-mode 1)
 ;;   )
 
-;; TODO not capturing email
+;; not capturing email
 ;; (use-package org-mu4e
 ;;   :demand t
 ;;   :after (org mu4e))
+
+;; Use mu4e attachment actions A
+;; (defun icalendar-import-buffer-in-default-diary ()
+;;   "Import icalendar files into default diary."
+;;   (interactive)
+;;   (defvar diary-file)
+;;   (icalendar-import-buffer diary-file t t))
+
+(use-package org-bullets
+  :after org
+  :demand t
+  :hook
+  (org-mode . org-bullets-mode))
+
+;; org keybindings
+  ;; (global-set-key (kbd "C-c o a") 'org-agenda)
+  ;; (global-set-key (kbd "C-c o k") 'org-capture)
+  ;; (global-set-key (kbd "C-c o l s") 'org-store-link)
+  ;; (global-set-key (kbd "C-c o l i") 'org-insert-link)
+  ;; (global-set-key (kbd "C-c o l o") 'org-open-at-point)
+
+  ;; (global-set-key (kbd "<f9>") 'org-capture)
+  ;; (global-set-key (kbd "C-<f9>") 'org-store-link)
+  ;; (global-set-key (kbd "S-<f9>") 'org-insert-link)
+  ;; (global-set-key (kbd "<f12>") (lambda () (interactive) (org-agenda nil (kbd "SPC") nil)))
+  ;; (global-set-key (kbd "S-<f12>") (lambda (match) (interactive "P") (org-tags-view t match)))
+  ;; ;; (global-set-key (kbd "C-<f12>") (lambda (c) (interactive) (execute-kbd-macro (kbd "C-c o a A"))))
+  ;; (global-set-key (kbd "M-<f12>") 'org-search-view)
+
+;; Included in flycheck.el
+;; (use-package flycheck-mypy
+;;   :load-path "/home/lbolla/src/emacs-flycheck-mypy/"
+;;   :after flycheck
+;;   :demand t
+;;   :custom
+;;   (flycheck-python-mypy-args '("--incremental" "--ignore-missing-imports" "--follow-imports=skip"))
+;;   :config
+;;   (flycheck-add-next-checker 'python-pylint '(warning . python-mypy) t))
+
+;; (use-package flycheck-rust
+;;   :after rust-mode
+;;   :demand t
+;;   :custom
+;;   ;; Use 'cargo check' not 'cargo test'
+;;   (flycheck-rust-check-tests nil)
+;;   :hook
+;;   (flycheck-mode . flycheck-rust-setup)
+;;   :config
+;;   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
+
+  ;; (define-key evil-normal-state-map (kbd ",=") 'c-indent)
+
+;; (global-set-key (kbd "C-c f h")
+;;                 (lambda ()
+;;                   (interactive)
+;;                   (find-file "~/Private/home.org")))
+;; (global-set-key (kbd "C-c f i")
+;;                 (lambda ()
+;;                   (interactive)
+;;                   (find-file "~/.emacs.d/init.el")))
+;; (global-set-key (kbd "C-c f p")
+;;                 (lambda ()
+;;                   (interactive)
+;;                   (find-file "~/.emacs.d/pkgs.el")))
+;; (global-set-key (kbd "C-c l") 'display-line-numbers-mode)
+;; (global-set-key (kbd "C-c w") 'eww)
+
+;; https://www.reddit.com/r/emacs/comments/8fyzjd/theme_not_loading_completly_with_emacsserver/
+;; (add-hook 'after-make-frame-functions
+;;           (lambda (frame)
+;;             (select-frame frame)
+;;             ;; (load-theme-leuven)
+;;             (load-theme-quasi-monochrome)
+;;             ))
+
+(defun load-theme-doom ()
+  "Load `doom` theme."
+  (interactive)
+  (use-package doom-themes
+    :demand t
+    :custom
+    (doom-tomorrow-day-padded-modeline t)
+    (doom-tomorrow-night-padded-modeline t))
+  (use-package doom-modeline
+    :ensure t
+    :disabled t
+    :defer t
+    :after doom-themes
+    :custom
+    (doom-modeline-icon t)
+    (doom-modeline-bar-width 3)
+    (doom-modeline-github nil)
+    ;; :hook
+    ;; (after-init . doom-modeline-init)
+    :init
+    (doom-modeline-init))
+  (switch-theme 'doom-Iosvkem))
+
+(defun load-theme-zerodark ()
+  "Load `zerodark` theme."
+  (interactive)
+  (use-package zerodark-theme
+    :demand t)
+  (custom-theme-set-faces 'zerodark
+   `(highlight-indentation-face        ((t (:inherit (fringe) :background "#24282f"))))
+   `(org-canc                          ((t (:inherit (org-todo) :foreground "dark gray" :strike-through t))))
+   `(org-delg                          ((t (:inherit (org-todo) :foreground "gray")))))
+  (zerodark-setup-modeline-format)
+  (switch-theme 'zerodark))
+
+(use-package restclient
+  :mode (((rx ".http" eos) . restclient-mode)))
+
+(use-package w3m)
+
+(use-package fbcli
+  :demand t
+  :mode ((rx ".fbcli_comment" eos) . fogbugz-mode)
+  :load-path "/home/lbolla/src/fbcli/")
+
+(use-package htmlize)
+
+(use-package nsm
+  :demand t
+  :custom (network-security-level 'high))
+
+(use-package olivetti)
+
+(use-package prettier-js
+  :diminish
+  :commands (prettier-js)
+  ;; :hook
+  ;; (js2-mode . prettier-js-mode)
+  ;; (web-mode . prettier-js-mode)
+  :custom
+  (prettier-js-args '(
+                      "--bracket-spacing" "false"
+                      "--single-quote" "true"
+                      "--tab-width" "4"
+                      "--trailing-comma" "none"
+                      )))
+
+(use-package js2-mode
+  :disabled t
+  :after evil
+  :mode ((rx ".js" eos))
+  :custom
+  (js2-mode-show-strict-warnings nil)
+  :functions
+  set-indent
+  set-whitespace-line-column
+  :hook
+  (js2-mode . (lambda ()
+                (set-whitespace-line-column 80)
+                (set-indent 4)
+                (evil-define-key 'normal js2-mode-map (kbd ",b") 'js-insert-breakpoint))))
+
+(defun set-indent (size)
+  "Set indent equal to SIZE."
+  (interactive "p")
+  (defvar evil-shift-width)
+  (defvar js-indent-level)
+  (defvar json-reformat:indent-width)
+  (setq evil-shift-width size
+        js-indent-level size
+        json-reformat:indent-width size
+        tab-width size))
+
+(use-package kubernetes
+  :bind
+  ("C-c k" . kubernetes-overview)
+  :custom
+  (kubernetes-kubectl-flags '("--kubeconfig=/home/lbolla/src/yougov/devops/kubernetes/client/config")))
+
+(use-package rmsbolt
+  :disabled t)

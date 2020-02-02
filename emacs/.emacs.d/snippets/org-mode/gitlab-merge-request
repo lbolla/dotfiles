@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Gitlab merge request
+# key: gl!
+# --
+[[GL:${1:namespace}/${2:project}!${3:merge_request}]] ${4:title}

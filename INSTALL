@@ -1,0 +1,63 @@
+* Things to do on a new system
+
+I should really use [[https://nixos.org/][NixOS]].
+
+** git clone to src/github.com/lbolla/dotfiles
+
+** pkg install
+    apt-file
+    aspell-de
+    aspell-it
+    atop
+    curl
+    docker
+    docker-compose
+    emacs
+    erlang
+    erlang-man
+    erlang-dialyzer
+    erlang-observer
+    erlang-src
+    gcc
+    git
+    golang
+    htop
+    httpie
+    iftop
+    ldapscripts
+    libxml2-dev
+    libxslt1-dev
+    make
+    mosh
+    mu4e
+    net-tools
+    nmap
+    npm
+    isync
+    openconnect
+    openssh-server
+    pass
+    pkg-config
+    pinentry
+    postgresql-client
+    python-dev
+    python3-dev
+    r-mathlib
+    r-recommended
+    rdiff-backup
+    redis
+    stow
+    texinfo
+    texlive
+    texlive-latex-extra
+    virtualenvwrapper
+    w3m
+    zsh
+
+** More installs
+    fonts (Iosevka, EBGaramond)
+    oh-my-zsh (from github)
+    ripgrep (from github)
+    kubectl
+    fzf (from github)
+    zsh-autosuggestions (from github)

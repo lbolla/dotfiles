@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: rmsbolt
+# key: rmsbolt
+# --
+
+// Local Variables:
+// rmsbolt-command: "gcc -O0"
+// rmsbolt-disassemble: nil
+// End:

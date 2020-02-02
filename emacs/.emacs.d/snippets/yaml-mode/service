@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+# name: service
+# key: svc
+# group: kubernetes
+# --
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${1:name}
+  annotations:
+    yougov.infrastructure.stingray/max_reply_time: "30"
+  labels:
+    app: ${2:app}
+spec:
+  # Use a NodePort to allow access from outside the Kubernetes cluster, i.e.
+  # from the internal YouGov network. We also get an automatically generated
+  # URL.
+  type: NodePort
+
+  ports:
+  - port: 80
+    targetPort: 80
+
+  selector:
+    # Make sure we only route traffic to the matching pods for this proc!
+    app: $2

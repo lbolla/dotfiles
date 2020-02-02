@@ -12,3 +12,6 @@ web:*.{html,css,js,tmpl}*
 
 # Because who cares about case!?
 --smart-case
+
+# Hidden files are files
+--hidden

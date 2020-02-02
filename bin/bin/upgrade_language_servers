@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# https://github.com/emacs-lsp/lsp-mode
+
+# Python
+# if [[ -n "$VIRTUAL_ENV" ]]; then
+#     echo "Upgrading Python"
+#     pip install 'python-language-server[all]'
+# fi
+# Note: use MS-python-language-server
+upgrade_ms_python_language_server.py
+
+# Javascript
+file_count=$(find . -name "*.js" | wc -l)
+if [[ $file_count -gt 0 ]]; then
+    echo "Upgrading Javascript"
+    npm install typescript-language-server
+    npm install typescript
+fi
+
+# HTML
+file_count=$(find . -name "*.html" | wc -l)
+if [[ $file_count -gt 0 ]]; then
+    echo "Upgrading HTML"
+    npm install vscode-html-languageserver-bin
+    npm install @angular/language-service
+fi
+
+# Rust
+file_count=$(find . -name "*.rs" | wc -l)
+if [[ $file_count -gt 0 ]]; then
+    echo "Upgrading Rust"
+    rustup component add rls rust-analysis
+    rustup component add rls rust-analysis --toolchain nightly
+fi
+
+# Globally installed
+
+echo "Upgrading Bash"
+npm install -g bash-language-server
+
+echo "Upgrading Dockerfile"
+npm install -g dockerfile-language-server-nodejs

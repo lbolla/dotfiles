@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: die
+# key: die
+# --
+
+die() { echo "ERROR: $*" 1>&2 ; exit 1; }

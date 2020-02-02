@@ -6,22 +6,19 @@ IFS=$'\n\t'
 
 PACKAGES=(
     X
-    ack
     awesome
     bash
+    bin
     emacs
     fbcli
     git
-    gmrun
-    hg
-    indent
-    javascript
+    lftp
+    mime
     psql
     python
     ripgrep
-    splint
+    rust
     tmux
-    vim
     virtualenv
     w3m
     zsh

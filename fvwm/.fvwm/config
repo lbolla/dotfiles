@@ -88,7 +88,7 @@ Key C A 4S            Close
 Key L A 4S            Exec exec gnome-session-quit --logout
 Key Q A 4S            Exec exec gnome-session-quit --power-off
 Key S A 4S            Exec exec gnome-screensaver-command --lock
-# TODO http://fvwm.org/documentation/faq/
+# http://fvwm.org/documentation/faq/
 Key Tab A 4           WindowList Root c c SelectOnRelease Super_L
 
 # Simple default mouse bindings for the root window:
@@ -192,7 +192,7 @@ AddToFunc UrgencyDoneFunc
 + I Nop
 
 # Useful after (dis)connecting monitor
-# TODO reset background
+# Note: reset background
 # BG=`gsettings get org.gnome.desktop.background picture-uri`
 # gsettings set org.gnome.desktop.background picture-uri null
 # gsettings set org.gnome.desktop.background picture-uri "$BG"

@@ -1,0 +1,14 @@
+# key: epgsql_to_map
+# name: epgsql_to_map
+# --
+-include_lib("epgsql/include/epgsql.hrl").
+
+%% Transform a list of Rows and Cols from epgsql in a map
+%% See https://stackoverflow.com/questions/29781505/converting-epgsql-results-to-json
+to_map(Cols, Rows) ->
+    [maps:from_list(
+       lists:zipwith(
+         fun(#column{name = N}, V) -> {N, V} end,
+         Cols, tuple_to_list(Row)
+        )
+      ) || Row <- Rows ].

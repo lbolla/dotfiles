@@ -1,0 +1,123 @@
+# -*- mode: snippet -*-
+# name: deployment
+# key: deploy
+# group: kubernetes
+# --
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  # This uniquely identifies the app, environment, and proc.
+  # E.g. libra-prod-worker, quad-staging-web, etc.
+  name: ${1:name}
+  labels:
+    # Include labels that are specific to this proc/environment.
+    app: ${2:app}
+
+spec:
+
+  # Replicas can be customised using the values.yaml files.
+  replicas: 1
+
+  # How many revisions to keep, for rollbacks
+  revisionHistoryLimit: 5
+
+  # The deployment only needs to manage pods for this exact combination
+  # of app, environment and proc.
+  selector:
+    matchLabels:
+      app: $2
+
+  # No downtime
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+
+  template:
+    metadata:
+
+      # Include all annotations for this app.
+      annotations:
+        deployed-by: lorenzo.bolla@yougov.com
+
+      labels:
+        # Include labels that are specific to this proc/environment.
+        app: $2
+
+    spec:
+      containers:
+
+      - name: $1
+        image: ${3:registry.yougov.net/namespace/app:latest}
+        imagePullPolicy: Always
+
+        # Expose all values from the secret for this environment as environment
+        # variables
+        envFrom:
+        - secretRef:
+            name: $1
+
+        # Use the APP_SETTINGS_YAML environment variable to tell us where
+        # to read config. This is similar to in Heroku/Velociraptor.
+        env:
+        - name: PORT
+          value: "80"
+
+        # Restart the pods if they stop responding on this endpoint
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 60
+          timeoutSeconds: 10
+
+        # Only start routing traffic to newly deployed pods once they
+        # respond on this endpoint
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 80
+          initialDelaySeconds: 2
+          periodSeconds: 60
+          timeoutSeconds: 10
+
+        # Expose port 80. Optional but nice to see as part of a deployment.
+        ports:
+        - containerPort: 80
+
+        # Resource requests/limits for the web pods.
+        resources:
+          # Limits - if the app exceeds these for more than a brief period,
+          # the pods will be killed and recreated.
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          # Requests - the app will only be deployed on a host that can
+          # meet these requests.
+          requests:
+            cpu: "0.1"
+            memory: "256Mi"
+
+        # Mount the configmap identified below to the specified path so we can
+        # read in config as one or more files.
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+        - mountPath: "/usr/share/nginx/html"
+          name: mypd
+
+      # We expose the configmap for this release as a mountable drive, with one
+      # file per key in the config map. Generally, one larger 'config.yaml' key
+      # is easier to manage.
+      volumes:
+      - name: config-volume
+        configMap:
+          name: $1
+          items:
+          - key: config.yaml
+            path: config.yaml
+      - name: mypd
+        persistentVolumeClaim:
+          claimName: myclaim

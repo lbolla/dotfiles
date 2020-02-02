@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: usage
+# key: usage
+# --
+
+usage() { echo "Usage: $0 <args>" 1>&2 ; exit 99; }

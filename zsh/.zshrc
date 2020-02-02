@@ -1,5 +1,14 @@
+# Profile with:
+# $> for i in $(seq 1 10); do time $SHELL -i -c exit; done
+# Or enable profiling: (zprof at bottom of file, too)
+# zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+# export PATH=/opt/helm:$PATH
+# export PATH=/opt/texlive/2018/bin/x86_64-linux:$PATH
+# export PATH=/home/lbolla/.nimble/bin:$PATH
+export PATH=/home/lbolla/.cache/rebar3/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/lbolla/.oh-my-zsh
@@ -57,7 +66,7 @@ ZSH_THEME="af-magic-lbolla"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/src/dotfiles/oh-my-zsh/.oh-my-zsh/custom/
+ZSH_CUSTOM=$HOME/src/github.com/lbolla/dotfiles/oh-my-zsh/.oh-my-zsh/custom/
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -72,15 +81,21 @@ plugins=(
     emacs
     fzf
     helm
+    helm3
     httpie
-    git
+    gitfast
     kubectl
     kubectl-patch
+    # kube-ps1  # Slow!
+    nvm # Slow! but required by bb8
     paver
+    # pyenv
     stern
+    tmux
     virtualenv
     virtualenvwrapper
-    web-search
+    # web-search
+    z
     zsh-autosuggestions
 )
 
@@ -118,9 +133,33 @@ source $ZSH/oh-my-zsh.sh
 # Rehash automatically (https://wiki.archlinux.org/index.php/zsh#Persistent_rehash)
 zstyle ':completion:*' rehash true
 
-# Ctrl-arrow (xterm, urxvt)
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey "^[Od" backward-word
-bindkey "^[Oc" forward-word
+if [[ $IN_X = "yes" ]]
+then
+    if [[ -z "$GNOME_TERMINAL_SCREEN" ]]
+    then
+        # Ctrl-arrow (xterm, urxvt)
+        bindkey "^[[1;5C" forward-word
+        bindkey "^[[1;5D" backward-word
+        bindkey "^[Od" backward-word
+        bindkey "^[Oc" forward-word
+    fi
+# else
+#     nocaps
+fi
 
+# For white bg
+if [[ "$IN_X" = "no" ]]; then
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=1'
+else
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
+fi
+
+# R libs
+export C_INCLUDE_PATH=/usr/lib/R/include
+
+# GnuPG
+export GPG_TTY=$(tty)
+
+# zprof
+
+PATH="/home/lbolla/perl5/bin${PATH:+:${PATH}}"; export PATH;
