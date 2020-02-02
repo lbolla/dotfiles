@@ -5,10 +5,10 @@ KUBECTL_OLD=$(which kubectl-old)
 
 function kubectl {
     CTX=$($KUBECTL config current-context)
-    if [[ $CTX == "us2" || $CTX == "ldc2" ]]; then
-        $KUBECTL $*
-    else
+    if [[ $CTX == "ldc" ]]; then
         $KUBECTL_OLD $*
+    else
+        $KUBECTL $*
     fi
 }
 
@@ -70,4 +70,9 @@ function ksearch {
 
 function kevents {
     kubectl get events --sort-by=.metadata.creationTimestamp -ocustom-columns=LAST_TS:.lastTimestamp,NAME:.metadata.name,MSG:.message $* | grep -v 'Search Line limits were exceeded'
+}
+
+function kdelete-evicted-pods {
+    # From https://stackoverflow.com/questions/46419163/what-will-happen-to-evicted-pods-in-kubernetes
+    kubectl get pods --all-namespaces -o json | jq '.items[] | select(.status.reason!=null) | select(.status.reason | contains("Evicted")) | "kubectl delete pods \(.metadata.name) -n \(.metadata.namespace)"' | xargs -n 1 bash -c
 }
