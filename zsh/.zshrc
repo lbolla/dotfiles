@@ -81,6 +81,7 @@ plugins=(
     emacs
     fzf
     helm
+    helm3
     httpie
     gitfast
     kubectl

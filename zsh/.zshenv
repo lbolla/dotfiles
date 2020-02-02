@@ -28,8 +28,10 @@ export DISABLE_VENV_CD=1
 export WORKON_HOME=$HOME/.virtualenvs
 python3 -c "import virtualenvwrapper" &> /dev/null && export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export XIVIEWER=xdg-open
-export KUBECONFIG=$HOME/src/yougov/devops/kubernetes/client/config
+export KUBECONFIG=$HOME/src/yougov/devops/kubernetes/client/config:$HOME/src/yougov/devops/kubernetes/client/self:$HOME/src/yougov/devops/kubernetes/client/admins
 export MAILDIR=$HOME/Mail
+export HELM_V3_CONFIG=$HOME/.helm3
+export HELM_V3_DATA=$PWD/.helm3-data
 
 # Enable Erlang shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
