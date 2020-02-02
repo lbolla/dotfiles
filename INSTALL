@@ -8,6 +8,7 @@ I should really use [[https://nixos.org/][NixOS]].
     apt-file
     aspell-de
     aspell-it
+    atop
     curl
     docker
     docker-compose
@@ -22,6 +23,8 @@ I should really use [[https://nixos.org/][NixOS]].
     golang
     htop
     httpie
+    iftop
+    ldapscripts
     libxml2-dev
     libxslt1-dev
     make
