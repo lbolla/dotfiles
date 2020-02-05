@@ -11,11 +11,6 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
- ;; '(ansi-color-faces-vector
- ;;   [default default default italic underline success warning error])
- ;; '(ansi-color-names-vector
- ;;   ["#282c34" "#ff6c6b" "#98be65" "#da8548" "#61afef" "#c678dd" "#1f5582" "#abb2bf"])
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
