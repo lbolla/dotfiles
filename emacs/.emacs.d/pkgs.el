@@ -425,6 +425,9 @@
   (lsp-rust-clippy-preference "on")
   (lsp-enable-snippet nil)
   (lsp-response-timeout 5)
+  (lsp-enable-indentation nil)
+  ;; (lsp-html-format-enable nil)
+  ;; (lsp-javascript-format-enable nil)
   :hook
   (prog-mode . lsp-deferred)
   :commands (lsp lsp-deferred)
@@ -668,13 +671,12 @@
      (shell . t)
      (sql . t)
      (python . t)))
-  (org-capture-templates '(("t" "Todo"        entry (file "~/org/refile.org") "* TODO %?")
-                           ("y" "Todo (yank)" entry (file "~/org/refile.org") "* TODO %?\n%i\n%a\n")
-                           ("m" "Meeting"     entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
-                           ("h" "Habit"       entry (file "~/org/refile.org") "* TODO %?\n:PROPERTIES:\n:STYLE:    habit\n:END:\n")
-                           ("n" "Note"        entry (file "~/org/notes.org")  "* %? \n%U\n%a\n")
-                           ("i" "Idea"        entry (file "~/org/ideas.org")  "* %? \n%U\n%a\n")
-                           ("l" "Link"        entry (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX") "* %a\n%i" :immediate-finish t)
+  (org-capture-templates '(("t" "Todo"    entry (file "~/org/refile.org") "* TODO %?\n%i\n%a\n")
+                           ("m" "Meeting" entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
+                           ("h" "Habit"   entry (file "~/org/refile.org") "* TODO %?\n:PROPERTIES:\n:STYLE:    habit\n:END:\n")
+                           ("n" "Note"    entry (file "~/org/notes.org")  "* %? \n%U\n%a\n")
+                           ("i" "Idea"    entry (file "~/org/ideas.org")  "* %? \n%U\n%a\n")
+                           ("l" "Link"    entry (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX") "* %a\n%i" :immediate-finish t)
                            ))
   (org-clock-into-drawer "CLOCKS")
   (org-clock-out-remove-zero-time-clocks t)
@@ -1050,7 +1052,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package undo-tree
   :custom
-  (undo-tree-auto-save-history t))
+  (undo-tree-auto-save-history t)
+  (undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory ".undo-tree")))))
 
 (use-package vcs-resolve
   :load-path "/home/lbolla/src/github.com/lbolla/vcs-resolve/"
