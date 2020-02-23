@@ -20,6 +20,11 @@
   (windmove-right)
   (ivy-switch-buffer))
 
+(defun my/lsp-find-definition-other-window ()
+  "Find definiton in other window."
+  (interactive)
+  (lsp-find-definition :display-action 'window)) ; or nil or 'frame
+
 (defun my/find-file-linkz ()
   "Visit file Linkz."
   (interactive)
@@ -119,7 +124,7 @@
   (interactive)
   (browse-url "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"))
 
-(defcustom my/mu4e-get-mail-command "offlineimap"
+(defcustom my/mu4e-get-mail-command "mbsync -a"
   "Shell command to run to retrieve email manually." :group 'Mu4e)
 
 (defcustom my/lesser-evil nil
@@ -393,7 +398,7 @@ representation for the files to include, as returned by
         (search-forward-regexp (rx "JIRA:  Updates for " (>= 3 upper-case) "-" (one-or-more digit)) (point-at-eol) t)
         (search-forward-regexp (rx (>= 3 upper-case) "-" (one-or-more digit)) (point-at-eol) t)
         (search-forward-regexp (rx (or "#" "!") (one-or-more digit)) (point-at-eol) t)
-        (search-forward-regexp (rx (or "Context" "weighting" "Template")) (point-at-eol) t))
+        (search-forward-regexp (rx (or "Context" "weighting" "Template" "confluence")) (point-at-eol) t))
     (my/mu4e-headers-narrow-thing-at-point))
    ((search-forward-regexp (rx "Bix2 " (one-or-more letter) " Error") (point-at-eol) t)
     (my/mu4e-headers-narrow-subject (match-string 0)))))

@@ -23,6 +23,7 @@
  '(auto-hscroll-mode t)
  '(auto-revert-check-vc-info t)
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
+ '(blink-cursor-mode t)
  '(browse-url-browser-function (quote browse-url-xdg-open))
  '(c-default-style
    (quote
@@ -34,12 +35,14 @@
  '(cc-search-directories
    (quote
     ("." "/usr/include" "/usr/local/include/*" "../deps" "../../deps")))
+ '(column-number-mode t)
  '(company-idle-delay 0.2)
  '(company-lsp-cache-candidates (quote auto) t)
  '(company-lsp-enable-snippet nil t)
  '(company-tooltip-align-annotations t)
  '(custom-safe-themes t)
  '(delete-old-versions t)
+ '(delete-selection-mode t)
  '(display-time-world-list
    (quote
     (("UTC" "UTC/GMT/Zulu")
@@ -100,12 +103,9 @@
  '(flycheck-highlighting-mode (quote lines))
  '(flycheck-javascript-flow-args nil t)
  '(flycheck-pycheckers-checkers (quote (flake8 mypy3)))
- '(flycheck-python-mypy-args
-   (quote
-    ("--incremental" "--ignore-missing-imports" "--follow-imports=skip")))
  '(font-use-system-font t)
- '(gc-cons-threshold 20000000)
- '(godef-command "/home/lbolla/src/go/bin/godef")
+ '(gc-cons-threshold 100000000)
+ '(global-hl-line-mode nil)
  '(hl-sexp-background-color "#efebe9")
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
@@ -113,86 +113,34 @@
  '(initial-scratch-message ";; SCRATCH
 
 ")
- '(ivy-posframe-display-functions-alist (quote ((t . ivy-posframe-display-at-frame-top-center))))
- '(ivy-posframe-height-alist (quote ((t . 20))))
- '(ivy-posframe-parameters (quote ((internal-border-width . 1))))
- '(ivy-posframe-width 90)
- '(ivy-rich-display-transformers-list
-   (quote
-    (ivy-switch-buffer
-     (:columns
-      ((ivy-rich-switch-buffer-icon
-        (:width 2))
-       (ivy-rich-candidate
-        (:width 45))
-       (ivy-rich-switch-buffer-project
-        (:width 15 :face success))
-       (ivy-rich-switch-buffer-major-mode
-        (:width 13 :face warning)))
-      :predicate
-      (function
-       (lambda
-         (cand)
-         (get-buffer cand))))
-     counsel-M-x
-     (:columns
-      ((counsel-M-x-transformer
-        (:width 35))
-       (ivy-rich-counsel-function-docstring
-        (:width 54 :face font-lock-doc-face))))
-     counsel-describe-function
-     (:columns
-      ((counsel-describe-function-transformer
-        (:width 35))
-       (ivy-rich-counsel-function-docstring
-        (:width 54 :face font-lock-doc-face))))
-     counsel-describe-variable
-     (:columns
-      ((counsel-describe-variable-transformer
-        (:width 35))
-       (ivy-rich-counsel-variable-docstring
-        (:width 54 :face font-lock-doc-face))))
-     package-install
-     (:columns
-      ((ivy-rich-candidate
-        (:width 25))
-       (ivy-rich-package-version
-        (:width 12 :face font-lock-comment-face))
-       (ivy-rich-package-archive-summary
-        (:width 7 :face font-lock-builtin-face))
-       (ivy-rich-package-install-summary
-        (:width 43 :face font-lock-doc-face)))))))
  '(ivy-use-virtual-buffers t)
  '(js2-mode-show-strict-warnings nil)
  '(json-reformat:indent-width 2 t)
- '(kubernetes-kubectl-flags
-   (quote
-    ("--kubeconfig=/home/lbolla/src/yougov/devops/kubernetes/client/config")) t)
  '(line-spacing 0.2)
  '(linum-format " %7i ")
  '(load-prefer-newer t)
+ '(lsp-enable-indentation nil)
  '(lsp-enable-snippet nil)
- '(lsp-prefer-flymake nil)
+ '(lsp-prefer-capf t)
+ '(lsp-prefer-flymake nil t)
  '(lsp-response-timeout 5)
  '(lsp-rust-clippy-preference "on")
- '(lsp-ui-doc-enable nil t)
+ '(lsp-ui-doc-enable nil)
  '(lsp-ui-flycheck-enable t t)
- '(lsp-ui-sideline-enable nil t)
+ '(lsp-ui-sideline-enable nil)
  '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read) t)
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
- '(magit-log-section-commit-count 10 t)
- '(magit-pull-or-fetch t t)
+ '(magit-completing-read-function (quote ivy-completing-read))
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
+ '(magit-log-section-commit-count 10)
+ '(magit-pull-or-fetch t)
  '(magit-push-always-verify nil t)
- '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")) t)
- '(magit-todos-keyword-suffix ":\\| \\|$" t)
- '(magit-todos-update 60 t)
  '(mail-user-agent (quote mu4e-user-agent))
+ '(menu-bar-mode nil)
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-style (quote message) t)
+ '(mu4e-alert-style (quote log) t)
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
@@ -239,7 +187,6 @@
  '(mu4e-view-show-addresses t)
  '(mu4e-view-show-images nil)
  '(mu4e-view-use-gnus nil)
- '(my/mu4e-get-mail-command "mbsync -a")
  '(network-security-level (quote high) nil nil "Customized with use-package nsm")
  '(org-agenda-block-separator "")
  '(org-agenda-custom-commands
@@ -260,46 +207,21 @@
                    (org-agenda-files
                     (quote
                      ("~/org/")))))
-       (tags "REFILE"
-             ((org-agenda-overriding-header "[[~/org/refile.org][Tasks to Refile]]")
-              (org-agenda-files
-               (quote
-                ("~/org/refile.org")))))
+       (org-ql-block
+        (quote
+         (tags-inherited "REFILE"))
+        ((org-ql-block-header
+          #("Tasks to Refile" 0 15
+            (face org-agenda-structure)))))
        (org-ql-block
         (quote
          (and
           (done)
-          (ts :to -30)))
-        ((org-ql-block-header "Tasks to archive")))))
-     ("s" "Someday"
-      ((org-ql-block
-        (quote
-         (todo "SDAY"))
-        ((org-ql-block-header "Someday")))))
-     ("n" "Notes"
-      ((org-ql-block
-        (quote
-         (and
-          (tags "NOTE")
-          (level 2)))
-        ((org-ql-block-header "Notes")))))
-     ("i" "Ideas"
-      ((org-ql-block
-        (quote
-         (and
-          (tags "IDEA")
-          (level 2)))
-        ((org-ql-block-header "Ideas")))))
-     ("A" "Prioritized tasks"
-      ((org-ql-block
-        (quote
-         (and
-          (todo)
-          (priority >= "C")))
-        ((org-ql-block-header "Prioritized tasks"))))))))
+          (ts :to -60)))
+        ((org-ql-block-header "Tasks to archive"))))))))
  '(org-agenda-files (quote ("~/org/")))
  '(org-agenda-include-diary t)
- '(org-agenda-log-mode-items (quote (closed)))
+ '(org-agenda-log-mode-items (quote (clock closed)))
  '(org-agenda-sorting-strategy
    (quote
     ((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
@@ -310,7 +232,6 @@
  '(org-agenda-start-on-weekday nil)
  '(org-agenda-start-with-log-mode t)
  '(org-agenda-tags-column (quote auto))
- '(org-archive-location "%s_archive::* Archived Tasks")
  '(org-babel-load-languages
    (quote
     ((emacs-lisp . t)
@@ -321,9 +242,6 @@
  '(org-capture-templates
    (quote
     (("t" "Todo" entry
-      (file "~/org/refile.org")
-      "* TODO %?")
-     ("y" "Todo (yank)" entry
       (file "~/org/refile.org")
       "* TODO %?
 %i
@@ -342,13 +260,13 @@
 ")
      ("n" "Note" entry
       (file "~/org/notes.org")
-      "* %? :NOTE:
+      "* %? 
 %U
 %a
 ")
      ("i" "Idea" entry
       (file "~/org/ideas.org")
-      "* %? :IDEA:
+      "* %? 
 %U
 %a
 ")
@@ -358,13 +276,13 @@
 %i" :immediate-finish t))) t)
  '(org-clock-into-drawer "CLOCKS" t)
  '(org-clock-out-remove-zero-time-clocks t t)
- '(org-clock-out-when-done (quote ("WAIT" "DONE CANC" "DELG")) t)
+ '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")) t)
  '(org-columns-default-format
    "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
  '(org-deadline-warning-days 30)
  '(org-default-notes-file "~/org/refile.org")
  '(org-default-priority 68)
- '(org-export-backends (quote (ascii html icalendar latex odt confluence)) nil nil "Customized with use-package org")
+ '(org-export-backends (quote (ascii html icalendar latex odt confluence)))
  '(org-fast-tag-selection-single-key t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
@@ -382,17 +300,14 @@
  '(org-log-into-drawer t)
  '(org-module
    (quote
-    (org-habit ox-confluence org-protocol ol-w3m ol-bbdb ol-bibtex ol-docview ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-eww)) t)
- '(org-modules
-   (quote
-    (org-habit ox-confluence org-protocol ol-w3m ol-bbdb ol-bibtex ol-docview ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-eww)))
+    (org-habit ox-confluence org-protocol ol-w3m ol-bbdb ol-bibtex ol-docview ol-info ol-eww)) t)
  '(org-outline-path-complete-in-steps nil)
  '(org-priority-faces
    (quote
     ((65 . font-lock-warning-face)
      (67 . font-lock-comment-face))))
  '(org-priority-start-cycle-with-default nil)
- '(org-protocol-default-template-key "l")
+ '(org-protocol-default-template-key "l" t)
  '(org-publish-project-alist
    (quote
     (("home" :base-directory "~/Private/org/" :exclude "\\.*" :include
@@ -434,9 +349,7 @@
      ("@work" . 119)
      ("@ignore" . 105)
      (:endgroup)
-     ("NOTE" . 110)
      ("MEET" . 109)
-     ("PHON" . 112)
      ("FLAG" . 43))))
  '(org-todo-keyword-faces
    (quote
@@ -456,9 +369,6 @@
    (quote
     (org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse company-lsp lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
- '(prettier-js-args
-   (quote
-    ("--bracket-spacing" "false" "--single-quote" "true" "--tab-width" "4" "--trailing-comma" "none")) t)
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
    (quote
@@ -477,7 +387,6 @@
      (#("tmpl" 0 1
         (idx 2))
       . "*.tmpl"))))
- '(rg-define-toggle "--context 3" t)
  '(rg-group-result nil)
  '(rust-format-on-save t t)
  '(safe-local-variable-values
@@ -488,6 +397,7 @@
              (org-html-export-to-html nil))
            t t)
      (eval setenv "LAUNCH_DB" "1"))))
+ '(scroll-bar-mode nil)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(shr-use-colors t)
@@ -499,32 +409,10 @@
  '(tls-checktrust (quote ask))
  '(tool-bar-mode nil)
  '(tramp-default-method "ssh")
- '(undo-tree-visualizer-diff nil)
- '(undo-tree-visualizer-timestamps nil)
+ '(undo-tree-auto-save-history t)
+ '(undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/.undo-tree"))))
  '(user-full-name "Lorenzo Bolla")
  '(user-mail-address "lorenzo.bolla@yougov.com")
- '(vc-annotate-background "#D9D9D9")
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#616161")
-     (40 . "#3C3C3C")
-     (60 . "#3C3C3C")
-     (80 . "#252525")
-     (100 . "#252525")
-     (120 . "#161616")
-     (140 . "#161616")
-     (160 . "#0E0E0E")
-     (180 . "#0E0E0E")
-     (200 . "#0E0E0E")
-     (220 . "#080808")
-     (240 . "#080808")
-     (260 . "#080808")
-     (280 . "#080808")
-     (300 . "#080808")
-     (320 . "#080808")
-     (340 . "#080808")
-     (360 . "#080808"))))
- '(vc-annotate-very-old-color "#161616")
  '(vc-follow-symlinks nil)
  '(vc-log-show-limit 50)
  '(vcs-resolve-exe
@@ -586,10 +474,6 @@
  ;; '(mode-line ((t (:background "gray55"))))
  ;; '(region ((t (:background "#50506f"))))
 
-;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
-(setq auto-window-vscroll nil)
-
-;; Standard pkgs bindings
 (global-set-key (kbd "M-o") 'my/open-line)
 (global-set-key (kbd "M-O") 'my/open-line-above)
 (global-set-key (kbd "C-x 2") 'my/split-window-below-and-switch-buffer)
@@ -597,23 +481,14 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 ;; (global-set-key (kbd "C-c e") 'eshell)
 ;; (global-set-key (kbd "C-c f") 'variable-pitch-mode)
-;; (global-set-key (kbd "C-c t") 'my/cycle-themes)
+(global-set-key (kbd "C-c t") 'my/switch-theme)
 (global-set-key (kbd "C-c v w") 'venv-workon-and-cdproject)
 ;; (global-set-key (kbd "C-c w") 'w3m)
 (global-set-key (kbd "C-c z") 'zoom-window-zoom)
-
-(require 'defuns "~/.emacs.d/defuns.el")
-(require 'private "~/.emacs.d/private.el")
-(require 'yg "~/.emacs.d/yg.el")
-(require 'pkgs "~/.emacs.d/pkgs.el")
-(require 'themes "~/.emacs.d/themes.el")
-
-;; Quick navigation
 (global-set-key (kbd "C-c f l") 'my/find-file-linkz)
 (global-set-key (kbd "C-c f i") 'my/find-file-init)
 (global-set-key (kbd "C-c f p") 'my/find-file-pkgs)
 
-;; TODO move to defun
 (defadvice kill-buffer (around kill-buffer-around-advice activate)
   "Bury *scratch* buffer instead of killing it.
 See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#235069"
@@ -622,7 +497,7 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
         (bury-buffer)
       ad-do-it)))
 
-;; TODO move to defun
+;; Show buffer path, relative to project root
 ;; https://www.reddit.com/r/emacs/comments/8xobt3/tip_in_modeline_show_buffer_file_path_relative_to/
 (with-eval-after-load 'subr-x
   (setq-default mode-line-buffer-identification
@@ -636,23 +511,15 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
                                          prj-parent) (file-name-nondirectory buffer-file-truename)))
                               "%b"))))))
 
-;; (blink-cursor-mode 0)
-(column-number-mode 1)
-(delete-selection-mode 1)
-;; (global-hl-line-mode)
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
-(show-paren-mode 1)
-(tool-bar-mode 0)
+(require 'defuns "~/.emacs.d/defuns.el")
+(require 'private "~/.emacs.d/private.el")
+(require 'yg "~/.emacs.d/yg.el")
+(require 'pkgs "~/.emacs.d/pkgs.el")
+(require 'themes "~/.emacs.d/themes.el")
 
-;; (load-theme 'poet-dark)
-;; (load-theme-cyberpunk)
-;; (load-theme-deeper-blue)
-;; (load-theme-goose)
-;; (load-theme-leuven)
-;; (load-theme-quasi-monochrome)
-;; (load-theme 'eziam-light)
-;; (my/cycle-themes)
+;; Optimizations
+;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
+(setq auto-window-vscroll nil)
 
 (provide 'init)
 ;;; init.el ends here

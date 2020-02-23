@@ -142,19 +142,6 @@
   :config
   (electric-indent-mode t))
 
-;; TODO lsp
-;; (use-package elpy
-;;   :after python
-;;   :diminish
-;;   :custom
-;;   (elpy-modules '(elpy-module-sane-defaults
-;;                   elpy-module-company
-;;                   elpy-module-eldoc
-;;                   elpy-module-highlight-indentation
-;;                   elpy-module-pyvenv))
-;;   :init
-;;   (elpy-enable))
-
 (use-package erlang-start
   :load-path "/usr/lib/erlang/lib/tools-3.1/emacs/"
   :mode (((rx ".erl" eos) . erlang-mode)
@@ -193,6 +180,8 @@
   :demand t
   :custom
   (eyebrowse-default-workspace-slot 0)
+  (eyebrowse-keymap-prefix "e")
+  (eyebrowse-new-workspace t)
   :config
   (eyebrowse-mode t))
 
@@ -202,21 +191,19 @@
 
 (use-package evil
   :demand t
+
   :custom
   (evil-want-keybinding nil)
   (evil-want-integration t)
   (evil-default-state 'normal)
-
   (evil-lookup-func 'man-at-point)
   (evil-want-C-w-in-emacs-state (not my/lesser-evil))
-  ;; Or it masks <TAB> in non-graphical mode
-  (evil-want-C-i-jump nil)
+  (evil-want-C-i-jump nil)  ;; Or it masks <TAB> in non-graphical mode
 
   :init
   (evil-mode t)
 
   :config
-
   (evil-set-initial-state 'calc-mode 'emacs)
   (evil-set-initial-state 'custom-mode 'emacs)
   ;; (evil-set-initial-state 'dired-mode 'emacs)
@@ -416,50 +403,43 @@
                        (modify-syntax-entry ?\- "w")
                        (modify-syntax-entry ?\~ "w"))))
 
-;; TODO lsp
-;; https://github.com/emacs-lsp/lsp-mode
-;; For Python: pip install "python-language-server[all]"
 (use-package lsp-mode
   :custom
-  (lsp-prefer-flymake nil)
-  (lsp-rust-clippy-preference "on")
-  (lsp-enable-snippet nil)
-  (lsp-response-timeout 5)
   (lsp-enable-indentation nil)
-  ;; (lsp-html-format-enable nil)
-  ;; (lsp-javascript-format-enable nil)
+  (lsp-enable-snippet nil)
+  (lsp-prefer-flymake nil)
+  (lsp-response-timeout 5)
+  (lsp-rust-clippy-preference "on")
+  (lsp-prefer-capf t)
   :hook
   (prog-mode . lsp-deferred)
+  (python-mode . (lambda ()
+                   (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
   :commands (lsp lsp-deferred)
   :config
-  (defun my/lsp-find-definition-other-window ()
-    "Find definiton in other window."
-    (interactive)
-    (lsp-find-definition :display-action 'window)) ; or nil or 'frame
   (evil-define-key 'normal prog-mode-map (kbd "C-]") 'my/lsp-find-definition-other-window)
-  ;; (evil-define-key 'normal prog-mode-map (kbd ", ,") 'my/lsp-find-definition-other-window)
   (evil-define-key 'normal prog-mode-map (kbd "C-}") 'lsp-find-definition)
-  ;; (evil-define-key 'normal prog-mode-map (kbd ", .") 'lsp-find-definition)
   (evil-define-key 'normal prog-mode-map (kbd "C-c C-]") 'lsp-find-references)
   (evil-define-key 'normal prog-mode-map (kbd "K") 'lsp-describe-thing-at-point))
 
 (use-package lsp-python-ms
   :demand t  ; TODO use :commands
   :after lsp-mode
+  :config
+  (defun lsp-python-ms-version ()
+    (interactive)
+    (message (string-trim
+              (shell-command-to-string (concat "strings " lsp-python-ms-executable " | grep Version")))))
   :hook (python-mode . (lambda ()
                          (require 'lsp-python-ms)
                          (lsp-deferred))))
-
 
 (use-package lsp-ui
   :after lsp-mode
   :custom
   (lsp-ui-doc-enable nil)
   (lsp-ui-flycheck-enable t)
-  (lsp-ui-sideline-enable nil)
-  :commands lsp-ui-mode
-  :hook (python-mode . (lambda ()
-                         (flycheck-add-next-checker 'lsp-ui 'python-pycheckers t))))
+  (lsp-ui-sideline-enable nil))
 
 (use-package lua-mode)
 
@@ -602,7 +582,7 @@
   ("C-c m u" . mu4e-alert-view-unread-mails)
   :custom
   ;; (mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
-  (mu4e-alert-style 'message)
+  (mu4e-alert-style 'log)
   :config
   (mu4e-alert-enable-notifications)
   (mu4e-alert-enable-mode-line-display))
@@ -645,12 +625,11 @@
                                         ((org-agenda-overriding-header "Unscheduled tasks")
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
                                          (org-agenda-files '("~/org/"))))
-                                  (tags "REFILE"
-                                        ((org-agenda-overriding-header "[[~/org/refile.org][Tasks to Refile]]")
-                                         (org-agenda-files '("~/org/refile.org"))))
+                                  (org-ql-block '(tags-inherited "REFILE")
+                                                ((org-ql-block-header "Tasks to Refile")))
                                   (org-ql-block '(and
                                                   (done)
-                                                  (ts :to -30))
+                                                  (ts :to -60))
                                                 ((org-ql-block-header "Tasks to archive")))))))
 
   (org-agenda-files '("~/org/"))
@@ -706,11 +685,11 @@
                 ol-bbdb
                 ol-bibtex
                 ol-docview
-                ol-gnus
+                ;; ol-gnus
                 ol-info
-                ol-irc
-                ol-mhe
-                ol-rmail
+                ;; ol-irc
+                ;; ol-mhe
+                ;; ol-rmail
                 ol-eww))
   (org-outline-path-complete-in-steps nil)
   (org-priority-faces '((65 . font-lock-warning-face)  ; A
@@ -944,20 +923,14 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
    '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)
      ("\\<\\(FIXME\\)\\>" 1 font-lock-warning-face t)
      ("\\<\\(XXX\\)\\>" 1 font-lock-warning-face t)))
+  (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
+  (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
+  (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
+  (evil-define-key 'normal python-mode-map (kbd ",d") 'my/elpy-test-at-point)
   :hook
   (python-mode . hs-minor-mode)
   (python-mode . (lambda ()
-                   ;; (elpy-enable)
-                   (set-whitespace-line-column 79)
-                   ;; (define-key python-mode-map (kbd "C-c b") 'python-insert-breakpoint)
-                   (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
-                   (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
-                   (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
-                   (evil-define-key 'normal python-mode-map (kbd ",d") 'my/elpy-test-at-point)
-                   ;; (evil-define-key 'normal python-mode-map (kbd "C-]") 'elpy-goto-definition)
-                   ;; (evil-define-key 'normal python-mode-map (kbd "K") 'elpy-doc)
-                   ;; (evil-define-key 'normal python-mode-map (kbd "gf") (lambda () (interactive) (elpy-find-file t))))))
-                   )))
+                   (set-whitespace-line-column 79))))
 
 ;; TODO lsp
 ;; (use-package racer

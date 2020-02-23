@@ -41,6 +41,18 @@
   :init (progn
           ))
 
+(use-package elpy
+  :after python
+  :diminish
+  :custom
+  (elpy-modules '(elpy-module-sane-defaults
+                  elpy-module-company
+                  elpy-module-eldoc
+                  elpy-module-highlight-indentation
+                  elpy-module-pyvenv))
+  :init
+  (elpy-enable))
+
 (use-package eyebrowse
   :custom
   (eyebrowse-new-workspace t)
