@@ -87,7 +87,7 @@ plugins=(
     kubectl
     kubectl-patch
     # kube-ps1  # Slow!
-    nvm # Slow! but required by bb8
+    # nvm # Slow! source in virtualenv hooks
     paver
     # pyenv
     stern
