@@ -8,7 +8,7 @@
 #     pip install 'python-language-server[all]'
 # fi
 # Note: use MS-python-language-server
-upgrade_ms_python_language_server.py
+# upgrade_ms_python_language_server.py
 
 # Javascript
 file_count=$(find . -name "*.js" | wc -l)
@@ -32,6 +32,13 @@ if [[ $file_count -gt 0 ]]; then
     echo "Upgrading Rust"
     rustup component add rls rust-analysis
     rustup component add rls rust-analysis --toolchain nightly
+fi
+
+# R
+file_count=$(find . -name "*.R" | wc -l)
+if [[ $file_count -gt 0 ]]; then
+    echo "Upgrading R"
+    sudo R -e "install.packages('languageserver', repos='https://cran.rstudio.com')"
 fi
 
 # Globally installed
