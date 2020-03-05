@@ -114,6 +114,16 @@
   (eval-after-load 'undo-tree '(diminish 'undo-tree-mode))
   (eval-after-load 'whitespace '(diminish 'whitespace-mode)))
 
+(use-package dimmer
+  :bind
+  ("C-c d" . dimmer-mode)
+  :custom
+  (dimmer-fraction 0.4)
+  :config
+  (dimmer-configure-hydra)  ;; TODO  ivy-hydra???
+  (dimmer-configure-org)
+  (dimmer-configure-which-key))
+
 (use-package doc-view
   :hook
   (doc-view . (lambda ()
@@ -177,12 +187,12 @@
   :disabled t)
 
 (use-package eyebrowse
-  :demand t
+  ;; :demand t
   :custom
   (eyebrowse-default-workspace-slot 0)
   (eyebrowse-keymap-prefix "e")
   (eyebrowse-new-workspace t)
-  :config
+  :init
   (eyebrowse-mode t))
 
 (use-package expand-region
@@ -426,10 +436,11 @@
   :demand t  ; TODO use :commands
   :after lsp-mode
   :config
-  (defun lsp-python-ms-version ()
+  (defun my/lsp-python-ms-version ()
     (interactive)
-    (message (string-trim
-              (shell-command-to-string (concat "strings " lsp-python-ms-executable " | grep Version")))))
+    (let* ((fname (concat lsp-python-ms-dir "Python-Language-Server-linux-x64.nuspec"))
+           (msg (substring (string-trim (shell-command-to-string (concat "grep '<version>' " fname))) 9 -10)))
+      (message msg)))
   :hook (python-mode . (lambda ()
                          (require 'lsp-python-ms)
                          (lsp-deferred))))
@@ -492,10 +503,9 @@
                        (evil-define-key 'normal nimsuggest-mode-map (kbd "M-.") 'nimsuggest-find-definition))))
 
 (use-package mu4e
-  ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
   :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
   :ensure nil  ;; installed system-wide
-  :demand t
+  ;; :demand t
 
   :defines
   mu4e-view-actions
@@ -897,7 +907,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                  (modify-syntax-entry ?\_ "w"))))
 
 (use-package projectile
-  :demand t
+  ;; :demand t
   :diminish
   :custom
   (projectile-globally-ignored-directories
@@ -1025,7 +1035,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package undo-tree
   :custom
-  (undo-tree-auto-save-history t)
+  (undo-tree-auto-save-history nil)  ;; Super slow if t
   (undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory ".undo-tree")))))
 
 (use-package vcs-resolve

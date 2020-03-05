@@ -140,7 +140,7 @@
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-style (quote log) t)
+ '(mu4e-alert-style (quote log))
  '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
@@ -273,10 +273,10 @@
      ("l" "Link" entry
       (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX")
       "* %a
-%i" :immediate-finish t))) t)
- '(org-clock-into-drawer "CLOCKS" t)
- '(org-clock-out-remove-zero-time-clocks t t)
- '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")) t)
+%i" :immediate-finish t))))
+ '(org-clock-into-drawer "CLOCKS")
+ '(org-clock-out-remove-zero-time-clocks t)
+ '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")))
  '(org-columns-default-format
    "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
  '(org-deadline-warning-days 30)
@@ -367,7 +367,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse company-lsp lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (dimmer org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse company-lsp lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
@@ -485,9 +485,9 @@
 (global-set-key (kbd "C-c v w") 'venv-workon-and-cdproject)
 ;; (global-set-key (kbd "C-c w") 'w3m)
 (global-set-key (kbd "C-c z") 'zoom-window-zoom)
-(global-set-key (kbd "C-c f l") 'my/find-file-linkz)
-(global-set-key (kbd "C-c f i") 'my/find-file-init)
-(global-set-key (kbd "C-c f p") 'my/find-file-pkgs)
+;; (global-set-key (kbd "C-c f l") 'my/find-file-linkz)
+;; (global-set-key (kbd "C-c f i") 'my/find-file-init)
+;; (global-set-key (kbd "C-c f p") 'my/find-file-pkgs)
 
 (defadvice kill-buffer (around kill-buffer-around-advice activate)
   "Bury *scratch* buffer instead of killing it.
