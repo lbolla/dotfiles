@@ -37,7 +37,10 @@ function kctx {
 }
 
 function kuser {
-    kubectl config set-context $1 --user=$2
+    ctx=$(kubectl config current-context)
+    admin=kubernetes-admin-$ctx
+    user=${1:-$admin}
+    kubectl config set-context $ctx --user=$user
 }
 
 function kns {

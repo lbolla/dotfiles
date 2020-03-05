@@ -1,5 +1,5 @@
 alias -g GV="| grep -v"
-alias -g J="| jq . | less -nF"
+alias -g J="| jq ."
 alias -g S="| sort"
 alias -g SN="| sort -n"
 # alias -g T="| tar t"
