@@ -3,7 +3,7 @@
 # key: deploy
 # group: kubernetes
 # --
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   # This uniquely identifies the app, environment, and proc.
