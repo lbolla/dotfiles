@@ -470,6 +470,7 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :weight light :height 120))))
  '(fixed-pitch ((t (:family "Iosevka" :height 120))))
+ '(fixed-pitch-serif ((t (:family "FreeMono" :height 120))))
  '(variable-pitch ((t (:family "Gentium" :height 140)))))
  ;; '(mode-line ((t (:background "gray55"))))
  ;; '(region ((t (:background "#50506f"))))

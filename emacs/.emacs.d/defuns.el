@@ -386,7 +386,7 @@ representation for the files to include, as returned by
 (defun my/mu4e-headers-narrow-thing-at-point ()
   "Narrow mu4e search querying for thing at point."
   (interactive)
-  (let ((q (thing-at-point 'filename)))
+  (let ((q (thing-at-point 'word)))
     (my/mu4e-headers-narrow-subject q)))
 
 (defun my/mu4e-headers-narrow ()
