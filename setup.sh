@@ -17,6 +17,7 @@ PACKAGES=(
     psql
     python
     ripgrep
+    rtorrent
     rust
     tmux
     virtualenv
