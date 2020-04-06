@@ -7,8 +7,11 @@
 
 (use-package quasi-monochrome-theme
   :load-path "/home/lbolla/src/github.com/lbolla/emacs-quasi-monochrome/"
-  :defer t
-  :demand t)
+  ;; :defer t
+  :no-require t
+  :demand t
+  :config
+  (add-to-list 'custom-theme-load-path "/home/lbolla/src/github.com/lbolla/emacs-quasi-monochrome/"))
 
 (use-package leuven-theme
   :defer t
@@ -31,6 +34,14 @@
   :demand t)
 
 (use-package tao-theme
+  :defer t
+  :demand t)
+
+(use-package modus-operandi-theme
+  :defer t
+  :demand t)
+
+(use-package modus-vivendi-theme
   :defer t
   :demand t)
 
@@ -86,13 +97,19 @@
 
        ;; Doom Laserwave
        ((eq theme 'doom-laserwave)
-        (message "laserwave")
         (custom-theme-set-faces
          'doom-laserwave
          `(ivy-current-match                 ((t (:inherit (region)))))
          `(mode-line-emphasis                ((t (:foreground "#1b1720" :weight bold))))
          `(org-mode-line-clock               ((t (:slant italic :weight bold))))
-         `(org-mode-line-clock-overrun       ((t (:inherit font-lock-warning-face :slant italic :weight bold))))))
+         `(org-mode-line-clock-overrun       ((t (:inherit font-lock-warning-face :slant italic :weight bold))))
+         `(popup-tip-face                    ((t (:inherit popup-face :foreground "#B381C5" :background "black"))))))
+
+       ;; Doom Opera Light
+       ((eq theme 'doom-opera-light)
+        (custom-theme-set-faces
+         'doom-opera-light
+         `(popup-tip-face                    ((t (:inherit popup-face :foreground "#842879" :background "khaki1"))))))
 
        ;; Goose
        ((eq theme 'goose)

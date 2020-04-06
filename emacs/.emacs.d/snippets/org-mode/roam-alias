@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: roam-alias
+# key: alias
+# --
+#+ROAM_ALIAS: ${1:alias}

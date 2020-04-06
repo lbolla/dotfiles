@@ -99,12 +99,20 @@
   :config
   (evil-define-key 'normal cython-mode-map (kbd ",a") 'cython-show-annotated))
 
+(use-package deft
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-directory "~/zettelkasten/")
+  (deft-extensions '("org" "txt" "md")))
+
 (use-package diminish
   :demand t
   :init
   (eval-after-load 'abbrev '(diminish 'abbrev-mode))
   (eval-after-load 'autorevert '(diminish 'auto-revert-mode))
   (eval-after-load 'eldoc '(diminish 'eldoc-mode))
+  (eval-after-load 'elpy '(diminish 'elpy-mode))
   (eval-after-load 'flyspell '(diminish 'flyspell-mode))
   (eval-after-load 'hideshow '(diminish 'hs-minor-mode))
   (eval-after-load 'mml '(diminish 'mml-mode))
@@ -113,16 +121,6 @@
   (eval-after-load 'smerge-mode '(diminish 'smerge-mode))
   (eval-after-load 'undo-tree '(diminish 'undo-tree-mode))
   (eval-after-load 'whitespace '(diminish 'whitespace-mode)))
-
-(use-package dimmer
-  :bind
-  ("C-c d" . dimmer-mode)
-  :custom
-  (dimmer-fraction 0.4)
-  :config
-  (dimmer-configure-hydra)  ;; TODO  ivy-hydra???
-  (dimmer-configure-org)
-  (dimmer-configure-which-key))
 
 (use-package doc-view
   :hook
@@ -216,11 +214,10 @@
   :config
   (evil-set-initial-state 'calc-mode 'emacs)
   (evil-set-initial-state 'custom-mode 'emacs)
-  ;; (evil-set-initial-state 'dired-mode 'emacs)
+  (evil-set-initial-state 'deft-mode 'emacs)
   (evil-set-initial-state 'eshell-mode 'emacs)
   (evil-set-initial-state 'eww-mode 'emacs)
   (evil-set-initial-state 'pass-mode 'emacs)
-  ;; (evil-set-initial-state 'kubernetes-mode 'emacs)
 
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)
@@ -363,7 +360,8 @@
   :custom
   (flycheck-rust-check-tests nil)
   :hook
-  (flycheck-mode . flycheck-rust-setup)
+  ;; (flycheck-mode . flycheck-rust-setup)
+  (rust-mode . flycheck-rust-setup)
   :config
   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
 
@@ -417,14 +415,17 @@
   :custom
   (lsp-enable-indentation nil)
   (lsp-enable-snippet nil)
-  (lsp-prefer-flymake nil)
   (lsp-response-timeout 5)
   (lsp-rust-clippy-preference "on")
+  ;; (lsp-rust-server 'rust-analyzer)
+  (lsp-rust-server 'rls)
+  (lsp-diagnostics-modeline-scope :workspace)
   (lsp-prefer-capf t)
   :hook
   (prog-mode . lsp-deferred)
   (python-mode . (lambda ()
                    (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
+  (lsp-managed-mode . lsp-diagnostics-modeline-mode)
   :commands (lsp lsp-deferred)
   :config
   (evil-define-key 'normal prog-mode-map (kbd "C-]") 'my/lsp-find-definition-other-window)
@@ -435,6 +436,8 @@
 (use-package lsp-python-ms
   :demand t  ; TODO use :commands
   :after lsp-mode
+  :custom
+  (lsp-python-ms-disabled ["inherit-non-class"])
   :config
   (defun my/lsp-python-ms-version ()
     (interactive)
@@ -573,7 +576,7 @@
                          (:subject)))
 
   (mu4e-mailing-list-patterns '("\\([^.]*\\)\\.yougov\\.net"))
-  (mu4e-headers-include-related t)
+  (mu4e-headers-include-related nil)
   ;; (mu4e-headers-results-limit 500)
   (mu4e-view-show-addresses t)
   (mu4e-view-show-images nil)
@@ -625,23 +628,28 @@
   :custom
   (org-agenda-block-separator "")
   (org-agenda-custom-commands '(
-                                ("." "Agenda/Refile/Archive"
+                                ("." "Agenda/Next/Todo"
                                  ((agenda "" nil)
                                   (tags-todo "-REFILE/NEXT|WAIT"
                                         ((org-agenda-overriding-header "Next tasks")
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
                                          (org-agenda-files '("~/org/"))))
                                   (tags-todo "-REFILE/TODO"
-                                        ((org-agenda-overriding-header "Unscheduled tasks")
+                                        ((org-agenda-overriding-header "Todo tasks")
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
                                          (org-agenda-files '("~/org/"))))
-                                  (org-ql-block '(tags-inherited "REFILE")
+                                  ))
+                                ("," "Refile/Archive/Someday"
+                                 ((org-ql-block '(tags-inherited "REFILE")
                                                 ((org-ql-block-header "Tasks to Refile")))
                                   (org-ql-block '(and
                                                   (done)
                                                   (ts :to -60))
-                                                ((org-ql-block-header "Tasks to archive")))))))
-
+                                                ((org-ql-block-header "Tasks to archive")))
+                                  (tags-todo "-REFILE/SDAY"
+                                        ((org-agenda-overriding-header "Someday tasks")
+                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
+                                         (org-agenda-files '("~/org/"))))))))
   (org-agenda-files '("~/org/"))
   (org-agenda-include-diary t)
   (org-agenda-log-mode-items `(clock closed))
@@ -665,7 +673,7 @@
                            ("h" "Habit"   entry (file "~/org/refile.org") "* TODO %?\n:PROPERTIES:\n:STYLE:    habit\n:END:\n")
                            ("n" "Note"    entry (file "~/org/notes.org")  "* %? \n%U\n%a\n")
                            ("i" "Idea"    entry (file "~/org/ideas.org")  "* %? \n%U\n%a\n")
-                           ("l" "Link"    entry (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX") "* %a\n%i" :immediate-finish t)
+                           ("l" "Link"    entry (file+headline "~/org-linkz/Linkz.org" "INBOX") "* %a\n%i" :immediate-finish t)
                            ))
   (org-clock-into-drawer "CLOCKS")
   (org-clock-out-remove-zero-time-clocks t)
@@ -707,11 +715,11 @@
   (org-priority-start-cycle-with-default nil)
   (org-protocol-default-template-key "l")
   (org-publish-project-alist '(("home"
-                                :base-directory "~/Private/org/"
+                                :base-directory "~/org/"
                                 :exclude "\\.*"
                                 :include ("home.org")
                                 :with-broken-links t
-                                :publishing-directory "~/Private/org/"
+                                :publishing-directory "~/org/"
                                 :publishing-function org-html-publish-to-html
                                 :description "My links"
                                 ;; :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
@@ -825,6 +833,7 @@
   ("C-c o C-l" . org-insert-link)
 
   :config
+  (require 'org-habit)  ;; Otherwise habits are not rendered in org-agenda
   (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
   (defface org-wait '((t (:inherit org-todo :foreground "gold"))) "Face used for waiting tasks." :group 'org-faces)
@@ -832,6 +841,40 @@
   (defface org-sday '((t (:inherit org-todo :foreground "dark gray"))) "Face used for someday tasks." :group 'org-faces)
   (defface org-meet '((t (:inherit org-todo :foreground "deep sky blue"))) "Face used for meeting tasks." :group 'org-faces)
   (defface org-canc '((t (:inherit org-todo :foreground "dim gray"))) "Face used for cancelled tasks." :group 'org-faces))
+
+(use-package org-mu4e
+  :ensure nil
+  :demand t
+  :after (org mu4e))
+
+(use-package org-ref
+  :after org-roam
+  :custom
+  (reftex-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
+  (org-ref-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
+  (org-ref-bibliography-notes "~/zettelkasten/bibliography/notes.org")
+  (org-ref-pdf-directory "~/zettelkasten/bibliography/bibtex-pdfs/"))
+
+(use-package org-roam
+  :diminish
+  :custom
+  (org-roam-directory "~/zettelkasten/")
+  :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n c" . org-ref-insert-link)
+               ("C-c n b" . org-roam-switch-to-buffer)
+               ("C-c n g" . org-roam-graph-show))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert)))
+  :config
+  (defun my/org-roam-rebuild-db ()
+    (interactive)
+    (org-roam-db--clear)
+    (org-roam-db-build-cache))
+  :init
+  (require 'org-ref)
+  (org-roam-mode))
 
 (use-package org-ql
   :defines
@@ -860,11 +903,6 @@
                  '("Personal: Notes" :buffers-files org-agenda-files
                    :query (and (tags "NOTE") (level 1))
                    :title "Notes") t)))
-
-(use-package org-mu4e
-  :ensure nil
-  :demand t
-  :after (org mu4e))
 
 (use-package paredit
   :demand t

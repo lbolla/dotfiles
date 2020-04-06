@@ -676,5 +676,15 @@
   :custom
   (kubernetes-kubectl-flags '("--kubeconfig=/home/lbolla/src/yougov/devops/kubernetes/client/config")))
 
+(use-package dimmer
+  :bind
+  ("C-c d" . dimmer-mode)
+  :custom
+  (dimmer-fraction 0.4)
+  :config
+  (dimmer-configure-hydra)  ;; TODO  ivy-hydra???
+  (dimmer-configure-org)
+  (dimmer-configure-which-key))
+
 (use-package rmsbolt
   :disabled t)

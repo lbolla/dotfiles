@@ -16,6 +16,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-term-color-vector
+   [unspecified "#fdf6e3" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#586e75"])
  '(auth-source-debug nil)
  '(auth-sources
    (quote
@@ -41,8 +43,11 @@
  '(company-lsp-enable-snippet nil t)
  '(company-tooltip-align-annotations t)
  '(custom-safe-themes t)
+ '(deft-directory "~/zettelkasten/" t)
+ '(deft-extensions (quote ("org" "txt" "md")) t)
  '(delete-old-versions t)
  '(delete-selection-mode t)
+ '(dimmer-fraction 0.4 t)
  '(display-time-world-list
    (quote
     (("UTC" "UTC/GMT/Zulu")
@@ -123,25 +128,29 @@
  '(lsp-enable-snippet nil)
  '(lsp-prefer-capf t)
  '(lsp-prefer-flymake nil t)
+ '(lsp-python-ms-disabled ["inherit-non-class"])
  '(lsp-response-timeout 5)
  '(lsp-rust-clippy-preference "on")
  '(lsp-ui-doc-enable nil)
  '(lsp-ui-flycheck-enable t t)
  '(lsp-ui-sideline-enable nil)
  '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read))
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
- '(magit-log-section-commit-count 10)
- '(magit-pull-or-fetch t)
+ '(magit-completing-read-function (quote ivy-completing-read) t)
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
+ '(magit-log-section-commit-count 10 t)
+ '(magit-pull-or-fetch t t)
  '(magit-push-always-verify nil t)
+ '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")) t)
+ '(magit-todos-keyword-suffix ":\\| \\|$" t)
+ '(magit-todos-update 60 t)
  '(mail-user-agent (quote mu4e-user-agent))
  '(menu-bar-mode nil)
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-style (quote log))
- '(mu4e-attachment-dir "/tmp")
+ '(mu4e-alert-style (quote log) t)
+ '(mu4e-attachment-dir "/tmp" t)
  '(mu4e-bookmarks
    (quote
     (("flag:unread AND NOT flag:trashed" "Unread/flagged" 117)
@@ -150,48 +159,48 @@
      ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" 116)
      ("maildir:/YG/GitLab AND flag:unread AND NOT flag:trashed" "Unread GitLab" 103)
      ("flag:flagged" "Flagged" 102)
-     ("flag:attach" "With attachment" 97))))
- '(mu4e-change-filenames-when-moving t)
- '(mu4e-compose-complete-addresses t)
- '(mu4e-compose-complete-only-after nil)
- '(mu4e-compose-complete-only-personal nil)
- '(mu4e-compose-dont-reply-to-self t)
- '(mu4e-drafts-folder "/YG/Drafts")
- '(mu4e-get-mail-command "true")
- '(mu4e-headers-date-format "%x %X")
+     ("flag:attach" "With attachment" 97))) t)
+ '(mu4e-change-filenames-when-moving t t)
+ '(mu4e-compose-complete-addresses t t)
+ '(mu4e-compose-complete-only-after nil t)
+ '(mu4e-compose-complete-only-personal nil t)
+ '(mu4e-compose-dont-reply-to-self t t)
+ '(mu4e-drafts-folder "/YG/Drafts" t)
+ '(mu4e-get-mail-command "true" t)
+ '(mu4e-headers-date-format "%x %X" t)
  '(mu4e-headers-fields
    (quote
     ((:human-date . 18)
      (:flags . 6)
      (:mailing-list . 10)
      (:from . 22)
-     (:subject))))
- '(mu4e-headers-include-related t)
- '(mu4e-headers-skip-duplicates t)
- '(mu4e-maildir "/home/lbolla/Mail")
+     (:subject))) t)
+ '(mu4e-headers-include-related nil t)
+ '(mu4e-headers-skip-duplicates t t)
+ '(mu4e-maildir "/home/lbolla/Mail" t)
  '(mu4e-maildir-shortcuts
    (quote
     (("/YG/INBOX" . 105)
      ("/YG/Sent Items" . 115)
      ("/YG/Errors" . 101)
      ("/YG/GitLab" . 103)
-     ("/YG/Tickets" . 116))))
- '(mu4e-mailing-list-patterns (quote ("\\([^.]*\\)\\.yougov\\.net")))
- '(mu4e-sent-folder "/YG/Sent Items")
- '(mu4e-trash-folder "/YG/Deleted Items")
- '(mu4e-update-interval 300)
- '(mu4e-use-fancy-chars nil)
- '(mu4e-user-mail-address-list (quote ("lorenzo.bolla@yougov.com")))
- '(mu4e-view-html-plaintext-ratio-heuristic 20)
- '(mu4e-view-scroll-to-next nil)
- '(mu4e-view-show-addresses t)
- '(mu4e-view-show-images nil)
- '(mu4e-view-use-gnus nil)
+     ("/YG/Tickets" . 116))) t)
+ '(mu4e-mailing-list-patterns (quote ("\\([^.]*\\)\\.yougov\\.net")) t)
+ '(mu4e-sent-folder "/YG/Sent Items" t)
+ '(mu4e-trash-folder "/YG/Deleted Items" t)
+ '(mu4e-update-interval 300 t)
+ '(mu4e-use-fancy-chars nil t)
+ '(mu4e-user-mail-address-list (quote ("lorenzo.bolla@yougov.com")) t)
+ '(mu4e-view-html-plaintext-ratio-heuristic 20 t)
+ '(mu4e-view-scroll-to-next nil t)
+ '(mu4e-view-show-addresses t t)
+ '(mu4e-view-show-images nil t)
+ '(mu4e-view-use-gnus nil t)
  '(network-security-level (quote high) nil nil "Customized with use-package nsm")
  '(org-agenda-block-separator "")
  '(org-agenda-custom-commands
    (quote
-    (("." "Agenda/Refile/Archive"
+    (("." "Agenda/Next/Todo"
       ((agenda "" nil)
        (tags-todo "-REFILE/NEXT|WAIT"
                   ((org-agenda-overriding-header "Next tasks")
@@ -201,13 +210,14 @@
                     (quote
                      ("~/org/")))))
        (tags-todo "-REFILE/TODO"
-                  ((org-agenda-overriding-header "Unscheduled tasks")
+                  ((org-agenda-overriding-header "Todo tasks")
                    (org-agenda-skip-function
                     (quote my/org-agenda-skip-scheduled))
                    (org-agenda-files
                     (quote
-                     ("~/org/")))))
-       (org-ql-block
+                     ("~/org/")))))))
+     ("," "Refile/Archive/Someday"
+      ((org-ql-block
         (quote
          (tags-inherited "REFILE"))
         ((org-ql-block-header
@@ -218,7 +228,16 @@
          (and
           (done)
           (ts :to -60)))
-        ((org-ql-block-header "Tasks to archive"))))))))
+        ((org-ql-block-header
+          #("Tasks to archive" 0 16
+            (face org-agenda-structure)))))
+       (tags-todo "-REFILE/SDAY"
+                  ((org-agenda-overriding-header "Someday tasks")
+                   (org-agenda-skip-function
+                    (quote my/org-agenda-skip-scheduled))
+                   (org-agenda-files
+                    (quote
+                     ("~/org/"))))))))))
  '(org-agenda-files (quote ("~/org/")))
  '(org-agenda-include-diary t)
  '(org-agenda-log-mode-items (quote (clock closed)))
@@ -271,12 +290,12 @@
 %a
 ")
      ("l" "Link" entry
-      (file+headline "~/Private/org/org-linkz/Linkz.org" "INBOX")
+      (file+headline "~/org-linkz/Linkz.org" "INBOX")
       "* %a
 %i" :immediate-finish t))))
- '(org-clock-into-drawer "CLOCKS")
- '(org-clock-out-remove-zero-time-clocks t)
- '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")))
+ '(org-clock-into-drawer "CLOCKS" t)
+ '(org-clock-out-remove-zero-time-clocks t t)
+ '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")) t)
  '(org-columns-default-format
    "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
  '(org-deadline-warning-days 30)
@@ -310,9 +329,9 @@
  '(org-protocol-default-template-key "l" t)
  '(org-publish-project-alist
    (quote
-    (("home" :base-directory "~/Private/org/" :exclude "\\.*" :include
+    (("home" :base-directory "~/org/" :exclude "\\.*" :include
       ("home.org")
-      :with-broken-links t :publishing-directory "~/Private/org/" :publishing-function org-html-publish-to-html :description "My links" :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
+      :with-broken-links t :publishing-directory "~/org/" :publishing-function org-html-publish-to-html :description "My links" :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
      ("lbolla.info" :components
       ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
      ("lbolla.info-static" :base-directory "~/src/github.com/lbolla/lbolla.info/static/" :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css\\|woff2" :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/" :recursive t :publishing-function org-publish-attachment)
@@ -328,10 +347,14 @@
       ("cubeapi-notes" "cubeapi-static"))
      ("cubeapi-notes" :base-directory "~/work/cubeapi/notes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
      ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))))
+ '(org-ref-bibliography-notes "~/zettelkasten/bibliography/notes.org")
+ '(org-ref-default-bibliography (quote ("~/zettelkasten/bibliography/references.bib")))
+ '(org-ref-pdf-directory "~/zettelkasten/bibliography/bibtex-pdfs/")
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(org-refile-use-outline-path t)
  '(org-return-follows-link t)
+ '(org-roam-directory "~/zettelkasten/")
  '(org-src-fontify-natively t)
  '(org-src-tab-acts-natively t)
  '(org-startup-indented t)
@@ -367,7 +390,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (dimmer org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse company-lsp lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse company-lsp lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
@@ -376,6 +399,7 @@
  '(projectile-globally-ignored-file-suffixes (quote ("pyc" "beam")))
  '(projectile-switch-project-action (quote projectile-dired))
  '(recentf-max-saved-items nil)
+ '(reftex-default-bibliography (quote ("~/zettelkasten/bibliography/references.bib")))
  '(rg-custom-type-aliases
    (quote
     ((#("gn" 0 1
@@ -388,7 +412,7 @@
         (idx 2))
       . "*.tmpl"))))
  '(rg-group-result nil)
- '(rust-format-on-save t t)
+ '(rust-format-on-save t)
  '(safe-local-variable-values
    (quote
     ((eval add-hook
@@ -403,13 +427,13 @@
  '(shr-use-colors t)
  '(shr-use-fonts nil)
  '(smtpmail-mail-address "lorenzo.bolla@yougov.com" t)
- '(smtpmail-smtp-server "smtp.yougov.com")
- '(smtpmail-smtp-service 465)
- '(smtpmail-stream-type (quote starttls))
+ '(smtpmail-smtp-server "smtp.yougov.com" t)
+ '(smtpmail-smtp-service 465 t)
+ '(smtpmail-stream-type (quote starttls) t)
  '(tls-checktrust (quote ask))
  '(tool-bar-mode nil)
  '(tramp-default-method "ssh")
- '(undo-tree-auto-save-history t)
+ '(undo-tree-auto-save-history nil)
  '(undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/.undo-tree"))))
  '(user-full-name "Lorenzo Bolla")
  '(user-mail-address "lorenzo.bolla@yougov.com")
