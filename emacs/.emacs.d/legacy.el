@@ -688,3 +688,42 @@
 
 (use-package rmsbolt
   :disabled t)
+
+;; TODO lsp
+;; (use-package racer
+;;   :diminish
+;;   :after (evil rust-mode)
+;;   :hook
+;;   (rust-mode . racer-mode)
+;;   (racer-mode . eldoc-mode)
+;;   (racer-mode . company-mode)
+;;   :init
+;;   (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
+;;   (evil-define-key 'normal racer-help-mode-map (kbd "K") 'racer-describe)
+;;   (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition)
+;;   (evil-define-key 'normal racer-help-mode-map (kbd "C-]") 'racer-find-definition))
+
+(use-package diminish
+  :disabled t
+  :demand t
+  :init
+  (eval-after-load 'abbrev '(diminish 'abbrev-mode))
+  (eval-after-load 'autorevert '(diminish 'auto-revert-mode))
+  (eval-after-load 'eldoc '(diminish 'eldoc-mode))
+  (eval-after-load 'elpy '(diminish 'elpy-mode))
+  (eval-after-load 'flyspell '(diminish 'flyspell-mode))
+  (eval-after-load 'hideshow '(diminish 'hs-minor-mode))
+  (eval-after-load 'mml '(diminish 'mml-mode))
+  (eval-after-load 'org-indent '(diminish 'org-indent-mode))
+  (eval-after-load 'simple '(diminish 'auto-fill-function))
+  (eval-after-load 'smerge-mode '(diminish 'smerge-mode))
+  (eval-after-load 'undo-tree '(diminish 'undo-tree-mode))
+  (eval-after-load 'whitespace '(diminish 'whitespace-mode)))
+
+(use-package company-lsp
+  :after lsp-mode
+  :custom
+  (company-lsp-cache-candidates 'auto)
+  (company-lsp-enable-snippet nil)
+  :config
+  (push 'company-lsp company-backends))

@@ -8,9 +8,9 @@
 (defvar package-archives)
 
 (setq package-archives
-      '(("gnu" . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")
+      '(("melpa" . "https://melpa.org/packages/")
         ("org" . "https://orgmode.org/elpa/")
+        ;; ("gnu" . "https://elpa.gnu.org/packages/")
         ;; ("marmalade" . "https://marmalade-repo.org/packages/")
         ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
         ;; ("sc" . "https://joseito.republika.pl/sunrise-commander/")
@@ -47,20 +47,11 @@
                   (inline-open . 0)))))
 
 (use-package company
-  :diminish
   :custom
   (company-idle-delay 0.2)
   (company-tooltip-align-annotations t)
   :hook
   (after-init . global-company-mode))
-
-(use-package company-lsp
-  :after lsp-mode
-  :custom
-  (company-lsp-cache-candidates 'auto)
-  (company-lsp-enable-snippet nil)
-  :config
-  (push 'company-lsp company-backends))
 
 (use-package conf-mode
   :mode (((rx "rc" eos) . conf-unix-mode)
@@ -105,22 +96,6 @@
   :custom
   (deft-directory "~/zettelkasten/")
   (deft-extensions '("org" "txt" "md")))
-
-(use-package diminish
-  :demand t
-  :init
-  (eval-after-load 'abbrev '(diminish 'abbrev-mode))
-  (eval-after-load 'autorevert '(diminish 'auto-revert-mode))
-  (eval-after-load 'eldoc '(diminish 'eldoc-mode))
-  (eval-after-load 'elpy '(diminish 'elpy-mode))
-  (eval-after-load 'flyspell '(diminish 'flyspell-mode))
-  (eval-after-load 'hideshow '(diminish 'hs-minor-mode))
-  (eval-after-load 'mml '(diminish 'mml-mode))
-  (eval-after-load 'org-indent '(diminish 'org-indent-mode))
-  (eval-after-load 'simple '(diminish 'auto-fill-function))
-  (eval-after-load 'smerge-mode '(diminish 'smerge-mode))
-  (eval-after-load 'undo-tree '(diminish 'undo-tree-mode))
-  (eval-after-load 'whitespace '(diminish 'whitespace-mode)))
 
 (use-package doc-view
   :hook
@@ -267,7 +242,6 @@
 (unless my/lesser-evil
   (use-package evil-org
     :demand t
-    :diminish
     :after (evil org)
     :hook
     (org-mode . evil-org-mode)
@@ -282,7 +256,6 @@
     :config (evil-org-agenda-set-keys)))
 
 (use-package flycheck
-  :diminish
   :custom
   ;; (flycheck-idle-change-delay 3)
   (flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
@@ -374,12 +347,10 @@
   (go-mode . (lambda ()
                (define-key go-mode-map (kbd "K") 'godoc))))
 
-(use-package highlight-indentation
-  :diminish)
+(use-package highlight-indentation)
 
 (use-package ivy
   :demand t
-  :diminish
   :custom
   (ivy-use-virtual-buffers t)
   (magit-completing-read-function 'ivy-completing-read)
@@ -443,7 +414,7 @@
     (interactive)
     (let* ((fname (concat lsp-python-ms-dir "Python-Language-Server-linux-x64.nuspec"))
            (msg (substring (string-trim (shell-command-to-string (concat "grep '<version>' " fname))) 9 -10)))
-      (message msg)))
+      (message (concat "Installed: " msg " - Available: " (lsp-python-ms-latest-nupkg-url)))))
   :hook (python-mode . (lambda ()
                          (require 'lsp-python-ms)
                          (lsp-deferred))))
@@ -491,6 +462,12 @@
                  (modify-syntax-entry ?\- "w")
                  (setq indent-tabs-mode t))))
 
+(use-package minions
+  :demand t
+  :config
+  (global-set-key [S-down-mouse-3] 'minions-minor-modes-menu)
+  (minions-mode 1))
+
 (use-package markdown-mode
   :bind (("<C-return>" . markdown-follow-link-at-point))
   :hook
@@ -527,36 +504,43 @@
          ("C-c C-u" . my/mu4e-refresh-headers)
          ("<backspace>" . mu4e-headers-query-prev))
 
+  :config
+  (defun my/mu4e-refile-folder-function (msg)
+    "Set the refile folder for MSG."
+    ;; https://www.djcbsoftware.nl/code/mu/mu4e/Refiling-messages.html
+    (concat "/YG/Archives/" (format-time-string "%Y" (mu4e-message-field msg :date))))
+
   :custom
   (user-mail-address yg-smtp-user)
   (user-full-name  "Lorenzo Bolla")
-  (mu4e-maildir "/home/lbolla/Mail")
   (mu4e-drafts-folder "/YG/Drafts")
   (mu4e-sent-folder "/YG/Sent Items")
   (mu4e-trash-folder "/YG/Deleted Items")
+  (mu4e-refile-folder 'my/mu4e-refile-folder-function)
   (mu4e-change-filenames-when-moving t)
-  (mu4e-maildir-shortcuts '(("/YG/INBOX"   . ?i)
-                            ("/YG/Sent Items" . ?s)
-                            ("/YG/Errors" . ?e)
-                            ("/YG/GitLab" . ?g)
-                            ("/YG/Tickets" . ?t)))
-  (mu4e-bookmarks '(("flag:unread AND NOT flag:trashed" "Unread/flagged" ?u)
-                    ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" ?i)
-                    ("maildir:/YG/Errors AND flag:unread AND NOT flag:trashed" "Unread errors" ?e)
-                    ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" ?t)
-                    ("maildir:/YG/GitLab AND flag:unread AND NOT flag:trashed" "Unread GitLab" ?g)
-                    ("flag:flagged" "Flagged" ?f)
-                    ("flag:attach" "With attachment" ?a)
-                    ;; ("date:today..now" "Today's messages" ?t)
-                    ;; ("date:7d..now" "Last 7 days" ?w)
-                    ;; ("mime:image/*" "Messages with images" ?p)
-                    ;; ("maildir:/YG/INBOX AND date:20170101..20171231" "2017" ?y)
+  (mu4e-maildir-shortcuts '((:maildir "/YG/INBOX"      :key ?i)
+                            (:maildir "/YG/Sent Items" :key ?s)
+                            (:maildir "/YG/Errors"     :key ?e)
+                            (:maildir "/YG/GitLab"     :key ?g)
+                            (:maildir "/YG/Tickets"    :key ?t)))
+  (mu4e-bookmarks '((:name "Unread"               :query "flag:unread AND NOT flag:trashed"                         :key ?u)
+                    (:name "Unread inbox"         :query "flag:unread AND NOT flag:trashed AND maildir:/YG/INBOX"   :key ?i)
+                    (:name "Unread errors"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Errors"  :key ?e)
+                    (:name "Unread tickets"       :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Tickets" :key ?t)
+                    (:name "Unread GitLab"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/GitLab"  :key ?g)
+                    (:name "Unread mentions"      :query "flag:unread AND NOT flag:trashed AND body:lorenzo"        :key ?l)
+                    (:name "Unread archived"      :query "flag:unread AND maildir:/YG/Archives"                     :key ?a)
+                    (:name "Flagged"              :query "flag:flagged"                                             :key ?f)
+                    ;; (:name "With attachment"      :query "flag:attach"                                              :key ?a)
+                    ;; (:name "Today's messages"     :query "date:today..now"                                          :key ?t)
+                    ;; (:name "Last 7 days"          :query "date:7d..now"                                             :key ?w)
+                    ;; (:name "Messages with images" :query "mime:image/*"                                             :key ?p)
+                    ;; (:name "2017"                 :query "maildir:/YG/INBOX AND date:20170101..20171231"            :key ?y)
                     ))
-  (mail-user-agent 'mu4e-user-agent)
+  ;; (mail-user-agent 'mu4e-user-agent)
   (mu4e-compose-complete-addresses t)
   (mu4e-compose-complete-only-after nil)
   (mu4e-compose-complete-only-personal nil)
-  (mu4e-user-mail-address-list `(,yg-smtp-user))
   (mu4e-compose-dont-reply-to-self t)
   (mu4e-use-fancy-chars nil)
   (mu4e-get-mail-command "true")
@@ -574,21 +558,16 @@
                          (:mailing-list . 10)
                          (:from . 22)
                          (:subject)))
-
   (mu4e-mailing-list-patterns '("\\([^.]*\\)\\.yougov\\.net"))
   (mu4e-headers-include-related nil)
   ;; (mu4e-headers-results-limit 500)
+  (mu4e-view-actions '(("capture message" . mu4e-action-capture-message)
+                       ("view as pdf" . mu4e-action-view-as-pdf)
+                       ("show this thread" . mu4e-action-show-thread)
+                       ("browse" . mu4e-action-view-in-browser)))
   (mu4e-view-show-addresses t)
   (mu4e-view-show-images nil)
-  (mu4e-view-use-gnus nil)
-
-  :config
-  ;; Force starting automatic updates
-  (mu4e~start)
-  (setq mu4e-view-actions '(("capture message" . mu4e-action-capture-message)
-                            ("view as pdf" . mu4e-action-view-as-pdf)
-                            ("show this thread" . mu4e-action-show-thread)
-                            ("browse" . mu4e-action-view-in-browser))))
+  (mu4e-view-use-gnus nil))
 
 (use-package mu4e-alert
   :bind
@@ -856,7 +835,6 @@
   (org-ref-pdf-directory "~/zettelkasten/bibliography/bibtex-pdfs/"))
 
 (use-package org-roam
-  :diminish
   :custom
   (org-roam-directory "~/zettelkasten/")
   :bind (:map org-roam-mode-map
@@ -906,7 +884,6 @@
 
 (use-package paredit
   :demand t
-  :diminish
   :hook
   ((emacs-lisp-mode
     eval-expression-minibuffer-setup
@@ -945,8 +922,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                  (modify-syntax-entry ?\_ "w"))))
 
 (use-package projectile
-  ;; :demand t
-  :diminish
   :custom
   (projectile-globally-ignored-directories
    '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
@@ -979,20 +954,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (python-mode . hs-minor-mode)
   (python-mode . (lambda ()
                    (set-whitespace-line-column 79))))
-
-;; TODO lsp
-;; (use-package racer
-;;   :diminish
-;;   :after (evil rust-mode)
-;;   :hook
-;;   (rust-mode . racer-mode)
-;;   (racer-mode . eldoc-mode)
-;;   (racer-mode . company-mode)
-;;   :init
-;;   (evil-define-key 'normal rust-mode-map (kbd "K") 'racer-describe)
-;;   (evil-define-key 'normal racer-help-mode-map (kbd "K") 'racer-describe)
-;;   (evil-define-key 'normal rust-mode-map (kbd "C-]") 'racer-find-definition)
-;;   (evil-define-key 'normal racer-help-mode-map (kbd "C-]") 'racer-find-definition))
 
 (use-package rg
   :bind
@@ -1116,11 +1077,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (yas-indent-line 'fixed)
   :init
-  (eval-after-load 'yasnippet '(diminish 'yas-minor-mode))
   (yas-global-mode 1))
 
 (use-package which-key
-  :diminish
   :init (which-key-mode))
 
 (use-package zoom-window)

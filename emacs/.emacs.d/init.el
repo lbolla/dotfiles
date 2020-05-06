@@ -119,11 +119,15 @@
 
 ")
  '(ivy-use-virtual-buffers t)
+ '(jdee-db-active-breakpoint-face-colors (cons "#fafafa" "#3b6ea8"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#fafafa" "#4f894c"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#fafafa" "#bdbdbd"))
  '(js2-mode-show-strict-warnings nil)
  '(json-reformat:indent-width 2 t)
  '(line-spacing 0.2)
  '(linum-format " %7i ")
  '(load-prefer-newer t)
+ '(lsp-diagnostics-modeline-scope :workspace)
  '(lsp-enable-indentation nil)
  '(lsp-enable-snippet nil)
  '(lsp-prefer-capf t)
@@ -131,14 +135,15 @@
  '(lsp-python-ms-disabled ["inherit-non-class"])
  '(lsp-response-timeout 5)
  '(lsp-rust-clippy-preference "on")
+ '(lsp-rust-server (quote rls))
  '(lsp-ui-doc-enable nil)
  '(lsp-ui-flycheck-enable t t)
  '(lsp-ui-sideline-enable nil)
  '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read) t)
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
- '(magit-log-section-commit-count 10 t)
- '(magit-pull-or-fetch t t)
+ '(magit-completing-read-function (quote ivy-completing-read))
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
+ '(magit-log-section-commit-count 10)
+ '(magit-pull-or-fetch t)
  '(magit-push-always-verify nil t)
  '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")) t)
  '(magit-todos-keyword-suffix ":\\| \\|$" t)
@@ -149,54 +154,62 @@
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-style (quote log) t)
- '(mu4e-attachment-dir "/tmp" t)
+ '(mu4e-alert-style (quote log))
+ '(mu4e-attachment-dir "/tmp")
  '(mu4e-bookmarks
    (quote
-    (("flag:unread AND NOT flag:trashed" "Unread/flagged" 117)
-     ("maildir:/YG/INBOX AND flag:unread AND NOT flag:trashed" "Unread inbox" 105)
-     ("maildir:/YG/Errors AND flag:unread AND NOT flag:trashed" "Unread errors" 101)
-     ("maildir:/YG/Tickets AND flag:unread AND NOT flag:trashed" "Unread tickets" 116)
-     ("maildir:/YG/GitLab AND flag:unread AND NOT flag:trashed" "Unread GitLab" 103)
-     ("flag:flagged" "Flagged" 102)
-     ("flag:attach" "With attachment" 97))) t)
- '(mu4e-change-filenames-when-moving t t)
- '(mu4e-compose-complete-addresses t t)
- '(mu4e-compose-complete-only-after nil t)
- '(mu4e-compose-complete-only-personal nil t)
- '(mu4e-compose-dont-reply-to-self t t)
- '(mu4e-drafts-folder "/YG/Drafts" t)
- '(mu4e-get-mail-command "true" t)
- '(mu4e-headers-date-format "%x %X" t)
+    ((:name "Unread" :query "flag:unread AND NOT flag:trashed" :key 117)
+     (:name "Unread inbox" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/INBOX" :key 105)
+     (:name "Unread errors" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Errors" :key 101)
+     (:name "Unread tickets" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Tickets" :key 116)
+     (:name "Unread GitLab" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/GitLab" :key 103)
+     (:name "Unread mentions" :query "flag:unread AND NOT flag:trashed AND body:lorenzo" :key 108)
+     (:name "Flagged" :query "flag:flagged" :key 102))))
+ '(mu4e-change-filenames-when-moving t)
+ '(mu4e-compose-complete-addresses t)
+ '(mu4e-compose-complete-only-after nil)
+ '(mu4e-compose-complete-only-personal nil)
+ '(mu4e-compose-dont-reply-to-self t)
+ '(mu4e-drafts-folder "/YG/Drafts")
+ '(mu4e-get-mail-command "true")
+ '(mu4e-headers-date-format "%x %X")
  '(mu4e-headers-fields
    (quote
     ((:human-date . 18)
      (:flags . 6)
      (:mailing-list . 10)
      (:from . 22)
-     (:subject))) t)
- '(mu4e-headers-include-related nil t)
- '(mu4e-headers-skip-duplicates t t)
- '(mu4e-maildir "/home/lbolla/Mail" t)
+     (:subject))))
+ '(mu4e-headers-include-related nil)
+ '(mu4e-headers-skip-duplicates t)
+ '(mu4e-maildir "/home/lbolla/Mail")
  '(mu4e-maildir-shortcuts
    (quote
-    (("/YG/INBOX" . 105)
-     ("/YG/Sent Items" . 115)
-     ("/YG/Errors" . 101)
-     ("/YG/GitLab" . 103)
-     ("/YG/Tickets" . 116))) t)
- '(mu4e-mailing-list-patterns (quote ("\\([^.]*\\)\\.yougov\\.net")) t)
- '(mu4e-sent-folder "/YG/Sent Items" t)
- '(mu4e-trash-folder "/YG/Deleted Items" t)
- '(mu4e-update-interval 300 t)
- '(mu4e-use-fancy-chars nil t)
- '(mu4e-user-mail-address-list (quote ("lorenzo.bolla@yougov.com")) t)
- '(mu4e-view-html-plaintext-ratio-heuristic 20 t)
- '(mu4e-view-scroll-to-next nil t)
- '(mu4e-view-show-addresses t t)
- '(mu4e-view-show-images nil t)
- '(mu4e-view-use-gnus nil t)
+    ((:maildir "/YG/INBOX" :key 105)
+     (:maildir "/YG/Sent Items" :key 115)
+     (:maildir "/YG/Errors" :key 101)
+     (:maildir "/YG/GitLab" :key 103)
+     (:maildir "/YG/Tickets" :key 116))))
+ '(mu4e-mailing-list-patterns (quote ("\\([^.]*\\)\\.yougov\\.net")))
+ '(mu4e-refile-folder (quote my/mu4e-refile-folder-function))
+ '(mu4e-sent-folder "/YG/Sent Items")
+ '(mu4e-trash-folder "/YG/Deleted Items")
+ '(mu4e-update-interval 300)
+ '(mu4e-use-fancy-chars nil)
+ '(mu4e-user-mail-address-list (quote ("lorenzo.bolla@yougov.com")))
+ '(mu4e-view-actions
+   (quote
+    (("capture message" . mu4e-action-capture-message)
+     ("view as pdf" . mu4e-action-view-as-pdf)
+     ("show this thread" . mu4e-action-show-thread)
+     ("browse" . mu4e-action-view-in-browser))))
+ '(mu4e-view-html-plaintext-ratio-heuristic 20)
+ '(mu4e-view-scroll-to-next nil)
+ '(mu4e-view-show-addresses t)
+ '(mu4e-view-show-images nil)
+ '(mu4e-view-use-gnus nil)
  '(network-security-level (quote high) nil nil "Customized with use-package nsm")
+ '(objed-cursor-color "#99324b")
  '(org-agenda-block-separator "")
  '(org-agenda-custom-commands
    (quote
@@ -220,17 +233,13 @@
       ((org-ql-block
         (quote
          (tags-inherited "REFILE"))
-        ((org-ql-block-header
-          #("Tasks to Refile" 0 15
-            (face org-agenda-structure)))))
+        ((org-ql-block-header "Tasks to Refile")))
        (org-ql-block
         (quote
          (and
           (done)
           (ts :to -60)))
-        ((org-ql-block-header
-          #("Tasks to archive" 0 16
-            (face org-agenda-structure)))))
+        ((org-ql-block-header "Tasks to archive")))
        (tags-todo "-REFILE/SDAY"
                   ((org-agenda-overriding-header "Someday tasks")
                    (org-agenda-skip-function
@@ -293,9 +302,9 @@
       (file+headline "~/org-linkz/Linkz.org" "INBOX")
       "* %a
 %i" :immediate-finish t))))
- '(org-clock-into-drawer "CLOCKS" t)
- '(org-clock-out-remove-zero-time-clocks t t)
- '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")) t)
+ '(org-clock-into-drawer "CLOCKS")
+ '(org-clock-out-remove-zero-time-clocks t)
+ '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")))
  '(org-columns-default-format
    "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
  '(org-deadline-warning-days 30)
@@ -326,7 +335,7 @@
     ((65 . font-lock-warning-face)
      (67 . font-lock-comment-face))))
  '(org-priority-start-cycle-with-default nil)
- '(org-protocol-default-template-key "l" t)
+ '(org-protocol-default-template-key "l")
  '(org-publish-project-alist
    (quote
     (("home" :base-directory "~/org/" :exclude "\\.*" :include
@@ -390,8 +399,9 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse company-lsp lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key diminish dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (minions quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
+ '(pdf-view-midnight-colors (cons "#2a2a2a" "#fafafa"))
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
    (quote
@@ -412,7 +422,9 @@
         (idx 2))
       . "*.tmpl"))))
  '(rg-group-result nil)
- '(rust-format-on-save t)
+ '(rust-format-on-save t t)
+ '(rustic-ansi-faces
+   ["#fafafa" "#99324b" "#4f894c" "#9a7500" "#3b6ea8" "#97365b" "#398eac" "#2a2a2a"])
  '(safe-local-variable-values
    (quote
     ((eval add-hook
@@ -422,14 +434,15 @@
            t t)
      (eval setenv "LAUNCH_DB" "1"))))
  '(scroll-bar-mode nil)
+ '(scroll-conservatively 101)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(shr-use-colors t)
  '(shr-use-fonts nil)
  '(smtpmail-mail-address "lorenzo.bolla@yougov.com" t)
- '(smtpmail-smtp-server "smtp.yougov.com" t)
- '(smtpmail-smtp-service 465 t)
- '(smtpmail-stream-type (quote starttls) t)
+ '(smtpmail-smtp-server "smtp.yougov.com")
+ '(smtpmail-smtp-service 465)
+ '(smtpmail-stream-type (quote starttls))
  '(tls-checktrust (quote ask))
  '(tool-bar-mode nil)
  '(tramp-default-method "ssh")

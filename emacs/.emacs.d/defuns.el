@@ -381,7 +381,7 @@ representation for the files to include, as returned by
   "Narrow m4e search by subject Q."
   (let ((query (concat "s:/" q "/")))
     (message query)
-    (mu4e-headers-search-narrow query)))
+    (mu4e-headers-search-narrow (list query))))
 
 (defun my/mu4e-headers-narrow-thing-at-point ()
   "Narrow mu4e search querying for thing at point."
