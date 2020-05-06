@@ -59,7 +59,7 @@ function kbash {
     # bash into a pod
     pod=$1
     shift
-    kubectl exec -ti ${pod} sh $@
+    kubectl exec -ti ${pod} -- sh $@
 }
 
 function ksearch {
