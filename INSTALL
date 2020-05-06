@@ -40,6 +40,7 @@ I should really use [[https://nixos.org/][NixOS]].
     pkg-config
     pinentry
     postgresql-client
+    pssh
     python-dev
     python3-dev
     r-mathlib
