@@ -4,7 +4,7 @@
 # --
 
 .EXPORT_ALL_VARIABLES:
-.PHONY: help
+.PHONY: ${MAKECMDGOALS}
 
 # Self-documenting Makefile
 # https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html

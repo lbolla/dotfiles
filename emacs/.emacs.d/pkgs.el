@@ -31,6 +31,10 @@
 ;; Necessary to use use-package's :bind
 (require 'bind-key)
 
+(use-package avy
+  :bind
+  ("C-;" . avy-goto-char))
+
 ;; TODO builtin, move to init?
 (use-package cc-mode
   :init
@@ -163,7 +167,7 @@
   ;; :demand t
   :custom
   (eyebrowse-default-workspace-slot 0)
-  (eyebrowse-keymap-prefix "e")
+  (eyebrowse-keymap-prefix (kbd "C-c e"))
   (eyebrowse-new-workspace t)
   :init
   (eyebrowse-mode t))
@@ -254,6 +258,14 @@
     :demand t
     :after evil-org
     :config (evil-org-agenda-set-keys)))
+
+(use-package explain-pause-mode
+  ;; :demand t
+  :load-path "/home/lbolla/src/github.com/lastquestion/explain-pause-mode"
+  :custom
+  (explain-pause-blocking-too-long-ms 100)
+  :config
+  (explain-pause-mode t))
 
 (use-package flycheck
   :custom
@@ -384,6 +396,7 @@
 
 (use-package lsp-mode
   :custom
+  (lsp-keymap-prefix "C-c l")
   (lsp-enable-indentation nil)
   (lsp-enable-snippet nil)
   (lsp-response-timeout 5)
@@ -399,6 +412,7 @@
   (lsp-managed-mode . lsp-diagnostics-modeline-mode)
   :commands (lsp lsp-deferred)
   :config
+  ;; (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   (evil-define-key 'normal prog-mode-map (kbd "C-]") 'my/lsp-find-definition-other-window)
   (evil-define-key 'normal prog-mode-map (kbd "C-}") 'lsp-find-definition)
   (evil-define-key 'normal prog-mode-map (kbd "C-c C-]") 'lsp-find-references)
@@ -528,7 +542,7 @@
                     (:name "Unread errors"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Errors"  :key ?e)
                     (:name "Unread tickets"       :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Tickets" :key ?t)
                     (:name "Unread GitLab"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/GitLab"  :key ?g)
-                    (:name "Unread mentions"      :query "flag:unread AND NOT flag:trashed AND body:lorenzo"        :key ?l)
+                    (:name "Unread mentions"      :query "flag:unread AND NOT flag:trashed AND body:lorenzo"        :key ?m)
                     (:name "Unread archived"      :query "flag:unread AND maildir:/YG/Archives"                     :key ?a)
                     (:name "Flagged"              :query "flag:flagged"                                             :key ?f)
                     ;; (:name "With attachment"      :query "flag:attach"                                              :key ?a)
@@ -931,7 +945,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (projectile-switch-project-action 'projectile-dired)
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (global-set-key (kbd "<f5>") 'projectile-compile-project)
   :init
   (projectile-mode +1))
 

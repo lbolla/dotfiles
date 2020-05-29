@@ -48,6 +48,14 @@
 (use-package dash
   :demand t)
 
+(use-package quasi-monochrome-theme
+  :load-path "/home/lbolla/src/github.com/ianpan870102/tron-legacy-emacs-theme/"
+  ;; :defer t
+  :no-require t
+  :demand t
+  :config
+  (add-to-list 'custom-theme-load-path "/home/lbolla/src/github.com/ianpan870102/tron-legacy-emacs-theme/"))
+
 (defun my/switch-theme (theme)
   "Disable active themes and load THEME."
   (interactive (list (intern (completing-read "Theme: "

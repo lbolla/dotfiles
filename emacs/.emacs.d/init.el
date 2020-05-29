@@ -16,6 +16,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline success warning error])
  '(ansi-term-color-vector
    [unspecified "#fdf6e3" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#586e75"])
  '(auth-source-debug nil)
@@ -23,7 +25,7 @@
    (quote
     ("secrets:session" "secrets:Login" "~/.authinfo.gpg")))
  '(auto-hscroll-mode t)
- '(auto-revert-check-vc-info t)
+ '(auto-revert-check-vc-info nil)
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
  '(blink-cursor-mode t)
  '(browse-url-browser-function (quote browse-url-xdg-open))
@@ -90,6 +92,7 @@
  '(evil-want-integration t)
  '(evil-want-keybinding nil)
  '(eww-search-prefix "https://www.startpage.com/do/search?q=")
+ '(explain-pause-blocking-too-long-ms 100 t)
  '(eyebrowse-default-workspace-slot 0)
  '(eyebrowse-keymap-prefix "e")
  '(eyebrowse-new-workspace t)
@@ -108,13 +111,42 @@
  '(flycheck-highlighting-mode (quote lines))
  '(flycheck-javascript-flow-args nil t)
  '(flycheck-pycheckers-checkers (quote (flake8 mypy3)))
+ '(flymake-error-bitmap
+   (quote
+    (flymake-double-exclamation-mark modus-theme-fringe-red)))
+ '(flymake-note-bitmap (quote (exclamation-mark modus-theme-fringe-cyan)))
+ '(flymake-warning-bitmap (quote (exclamation-mark modus-theme-fringe-yellow)))
  '(font-use-system-font t)
  '(gc-cons-threshold 100000000)
  '(global-hl-line-mode nil)
  '(hl-sexp-background-color "#efebe9")
+ '(hl-todo-keyword-faces
+   (quote
+    (("HOLD" . "#e5f040")
+     ("TODO" . "#feacd0")
+     ("NEXT" . "#b6a0ff")
+     ("THEM" . "#f78fe7")
+     ("PROG" . "#00d3d0")
+     ("OKAY" . "#4ae8fc")
+     ("DONT" . "#58dd13")
+     ("FAIL" . "#ff8059")
+     ("DONE" . "#44bc44")
+     ("NOTE" . "#f0ce43")
+     ("KLUDGE" . "#eecc00")
+     ("HACK" . "#eecc00")
+     ("TEMP" . "#ffcccc")
+     ("FIXME" . "#ff9977")
+     ("XXX+" . "#f4923b")
+     ("REVIEW" . "#6ae4b9")
+     ("DEPRECATED" . "#aaeeee"))))
+ '(ibuffer-deletion-face (quote dired-flagged))
+ '(ibuffer-filter-group-name-face (quote dired-mark))
+ '(ibuffer-marked-face (quote dired-marked))
+ '(ibuffer-title-face (quote dired-header))
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
+ '(initial-major-mode (quote fundamental-mode))
  '(initial-scratch-message ";; SCRATCH
 
 ")
@@ -136,14 +168,14 @@
  '(lsp-response-timeout 5)
  '(lsp-rust-clippy-preference "on")
  '(lsp-rust-server (quote rls))
- '(lsp-ui-doc-enable nil)
+ '(lsp-ui-doc-enable nil t)
  '(lsp-ui-flycheck-enable t t)
- '(lsp-ui-sideline-enable nil)
+ '(lsp-ui-sideline-enable nil t)
  '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read))
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)))
- '(magit-log-section-commit-count 10)
- '(magit-pull-or-fetch t)
+ '(magit-completing-read-function (quote ivy-completing-read) t)
+ '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
+ '(magit-log-section-commit-count 10 t)
+ '(magit-pull-or-fetch t t)
  '(magit-push-always-verify nil t)
  '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")) t)
  '(magit-todos-keyword-suffix ":\\| \\|$" t)
@@ -154,8 +186,8 @@
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-style (quote log))
- '(mu4e-attachment-dir "/tmp")
+ '(mu4e-alert-style (quote log) t)
+ '(mu4e-attachment-dir "/tmp" t)
  '(mu4e-bookmarks
    (quote
     ((:name "Unread" :query "flag:unread AND NOT flag:trashed" :key 117)
@@ -163,25 +195,26 @@
      (:name "Unread errors" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Errors" :key 101)
      (:name "Unread tickets" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Tickets" :key 116)
      (:name "Unread GitLab" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/GitLab" :key 103)
-     (:name "Unread mentions" :query "flag:unread AND NOT flag:trashed AND body:lorenzo" :key 108)
-     (:name "Flagged" :query "flag:flagged" :key 102))))
- '(mu4e-change-filenames-when-moving t)
- '(mu4e-compose-complete-addresses t)
- '(mu4e-compose-complete-only-after nil)
- '(mu4e-compose-complete-only-personal nil)
- '(mu4e-compose-dont-reply-to-self t)
- '(mu4e-drafts-folder "/YG/Drafts")
- '(mu4e-get-mail-command "true")
- '(mu4e-headers-date-format "%x %X")
+     (:name "Unread mentions" :query "flag:unread AND NOT flag:trashed AND body:lorenzo" :key 109)
+     (:name "Unread archived" :query "flag:unread AND maildir:/YG/Archives" :key 97)
+     (:name "Flagged" :query "flag:flagged" :key 102))) t)
+ '(mu4e-change-filenames-when-moving t t)
+ '(mu4e-compose-complete-addresses t t)
+ '(mu4e-compose-complete-only-after nil t)
+ '(mu4e-compose-complete-only-personal nil t)
+ '(mu4e-compose-dont-reply-to-self t t)
+ '(mu4e-drafts-folder "/YG/Drafts" t)
+ '(mu4e-get-mail-command "true" t)
+ '(mu4e-headers-date-format "%x %X" t)
  '(mu4e-headers-fields
    (quote
     ((:human-date . 18)
      (:flags . 6)
      (:mailing-list . 10)
      (:from . 22)
-     (:subject))))
- '(mu4e-headers-include-related nil)
- '(mu4e-headers-skip-duplicates t)
+     (:subject))) t)
+ '(mu4e-headers-include-related nil t)
+ '(mu4e-headers-skip-duplicates t t)
  '(mu4e-maildir "/home/lbolla/Mail")
  '(mu4e-maildir-shortcuts
    (quote
@@ -189,25 +222,25 @@
      (:maildir "/YG/Sent Items" :key 115)
      (:maildir "/YG/Errors" :key 101)
      (:maildir "/YG/GitLab" :key 103)
-     (:maildir "/YG/Tickets" :key 116))))
- '(mu4e-mailing-list-patterns (quote ("\\([^.]*\\)\\.yougov\\.net")))
- '(mu4e-refile-folder (quote my/mu4e-refile-folder-function))
- '(mu4e-sent-folder "/YG/Sent Items")
- '(mu4e-trash-folder "/YG/Deleted Items")
- '(mu4e-update-interval 300)
- '(mu4e-use-fancy-chars nil)
+     (:maildir "/YG/Tickets" :key 116))) t)
+ '(mu4e-mailing-list-patterns (quote ("\\([^.]*\\)\\.yougov\\.net")) t)
+ '(mu4e-refile-folder (quote my/mu4e-refile-folder-function) t)
+ '(mu4e-sent-folder "/YG/Sent Items" t)
+ '(mu4e-trash-folder "/YG/Deleted Items" t)
+ '(mu4e-update-interval 300 t)
+ '(mu4e-use-fancy-chars nil t)
  '(mu4e-user-mail-address-list (quote ("lorenzo.bolla@yougov.com")))
  '(mu4e-view-actions
    (quote
     (("capture message" . mu4e-action-capture-message)
      ("view as pdf" . mu4e-action-view-as-pdf)
      ("show this thread" . mu4e-action-show-thread)
-     ("browse" . mu4e-action-view-in-browser))))
- '(mu4e-view-html-plaintext-ratio-heuristic 20)
- '(mu4e-view-scroll-to-next nil)
- '(mu4e-view-show-addresses t)
- '(mu4e-view-show-images nil)
- '(mu4e-view-use-gnus nil)
+     ("browse" . mu4e-action-view-in-browser))) t)
+ '(mu4e-view-html-plaintext-ratio-heuristic 20 t)
+ '(mu4e-view-scroll-to-next nil t)
+ '(mu4e-view-show-addresses t t)
+ '(mu4e-view-show-images nil t)
+ '(mu4e-view-use-gnus nil t)
  '(network-security-level (quote high) nil nil "Customized with use-package nsm")
  '(objed-cursor-color "#99324b")
  '(org-agenda-block-separator "")
@@ -302,9 +335,9 @@
       (file+headline "~/org-linkz/Linkz.org" "INBOX")
       "* %a
 %i" :immediate-finish t))))
- '(org-clock-into-drawer "CLOCKS")
- '(org-clock-out-remove-zero-time-clocks t)
- '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")))
+ '(org-clock-into-drawer "CLOCKS" t)
+ '(org-clock-out-remove-zero-time-clocks t t)
+ '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")) t)
  '(org-columns-default-format
    "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
  '(org-deadline-warning-days 30)
@@ -335,7 +368,7 @@
     ((65 . font-lock-warning-face)
      (67 . font-lock-comment-face))))
  '(org-priority-start-cycle-with-default nil)
- '(org-protocol-default-template-key "l")
+ '(org-protocol-default-template-key "l" t)
  '(org-publish-project-alist
    (quote
     (("home" :base-directory "~/org/" :exclude "\\.*" :include
@@ -399,7 +432,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (minions quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+    (avy minions quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
  '(password-store-password-length 16)
  '(pdf-view-midnight-colors (cons "#2a2a2a" "#fafafa"))
  '(projectile-completion-system (quote ivy))
@@ -427,7 +460,8 @@
    ["#fafafa" "#99324b" "#4f894c" "#9a7500" "#3b6ea8" "#97365b" "#398eac" "#2a2a2a"])
  '(safe-local-variable-values
    (quote
-    ((eval add-hook
+    ((elpy-test-runner . elpy-test-pytest-runner)
+     (eval add-hook
            (quote after-save-hook)
            (lambda nil
              (org-html-export-to-html nil))
@@ -440,9 +474,9 @@
  '(shr-use-colors t)
  '(shr-use-fonts nil)
  '(smtpmail-mail-address "lorenzo.bolla@yougov.com" t)
- '(smtpmail-smtp-server "smtp.yougov.com")
- '(smtpmail-smtp-service 465)
- '(smtpmail-stream-type (quote starttls))
+ '(smtpmail-smtp-server "smtp.yougov.com" t)
+ '(smtpmail-smtp-service 465 t)
+ '(smtpmail-stream-type (quote starttls) t)
  '(tls-checktrust (quote ask))
  '(tool-bar-mode nil)
  '(tramp-default-method "ssh")
@@ -450,7 +484,9 @@
  '(undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/.undo-tree"))))
  '(user-full-name "Lorenzo Bolla")
  '(user-mail-address "lorenzo.bolla@yougov.com")
+ '(vc-annotate-background-mode nil)
  '(vc-follow-symlinks nil)
+ '(vc-handled-backends (quote (Git)))
  '(vc-log-show-limit 50)
  '(vcs-resolve-exe
    "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py" t)
@@ -496,6 +532,10 @@
  '(web-mode-css-indent-offset 2)
  '(web-mode-markup-indent-offset 2)
  '(whitespace-style (quote (face trailing lines-tail)))
+ '(xterm-color-names
+   ["#000000" "#ff8059" "#44bc44" "#eecc00" "#33beff" "#feacd0" "#00d3d0" "#a8a8a8"])
+ '(xterm-color-names-bright
+   ["#181a20" "#f4923b" "#58dd13" "#e5f040" "#72a4ff" "#f78fe7" "#4ae8fc" "#ffffff"])
  '(yas-indent-line (quote fixed)))
 
 ;; Preferred fonts: Terminus, Iosevka, SourceSerifPro, EBGaramond
@@ -512,10 +552,13 @@
  ;; '(mode-line ((t (:background "gray55"))))
  ;; '(region ((t (:background "#50506f"))))
 
+(global-set-key (kbd "<f5>") 'compile)
 (global-set-key (kbd "M-o") 'my/open-line)
 (global-set-key (kbd "M-O") 'my/open-line-above)
 (global-set-key (kbd "C-x 2") 'my/split-window-below-and-switch-buffer)
 (global-set-key (kbd "C-x 3") 'my/split-window-right-and-switch-buffer)
+;; (global-set-key (kbd "C-x n") 'narrow-or-widen-dwim)
+
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 ;; (global-set-key (kbd "C-c e") 'eshell)
 ;; (global-set-key (kbd "C-c f") 'variable-pitch-mode)

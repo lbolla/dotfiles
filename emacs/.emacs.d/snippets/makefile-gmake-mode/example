@@ -4,7 +4,7 @@
 # --
 
 .EXPORT_ALL_VARIABLES:
-.PHONY: help
+.PHONY: ${MAKECMDGOALS}
 
 SRC = pkg-name
 REQUIREMENTS = requirements.txt requirements_tests.txt
