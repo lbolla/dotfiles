@@ -86,10 +86,7 @@ function w {
     if [[ $# -eq 0 ]]; then
         workon
     else
-        workon $1
-        if [[ $? -eq 0 ]]; then
-            maybe-tmux-rename-window $1
-        fi
+        workon $1 && maybe-tmux-rename-window $1
     fi
 }
 
