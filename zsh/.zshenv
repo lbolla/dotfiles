@@ -11,6 +11,7 @@ export GOROOT=/usr/lib/go
 export LESS="-R"
 export MAIL=$HOME/Mail/YG/INBOX/
 export PAGER=less
+export PGTZ=utc
 # export PGCLUSTER="9.6/main"  # Use latest PG
 # export PIP_REQUIRE_VIRTUALENV=true
 # export PIP_RESPECT_VIRTUALENV=true
