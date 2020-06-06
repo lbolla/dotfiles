@@ -6,6 +6,8 @@
 	# bigfilethreshold = 200K
 [includeIf "gitdir:~/src/github.com/lbolla/"]
         path = .gitconfig-github.com-lbolla
+[includeIf "gitdir:~/src/github.com/yougov/"]
+        path = .gitconfig-github.com-yougov
 [includeIf "gitdir:~/src/yougov/"]
         path = .gitconfig-yougov
 [commit]
@@ -23,7 +25,7 @@
 	rank = shortlog -sn --no-merges
 	searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
 	last = cat-file commit HEAD
-	glog = log --pretty=format:'%C(green)%h %C(yellow)[%ad]%C(red)%d %C(reset)%s%C(blue) [%cn]' --decorate --date=iso --graph
+	glog = log --pretty=format:'%C(green)%h %C(yellow)[%ad]%C(red)%d %C(reset)%s%C(blue) [%cn] %C(black)%G?' --decorate --date=iso --graph
 [diff]
 	tool = meld
 [diff "mwbdiff"]
