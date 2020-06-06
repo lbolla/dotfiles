@@ -405,6 +405,7 @@
   (lsp-rust-server 'rls)
   (lsp-diagnostics-modeline-scope :workspace)
   (lsp-prefer-capf t)
+  (lsp-clients-clangd-executable "clangd-10")
   :hook
   (prog-mode . lsp-deferred)
   (python-mode . (lambda ()

@@ -1,0 +1,26 @@
+# key: configure-ac-example
+# name: configure-ac-example
+# --
+AC_PREREQ([2.69])
+AC_INIT([amhello], [1.0], [bug-automake@gnu.org])
+AC_CONFIG_SRCDIR([config.h.in])
+AC_CONFIG_HEADERS([config.h])
+
+# Checks for programs.
+AC_PROG_CC
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+
+# Checks for libraries.
+
+# Checks for header files.
+dnl AC_CHECK_HEADERS([sys/time.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+
+# Checks for library functions.
+
+AC_CONFIG_FILES([
+ Makefile
+ src/Makefile
+])
+AC_OUTPUT
