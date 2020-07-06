@@ -727,3 +727,72 @@
   (company-lsp-enable-snippet nil)
   :config
   (push 'company-lsp company-backends))
+
+;; ;; From https://github.com/jethrokuan/.emacs.d/blob/master/init.el
+;; (defun my/org-process-inbox ()
+;;   "Called in org-agenda-mode, processes all inbox items."
+;;   (interactive)
+;;   (org-agenda-bulk-mark-regexp "inbox:")
+;;   (my/bulk-process-entries))
+
+;; (defun my/bulk-process-entries ()
+;;   "Bulk process inbox entries."
+;;   (if (not (null org-agenda-bulk-marked-entries))
+;;       (let ((entries (reverse org-agenda-bulk-marked-entries))
+;;             (processed 0)
+;;             (skipped 0))
+;;         (dolist (e entries)
+;;           (let ((pos (text-property-any (point-min) (point-max) 'org-hd-marker e)))
+;;             (if (not pos)
+;;                 (progn (message "Skipping removed entry at %s" e)
+;;                        (cl-incf skipped))
+;;               (goto-char pos)
+;;               (let (org-loop-over-headlines-in-active-region) (funcall 'my/org-agenda-process-inbox-item))
+;;               ;; `post-command-hook' is not run yet.  We make sure any
+;;               ;; pending log note is processed.
+;;               (when (or (memq 'org-add-log-note (default-value 'post-command-hook))
+;;                         (memq 'org-add-log-note post-command-hook))
+;;                 (org-add-log-note))
+;;               (cl-incf processed))))
+;;         (org-agenda-redo)
+;;         (unless org-agenda-persistent-marks (org-agenda-bulk-unmark-all))
+;;         (message "Acted on %d entries%s%s"
+;;                  processed
+;;                  (if (= skipped 0)
+;;                      ""
+;;                    (format ", skipped %d (disappeared before their turn)"
+;;                            skipped))
+;;                  (if (not org-agenda-persistent-marks) "" " (kept marked)")))))
+
+;; (defun my/org-agenda-process-inbox-item ()
+;;   "Process a single item in the org-agenda."
+;;   (interactive)
+;;   (org-with-wide-buffer
+;;    (org-agenda-set-tags)
+;;    (org-agenda-priority)
+;;    (call-interactively 'my/org-agenda-set-effort)
+;;    (org-agenda-refile nil nil t)))
+
+;; (defcustom my/org-current-effort "1:00" "Current effort for agenda items." :group 'local :type 'list)
+
+;; (defun my/org-agenda-set-effort (effort)
+;;   "Set the effort property for the current headline."
+;;   (interactive
+;;    (list (read-string (format "Effort [%s]: " my/org-current-effort) nil nil my/org-current-effort)))
+;;   (setq my/org-current-effort effort)
+;;   (org-agenda-check-no-diary)
+;;   (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
+;;                        (org-agenda-error)))
+;;          (buffer (marker-buffer hdmarker))
+;;          (pos (marker-position hdmarker))
+;;          (inhibit-read-only t)
+;;          newhead)
+;;     (org-with-remote-undo buffer
+;;       (with-current-buffer buffer
+;;         (widen)
+;;         (goto-char pos)
+;;         (org-show-context 'agenda)
+;;         (funcall-interactively 'org-set-effort nil my/org-current-effort)
+;;         (end-of-line 1)
+;;         (setq newhead (org-get-heading)))
+;;       (org-agenda-change-all-lines newhead hdmarker))))

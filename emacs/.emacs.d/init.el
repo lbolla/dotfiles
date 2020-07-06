@@ -9,7 +9,8 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(package-initialize)
+(when (< emacs-major-version 28)
+  (package-initialize))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -167,7 +168,6 @@
  '(lsp-python-ms-disabled ["inherit-non-class"])
  '(lsp-response-timeout 5)
  '(lsp-rust-clippy-preference "on")
- '(lsp-rust-server (quote rls))
  '(lsp-ui-doc-enable nil t)
  '(lsp-ui-flycheck-enable t t)
  '(lsp-ui-sideline-enable nil t)

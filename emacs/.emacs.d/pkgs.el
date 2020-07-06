@@ -32,8 +32,8 @@
 (require 'bind-key)
 
 (use-package avy
-  :bind
-  ("C-;" . avy-goto-char))
+  :bind*
+  ("C-;" . avy-goto-char-timer))
 
 ;; TODO builtin, move to init?
 (use-package cc-mode
@@ -76,7 +76,9 @@
                  (let ((current-prefix-arg 4))
                    (copy-as-format)))))
 
-(use-package counsel)
+(use-package counsel
+  :bind*
+  ("M-x" . counsel-M-x))
 
 (use-package css-mode
   :mode ((rx ".scss" eos))
@@ -98,7 +100,7 @@
   :bind
   ("C-c n d" . deft)
   :custom
-  (deft-directory "~/zettelkasten/")
+  (deft-directory my/zettelkasten-directory)
   (deft-extensions '("org" "txt" "md")))
 
 (use-package doc-view
@@ -363,6 +365,8 @@
 
 (use-package ivy
   :demand t
+  :bind*
+  ("C-c C-r" . ivy-resume)
   :custom
   (ivy-use-virtual-buffers t)
   (magit-completing-read-function 'ivy-completing-read)
@@ -371,9 +375,7 @@
   magit-completing-read-function
   projectile-completion-system
   :config
-  (ivy-mode t)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "M-x") 'counsel-M-x))
+  (ivy-mode t))
 
 (use-package ivy-hydra
   :demand t)
@@ -413,6 +415,8 @@
   (lsp-managed-mode . lsp-diagnostics-modeline-mode)
   :commands (lsp lsp-deferred)
   :config
+  ;; From https://emacs-lsp.github.io/lsp-mode/page/performance/
+  (setq read-process-output-max (* 1024 1024))
   ;; (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   (evil-define-key 'normal prog-mode-map (kbd "C-]") 'my/lsp-find-definition-other-window)
   (evil-define-key 'normal prog-mode-map (kbd "C-}") 'lsp-find-definition)
@@ -479,8 +483,9 @@
 
 (use-package minions
   :demand t
+  :bind*
+  ([S-down-mouse-3] . minions-minor-modes-menu)
   :config
-  (global-set-key [S-down-mouse-3] 'minions-minor-modes-menu)
   (minions-mode 1))
 
 (use-package markdown-mode
@@ -844,14 +849,14 @@
 (use-package org-ref
   :after org-roam
   :custom
-  (reftex-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
-  (org-ref-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
-  (org-ref-bibliography-notes "~/zettelkasten/bibliography/notes.org")
-  (org-ref-pdf-directory "~/zettelkasten/bibliography/bibtex-pdfs/"))
+  (reftex-default-bibliography `(,(concat my/zettelkasten-directory "/bibliography/references.bib")))
+  (org-ref-default-bibliography `(,(concat my/zettelkasten-directory "/bibliography/references.bib")))
+  (org-ref-bibliography-notes (concat my/zettelkasten-directory "/bibliography/notes.bib"))
+  (org-ref-pdf-directory (concat my/zettelkasten-directory "/bibliography/bibtex-pdfs/")))
 
 (use-package org-roam
   :custom
-  (org-roam-directory "~/zettelkasten/")
+  (org-roam-directory my/zettelkasten-directory)
   :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)
@@ -1031,8 +1036,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (smtpmail-stream-type 'starttls))
 
 (use-package swiper
-  :init
-  (global-set-key (kbd "C-s") 'swiper))
+  :bind
+  ("C-s" . swiper))
 
 (use-package text-mode
   :ensure nil
