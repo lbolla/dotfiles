@@ -4,12 +4,10 @@
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
 	# bigfilethreshold = 200K
-[includeIf "gitdir:~/src/github.com/lbolla/"]
-        path = .gitconfig-github.com-lbolla
-[includeIf "gitdir:~/src/github.com/yougov/"]
-        path = .gitconfig-github.com-yougov
-[includeIf "gitdir:~/src/yougov/"]
-        path = .gitconfig-yougov
+[user]
+        name = Lorenzo Bolla
+        email = code@lbolla.info
+	signingkey = 0x0DF83D43C5750E74
 [commit]
 	gpgSign = true
 [tag]
@@ -58,3 +56,9 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+[includeIf "gitdir:~/src/github.com/lbolla/"]
+        path = .gitconfig-github.com-lbolla
+[includeIf "gitdir:~/src/github.com/yougov/"]
+        path = .gitconfig-github.com-yougov
+[includeIf "gitdir:~/src/yougov/"]
+        path = .gitconfig-yougov
