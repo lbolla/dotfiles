@@ -1,7 +1,8 @@
 # export ALTERNATE_EDITOR=vim
 export BROWSER=firefox
 # export BROWSER=google-chrome
-export EDITOR='emacsclient'
+export EDITOR='emacsclient --socket-name /run/user/1000/emacs/server'
+# export KUBE_EDITOR='emacsclient --socket-name /run/user/1000/emacs/server'
 # export EDITOR='emacsclient -nw'
 # export EDITOR='vim'
 export FZF_CTRL_T_COMMAND='rg -uuu --files'
