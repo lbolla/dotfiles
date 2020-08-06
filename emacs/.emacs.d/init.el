@@ -22,38 +22,33 @@
  '(ansi-term-color-vector
    [unspecified "#fdf6e3" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#586e75"])
  '(auth-source-debug nil)
- '(auth-sources
-   (quote
-    ("secrets:session" "secrets:Login" "~/.authinfo.gpg")))
+ '(auth-sources '("secrets:session" "secrets:Login" "~/.authinfo.gpg"))
  '(auto-hscroll-mode t)
  '(auto-revert-check-vc-info nil)
- '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
+ '(backup-directory-alist '(("." . "~/.emacs.d/backups")))
  '(blink-cursor-mode t)
- '(browse-url-browser-function (quote browse-url-xdg-open))
+ '(browse-url-browser-function 'browse-url-xdg-open)
  '(c-default-style
-   (quote
-    ((c-mode . "k&r")
+   '((c-mode . "k&r")
      (c++-mode . "stroustrup-book")
      (java-mode . "java")
      (awk-mode . "awk")
-     (other . "gnu"))))
+     (other . "gnu")))
  '(cc-search-directories
-   (quote
-    ("." "/usr/include" "/usr/local/include/*" "../deps" "../../deps")))
+   '("." "/usr/include" "/usr/local/include/*" "../deps" "../../deps"))
  '(column-number-mode t)
  '(company-idle-delay 0.2)
- '(company-lsp-cache-candidates (quote auto) t)
+ '(company-lsp-cache-candidates 'auto t)
  '(company-lsp-enable-snippet nil t)
  '(company-tooltip-align-annotations t)
  '(custom-safe-themes t)
  '(deft-directory "~/zettelkasten/" t)
- '(deft-extensions (quote ("org" "txt" "md")) t)
+ '(deft-extensions '("org" "txt" "md") t)
  '(delete-old-versions t)
  '(delete-selection-mode t)
  '(dimmer-fraction 0.4 t)
  '(display-time-world-list
-   (quote
-    (("UTC" "UTC/GMT/Zulu")
+   '(("UTC" "UTC/GMT/Zulu")
      ("America/Los_Angeles" "palmcal")
      ("America/New_York" "fesh")
      ("America/Lima" "mbc")
@@ -75,19 +70,19 @@
      ("Asia/Kuala_Lumpur" "Kuala Lumpur")
      ("Asia/Shanghai" "Shanghai")
      ("Asia/Tokyo" "Tokyo")
-     ("Australia/Sydney" "Sydney"))))
- '(dumb-jump-selector (quote ivy))
- '(dumb-jump-window (quote other))
- '(dump-jump-prefer-searcher (quote rg) t)
- '(ediff-split-window-function (quote split-window-horizontally))
- '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+     ("Australia/Sydney" "Sydney")))
+ '(dumb-jump-selector 'ivy)
+ '(dumb-jump-window 'other)
+ '(dump-jump-prefer-searcher 'rg t)
+ '(ediff-split-window-function 'split-window-horizontally)
+ '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(elpy-modules
-   (quote
-    (elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv)))
- '(epa-pinentry-mode (quote loopback))
+   '(elpy-module-sane-defaults elpy-module-company elpy-module-eldoc elpy-module-highlight-indentation elpy-module-pyvenv))
+ '(epa-pinentry-mode 'loopback)
+ '(epg-pinentry-mode 'loopback)
  '(erlang-root-dir "/usr" t)
- '(evil-default-state (quote normal))
- '(evil-lookup-func (quote man-at-point))
+ '(evil-default-state 'normal)
+ '(evil-lookup-func 'man-at-point)
  '(evil-want-C-i-jump nil)
  '(evil-want-C-w-in-emacs-state t)
  '(evil-want-integration t)
@@ -99,31 +94,27 @@
  '(eyebrowse-new-workspace t)
  '(fci-rule-color "#383838")
  '(fill-column 79)
- '(flycheck-check-syntax-automatically (quote (save idle-change new-line mode-enabled)))
+ '(flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
  '(flycheck-clang-include-path
-   (quote
-    ("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps")))
+   '("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps"))
  '(flycheck-clang-language-standard "c++11")
- '(flycheck-cppcheck-checks (quote ("all")))
- '(flycheck-cppcheck-suppressions (quote ("constStatement")))
+ '(flycheck-cppcheck-checks '("all"))
+ '(flycheck-cppcheck-suppressions '("constStatement"))
  '(flycheck-flake8rc "setup.cfg")
  '(flycheck-gcc-language-standard "c++1y")
  '(flycheck-ghc-language-extensions nil)
- '(flycheck-highlighting-mode (quote lines))
+ '(flycheck-highlighting-mode 'lines)
  '(flycheck-javascript-flow-args nil t)
- '(flycheck-pycheckers-checkers (quote (flake8 mypy3)))
- '(flymake-error-bitmap
-   (quote
-    (flymake-double-exclamation-mark modus-theme-fringe-red)))
- '(flymake-note-bitmap (quote (exclamation-mark modus-theme-fringe-cyan)))
- '(flymake-warning-bitmap (quote (exclamation-mark modus-theme-fringe-yellow)))
+ '(flycheck-pycheckers-checkers '(flake8 mypy3))
+ '(flymake-error-bitmap '(flymake-double-exclamation-mark modus-theme-fringe-red))
+ '(flymake-note-bitmap '(exclamation-mark modus-theme-fringe-cyan))
+ '(flymake-warning-bitmap '(exclamation-mark modus-theme-fringe-yellow))
  '(font-use-system-font t)
  '(gc-cons-threshold 100000000)
  '(global-hl-line-mode nil)
  '(hl-sexp-background-color "#efebe9")
  '(hl-todo-keyword-faces
-   (quote
-    (("HOLD" . "#e5f040")
+   '(("HOLD" . "#e5f040")
      ("TODO" . "#feacd0")
      ("NEXT" . "#b6a0ff")
      ("THEM" . "#f78fe7")
@@ -139,15 +130,15 @@
      ("FIXME" . "#ff9977")
      ("XXX+" . "#f4923b")
      ("REVIEW" . "#6ae4b9")
-     ("DEPRECATED" . "#aaeeee"))))
- '(ibuffer-deletion-face (quote dired-flagged))
- '(ibuffer-filter-group-name-face (quote dired-mark))
- '(ibuffer-marked-face (quote dired-marked))
- '(ibuffer-title-face (quote dired-header))
+     ("DEPRECATED" . "#aaeeee")))
+ '(ibuffer-deletion-face 'dired-flagged)
+ '(ibuffer-filter-group-name-face 'dired-mark)
+ '(ibuffer-marked-face 'dired-marked)
+ '(ibuffer-title-face 'dired-header)
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "/usr/local/bin/sbcl --noinform" t)
  '(inhibit-startup-screen t)
- '(initial-major-mode (quote fundamental-mode))
+ '(initial-major-mode 'fundamental-mode)
  '(initial-scratch-message ";; SCRATCH
 
 ")
@@ -160,9 +151,10 @@
  '(line-spacing 0.2)
  '(linum-format " %7i ")
  '(load-prefer-newer t)
- '(lsp-diagnostics-modeline-scope :workspace)
+ '(lsp-diagnostics-modeline-scope :workspace t)
  '(lsp-enable-indentation nil)
  '(lsp-enable-snippet nil)
+ '(lsp-modeline-diagnostics-scope :workspace)
  '(lsp-prefer-capf t)
  '(lsp-prefer-flymake nil t)
  '(lsp-python-ms-disabled ["inherit-non-class"])
@@ -172,32 +164,31 @@
  '(lsp-ui-flycheck-enable t t)
  '(lsp-ui-sideline-enable nil t)
  '(magit-branch-arguments nil t)
- '(magit-completing-read-function (quote ivy-completing-read) t)
- '(magit-log-margin (quote (t "%Y-%m-%d %H:%M " magit-log-margin-width t 18)) t)
+ '(magit-completing-read-function 'ivy-completing-read t)
+ '(magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18) t)
  '(magit-log-section-commit-count 10 t)
  '(magit-pull-or-fetch t t)
  '(magit-push-always-verify nil t)
- '(magit-todos-exclude-globs (quote (".git" "concatenated" "node_modules" "vendor")) t)
+ '(magit-todos-exclude-globs '(".git" "concatenated" "node_modules" "vendor") t)
  '(magit-todos-keyword-suffix ":\\| \\|$" t)
  '(magit-todos-update 60 t)
- '(mail-user-agent (quote mu4e-user-agent))
+ '(mail-user-agent 'mu4e-user-agent)
  '(menu-bar-mode nil)
- '(message-citation-line-function (quote message-insert-formatted-citation-line))
+ '(message-citation-line-function 'message-insert-formatted-citation-line)
  '(message-kill-buffer-on-exit t)
  '(mouse-autoselect-window nil)
  '(mouse-yank-at-point t)
- '(mu4e-alert-style (quote log) t)
+ '(mu4e-alert-style 'log t)
  '(mu4e-attachment-dir "/tmp" t)
  '(mu4e-bookmarks
-   (quote
-    ((:name "Unread" :query "flag:unread AND NOT flag:trashed" :key 117)
+   '((:name "Unread" :query "flag:unread AND NOT flag:trashed" :key 117)
      (:name "Unread inbox" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/INBOX" :key 105)
      (:name "Unread errors" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Errors" :key 101)
      (:name "Unread tickets" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Tickets" :key 116)
      (:name "Unread GitLab" :query "flag:unread AND NOT flag:trashed AND maildir:/YG/GitLab" :key 103)
      (:name "Unread mentions" :query "flag:unread AND NOT flag:trashed AND body:lorenzo" :key 109)
      (:name "Unread archived" :query "flag:unread AND maildir:/YG/Archives" :key 97)
-     (:name "Flagged" :query "flag:flagged" :key 102))) t)
+     (:name "Flagged" :query "flag:flagged" :key 102)) t)
  '(mu4e-change-filenames-when-moving t t)
  '(mu4e-compose-complete-addresses t t)
  '(mu4e-compose-complete-only-after nil t)
@@ -207,102 +198,87 @@
  '(mu4e-get-mail-command "true" t)
  '(mu4e-headers-date-format "%x %X" t)
  '(mu4e-headers-fields
-   (quote
-    ((:human-date . 18)
+   '((:human-date . 18)
      (:flags . 6)
      (:mailing-list . 10)
      (:from . 22)
-     (:subject))) t)
+     (:subject)) t)
  '(mu4e-headers-include-related nil t)
  '(mu4e-headers-skip-duplicates t t)
  '(mu4e-maildir "/home/lbolla/Mail")
  '(mu4e-maildir-shortcuts
-   (quote
-    ((:maildir "/YG/INBOX" :key 105)
+   '((:maildir "/YG/INBOX" :key 105)
      (:maildir "/YG/Sent Items" :key 115)
      (:maildir "/YG/Errors" :key 101)
      (:maildir "/YG/GitLab" :key 103)
-     (:maildir "/YG/Tickets" :key 116))) t)
- '(mu4e-mailing-list-patterns (quote ("\\([^.]*\\)\\.yougov\\.net")) t)
- '(mu4e-refile-folder (quote my/mu4e-refile-folder-function) t)
+     (:maildir "/YG/Tickets" :key 116)) t)
+ '(mu4e-mailing-list-patterns '("\\([^.]*\\)\\.yougov\\.net") t)
+ '(mu4e-refile-folder 'my/mu4e-refile-folder-function t)
  '(mu4e-sent-folder "/YG/Sent Items" t)
  '(mu4e-trash-folder "/YG/Deleted Items" t)
  '(mu4e-update-interval 300 t)
  '(mu4e-use-fancy-chars nil t)
- '(mu4e-user-mail-address-list (quote ("lorenzo.bolla@yougov.com")))
+ '(mu4e-user-mail-address-list '("lorenzo.bolla@yougov.com"))
  '(mu4e-view-actions
-   (quote
-    (("capture message" . mu4e-action-capture-message)
+   '(("capture message" . mu4e-action-capture-message)
      ("view as pdf" . mu4e-action-view-as-pdf)
      ("show this thread" . mu4e-action-show-thread)
-     ("browse" . mu4e-action-view-in-browser))) t)
+     ("browse" . mu4e-action-view-in-browser)) t)
  '(mu4e-view-html-plaintext-ratio-heuristic 20 t)
  '(mu4e-view-scroll-to-next nil t)
  '(mu4e-view-show-addresses t t)
  '(mu4e-view-show-images nil t)
  '(mu4e-view-use-gnus nil t)
- '(network-security-level (quote high) nil nil "Customized with use-package nsm")
+ '(network-security-level 'high nil nil "Customized with use-package nsm")
  '(objed-cursor-color "#99324b")
  '(org-agenda-block-separator "")
  '(org-agenda-custom-commands
-   (quote
-    (("." "Agenda/Next/Todo"
+   '(("." "Agenda/Next/Todo"
       ((agenda "" nil)
        (tags-todo "-REFILE/NEXT|WAIT"
                   ((org-agenda-overriding-header "Next tasks")
-                   (org-agenda-skip-function
-                    (quote my/org-agenda-skip-scheduled))
+                   (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
                    (org-agenda-files
-                    (quote
-                     ("~/org/")))))
+                    '("~/org/"))))
        (tags-todo "-REFILE/TODO"
                   ((org-agenda-overriding-header "Todo tasks")
-                   (org-agenda-skip-function
-                    (quote my/org-agenda-skip-scheduled))
+                   (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
                    (org-agenda-files
-                    (quote
-                     ("~/org/")))))))
+                    '("~/org/"))))))
      ("," "Refile/Archive/Someday"
       ((org-ql-block
-        (quote
-         (tags-inherited "REFILE"))
+        '(tags-inherited "REFILE")
         ((org-ql-block-header "Tasks to Refile")))
        (org-ql-block
-        (quote
-         (and
+        '(and
           (done)
-          (ts :to -60)))
+          (ts :to -60))
         ((org-ql-block-header "Tasks to archive")))
        (tags-todo "-REFILE/SDAY"
                   ((org-agenda-overriding-header "Someday tasks")
-                   (org-agenda-skip-function
-                    (quote my/org-agenda-skip-scheduled))
+                   (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
                    (org-agenda-files
-                    (quote
-                     ("~/org/"))))))))))
- '(org-agenda-files (quote ("~/org/")))
+                    '("~/org/"))))))))
+ '(org-agenda-files '("~/org/"))
  '(org-agenda-include-diary t)
- '(org-agenda-log-mode-items (quote (clock closed)))
+ '(org-agenda-log-mode-items '(clock closed))
  '(org-agenda-sorting-strategy
-   (quote
-    ((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
+   '((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
      (todo todo-state-down priority-down category-up alpha-up)
      (tags todo-state-down priority-down category-up alpha-up)
-     (search todo-state-down priority-down category-up alpha-up))))
+     (search todo-state-down priority-down category-up alpha-up)))
  '(org-agenda-span 1)
  '(org-agenda-start-on-weekday nil)
  '(org-agenda-start-with-log-mode t)
- '(org-agenda-tags-column (quote auto))
+ '(org-agenda-tags-column 'auto)
  '(org-babel-load-languages
-   (quote
-    ((emacs-lisp . t)
+   '((emacs-lisp . t)
      (ledger . t)
      (shell . t)
      (sql . t)
-     (python . t))))
+     (python . t)))
  '(org-capture-templates
-   (quote
-    (("t" "Todo" entry
+   '(("t" "Todo" entry
       (file "~/org/refile.org")
       "* TODO %?
 %i
@@ -334,44 +310,40 @@
      ("l" "Link" entry
       (file+headline "~/org-linkz/Linkz.org" "INBOX")
       "* %a
-%i" :immediate-finish t))))
+%i" :immediate-finish t)))
  '(org-clock-into-drawer "CLOCKS" t)
  '(org-clock-out-remove-zero-time-clocks t t)
- '(org-clock-out-when-done (quote ("WAIT" "DONE" "CANC" "DELG")) t)
+ '(org-clock-out-when-done '("WAIT" "DONE" "CANC" "DELG") t)
  '(org-columns-default-format
    "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
  '(org-deadline-warning-days 30)
  '(org-default-notes-file "~/org/refile.org")
  '(org-default-priority 68)
- '(org-export-backends (quote (ascii html icalendar latex odt confluence)))
+ '(org-export-backends '(ascii html icalendar latex odt confluence))
  '(org-fast-tag-selection-single-key t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
- '(org-html-htmlize-output-type (quote css))
+ '(org-html-htmlize-output-type 'css)
  '(org-html-validation-link nil)
  '(org-link-abbrev-alist
-   (quote
-    (("FB" . "https://yougov.fogbugz.com/f/cases/%h")
+   '(("FB" . "https://yougov.fogbugz.com/f/cases/%h")
      ("BSD" . "https://jira.yougov.net/browse/BSD-%h")
      ("BRI" . "https://jira.yougov.net/browse/BRI-%h")
      ("DEVO" . "https://jira.yougov.net/browse/DEVO-%h")
      ("GH" . github-issue-url)
-     ("GL" . yg-gitlab-object-url))))
- '(org-log-done (quote time))
+     ("GL" . yg-gitlab-object-url)))
+ '(org-log-done 'time)
  '(org-log-into-drawer t)
  '(org-module
-   (quote
-    (org-habit ox-confluence org-protocol ol-w3m ol-bbdb ol-bibtex ol-docview ol-info ol-eww)) t)
+   '(org-habit ox-confluence org-protocol ol-w3m ol-bbdb ol-bibtex ol-docview ol-info ol-eww) t)
  '(org-outline-path-complete-in-steps nil)
  '(org-priority-faces
-   (quote
-    ((65 . font-lock-warning-face)
-     (67 . font-lock-comment-face))))
+   '((65 . font-lock-warning-face)
+     (67 . font-lock-comment-face)))
  '(org-priority-start-cycle-with-default nil)
  '(org-protocol-default-template-key "l" t)
  '(org-publish-project-alist
-   (quote
-    (("home" :base-directory "~/org/" :exclude "\\.*" :include
+   '(("home" :base-directory "~/org/" :exclude "\\.*" :include
       ("home.org")
       :with-broken-links t :publishing-directory "~/org/" :publishing-function org-html-publish-to-html :description "My links" :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
      ("lbolla.info" :components
@@ -388,12 +360,12 @@
      ("cubeapi" :components
       ("cubeapi-notes" "cubeapi-static"))
      ("cubeapi-notes" :base-directory "~/work/cubeapi/notes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
-     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment))))
+     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment)))
  '(org-ref-bibliography-notes "~/zettelkasten/bibliography/notes.org")
- '(org-ref-default-bibliography (quote ("~/zettelkasten/bibliography/references.bib")))
+ '(org-ref-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
  '(org-ref-pdf-directory "~/zettelkasten/bibliography/bibtex-pdfs/")
- '(org-refile-allow-creating-parent-nodes (quote confirm))
- '(org-refile-targets (quote ((org-agenda-files :level . 1))))
+ '(org-refile-allow-creating-parent-nodes 'confirm)
+ '(org-refile-targets '((org-agenda-files :level . 1)))
  '(org-refile-use-outline-path t)
  '(org-return-follows-link t)
  '(org-roam-directory "~/zettelkasten/")
@@ -401,51 +373,44 @@
  '(org-src-tab-acts-natively t)
  '(org-startup-indented t)
  '(org-stuck-projects
-   (quote
-    ("+LEVEL=2/-DONE"
+   '("+LEVEL=2/-DONE"
      ("TODO" "NEXT" "SOMEDAY" "WAIT" "CANC" "DELG")
      ("@ignore")
-     "")))
+     ""))
  '(org-tag-alist
-   (quote
-    ((:startgroup)
+   '((:startgroup)
      ("@family" . 102)
      ("@home" . 104)
      ("@work" . 119)
      ("@ignore" . 105)
      (:endgroup)
      ("MEET" . 109)
-     ("FLAG" . 43))))
+     ("FLAG" . 43)))
  '(org-todo-keyword-faces
-   (quote
-    (("TODO" . org-todo)
+   '(("TODO" . org-todo)
      ("NEXT" . org-strt)
      ("SDAY" . org-sday)
      ("WAIT" . org-wait)
      ("DELG" . org-delg)
      ("CANC" . org-canc)
-     ("DONE" . org-done))))
+     ("DONE" . org-done)))
  '(org-todo-keywords
-   (quote
-    ((sequence "TODO(t)" "NEXT(n!)" "WAIT(w@/!)" "SDAY(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)"))))
+   '((sequence "TODO(t)" "NEXT(n!)" "WAIT(w@/!)" "SDAY(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)")))
  '(org-treat-S-cursor-todo-selection-as-state-change nil)
  '(package-enable-at-startup nil)
  '(package-selected-packages
-   (quote
-    (avy minions quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode)))
+   '(all-the-icons lsp-treemacs dap-mode lsp-java avy minions quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode))
  '(password-store-password-length 16)
  '(pdf-view-midnight-colors (cons "#2a2a2a" "#fafafa"))
- '(projectile-completion-system (quote ivy))
+ '(projectile-completion-system 'ivy)
  '(projectile-globally-ignored-directories
-   (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist" ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache")))
- '(projectile-globally-ignored-file-suffixes (quote ("pyc" "beam")))
- '(projectile-switch-project-action (quote projectile-dired))
+   '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist" ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
+ '(projectile-globally-ignored-file-suffixes '("pyc" "beam"))
+ '(projectile-switch-project-action 'projectile-dired)
  '(recentf-max-saved-items nil)
- '(reftex-default-bibliography (quote ("~/zettelkasten/bibliography/references.bib")))
+ '(reftex-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
  '(rg-custom-type-aliases
-   (quote
-    ((#("gn" 0 1
+   '((#("gn" 0 1
         (idx 0))
       . "*.gn *.gni")
      (#("gyp" 0 1
@@ -453,48 +418,45 @@
       . "*.gyp *.gypi")
      (#("tmpl" 0 1
         (idx 2))
-      . "*.tmpl"))))
+      . "*.tmpl")))
  '(rg-group-result nil)
  '(rust-format-on-save t t)
  '(rustic-ansi-faces
    ["#fafafa" "#99324b" "#4f894c" "#9a7500" "#3b6ea8" "#97365b" "#398eac" "#2a2a2a"])
  '(safe-local-variable-values
-   (quote
-    ((elpy-test-runner . elpy-test-pytest-runner)
-     (eval add-hook
-           (quote after-save-hook)
+   '((elpy-test-runner . elpy-test-pytest-runner)
+     (eval add-hook 'after-save-hook
            (lambda nil
              (org-html-export-to-html nil))
            t t)
-     (eval setenv "LAUNCH_DB" "1"))))
+     (eval setenv "LAUNCH_DB" "1")))
  '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
- '(send-mail-function (quote smtpmail-send-it))
+ '(send-mail-function 'smtpmail-send-it)
  '(show-paren-mode t)
  '(shr-use-colors t)
  '(shr-use-fonts nil)
  '(smtpmail-mail-address "lorenzo.bolla@yougov.com" t)
  '(smtpmail-smtp-server "smtp.yougov.com" t)
  '(smtpmail-smtp-service 465 t)
- '(smtpmail-stream-type (quote starttls) t)
- '(tls-checktrust (quote ask))
+ '(smtpmail-stream-type 'starttls t)
+ '(tls-checktrust 'ask)
  '(tool-bar-mode nil)
  '(tramp-default-method "ssh")
  '(undo-tree-auto-save-history nil)
- '(undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/.undo-tree"))))
+ '(undo-tree-history-directory-alist '(("." . "~/.emacs.d/.undo-tree")))
  '(user-full-name "Lorenzo Bolla")
  '(user-mail-address "lorenzo.bolla@yougov.com")
  '(vc-annotate-background-mode nil)
  '(vc-follow-symlinks nil)
- '(vc-handled-backends (quote (Git)))
+ '(vc-handled-backends '(Git))
  '(vc-log-show-limit 50)
  '(vcs-resolve-exe
    "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py" t)
  '(w3m-home-page "about:")
  '(w3m-search-default-engine "startpage")
  '(w3m-search-engine-alist
-   (quote
-    (("searx" "https://searx.me/?q=%s" utf-8)
+   '(("searx" "https://searx.me/?q=%s" utf-8)
      ("startpage" "https://www.ixquick.com/do/search?q=%s" utf-8)
      ("yahoo" "https://search.yahoo.com/bin/search?p=%s" nil)
      ("yahoo-ja" "https://search.yahoo.co.jp/bin/search?p=%s" euc-japan)
@@ -527,16 +489,16 @@
      ("de.wikipedia" "https://de.wikipedia.org/wiki/Spezial:Search?search=%s" utf-8)
      ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
      ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
-     ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8))))
+     ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8)))
  '(web-mode-code-indent-offset 4)
  '(web-mode-css-indent-offset 2)
  '(web-mode-markup-indent-offset 2)
- '(whitespace-style (quote (face trailing lines-tail)))
+ '(whitespace-style '(face trailing lines-tail))
  '(xterm-color-names
    ["#000000" "#ff8059" "#44bc44" "#eecc00" "#33beff" "#feacd0" "#00d3d0" "#a8a8a8"])
  '(xterm-color-names-bright
    ["#181a20" "#f4923b" "#58dd13" "#e5f040" "#72a4ff" "#f78fe7" "#4ae8fc" "#ffffff"])
- '(yas-indent-line (quote fixed)))
+ '(yas-indent-line 'fixed))
 
 ;; Preferred fonts: Terminus, Iosevka, SourceSerifPro, EBGaramond
 ;; More at https://fonts.google.com/?category=Serif&sort=popularity
@@ -548,6 +510,7 @@
  '(default ((t (:family "Iosevka" :weight light :height 120))))
  '(fixed-pitch ((t (:family "Iosevka" :height 120))))
  '(fixed-pitch-serif ((t (:family "FreeMono" :height 120))))
+ ;; '(helm-match ((t (:extend t :foreground "#b00000"))))
  '(variable-pitch ((t (:family "Gentium" :height 140)))))
  ;; '(mode-line ((t (:background "gray55"))))
  ;; '(region ((t (:background "#50506f"))))

@@ -31,6 +31,8 @@
 ;; Necessary to use use-package's :bind
 (require 'bind-key)
 
+(use-package all-the-icons)
+
 (use-package avy
   :bind*
   ("C-;" . avy-goto-char-timer))
@@ -95,6 +97,26 @@
   :after evil
   :config
   (evil-define-key 'normal cython-mode-map (kbd ",a") 'cython-show-annotated))
+
+; https://gitlab.com/skybert/my-little-friends/blob/master/emacs/.emacs#L780
+(use-package dap-java
+  :ensure nil
+  :after lsp-java
+  :bind
+  ("C-c d d" . dap-java-debug))
+
+;; https://emacs-lsp.github.io/dap-mode/
+(use-package dap-mode
+  :bind
+  ;; ("C-c d d" . dap-debug)
+  ;; ("C-c d s" . dap-step-in)
+  ;; ("C-c d r" . dap-step-out)
+  ;; ("C-c d n" . dap-next)
+  ;; ("C-c d c" . dap-continue)
+  ("C-c d B" . dap-breakpoint-delete-all)
+  ("C-c d b" . dap-breakpoint-toggle)
+  :hook
+  (dap-stopped . (lambda (arg) (call-interactively #'dap-hydra))))
 
 (use-package deft
   :bind
@@ -184,7 +206,7 @@
   :custom
   (evil-want-keybinding nil)
   (evil-want-integration t)
-  (evil-default-state 'normal)
+  (evil-default-state (if my/lesser-evil 'emacs 'normal))
   (evil-lookup-func 'man-at-point)
   (evil-want-C-w-in-emacs-state (not my/lesser-evil))
   (evil-want-C-i-jump nil)  ;; Or it masks <TAB> in non-graphical mode
@@ -401,14 +423,16 @@
   (lsp-keymap-prefix "C-c l")
   (lsp-enable-indentation nil)
   (lsp-enable-snippet nil)
+  (lsp-signature-auto-activate nil)
   (lsp-response-timeout 5)
   (lsp-rust-clippy-preference "on")
-  ;; (lsp-rust-server 'rust-analyzer)
-  (lsp-rust-server 'rls)
+  (lsp-rust-server 'rust-analyzer)
+  ;; (lsp-rust-server 'rls)
   (lsp-diagnostics-modeline-scope :workspace)
   (lsp-prefer-capf t)
   (lsp-clients-clangd-executable "clangd-10")
   :hook
+  (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
   (python-mode . (lambda ()
                    (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
@@ -423,9 +447,15 @@
   (evil-define-key 'normal prog-mode-map (kbd "C-c C-]") 'lsp-find-references)
   (evil-define-key 'normal prog-mode-map (kbd "K") 'lsp-describe-thing-at-point))
 
-(use-package lsp-python-ms
-  :demand t  ; TODO use :commands
+;; https://emacs-lsp.github.io/lsp-java/
+(use-package lsp-java
   :after lsp-mode
+  :hook
+  (java-lens-mode . lsp-java-lens-mode))
+
+(use-package lsp-python-ms
+  ;; :demand t  ; TODO use :commands
+  ;; :after lsp-mode
   :custom
   (lsp-python-ms-disabled ["inherit-non-class"])
   :config
@@ -735,7 +765,7 @@
                                ("lbolla.info-cv.pdf"
                                 :base-directory "~/src/github.com/lbolla/lbolla.info/org/"
                                 :exclude "\\.*"
-                                :include ("cv.org")
+                                :include ("cv.org" "cv-short.org")
                                 :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/"
                                 :publishing-function org-latex-publish-to-pdf)
                                ("lbolla.info-html"
@@ -756,7 +786,7 @@
                                 :html-head-include-scripts nil
                                 :html-link-home "<ignored>"
                                 :html-link-up "<ignored>"
-                                :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles\">Articles</a> | <a accesskey=\"c\" href=\"/cv\">CV</a> (<a href=\"/cv.pdf\">pdf</a>)</div>"
+                                :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles\">Articles</a> | <a accesskey=\"c\" href=\"/cv\">CV</a> (<a href=\"/cv.pdf\">pdf</a> | <a href=\"/cv-short.pdf\">short</a>)</div>"
                                 :html-preamble lbolla.info/html-preamble
                                 :html-postamble nil
                                 :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\">"
@@ -870,7 +900,6 @@
     (interactive)
     (org-roam-db--clear)
     (org-roam-db-build-cache))
-  :init
   (require 'org-ref)
   (org-roam-mode))
 
