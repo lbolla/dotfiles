@@ -56,6 +56,14 @@
   (mapc #'disable-theme custom-enabled-themes)
   (load-theme theme 'no-confirm))
 
+(defmacro lbolla/custom-theme-set-faces (theme &rest args)
+  "Set and activate ARGS faces in THEME."
+  `(progn
+     (custom-theme-set-faces
+      ,theme
+      ,@args)
+     ,@(mapcar (lambda (face &rest _rest) `(custom-theme-recalc-face ',(caadr face))) args)))
+
 (defvar after-load-theme-hook
   '(lambda ()
     (let ((theme (car custom-enabled-themes)))
@@ -63,7 +71,7 @@
 
        ;; Cyberpunk
        ((eq theme 'cyberpunk)
-        (custom-theme-set-faces
+        (lbolla/custom-theme-set-faces
          'cyberpunk
          `(font-lock-warning-face            ((t (:foreground "#ff69b4" :inverse-video t :weight bold))))
          `(highlight-indentation-face        ((t (:inherit (fringe) :background "gray5"))))
@@ -91,29 +99,36 @@
 
        ;; Deeper blue
        ((eq theme 'deeper-blue)
-        (custom-set-faces
+        (lbolla/custom-theme-set-faces
+         'deeper-blue
          `(mode-line                         ((t (:background "gray55"))))
          `(region                            ((t (:background "#50506f"))))))
 
        ;; Doom Laserwave
        ((eq theme 'doom-laserwave)
-        (custom-theme-set-faces
+        (lbolla/custom-theme-set-faces
          'doom-laserwave
-         `(ivy-current-match                 ((t (:inherit (region)))))
+         `(ivy-current-match                 ((t (:background "#4e2e49" :inherit (region)))))
          `(mode-line-emphasis                ((t (:foreground "#1b1720" :weight bold))))
          `(org-mode-line-clock               ((t (:slant italic :weight bold))))
          `(org-mode-line-clock-overrun       ((t (:inherit font-lock-warning-face :slant italic :weight bold))))
          `(popup-tip-face                    ((t (:inherit popup-face :foreground "#B381C5" :background "black"))))))
 
+       ;; Doom Monokai Classic
+       ((eq theme 'doom-monokai-classic)
+        (lbolla/custom-theme-set-faces
+         'doom-monokai-classic
+         `(ivy-current-match                 ((t (:background "#4E4E4E" :inherit (region)))))))
+
        ;; Doom Opera Light
        ((eq theme 'doom-opera-light)
-        (custom-theme-set-faces
+        (lbolla/custom-theme-set-faces
          'doom-opera-light
          `(popup-tip-face                    ((t (:inherit popup-face :foreground "#842879" :background "khaki1"))))))
 
        ;; Goose
        ((eq theme 'goose)
-        (custom-theme-set-faces
+        (lbolla/custom-theme-set-faces
          'goose
          `(font-lock-string-face             ((t (:foreground "#666666" :slant italic))))
          `(mu4e-flagged-face                 ((t (:inherit (font-lock-constant-face) :foreground "firebrick" :weight bold))))
@@ -124,7 +139,7 @@
 
        ;; Leuven
         ((eq theme 'leuven)
-         (custom-theme-set-faces
+         (lbolla/custom-theme-set-faces
           'leuven
           `(highlight-indentation-face        ((t (:inherit (fringe) :background "gray97"))))
           ;; `(magit-diff-file-heading-highlight ((t (:background "gray80"))))

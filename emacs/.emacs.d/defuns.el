@@ -76,6 +76,12 @@
    (t
     (message "No test"))))
 
+(defun my/lsp-python-ms-version ()
+  (interactive)
+  (let* ((fname (concat lsp-python-ms-dir "Python-Language-Server-linux-x64.nuspec"))
+         (msg (substring (string-trim (shell-command-to-string (concat "grep '<version>' " fname))) 9 -10)))
+    (message (concat "Installed: " msg " - Available: " (lsp-python-ms-latest-nupkg-url)))))
+
 (defun cython-show-annotated ()
   "Show annotated cython code."
   (interactive)
@@ -381,15 +387,18 @@ representation for the files to include, as returned by
       (format "<span class=\"timestamp\"><%s></span> by <em>%s</em>" (format-time-string "%Y-%m-%d" (org-time-string-to-time date)) author))))
 
 (defun my/mu4e-headers-narrow-subject (q)
-  "Narrow m4e search by subject Q."
-  (let ((query (concat "s:/" q "/")))
+  "Narrow m4e search by subject Q in current message's maildir."
+  (let* ((msg (mu4e-message-at-point))
+         (maildir (mu4e-message-field msg :maildir))
+         (query (concat "maildir:\"" maildir "\" AND s:/" q "/")))
     (message query)
     (mu4e-headers-search-narrow (list query))))
 
 (defun my/mu4e-headers-narrow-thing-at-point ()
   "Narrow mu4e search querying for thing at point."
   (interactive)
-  (let ((q (thing-at-point 'word)))
+  (define-thing-chars my/mu4e-search-thing "-[:alnum:]_")
+  (let ((q (thing-at-point 'my/mu4e-search-thing)))
     (my/mu4e-headers-narrow-subject q)))
 
 (defun my/mu4e-headers-narrow ()

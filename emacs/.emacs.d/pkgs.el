@@ -154,7 +154,7 @@
   (electric-indent-mode t))
 
 (use-package erlang-start
-  :load-path "/usr/lib/erlang/lib/tools-3.1/emacs/"
+  :load-path "/usr/lib/erlang/lib/tools-3.4/emacs/"
   :mode (((rx ".erl" eos) . erlang-mode)
          ((rx ".app.src" eos) . erlang-mode)
          ((rx ".hrl" eos) . erlang-mode)
@@ -421,21 +421,23 @@
 (use-package lsp-mode
   :custom
   (lsp-keymap-prefix "C-c l")
+  (lsp-diagnostics-flycheck-default-level 'info)
   (lsp-enable-indentation nil)
   (lsp-enable-snippet nil)
   (lsp-signature-auto-activate nil)
   (lsp-response-timeout 5)
   (lsp-rust-clippy-preference "on")
-  (lsp-rust-server 'rust-analyzer)
-  ;; (lsp-rust-server 'rls)
+  ;; (lsp-rust-server 'rust-analyzer)  ;; TODO not working with cube-rs
+  (lsp-rust-server 'rls)
   (lsp-diagnostics-modeline-scope :workspace)
   (lsp-prefer-capf t)
   (lsp-clients-clangd-executable "clangd-10")
   :hook
   (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
-  (python-mode . (lambda ()
-                   (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
+  (lsp-diagnostics-mode . (lambda ()
+                            ;; This is when 'lsp flycheck checker is defined
+                            (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
   (lsp-managed-mode . lsp-diagnostics-modeline-mode)
   :commands (lsp lsp-deferred)
   :config
@@ -458,12 +460,6 @@
   ;; :after lsp-mode
   :custom
   (lsp-python-ms-disabled ["inherit-non-class"])
-  :config
-  (defun my/lsp-python-ms-version ()
-    (interactive)
-    (let* ((fname (concat lsp-python-ms-dir "Python-Language-Server-linux-x64.nuspec"))
-           (msg (substring (string-trim (shell-command-to-string (concat "grep '<version>' " fname))) 9 -10)))
-      (message (concat "Installed: " msg " - Available: " (lsp-python-ms-latest-nupkg-url)))))
   :hook (python-mode . (lambda ()
                          (require 'lsp-python-ms)
                          (lsp-deferred))))
@@ -573,19 +569,25 @@
                             (:maildir "/YG/Errors"     :key ?e)
                             (:maildir "/YG/GitLab"     :key ?g)
                             (:maildir "/YG/Tickets"    :key ?t)))
-  (mu4e-bookmarks '((:name "Unread"               :query "flag:unread AND NOT flag:trashed"                         :key ?u)
-                    (:name "Unread inbox"         :query "flag:unread AND NOT flag:trashed AND maildir:/YG/INBOX"   :key ?i)
-                    (:name "Unread errors"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Errors"  :key ?e)
-                    (:name "Unread tickets"       :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Tickets" :key ?t)
-                    (:name "Unread GitLab"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/GitLab"  :key ?g)
-                    (:name "Unread mentions"      :query "flag:unread AND NOT flag:trashed AND body:lorenzo"        :key ?m)
-                    (:name "Unread archived"      :query "flag:unread AND maildir:/YG/Archives"                     :key ?a)
-                    (:name "Flagged"              :query "flag:flagged"                                             :key ?f)
+  (mu4e-bookmarks '((:name "Unread"               :query "flag:unread AND NOT flag:trashed AND NOT maildir:/YG/Archives"                  :key ?u)
+                    (:name "Unread inbox"         :query "flag:unread AND NOT flag:trashed AND maildir:/YG/INBOX"                         :key ?i)
+                    (:name "Unread errors"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Errors"                        :key ?e)
+                    (:name "Unread tickets"       :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Tickets"                       :key ?t)
+                    (:name "Unread GitLab"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/GitLab"                        :key ?g)
+                    (:name "Unread mentions"      :query "flag:unread AND NOT flag:trashed AND NOT maildir:/YG/Archives AND body:lorenzo" :key ?m)
+                    (:name "Unread archived"      :query "flag:unread AND maildir:/YG/Archives"                                           :key ?a)
+                    (:name "Flagged"              :query "flag:flagged AND NOT maildir:/YG/Archives"                                      :key ?f)
                     ;; (:name "With attachment"      :query "flag:attach"                                              :key ?a)
                     ;; (:name "Today's messages"     :query "date:today..now"                                          :key ?t)
                     ;; (:name "Last 7 days"          :query "date:7d..now"                                             :key ?w)
                     ;; (:name "Messages with images" :query "mime:image/*"                                             :key ?p)
-                    ;; (:name "2017"                 :query "maildir:/YG/INBOX AND date:20170101..20171231"            :key ?y)
+                    ;; (:name "2013 inbox"            :query "maildir:/YG/INBOX AND date:20130101..20131231"            :key ?3)
+                    ;; (:name "2014 inbox"            :query "maildir:/YG/INBOX AND date:20140101..20141231"            :key ?4)
+                    ;; (:name "2015 inbox"            :query "maildir:/YG/INBOX AND date:20150101..20151231"            :key ?5)
+                    ;; (:name "2016 inbox"            :query "maildir:/YG/INBOX AND date:20160101..20161231"            :key ?6)
+                    ;; (:name "2017 inbox"            :query "maildir:/YG/INBOX AND date:20170101..20171231"            :key ?7)
+                    (:name "2018 inbox"            :query "maildir:/YG/INBOX AND date:20180101..20181231"            :key ?8)
+                    (:name "2019 inbox"            :query "maildir:/YG/INBOX AND date:20190101..20191231"            :key ?9)
                     ))
   ;; (mail-user-agent 'mu4e-user-agent)
   (mu4e-compose-complete-addresses t)
@@ -659,8 +661,12 @@
   (org-agenda-custom-commands '(
                                 ("." "Agenda/Next/Todo"
                                  ((agenda "" nil)
-                                  (tags-todo "-REFILE/NEXT|WAIT"
+                                  (tags-todo "-REFILE/NEXT"
                                         ((org-agenda-overriding-header "Next tasks")
+                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
+                                         (org-agenda-files '("~/org/"))))
+                                  (tags-todo "-REFILE/WAIT"
+                                        ((org-agenda-overriding-header "Stuck tasks")
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
                                          (org-agenda-files '("~/org/"))))
                                   (tags-todo "-REFILE/TODO"
@@ -707,6 +713,8 @@
   (org-clock-into-drawer "CLOCKS")
   (org-clock-out-remove-zero-time-clocks t)
   (org-clock-out-when-done '("WAIT" "DONE" "CANC" "DELG"))
+  (org-clocktable-defaults
+   '(:maxlevel 2 :lang "en" :scope file :block nil :wstart 1 :mstart 1 :tstart nil :tend nil :step nil :stepskip0 nil :fileskip0 t :tags nil :match nil :emphasize nil :link nil :narrow 40! :indent t :hidefiles nil :formula nil :timestamp nil :level nil :tcolumns nil :formatter nil))
   (org-columns-default-format "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
   (org-deadline-warning-days 30)
   (org-default-notes-file "~/org/refile.org")
@@ -909,6 +917,7 @@
   :bind
   ("C-c o /" . org-ql-search)
   ("C-c o v" . org-ql-view)
+  ("C-c o r" . org-ql-view-recent-items)
   :config
   (use-package org-ql-view
     :ensure nil
