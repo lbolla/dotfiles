@@ -126,6 +126,12 @@
          'doom-opera-light
          `(popup-tip-face                    ((t (:inherit popup-face :foreground "#842879" :background "khaki1"))))))
 
+       ;; Modus Vivendi
+       ((eq theme 'modus-vivendi)
+        (lbolla/custom-theme-set-faces
+         'modus-vivendi
+         `(org-block                         ((t (:background "#2a2a2a"))))))
+
        ;; Goose
        ((eq theme 'goose)
         (lbolla/custom-theme-set-faces

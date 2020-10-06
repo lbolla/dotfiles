@@ -37,6 +37,29 @@
   :bind*
   ("C-;" . avy-goto-char-timer))
 
+(use-package calfw
+  :commands (cfw:open-calendar-buffer)
+  :bind
+  ("C-c o k" . lbolla/open-calendar)
+  :config
+  (use-package calfw-org
+    :commands (cfw:open-org-calendar cfw:org-create-source)
+    :config
+    ;; (setq cfw:org-agenda-schedule-args '(:timestamp :scheduled* deadline*))
+    (setq cfw:org-agenda-schedule-args nil)
+    )
+  (use-package calfw-cal
+    :commands (cfw:open-diary-calendar cfw:cal-create-source))
+  (defun lbolla/open-calendar ()
+    "Open a calendar view."
+    (interactive)
+    (cfw:open-calendar-buffer
+     :contents-sources
+     (list
+      (cfw:org-create-source)  ; orgmode source
+      (cfw:cal-create-source "Orange") ; diary source
+      ))))
+
 ;; TODO builtin, move to init?
 (use-package cc-mode
   :init
@@ -153,8 +176,11 @@
   :config
   (electric-indent-mode t))
 
+(use-package elixir-mode
+  :mode (((rx ".mxs" eos) . elixir-mode)))
+
 (use-package erlang-start
-  :load-path "/usr/lib/erlang/lib/tools-3.4/emacs/"
+  :load-path "/usr/lib/erlang/lib/tools-3.4.1/emacs/"
   :mode (((rx ".erl" eos) . erlang-mode)
          ((rx ".app.src" eos) . erlang-mode)
          ((rx ".hrl" eos) . erlang-mode)
@@ -535,7 +561,6 @@
 
   :defines
   mu4e-view-actions
-  mu4e-headers-mode-map
   yg-smtp-user
 
   :functions
@@ -543,8 +568,9 @@
   my/mu4e-refresh-headers
 
   :bind (("C-c m m" . mu4e)
-         ("C-c m r" . (lambda () (interactive) (mu4e~request-contacts)))
          ("C-c m n" . mu4e-compose-new)
+         :map mu4e-main-mode-map
+         ("C-c C-u" . my/mu4e-refresh-headers)
          :map mu4e-headers-mode-map
          ("C-c /" . my/mu4e-headers-narrow)
          ("C-c C-u" . my/mu4e-refresh-headers)
@@ -586,8 +612,8 @@
                     ;; (:name "2015 inbox"            :query "maildir:/YG/INBOX AND date:20150101..20151231"            :key ?5)
                     ;; (:name "2016 inbox"            :query "maildir:/YG/INBOX AND date:20160101..20161231"            :key ?6)
                     ;; (:name "2017 inbox"            :query "maildir:/YG/INBOX AND date:20170101..20171231"            :key ?7)
-                    (:name "2018 inbox"            :query "maildir:/YG/INBOX AND date:20180101..20181231"            :key ?8)
-                    (:name "2019 inbox"            :query "maildir:/YG/INBOX AND date:20190101..20191231"            :key ?9)
+                    ;; (:name "2018 inbox"            :query "maildir:/YG/INBOX AND date:20180101..20181231"            :key ?8)
+                    ;; (:name "2019 inbox"            :query "maildir:/YG/INBOX AND date:20190101..20191231"            :key ?9)
                     ))
   ;; (mail-user-agent 'mu4e-user-agent)
   (mu4e-compose-complete-addresses t)
@@ -930,7 +956,8 @@
     (add-to-list 'org-ql-views
                  '("Overview: Prioritized tasks" :buffers-files org-agenda-files
                    :query (and (todo) (priority >= "C"))
-                   :title "Prioritized tasks") t)
+                   :title "Prioritized tasks"
+                   :sort (priority todo)) t)
     (add-to-list 'org-ql-views
                  '("Personal: Ideas" :buffers-files org-agenda-files
                    :query (and (tags "IDEA") (level 1))
