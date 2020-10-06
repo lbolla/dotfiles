@@ -1,3 +1,5 @@
-directory=/home/lbolla/Videos
-session=/home/lbolla/Videos
+# directory=/home/lbolla/Videos
+# session=/home/lbolla/Videos
+directory=./
+session=./
 session_save=yes
