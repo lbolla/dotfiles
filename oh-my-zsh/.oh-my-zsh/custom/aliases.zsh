@@ -20,8 +20,8 @@ alias mkvirtualenv38="mkvirtualenv --python `which python3.8`"
 alias ssh='TERM=xterm ssh'
 alias ungron="gron --ungron"
 # alias w=workon
-alias youtube-dl-song="youtube-dl -x -f 'bestaudio[ext=m4a]/best[ext=mp4]/best' -o '%(title)s.%(ext)s'"
-alias youtube-dl-playlist="youtube-dl -x -f 'bestaudio[ext=m4a]/best[ext=mp4]/best' -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'"
+alias youtube-dl-song="youtube-dl --force-ipv4 -x -f 'bestaudio[ext=m4a]/best[ext=mp4]/best' -o '%(title)s.%(ext)s'"
+alias youtube-dl-playlist="youtube-dl --force-ipv4 -x -f 'bestaudio[ext=m4a]/best[ext=mp4]/best' -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'"
 
 alias -s epub="FBReader"
 alias -s gz="gunzip -c"
