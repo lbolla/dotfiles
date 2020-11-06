@@ -87,8 +87,8 @@ plugins=(
     gitfast
     kubectl
     kubectl-patch
-    # kube-ps1  # Slow!
-    # nvm # Slow! source in virtualenv hooks
+    # kube-ps1  # Slow! enable with KUBE_PS1_ENABLED (used in theme)
+    nvm
     paver
     # pyenv
     stern

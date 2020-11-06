@@ -13,10 +13,12 @@ alias mkvirtualenv3="mkvirtualenv --python `which python3`"
 alias mkvirtualenv36="mkvirtualenv --python `which python3.6`"
 alias mkvirtualenv37="mkvirtualenv --python `which python3.7`"
 alias mkvirtualenv38="mkvirtualenv --python `which python3.8`"
+alias mkvirtualenv39="mkvirtualenv --python `which python3.9`"
 # alias mkvirtualenv-pypy2="mkvirtualenv --python /opt/pypy-6.0.0-linux_x86_64-portable/bin/pypy"
 # alias mkvirtualenv-pypy3="mkvirtualenv --python /opt/pypy3.5-6.0.0-linux_x86_64-portable/bin/pypy"
 # alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Control/" | sudo loadkeys'
 # unalias t; alias t=tmux
+alias psc="ps xawf -eo ppid,pid,user,cgroup,args"
 alias ssh='TERM=xterm ssh'
 alias ungron="gron --ungron"
 # alias w=workon
@@ -34,7 +36,7 @@ alias -s doc="libreoffice"
 alias aws="/home/lbolla/.virtualenvs/aws-shell/bin/aws"
 alias aws-shell="/home/lbolla/.virtualenvs/aws-shell/bin/aws-shell"
 # alias fb="/home/lbolla/.virtualenvs/fbcli/bin/fb"
-alias rust-update="/home/lbolla/src/cmd/rust-update"
+# alias rust-update="/home/lbolla/src/cmd/rust-update"
 alias vcs-resolve="/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"
 
 alias lbolla-tmux='mosh lbolla.info tmux attach'

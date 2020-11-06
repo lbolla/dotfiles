@@ -8,7 +8,7 @@ export EDITOR='emacsclient --socket-name /run/user/1000/emacs/server'
 export FZF_CTRL_T_COMMAND='rg -uuu --files'
 export FZF_TMUX=1
 export GOPATH=$HOME
-export GOROOT=/usr/lib/go
+# export GOROOT=/usr/lib/go
 export LESS="-R"
 export MAIL=$HOME/Mail/YG/INBOX/
 export PAGER=less
@@ -19,6 +19,7 @@ export PGTZ=utc
 # export PLAN9=/home/lbolla/src/plan9port
 export PYTHONHASHSEED=random
 export PYTHONSTARTUP=$HOME/.pyrc
+# export PYTHONWARNINGS=default
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 export RUST_BACKTRACE=1
 export RUST_SRC_PATH=~/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
@@ -34,6 +35,8 @@ export KUBECONFIG=$HOME/src/yougov/devops/kubernetes/client/config:$HOME/src/you
 export MAILDIR=$HOME/Mail
 export HELM_V3_CONFIG=$HOME/.helm3
 export HELM_V3_DATA=$PWD/.helm3-data
+export NVM_LAZY=1
+# export KUBE_PS1_ENABLED=true
 
 # Enable Erlang shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
