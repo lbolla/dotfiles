@@ -39,11 +39,18 @@
 
 (use-package modus-operandi-theme
   :defer t
-  :demand t)
+  :demand t
+  :custom
+  ;; See https://www.reddit.com/r/emacs/comments/j7eruf/favorite_light_themes/g857g7e/
+  (modus-operandi-theme-org-blocks 'greyscale)
+  (modus-operandi-theme-completions 'opinionated))
 
 (use-package modus-vivendi-theme
   :defer t
-  :demand t)
+  :demand t
+  :custom
+  (modus-vivendi-theme-org-blocks 'greyscale)
+  (modus-vivendi-theme-completions 'opinionated))
 
 (use-package dash
   :demand t)

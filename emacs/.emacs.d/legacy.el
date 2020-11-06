@@ -796,3 +796,8 @@
 ;;         (end-of-line 1)
 ;;         (setq newhead (org-get-heading)))
 ;;       (org-agenda-change-all-lines newhead hdmarker))))
+
+(use-package undo-tree
+  :custom
+  (undo-tree-auto-save-history nil)  ;; Super slow if t
+  (undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory ".undo-tree")))))

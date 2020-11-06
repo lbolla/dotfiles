@@ -86,7 +86,17 @@
   :mode (((rx "rc" eos) . conf-unix-mode)
          ((rx ".pycheckers" eos) . conf-unix-mode)
          ((rx ".importlinter" eos) . conf-unix-mode)
-         ((rx "requirements") . conf-unix-mode))
+         ((rx "requirements") . conf-unix-mode)
+         ;; systemd unit files
+         ((rx ".mount") . conf-unix-mode)
+         ((rx ".path") . conf-unix-mode)
+         ((rx ".scope") . conf-unix-mode)
+         ((rx ".service") . conf-unix-mode)
+         ((rx ".slice") . conf-unix-mode)
+         ((rx ".socket") . conf-unix-mode)
+         ((rx ".swap") . conf-unix-mode)
+         ((rx ".target") . conf-unix-mode)
+         ((rx ".timer") . conf-unix-mode))
 
   :hook
   (conf-mode . (lambda ()
@@ -378,6 +388,7 @@
   (flycheck-add-next-checker 'javascript-jshint '(warning . javascript-flow) t))
 
 (use-package flycheck-popup-tip
+  :disabled t
   :after flycheck
   :hook
   (flycheck-mode . flycheck-popup-tip-mode))
@@ -711,7 +722,12 @@
                                         ((org-agenda-overriding-header "Someday tasks")
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
                                          (org-agenda-files '("~/org/"))))))))
-  (org-agenda-files '("~/org/"))
+  ;; (org-agenda-files '("~/org/"))
+  (org-agenda-files '("~/org/fun.org"
+                      "~/org/personal.org"
+                      "~/org/programming.org"
+                      "~/org/refile.org"
+                      "~/org/yougov.org"))
   (org-agenda-include-diary t)
   (org-agenda-log-mode-items `(clock closed))
   (org-agenda-sorting-strategy '((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
@@ -1115,11 +1131,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package toml-mode
   :mode ((rx "Cargo")))
-
-(use-package undo-tree
-  :custom
-  (undo-tree-auto-save-history nil)  ;; Super slow if t
-  (undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory ".undo-tree")))))
 
 (use-package vcs-resolve
   :load-path "/home/lbolla/src/github.com/lbolla/vcs-resolve/"
