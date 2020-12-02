@@ -219,7 +219,6 @@
  '(network-security-level 'high nil nil "Customized with use-package nsm")
  '(objed-cursor-color "#99324b")
  '(org-agenda-block-separator "")
- '(org-agenda-files '("~/org/"))
  '(org-agenda-include-diary t)
  '(org-agenda-log-mode-items '(clock closed))
  '(org-agenda-sorting-strategy

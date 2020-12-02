@@ -246,6 +246,7 @@
   (evil-lookup-func 'man-at-point)
   (evil-want-C-w-in-emacs-state (not my/lesser-evil))
   (evil-want-C-i-jump nil)  ;; Or it masks <TAB> in non-graphical mode
+  (evil-undo-system 'undo-redo)
 
   :init
   (evil-mode t)
@@ -808,7 +809,7 @@
                                 :components ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
                                ("lbolla.info-static"
                                 :base-directory "~/src/github.com/lbolla/lbolla.info/static/"
-                                :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css\\|woff2"
+                                :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css\\|woff2\\|ico"
                                 :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/"
                                 :recursive t
                                 :publishing-function org-publish-attachment)
@@ -836,7 +837,7 @@
                                 :html-head-include-scripts nil
                                 :html-link-home "<ignored>"
                                 :html-link-up "<ignored>"
-                                :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles\">Articles</a> | <a accesskey=\"c\" href=\"/cv\">CV</a> (<a href=\"/cv.pdf\">pdf</a> | <a href=\"/cv-short.pdf\">short</a>)</div>"
+                                :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles.html\">Articles</a> | <a accesskey=\"c\" href=\"/cv.html\">CV</a> (<a href=\"/cv.pdf\">pdf</a> | <a href=\"/cv-short.pdf\">short</a>)</div>"
                                 :html-preamble lbolla.info/html-preamble
                                 :html-postamble nil
                                 :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\">"
