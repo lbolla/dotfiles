@@ -1,9 +1,14 @@
 [core]
 	# editor = vi
-	pager = less -FRSX
+	# pager = less -FRSX
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
 	# bigfilethreshold = 200K
+[pager]
+        # See https://veronneau.org/a-better-git-diff.html
+        log = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRSX
+        show = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRSX
+        diff = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRSX
 [user]
         name = Lorenzo Bolla
         email = code@lbolla.info
