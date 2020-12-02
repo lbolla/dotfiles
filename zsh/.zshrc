@@ -75,6 +75,7 @@ ZSH_CUSTOM=$HOME/src/github.com/lbolla/dotfiles/oh-my-zsh/.oh-my-zsh/custom/
 # Add wisely, as too many plugins slow down shell startup.
 
 plugins=(
+    aws
     cargo
     colored-man-pages
     common-aliases

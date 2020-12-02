@@ -32,9 +32,9 @@ alias -s pdf="xdg-open"
 alias -s tgz="tar tf"
 alias -s xlsx="libreoffice"
 alias -s doc="libreoffice"
+_media_fts=(ape avi flv m4a mkv mov mp3 mpeg mpg ogg ogm rm wav webm)
+for ft in $_media_fts; do alias -s $ft=mpv; done
 
-alias aws="/home/lbolla/.virtualenvs/aws-shell/bin/aws"
-alias aws-shell="/home/lbolla/.virtualenvs/aws-shell/bin/aws-shell"
 # alias fb="/home/lbolla/.virtualenvs/fbcli/bin/fb"
 # alias rust-update="/home/lbolla/src/cmd/rust-update"
 alias vcs-resolve="/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"
