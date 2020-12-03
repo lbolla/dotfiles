@@ -1,0 +1,15 @@
+*.egg-info
+*.pyc
+.eggs
+.log
+.mypy_cache
+.tox
+__pycache__
+build
+coverage
+dist
+node_modules
+target
+
+/home/lbolla/src/yougov/brandindex/brandindex_docs/brandindex_cms_postgres
+/home/lbolla/src/yougov/brandindex/qq7-dev/var
