@@ -4,25 +4,29 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+THIS_DIR=$(dirname "$0")
+
 PACKAGES=(
-    X
-    awesome
-    bash
+    # X
+    # awesome
+    # bash
     bin
     emacs
-    fbcli
+    # fbcli
     git
-    lftp
+    # lftp
     mime
     psql
-    python
+    # python
     ripgrep
     rtorrent
-    rust
+    # rust
     tmux
-    virtualenv
-    w3m
+    # virtualenv
+    # w3m
     zsh
 )
 
+pushd ${THIS_DIR}
 stow -v -t $HOME ${PACKAGES[@]}
+popd

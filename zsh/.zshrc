@@ -93,6 +93,7 @@ plugins=(
     paver
     # pyenv
     rclone
+    restic
     stern
     tmux
     virtualenv

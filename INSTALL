@@ -8,7 +8,6 @@ I should really use [[https://nixos.org/][NixOS]].
     apt-file
     aspell-de
     aspell-it
-    atop
     curl
     docker
     docker-compose
