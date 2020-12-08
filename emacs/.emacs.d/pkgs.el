@@ -1059,6 +1059,10 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (python-mode . (lambda ()
                    (set-whitespace-line-column 79))))
 
+(use-package pyvenv
+  :init
+  (pyvenv-mode))
+
 (use-package rg
   :bind
   ("C-c r G" . rg-dwim)
