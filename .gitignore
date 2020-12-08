@@ -10,6 +10,7 @@ aliases
 /vim/.vim/bundle
 /vim/.vim/.netrwhist
 /emacs/.emacs.d/.apl.history
+/emacs/.emacs.d/.cache/
 /emacs/.emacs.d/.cask/
 /emacs/.emacs.d/.python-environments/
 /emacs/.emacs.d/ac-comphist.dat
