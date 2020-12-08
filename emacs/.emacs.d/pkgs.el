@@ -10,7 +10,7 @@
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("org" . "https://orgmode.org/elpa/")
-        ;; ("gnu" . "https://elpa.gnu.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
         ;; ("marmalade" . "https://marmalade-repo.org/packages/")
         ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
         ;; ("sc" . "https://joseito.republika.pl/sunrise-commander/")
@@ -19,6 +19,8 @@
 (eval-when-compile
   (require 'package)
   (package-initialize)
+  (unless (file-directory-p (concat user-emacs-directory "elpa"))
+    (package-refresh-contents))
   (unless (require 'use-package nil 'noerror)
     (package-install 'use-package)
     (require 'use-package)))
