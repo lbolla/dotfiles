@@ -29,6 +29,7 @@ aliases
 /emacs/.emacs.d/recentf
 /emacs/.emacs.d/session.*
 /emacs/.emacs.d/tramp
+/emacs/.emacs.d/transient/history.el
 /emacs/.emacs.d/url/
 /lftp/.lftp/*_history
 /w3m/.w3m/.sessions
