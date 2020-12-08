@@ -460,6 +460,7 @@
 
 (use-package lsp-mode
   :custom
+  (lsp-client-packages nil)  ;; Do not prompt to install new language servers
   (lsp-keymap-prefix "C-c l")
   (lsp-diagnostics-flycheck-default-level 'info)
   (lsp-enable-indentation nil)
@@ -475,10 +476,10 @@
   :hook
   (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
-  (lsp-diagnostics-mode . (lambda ()
-                            ;; This is when 'lsp flycheck checker is defined
-                            (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
-  (lsp-managed-mode . lsp-diagnostics-modeline-mode)
+  (lsp-modeline-diagnostics-mode . (lambda ()
+                                     ;; This is when 'lsp flycheck checker is defined
+                                     (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
+  (lsp-managed-mode . lsp-modeline-diagnostic-mode)
   :commands (lsp lsp-deferred)
   :config
   ;; From https://emacs-lsp.github.io/lsp-mode/page/performance/
