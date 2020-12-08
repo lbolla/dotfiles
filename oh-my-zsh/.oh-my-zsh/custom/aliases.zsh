@@ -46,7 +46,7 @@ alias vpn='sudo openvpn --config /home/lbolla/Private/vpn/AirVPN_Europe_UDP-443.
 alias protonvpn='sudo /home/lbolla/.virtualenvs/protonvpn/bin/protonvpn'
 
 # We want this: https://github.com/sharkdp/fd
-unalias fd
+unalias fd 2> /dev/null
 
 function docker-images-children {
     for i in $(docker images -q)
@@ -60,7 +60,7 @@ unsetopt inc_append_history
 unsetopt share_history
 
 # Emacs clever alias
-unalias e
+unalias e 2> /dev/null
 function e {
     args=${@:-.}
     if [[ "$IN_X" = "yes" ]]
