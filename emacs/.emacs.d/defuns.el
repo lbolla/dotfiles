@@ -337,7 +337,10 @@
   "Activate VENV and cd to it."
   (interactive
    (list
-    (completing-read "Work on: " (progn (elpy-enable) (pyvenv-virtualenv-list))
+    (completing-read "Work on: "
+                     (progn
+                       ;; (elpy-enable)
+                       (pyvenv-virtualenv-list))
                      nil t nil 'pyvenv-workon-history nil nil)))
   (pyvenv-workon venv)
   (elpy-rpc-restart)
