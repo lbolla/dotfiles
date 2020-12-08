@@ -8,12 +8,21 @@ alias -g UN="| sort -n | uniq -c"
 
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 alias docker-images-tree="dockviz images -t -l"
-alias mkvirtualenv2="mkvirtualenv --python `which python2`"
-alias mkvirtualenv3="mkvirtualenv --python `which python3`"
-alias mkvirtualenv36="mkvirtualenv --python `which python3.6`"
-alias mkvirtualenv37="mkvirtualenv --python `which python3.7`"
-alias mkvirtualenv38="mkvirtualenv --python `which python3.8`"
-alias mkvirtualenv39="mkvirtualenv --python `which python3.9`"
+PYTHON_VERSIONS=(
+    2
+    3
+    3.6
+    3.7
+    3.8
+    3.9
+)
+for v in ${PYTHON_VERSIONS[@]}; do
+    python_exe="python${v}"
+    if command -v ${python_exe} > /dev/null; then
+        alias mkvirtualenv${v}="mkvirtualenv --python `which ${python_exe}`"
+    fi
+done
+
 # alias mkvirtualenv-pypy2="mkvirtualenv --python /opt/pypy-6.0.0-linux_x86_64-portable/bin/pypy"
 # alias mkvirtualenv-pypy3="mkvirtualenv --python /opt/pypy3.5-6.0.0-linux_x86_64-portable/bin/pypy"
 # alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Control/" | sudo loadkeys'
