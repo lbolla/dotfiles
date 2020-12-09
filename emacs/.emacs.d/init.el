@@ -153,7 +153,7 @@
  '(lsp-enable-snippet nil)
  '(lsp-modeline-diagnostics-scope :workspace t)
  '(lsp-prefer-flymake nil t)
- '(lsp-python-ms-disabled ["inherit-non-class"])
+ '(lsp-python-ms-disabled ["inherit-non-class"] t)
  '(lsp-response-timeout 5)
  '(lsp-rust-clippy-preference "on" t)
  '(lsp-ui-doc-enable nil t)
@@ -282,8 +282,8 @@
  '(org-fast-tag-selection-single-key t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
- '(org-html-htmlize-output-type 'css)
- '(org-html-validation-link nil)
+ '(org-html-htmlize-output-type 'css t)
+ '(org-html-validation-link nil t)
  '(org-link-abbrev-alist
    '(("FB" . "https://yougov.fogbugz.com/f/cases/%h")
      ("BSD" . "https://jira.yougov.net/browse/BSD-%h")
@@ -319,7 +319,7 @@
      ("cubeapi" :components
       ("cubeapi-notes" "cubeapi-static"))
      ("cubeapi-notes" :base-directory "~/work/cubeapi/notes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
-     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment)))
+     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment)) t)
  '(org-ref-bibliography-notes "~/zettelkasten/bibliography/notes.org")
  '(org-ref-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
  '(org-ref-pdf-directory "~/zettelkasten/bibliography/bibtex-pdfs/")
@@ -358,7 +358,7 @@
  '(org-treat-S-cursor-todo-selection-as-state-change nil)
  '(package-enable-at-startup nil)
  '(package-selected-packages
-   '(pyvenv undo-tree elixir-mode calfw-cal calfw-org calfw lsp-java all-the-icons lsp-treemacs dap-mode avy minions quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key dumb-jump leuven-theme evil-collection tablist evil-org evil-magit evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode))
+   '(pyvenv undo-tree elixir-mode calfw-cal calfw-org calfw lsp-java all-the-icons lsp-treemacs dap-mode avy minions quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode org-mu4e mu4e lisp-mode evil-org-agenda elpy which-key dumb-jump leuven-theme evil-collection tablist evil-org evil-mu4e zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit mu4e-alert markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode))
  '(password-store-password-length 16)
  '(pdf-view-midnight-colors (cons "#2a2a2a" "#fafafa"))
  '(projectile-completion-system 'ivy)
