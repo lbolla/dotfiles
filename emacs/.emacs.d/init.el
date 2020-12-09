@@ -518,8 +518,8 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
                               "%b"))))))
 
 (require 'defuns "~/.emacs.d/defuns.el")
-(require 'private "~/.emacs.d/private.el")
-(require 'yg "~/.emacs.d/yg.el")
+(require 'private "~/Private/emacs/private.el")
+(require 'yougov "~/.emacs.d/yougov.el")
 (require 'pkgs "~/.emacs.d/pkgs.el")
 (require 'themes "~/.emacs.d/themes.el")
 

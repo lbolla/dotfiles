@@ -1,4 +1,4 @@
-;;; package --- yg public stuff
+;;; package --- YouGov public stuff
 ;;; Commentary:
 ;;; 01 May 2014
 
@@ -140,6 +140,6 @@
                          ;;   (switch-to-buffer-other-window (current-buffer)))
                          ))))))
 
-(provide 'yg)
+(provide 'yougov)
 
-;;; yg.el ends here
+;;; yougov.el ends here
