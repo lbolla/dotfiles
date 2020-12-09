@@ -297,11 +297,6 @@
     (evil-collection-init)))
 
 (unless my/lesser-evil
-  (use-package evil-magit
-    :demand t
-    :after (evil magit)))
-
-(unless my/lesser-evil
   (use-package evil-nerd-commenter
     :demand t
     :after evil))
