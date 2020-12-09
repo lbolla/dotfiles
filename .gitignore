@@ -12,6 +12,7 @@ aliases
 /emacs/.emacs.d/.apl.history
 /emacs/.emacs.d/.cache/
 /emacs/.emacs.d/.cask/
+/emacs/.emacs.d/.lsp-session-*
 /emacs/.emacs.d/.python-environments/
 /emacs/.emacs.d/ac-comphist.dat
 /emacs/.emacs.d/auto-save-list/

@@ -471,9 +471,9 @@
   :hook
   (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
-  (lsp-modeline-diagnostics-mode . (lambda ()
-                                     ;; This is when 'lsp flycheck checker is defined
-                                     (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
+  (lsp-modeline-diagnostic-mode . (lambda ()
+                                    ;; This is when 'lsp flycheck checker is defined
+                                    (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
   (lsp-managed-mode . lsp-modeline-diagnostic-mode)
   :commands (lsp lsp-deferred)
   :config
