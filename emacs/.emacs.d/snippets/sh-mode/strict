@@ -4,5 +4,5 @@
 # --
 
 # Strict mode
-set -euo pipefail
+set -o pipefail -o errexit -o nounset
 IFS=$'\n\t'
