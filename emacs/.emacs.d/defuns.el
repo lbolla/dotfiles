@@ -61,20 +61,21 @@
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
-(defun my/elpy-test-at-point (top file module test)
-  "Find Python test at point."
-  (interactive (elpy-test-at-point))
-  (cond
-   (test
-    (let ((test-list (split-string test "\\.")))
-      (message (kill-new
-                (mapconcat #'identity
-                           (cons file test-list)
-                           "::")))))
-   (file
-    (message (kill-new file)))
-   (t
-    (message "No test"))))
+;; Note: I don't use elpy anymore
+;; (defun my/elpy-test-at-point (top file module test)
+;;   "Find Python test at point."
+;;   (interactive (elpy-test-at-point))
+;;   (cond
+;;    (test
+;;     (let ((test-list (split-string test "\\.")))
+;;       (message (kill-new
+;;                 (mapconcat #'identity
+;;                            (cons file test-list)
+;;                            "::")))))
+;;    (file
+;;     (message (kill-new file)))
+;;    (t
+;;     (message "No test"))))
 
 (defun my/lsp-python-ms-version ()
   (interactive)
@@ -343,7 +344,7 @@
                        (pyvenv-virtualenv-list))
                      nil t nil 'pyvenv-workon-history nil nil)))
   (pyvenv-workon venv)
-  (elpy-rpc-restart)
+  ;; (elpy-rpc-restart)
   (let ((dir (venv-get-proj-dir)))
     (when (not (string-equal (getenv "HOME") dir))
       (delete-other-windows)

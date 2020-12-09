@@ -471,10 +471,9 @@
   :hook
   (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
-  (lsp-modeline-diagnostic-mode . (lambda ()
-                                    ;; This is when 'lsp flycheck checker is defined
-                                    (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
-  (lsp-managed-mode . lsp-modeline-diagnostic-mode)
+  (lsp-managed-mode . (lambda ()
+                        ;; This is when 'lsp flycheck checker is defined
+                        (flycheck-add-next-checker 'lsp 'python-pycheckers t)))
   :commands (lsp lsp-deferred)
   :config
   ;; From https://emacs-lsp.github.io/lsp-mode/page/performance/
@@ -1048,7 +1047,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
   (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
   (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
-  (evil-define-key 'normal python-mode-map (kbd ",d") 'my/elpy-test-at-point)
+  ;; (evil-define-key 'normal python-mode-map (kbd ",d") 'my/elpy-test-at-point)
   :hook
   (python-mode . hs-minor-mode)
   (python-mode . (lambda ()
