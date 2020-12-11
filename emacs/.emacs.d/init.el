@@ -301,25 +301,6 @@
      (67 . font-lock-comment-face)))
  '(org-priority-start-cycle-with-default nil)
  '(org-protocol-default-template-key "l" t)
- '(org-publish-project-alist
-   '(("home" :base-directory "~/org/" :exclude "\\.*" :include
-      ("home.org")
-      :with-broken-links t :publishing-directory "~/org/" :publishing-function org-html-publish-to-html :description "My links" :html-postamble "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">")
-     ("lbolla.info" :components
-      ("lbolla.info-html" "lbolla.info-static" "lbolla.info-cv.pdf"))
-     ("lbolla.info-static" :base-directory "~/src/github.com/lbolla/lbolla.info/static/" :base-extension "png\\|jpg\\|\\|gif\\|gz\\|css\\|woff2" :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/" :recursive t :publishing-function org-publish-attachment)
-     ("lbolla.info-cv.pdf" :base-directory "~/src/github.com/lbolla/lbolla.info/org/" :exclude "\\.*" :include
-      ("cv.org")
-      :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/" :publishing-function org-latex-publish-to-pdf)
-     ("lbolla.info-html" :base-directory "~/src/github.com/lbolla/lbolla.info/org/" :publishing-directory "~/src/github.com/lbolla/lbolla.info/html/" :recursive t :section-numbers nil :auto-sitemap t :sitemap-format-entry lbolla\.info/org-publish-sitemap-format-entry :sitemap-function lbolla\.info/org-publish-sitemap-function :sitemap-sort-files anti-chronologically :sitemap-style tree :sitemap-title "Sitemap" :with-toc nil :description "Lorenzo Bolla homepage" :html-doctype "html5" :html-head-include-default-style nil :html-head-include-scripts nil :html-link-home "<ignored>" :html-link-up "<ignored>" :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles\">Articles</a> | <a accesskey=\"c\" href=\"/cv\">CV</a> (<a href=\"/cv.pdf\">pdf</a>)</div>" :html-preamble lbolla\.info/html-preamble :html-postamble nil :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\">" :html-head-extra "<link rel=\"stylesheet\" href=\"./css/extra.css\" type=\"text/css\">" :publishing-function org-html-publish-to-html)
-     ("kubernetes" :components
-      ("kubernetes-org" "kubernetes-html"))
-     ("kubernetes-org" :base-directory "~/work/kubernetes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/" :publishing-function org-org-publish-to-org :recursive t)
-     ("kubernetes-html" :base-directory "~/work/kubernetes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
-     ("cubeapi" :components
-      ("cubeapi-notes" "cubeapi-static"))
-     ("cubeapi-notes" :base-directory "~/work/cubeapi/notes/" :base-extension "org" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :publishing-function org-html-publish-to-html :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">" :recursive t)
-     ("cubeapi-static" :base-directory "~/work/cubeapi/notes/" :base-extension "png\\|jpg" :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/" :recursive t :publishing-function org-publish-attachment)) t)
  '(org-ref-bibliography-notes "~/zettelkasten/bibliography/notes.org")
  '(org-ref-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
  '(org-ref-pdf-directory "~/zettelkasten/bibliography/bibtex-pdfs/")
