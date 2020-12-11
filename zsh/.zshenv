@@ -18,7 +18,9 @@ export PGTZ=utc
 # export PIP_RESPECT_VIRTUALENV=true
 # export PLAN9=/home/lbolla/src/plan9port
 export PYTHONHASHSEED=random
-export PYTHONSTARTUP=$HOME/.pyrc
+if [ -f ${HOME}/.pyrc ]; then
+    export PYTHONSTARTUP=$HOME/.pyrc
+fi
 # export PYTHONWARNINGS=default
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 export RUST_BACKTRACE=1
