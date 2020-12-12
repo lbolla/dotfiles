@@ -61,22 +61,6 @@
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
-;; Note: I don't use elpy anymore
-;; (defun my/elpy-test-at-point (top file module test)
-;;   "Find Python test at point."
-;;   (interactive (elpy-test-at-point))
-;;   (cond
-;;    (test
-;;     (let ((test-list (split-string test "\\.")))
-;;       (message (kill-new
-;;                 (mapconcat #'identity
-;;                            (cons file test-list)
-;;                            "::")))))
-;;    (file
-;;     (message (kill-new file)))
-;;    (t
-;;     (message "No test"))))
-
 (defun my/lsp-python-ms-version ()
   (interactive)
   (let* ((fname (concat lsp-python-ms-dir "Python-Language-Server-linux-x64.nuspec"))
@@ -321,7 +305,6 @@
   (python-indent-guess-indent-offset)
   (setq indent-tabs-mode t))
 
-;; TODO use elpy yapf instead
 (defun python-pyformat-buffer ()
   "Run pyformat on current buffer."
   (interactive)
@@ -340,20 +323,22 @@
    (list
     (completing-read "Work on: "
                      (progn
-                       ;; (elpy-enable)
                        (pyvenv-virtualenv-list))
                      nil t nil 'pyvenv-workon-history nil nil)))
   (pyvenv-workon venv)
-  ;; (elpy-rpc-restart)
   (let ((dir (venv-get-proj-dir)))
     (when (not (string-equal (getenv "HOME") dir))
       (delete-other-windows)
       (dired dir)
-      (when (functionp 'eyebrowse-rename-window-config)
-        (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) venv))
-      (projectile-switch-project-by-name dir)
-      (projectile-vc dir)
+      (ignore-errors
+        (projectile-switch-project-by-name dir)
+        (projectile-vc dir))
       (other-window 1))))
+
+(defun lbolla/eyebrowse-name-from-project ()
+  "Name eyebrowse session after current project."
+  (when (functionp 'eyebrowse-rename-window-config)
+    (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) (projectile-project-name))))
 
 (defun lbolla.info/org-publish-sitemap-format-entry (entry style project)
   "Format ENTRY for sitemap STYLE for PROJECT lbolla.info."

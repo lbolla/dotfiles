@@ -725,6 +725,7 @@
                       "~/org/personal.org"
                       "~/org/programming.org"
                       "~/org/refile.org"
+                      "~/org/roche.org"
                       "~/org/yougov.org"))
   (org-agenda-include-diary t)
   (org-agenda-log-mode-items `(clock closed))
@@ -1030,6 +1031,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (projectile-switch-project-action 'projectile-dired)
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (setq projectile-after-switch-project-hook '(lbolla/eyebrowse-name-from-project))
   :init
   (projectile-mode +1))
 
@@ -1047,7 +1049,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
   (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
   (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
-  ;; (evil-define-key 'normal python-mode-map (kbd ",d") 'my/elpy-test-at-point)
   :hook
   (python-mode . hs-minor-mode)
   (python-mode . (lambda ()
