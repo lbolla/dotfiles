@@ -3,3 +3,5 @@ My dotfiles.
 Use `stow` to manage them.
 
 Use `setup.sh` to install the ones I use.
+
+See https://github.com/lbolla/ubuntu-bootstrap for scripts to bootstrap a new Ubuntu machine.
