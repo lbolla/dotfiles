@@ -279,9 +279,6 @@
   (define-key evil-normal-state-map (kbd ",rp") 'rg-project)
   (define-key evil-normal-state-map (kbd ",rr") 'rg)
 
-  (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)
-  (define-key evil-visual-state-map (kbd ",yp") 'yg-paste-region)
-
   (define-key evil-normal-state-map (kbd ",vb") 'vcs-resolve-buffer)
   (define-key evil-normal-state-map (kbd ",vp") 'vcs-resolve-at-point)
   (define-key evil-visual-state-map (kbd ",vr") 'vcs-resolve-region)
@@ -563,109 +560,6 @@
                        (evil-define-key 'normal nimsuggest-mode-map (kbd "K") 'nimsuggest-show-doc)
                        (evil-define-key 'normal nimsuggest-mode-map (kbd "M-.") 'nimsuggest-find-definition))))
 
-(use-package mu4e
-  :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
-  :ensure nil  ;; installed system-wide
-  ;; :demand t
-
-  :defines
-  mu4e-view-actions
-  yg-smtp-user
-
-  :functions
-  my/mu4e-headers-narrow-thing-at-point
-  my/mu4e-refresh-headers
-
-  :bind (("C-c m m" . mu4e)
-         ("C-c m n" . mu4e-compose-new)
-         :map mu4e-main-mode-map
-         ("C-c C-u" . my/mu4e-refresh-headers)
-         :map mu4e-headers-mode-map
-         ("C-c /" . my/mu4e-headers-narrow)
-         ("C-c C-u" . my/mu4e-refresh-headers)
-         ("<backspace>" . mu4e-headers-query-prev))
-
-  :config
-  (defun my/mu4e-refile-folder-function (msg)
-    "Set the refile folder for MSG."
-    ;; https://www.djcbsoftware.nl/code/mu/mu4e/Refiling-messages.html
-    (concat "/YG/Archives/" (format-time-string "%Y" (mu4e-message-field msg :date))))
-
-  :custom
-  (user-mail-address yg-smtp-user)
-  (user-full-name  "Lorenzo Bolla")
-  (mu4e-drafts-folder "/YG/Drafts")
-  (mu4e-sent-folder "/YG/Sent Items")
-  (mu4e-trash-folder "/YG/Deleted Items")
-  (mu4e-refile-folder 'my/mu4e-refile-folder-function)
-  (mu4e-change-filenames-when-moving t)
-  (mu4e-maildir-shortcuts '((:maildir "/YG/INBOX"      :key ?i)
-                            (:maildir "/YG/Sent Items" :key ?s)
-                            (:maildir "/YG/Errors"     :key ?e)
-                            (:maildir "/YG/GitLab"     :key ?g)
-                            (:maildir "/YG/Tickets"    :key ?t)))
-  (mu4e-bookmarks '((:name "Unread"               :query "flag:unread AND NOT flag:trashed AND NOT maildir:/YG/Archives"                  :key ?u)
-                    (:name "Unread inbox"         :query "flag:unread AND NOT flag:trashed AND maildir:/YG/INBOX"                         :key ?i)
-                    (:name "Unread errors"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Errors"                        :key ?e)
-                    (:name "Unread tickets"       :query "flag:unread AND NOT flag:trashed AND maildir:/YG/Tickets"                       :key ?t)
-                    (:name "Unread GitLab"        :query "flag:unread AND NOT flag:trashed AND maildir:/YG/GitLab"                        :key ?g)
-                    (:name "Unread mentions"      :query "flag:unread AND NOT flag:trashed AND NOT maildir:/YG/Archives AND body:lorenzo" :key ?m)
-                    (:name "Unread archived"      :query "flag:unread AND maildir:/YG/Archives"                                           :key ?a)
-                    (:name "Flagged"              :query "flag:flagged AND NOT maildir:/YG/Archives"                                      :key ?f)
-                    ;; (:name "With attachment"      :query "flag:attach"                                              :key ?a)
-                    ;; (:name "Today's messages"     :query "date:today..now"                                          :key ?t)
-                    ;; (:name "Last 7 days"          :query "date:7d..now"                                             :key ?w)
-                    ;; (:name "Messages with images" :query "mime:image/*"                                             :key ?p)
-                    ;; (:name "2013 inbox"            :query "maildir:/YG/INBOX AND date:20130101..20131231"            :key ?3)
-                    ;; (:name "2014 inbox"            :query "maildir:/YG/INBOX AND date:20140101..20141231"            :key ?4)
-                    ;; (:name "2015 inbox"            :query "maildir:/YG/INBOX AND date:20150101..20151231"            :key ?5)
-                    ;; (:name "2016 inbox"            :query "maildir:/YG/INBOX AND date:20160101..20161231"            :key ?6)
-                    ;; (:name "2017 inbox"            :query "maildir:/YG/INBOX AND date:20170101..20171231"            :key ?7)
-                    ;; (:name "2018 inbox"            :query "maildir:/YG/INBOX AND date:20180101..20181231"            :key ?8)
-                    ;; (:name "2019 inbox"            :query "maildir:/YG/INBOX AND date:20190101..20191231"            :key ?9)
-                    ))
-  ;; (mail-user-agent 'mu4e-user-agent)
-  (mu4e-compose-complete-addresses t)
-  (mu4e-compose-complete-only-after nil)
-  (mu4e-compose-complete-only-personal nil)
-  (mu4e-compose-dont-reply-to-self t)
-  (mu4e-use-fancy-chars nil)
-  (mu4e-get-mail-command "true")
-  (mu4e-update-interval 300)
-  ;; TODO
-  ;; (mu4e-html2text-command "w3m -dump -cols 80 -T text/html")
-  (mu4e-view-html-plaintext-ratio-heuristic 20)
-  (message-kill-buffer-on-exit t)
-  (mu4e-view-scroll-to-next nil)
-  (mu4e-attachment-dir "/tmp")
-  (mu4e-headers-skip-duplicates t)
-  (mu4e-headers-date-format "%x %X")
-  (mu4e-headers-fields '((:human-date . 18)
-                         (:flags . 6)
-                         (:mailing-list . 10)
-                         (:from . 22)
-                         (:subject)))
-  (mu4e-mailing-list-patterns '("\\([^.]*\\)\\.yougov\\.net"))
-  (mu4e-headers-include-related nil)
-  ;; (mu4e-headers-results-limit 500)
-  (mu4e-view-actions '(("capture message" . mu4e-action-capture-message)
-                       ("view as pdf" . mu4e-action-view-as-pdf)
-                       ("show this thread" . mu4e-action-show-thread)
-                       ("browse" . mu4e-action-view-in-browser)))
-  (mu4e-view-show-addresses t)
-  (mu4e-view-show-images nil)
-  (mu4e-view-use-gnus nil))
-
-(use-package mu4e-alert
-  :bind
-  ("C-c m u" . mu4e-alert-view-unread-mails)
-  :custom
-  ;; (mu4e-alert-interesting-mail-query "(flag:unread OR flag:flagged) AND NOT flag:trashed")
-  (mu4e-alert-style 'log)
-  :config
-  (mu4e-alert-enable-notifications)
-  (mu4e-alert-enable-mode-line-display))
-
 (use-package org
   ;; Install from Org's elpa
   ;; :load-path "/home/lbolla/src/code.orgmode.org/bzg/org-mode/lisp/"
@@ -688,8 +582,6 @@
   org-clock-out-when-done
   org-publish-project-alist
   org-stuck-projects
-  yg-fogbugz-url
-  yg-jira-url
 
   :custom
   (org-agenda-block-separator "")
@@ -699,15 +591,18 @@
                                   (tags-todo "-REFILE/NEXT"
                                         ((org-agenda-overriding-header "Next tasks")
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
-                                         (org-agenda-files '("~/org/"))))
+                                         ;; (org-agenda-files '("~/org/"))
+                                         ))
                                   (tags-todo "-REFILE/WAIT"
                                         ((org-agenda-overriding-header "Stuck tasks")
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
-                                         (org-agenda-files '("~/org/"))))
+                                         ;; (org-agenda-files '("~/org/"))
+                                         ))
                                   (tags-todo "-REFILE/TODO"
                                         ((org-agenda-overriding-header "Todo tasks")
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
-                                         (org-agenda-files '("~/org/"))))
+                                         ;; (org-agenda-files '("~/org/"))
+                                         ))
                                   ))
                                 ("," "Refile/Archive/Someday"
                                  ((org-ql-block '(tags-inherited "REFILE")
@@ -719,14 +614,13 @@
                                   (tags-todo "-REFILE/SDAY"
                                         ((org-agenda-overriding-header "Someday tasks")
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
-                                         (org-agenda-files '("~/org/"))))))))
-  ;; (org-agenda-files '("~/org/"))
+                                         ;; (org-agenda-files '("~/org/"))
+                                         ))))))
   (org-agenda-files '("~/org/fun.org"
                       "~/org/personal.org"
                       "~/org/programming.org"
                       "~/org/refile.org"
-                      "~/org/roche.org"
-                      "~/org/yougov.org"))
+                      "~/org/roche.org"))
   (org-agenda-include-diary t)
   (org-agenda-log-mode-items `(clock closed))
   (org-agenda-sorting-strategy '((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
@@ -766,12 +660,7 @@
   (org-fontify-whole-heading-line t)
   (org-html-htmlize-output-type 'css)
   (org-html-validation-link nil)
-  (org-link-abbrev-alist `(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
-                           ("BSD" . ,(concat yg-jira-url "/browse/BSD-%h"))
-                           ("BRI" . ,(concat yg-jira-url "/browse/BRI-%h"))
-                           ("DEVO" . ,(concat yg-jira-url "/browse/DEVO-%h"))
-                           ("GH" . github-issue-url)
-                           ("GL" . yg-gitlab-object-url)))
+  (org-link-abbrev-alist `(("GH" . github-issue-url)))
   (org-log-done 'time)
   (org-log-into-drawer t)
   (org-module '(org-habit
@@ -920,11 +809,6 @@
   (defface org-meet '((t (:inherit org-todo :foreground "deep sky blue"))) "Face used for meeting tasks." :group 'org-faces)
   (defface org-canc '((t (:inherit org-todo :foreground "dim gray"))) "Face used for cancelled tasks." :group 'org-faces))
 
-(use-package org-mu4e
-  :ensure nil
-  :demand t
-  :after (org mu4e))
-
 (use-package org-ref
   :after org-roam
   :custom
@@ -1023,6 +907,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package projectile
   :custom
+  (projectile-after-switch-project-hook '(my/eyebrowse-name-from-project projectile-vc))
   (projectile-globally-ignored-directories
    '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
      ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist"
@@ -1031,7 +916,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (projectile-switch-project-action 'projectile-dired)
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (setq projectile-after-switch-project-hook '(lbolla/eyebrowse-name-from-project))
   :init
   (projectile-mode +1))
 
@@ -1106,18 +990,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
          ((rx ".venv") . shell-script-mode)
          ;; Void package template files
          ((rx bos "template" eos) . shell-script-mode)))
-
-(use-package smtpmail
-  :defines
-  yg-smtp-server
-  yg-smtp-port
-  yg-smtp-user
-  :custom
-  (send-mail-function 'smtpmail-send-it)
-  (smtpmail-smtp-server yg-smtp-server)
-  (smtpmail-smtp-service yg-smtp-port)
-  (smtpmail-mail-address yg-smtp-user)
-  (smtpmail-stream-type 'starttls))
 
 (use-package swiper
   :bind

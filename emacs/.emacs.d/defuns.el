@@ -331,11 +331,10 @@
       (delete-other-windows)
       (dired dir)
       (ignore-errors
-        (projectile-switch-project-by-name dir)
-        (projectile-vc dir))
+        (projectile-switch-project-by-name dir))
       (other-window 1))))
 
-(defun lbolla/eyebrowse-name-from-project ()
+(defun my/eyebrowse-name-from-project ()
   "Name eyebrowse session after current project."
   (when (functionp 'eyebrowse-rename-window-config)
     (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) (projectile-project-name))))

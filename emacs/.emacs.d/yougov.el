@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(require 'private-yougov "~/Private/emacs/private-yougov.el")
+
 ;; Defined in private.el
 (defvar yg-fogbugz-cli-buffer-name)
 (defvar yg-fogbugz-url)
@@ -139,6 +141,19 @@
                          ;;   (insert "\n")
                          ;;   (switch-to-buffer-other-window (current-buffer)))
                          ))))))
+
+(add-to-list 'org-mode-hook (lambda ()
+                              (add-to-list 'org-link-abbrev-alist
+                                           '(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
+                                             ("BSD" . ,(concat yg-jira-url "/browse/BSD-%h"))
+                                             ("BRI" . ,(concat yg-jira-url "/browse/BRI-%h"))
+                                             ("DEVO" . ,(concat yg-jira-url "/browse/DEVO-%h"))
+                                             ("GL" . yg-gitlab-object-url)))
+                              (add-to-list 'org-agenda-files '("~/org/yougov.org"))))
+
+(add-to-list 'evil-mode-hook (lambda ()
+                               (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)
+                               (define-key evil-visual-state-map (kbd ",yp") 'yg-paste-region)))
 
 (provide 'yougov)
 
