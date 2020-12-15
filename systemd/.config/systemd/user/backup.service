@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup
+ConditionACPower=true
+AssertPathExists=%h/.config/restic
+
+[Service]
+Environment=XDG_DATA_DIRS=/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+ExecStart=
+ExecStart=%h/bin/backup

@@ -1,0 +1,9 @@
+[Unit]
+Description=Periodic backups
+
+[Timer]
+OnCalendar=15:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
