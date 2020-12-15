@@ -44,18 +44,8 @@ alias -s doc="libreoffice"
 _media_fts=(ape avi flv m4a mkv mov mp3 mpeg mpg ogg ogm rm wav webm)
 for ft in $_media_fts; do alias -s $ft=mpv; done
 
-# alias fb="/home/lbolla/.virtualenvs/fbcli/bin/fb"
-# alias rust-update="/home/lbolla/src/cmd/rust-update"
 alias vcs-resolve="/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"
-
-alias lbolla-tmux='mosh lbolla.info tmux attach'
-
-# alias vpn='sudo openvpn --config /home/lbolla/Private/vpn/AirVPN_Europe_UDP-443.ovpn --up "/home/lbolla/Private/vpn/bt-nameserver off" --down "/home/lbolla/Private/vpn/bt-nameserver on"'
-alias vpn='sudo openvpn --config /home/lbolla/Private/vpn/AirVPN_Europe_UDP-443.ovpn'
 alias protonvpn='sudo /home/lbolla/.virtualenvs/protonvpn/bin/protonvpn'
-
-# We want this: https://github.com/sharkdp/fd
-unalias fd 2> /dev/null
 
 function docker-images-children {
     for i in $(docker images -q)
