@@ -1,8 +1,8 @@
 [Unit]
-Description=Periodic backups
+Description=Periodic backups to NAS
 
 [Timer]
-OnCalendar=15:00
+OnCalendar=10:00
 Persistent=true
 
 [Install]

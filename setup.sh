@@ -21,6 +21,7 @@ PACKAGES=(
     ripgrep
     rtorrent
     # rust
+    systemd
     tmux
     # virtualenv
     # w3m

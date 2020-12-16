@@ -1,6 +1,6 @@
 [Unit]
 Description=Backup
-ConditionACPower=true
+# ConditionACPower=true
 AssertPathExists=%h/.config/restic
 
 [Service]
