@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(require 'private "~/Private/emacs/private.el")
+
 (defvar org-agenda-files)
 
 (add-to-list 'org-mode-hook (lambda ()

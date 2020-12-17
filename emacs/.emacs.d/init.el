@@ -57,7 +57,10 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
                               "%b"))))))
 
 (require 'defuns "~/.emacs.d/defuns.el")
-(require 'private "~/Private/emacs/private.el")
+(require 'pkgs "~/.emacs.d/pkgs.el")
+(require 'themes "~/.emacs.d/themes.el")
+
+;; Site-dependent settings
 (pcase (system-name)
   ("jiren"
    (require 'personal "~/.emacs.d/personal.el"))
@@ -65,8 +68,6 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
    (require 'yougov "~/.emacs.d/yougov.el"))
   ("troulwn0333"
    (require 'roche "~/.emacs.d/roche.el")))
-(require 'pkgs "~/.emacs.d/pkgs.el")
-(require 'themes "~/.emacs.d/themes.el")
 
 ;; Optimizations
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
