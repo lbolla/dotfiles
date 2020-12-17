@@ -4,7 +4,6 @@
 
 ;;; Code:
 ;;; TODO replace evil-* and other non-Emacs functions with Emacs ones
-;;; TODO rename file to "my.el"
 
 (defcustom my/mu4e-get-mail-command "mbsync -a"
   "Shell command to run to retrieve email manually." :group 'Mu4e)

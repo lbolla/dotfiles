@@ -59,8 +59,12 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 (require 'defuns "~/.emacs.d/defuns.el")
 (require 'private "~/Private/emacs/private.el")
 (pcase (system-name)
+  ("jiren"
+   (require 'personal "~/.emacs.d/personal.el"))
   ("frieza"
-   (require 'yougov "~/.emacs.d/yougov.el")))
+   (require 'yougov "~/.emacs.d/yougov.el"))
+  ("troulwn0333"
+   (require 'roche "~/.emacs.d/roche.el")))
 (require 'pkgs "~/.emacs.d/pkgs.el")
 (require 'themes "~/.emacs.d/themes.el")
 

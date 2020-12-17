@@ -13,6 +13,8 @@
 (defvar yg-fogbugz-password)
 (defvar yg-paste-base-url)
 
+(defvar org-agenda-files)
+
 (defun yg-gitlab-object-url (tag)
   "Generate a YG GitLab OBJECT url for TAG."
   (let ((gitlab "https://gitlab.yougov.net/")
@@ -143,13 +145,12 @@
                          ))))))
 
 (add-to-list 'org-mode-hook (lambda ()
-                              (add-to-list 'org-link-abbrev-alist
-                                           '(("FB" . ,(concat yg-fogbugz-url "/f/cases/%h"))
-                                             ("BSD" . ,(concat yg-jira-url "/browse/BSD-%h"))
-                                             ("BRI" . ,(concat yg-jira-url "/browse/BRI-%h"))
-                                             ("DEVO" . ,(concat yg-jira-url "/browse/DEVO-%h"))
-                                             ("GL" . yg-gitlab-object-url)))
-                              (add-to-list 'org-agenda-files '("~/org/yougov.org"))))
+                              (add-to-list 'org-link-abbrev-alist '("FB" . ,(concat yg-fogbugz-url "/f/cases/%h")))
+                              (add-to-list 'org-link-abbrev-alist '("BSD" . ,(concat yg-jira-url "/browse/BSD-%h")))
+                              (add-to-list 'org-link-abbrev-alist '("BRI" . ,(concat yg-jira-url "/browse/BRI-%h")))
+                              (add-to-list 'org-link-abbrev-alist '("DEVO" . ,(concat yg-jira-url "/browse/DEVO-%h")))
+                              (add-to-list 'org-link-abbrev-alist '("GL" . yg-gitlab-object-url))
+                              (add-to-list 'org-agenda-files "~/org/yougov.org")))
 
 (add-to-list 'evil-mode-hook (lambda ()
                                (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)

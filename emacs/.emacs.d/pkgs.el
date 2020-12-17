@@ -616,11 +616,7 @@
                                          (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
                                          ;; (org-agenda-files '("~/org/"))
                                          ))))))
-  (org-agenda-files '("~/org/fun.org"
-                      "~/org/personal.org"
-                      "~/org/programming.org"
-                      "~/org/refile.org"
-                      "~/org/roche.org"))
+  (org-agenda-files '("~/org/refile.org"))
   (org-agenda-include-diary t)
   (org-agenda-log-mode-items `(clock closed))
   (org-agenda-sorting-strategy '((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
