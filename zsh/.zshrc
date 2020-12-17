@@ -5,14 +5,19 @@
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-# export PATH=/opt/helm:$PATH
-# export PATH=/opt/texlive/2018/bin/x86_64-linux:$PATH
-# export PATH=/home/lbolla/.nimble/bin:$PATH
-export PATH=/home/lbolla/.cache/rebar3/bin:$PATH
-export PATH=/opt/apache-maven-3.6.3/bin:$PATH
+PATHS=(
+    "${HOME}/.cache/rebar3/bin"
+    "${HOME}/perl5/bin"
+    "/opt/apache-maven-3.6.3/bin"
+)
+for p in "${PATHS[@]}"; do
+    if [ -d "${p}" ]; then
+        export PATH=${p}:$PATH
+    fi
+done
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/lbolla/.oh-my-zsh
+export ZSH=${HOME}/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -165,5 +170,3 @@ export C_INCLUDE_PATH=/usr/lib/R/include
 export GPG_TTY=$(tty)
 
 # zprof
-
-PATH="/home/lbolla/perl5/bin${PATH:+:${PATH}}"; export PATH;
