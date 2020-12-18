@@ -67,3 +67,5 @@
         path = .gitconfig-github.com-yougov
 [includeIf "gitdir:~/src/yougov/"]
         path = .gitconfig-yougov
+[includeIf "gitdir:~/src/bitbucket.roche.com/"]
+        path = .gitconfig-roche
