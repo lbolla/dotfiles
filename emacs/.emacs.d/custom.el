@@ -62,9 +62,6 @@
      ("Asia/Shanghai" "Shanghai")
      ("Asia/Tokyo" "Tokyo")
      ("Australia/Sydney" "Sydney")))
- ;; '(dumb-jump-selector 'ivy)
- ;; '(dumb-jump-window 'other)
- ;; '(dump-jump-prefer-searcher 'rg t)
  '(ediff-split-window-function 'split-window-horizontally)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(elpy-modules
@@ -72,12 +69,6 @@
  '(epa-pinentry-mode 'loopback)
  '(epg-pinentry-mode 'loopback)
  '(erlang-root-dir "/usr" t)
- ;; '(evil-default-state 'normal)
- ;; '(evil-lookup-func 'man-at-point)
- ;; '(evil-want-C-i-jump nil)
- ;; '(evil-want-C-w-in-emacs-state t)
- ;; '(evil-want-integration t)
- ;; '(evil-want-keybinding nil)
  '(eww-search-prefix "https://www.startpage.com/do/search?q=")
  '(explain-pause-blocking-too-long-ms 100 t)
  '(eyebrowse-default-workspace-slot 0)
@@ -85,18 +76,6 @@
  '(eyebrowse-new-workspace t)
  '(fci-rule-color "#383838")
  '(fill-column 79)
- ;; '(flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
- ;; '(flycheck-clang-include-path
- ;;   '("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps"))
- ;; '(flycheck-clang-language-standard "c++11")
- ;; '(flycheck-cppcheck-checks '("all"))
- ;; '(flycheck-cppcheck-suppressions '("constStatement"))
- ;; '(flycheck-flake8rc "setup.cfg")
- ;; '(flycheck-gcc-language-standard "c++1y")
- ;; '(flycheck-ghc-language-extensions nil)
- ;; '(flycheck-highlighting-mode 'lines)
- ;; '(flycheck-javascript-flow-args nil t)
- ;; '(flycheck-pycheckers-checkers '(flake8 mypy3))
  '(flymake-error-bitmap '(flymake-double-exclamation-mark modus-theme-fringe-red))
  '(flymake-note-bitmap '(exclamation-mark modus-theme-fringe-cyan))
  '(flymake-warning-bitmap '(exclamation-mark modus-theme-fringe-yellow))
@@ -138,27 +117,6 @@
  '(line-spacing 0.2)
  '(linum-format " %7i ")
  '(load-prefer-newer t)
- ;; '(lsp-completion-provider t t)
- ;; '(lsp-diagnostics-flycheck-default-level 'info t)
- ;; '(lsp-enable-indentation nil)
- ;; '(lsp-enable-snippet nil)
- ;; '(lsp-modeline-diagnostics-scope :workspace t)
- ;; '(lsp-prefer-flymake nil t)
- ;; '(lsp-python-ms-disabled ["inherit-non-class"] t)
- ;; '(lsp-response-timeout 5)
- ;; '(lsp-rust-clippy-preference "on" t)
- ;; '(lsp-ui-doc-enable nil t)
- ;; '(lsp-ui-flycheck-enable t t)
- ;; '(lsp-ui-sideline-enable nil t)
- ;; '(magit-branch-arguments nil t)
- ;; '(magit-completing-read-function 'ivy-completing-read)
- ;; '(magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
- ;; '(magit-log-section-commit-count 10)
- ;; '(magit-pull-or-fetch t)
- ;; '(magit-push-always-verify nil t)
- ;; '(magit-todos-exclude-globs '(".git" "concatenated" "node_modules" "vendor") t)
- ;; '(magit-todos-keyword-suffix ":\\| \\|$" t)
- ;; '(magit-todos-update 60 t)
  '(menu-bar-mode nil)
  '(message-citation-line-function 'message-insert-formatted-citation-line)
  '(message-kill-buffer-on-exit t)
@@ -166,139 +124,13 @@
  '(mouse-yank-at-point t)
  '(network-security-level 'high nil nil "Customized with use-package nsm")
  '(objed-cursor-color "#99324b")
-;;  '(org-agenda-block-separator "")
-;;  '(org-agenda-include-diary t)
-;;  '(org-agenda-log-mode-items '(clock closed))
-;;  '(org-agenda-sorting-strategy
-;;    '((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
-;;      (todo todo-state-down priority-down category-up alpha-up)
-;;      (tags todo-state-down priority-down category-up alpha-up)
-;;      (search todo-state-down priority-down category-up alpha-up)))
-;;  '(org-agenda-span 1)
-;;  '(org-agenda-start-on-weekday nil)
-;;  '(org-agenda-start-with-log-mode t)
-;;  '(org-agenda-tags-column 'auto)
-;;  '(org-babel-load-languages
-;;    '((emacs-lisp . t)
-;;      (ledger . t)
-;;      (shell . t)
-;;      (sql . t)
-;;      (python . t)))
-;;  '(org-capture-templates
-;;    '(("t" "Todo" entry
-;;       (file "~/org/refile.org")
-;;       "* TODO %?
-;; %i
-;; %a
-;; ")
-;;      ("m" "Meeting" entry
-;;       (file "~/org/refile.org")
-;;       "* TODO Meeting %? :MEET:
-;; %U")
-;;      ("h" "Habit" entry
-;;       (file "~/org/refile.org")
-;;       "* TODO %?
-;; :PROPERTIES:
-;; :STYLE:    habit
-;; :END:
-;; ")
-;;      ("n" "Note" entry
-;;       (file "~/org/notes.org")
-;;       "* %? 
-;; %U
-;; %a
-;; ")
-;;      ("i" "Idea" entry
-;;       (file "~/org/ideas.org")
-;;       "* %? 
-;; %U
-;; %a
-;; ")
-;;      ("l" "Link" entry
-;;       (file+headline "~/org-linkz/Linkz.org" "INBOX")
-;;       "* %a
-;; %i" :immediate-finish t)) t)
-;;  '(org-clock-into-drawer "CLOCKS")
-;;  '(org-clock-out-remove-zero-time-clocks t)
-;;  '(org-clock-out-when-done '("WAIT" "DONE" "CANC" "DELG"))
-;;  '(org-columns-default-format
-;;    "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
-;;  '(org-deadline-warning-days 30)
-;;  '(org-default-notes-file "~/org/refile.org")
-;;  '(org-default-priority 68)
-;;  '(org-export-backends '(ascii html icalendar latex odt confluence))
-;;  '(org-fast-tag-selection-single-key t)
-;;  '(org-fontify-quote-and-verse-blocks t)
-;;  '(org-fontify-whole-heading-line t)
-;;  '(org-html-htmlize-output-type 'css)
-;;  '(org-html-validation-link nil)
-;;  '(org-log-done 'time)
-;;  '(org-log-into-drawer t)
-;;  '(org-module
-;;    '(org-habit ox-confluence org-protocol ol-w3m ol-bbdb ol-bibtex ol-docview ol-info ol-eww) t)
-;;  '(org-outline-path-complete-in-steps nil)
-;;  '(org-priority-faces
-;;    '((65 . font-lock-warning-face)
-;;      (67 . font-lock-comment-face)))
-;;  '(org-priority-start-cycle-with-default nil)
-;;  '(org-protocol-default-template-key "l" t)
-;;  '(org-ref-bibliography-notes "~/zettelkasten/bibliography/notes.org")
-;;  '(org-ref-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
-;;  '(org-ref-pdf-directory "~/zettelkasten/bibliography/bibtex-pdfs/")
-;;  '(org-refile-allow-creating-parent-nodes 'confirm)
-;;  '(org-refile-targets '((org-agenda-files :level . 1)))
-;;  '(org-refile-use-outline-path t)
-;;  '(org-return-follows-link t)
-;;  '(org-roam-directory "~/zettelkasten/" t)
-;;  '(org-src-fontify-natively t)
-;;  '(org-src-tab-acts-natively t)
-;;  '(org-startup-indented t)
-;;  '(org-stuck-projects
-;;    '("+LEVEL=2/-DONE"
-;;      ("TODO" "NEXT" "SOMEDAY" "WAIT" "CANC" "DELG")
-;;      ("@ignore")
-;;      ""))
-;;  '(org-tag-alist
-;;    '((:startgroup)
-;;      ("@family" . 102)
-;;      ("@home" . 104)
-;;      ("@work" . 119)
-;;      ("@ignore" . 105)
-;;      (:endgroup)
-;;      ("MEET" . 109)
-;;      ("FLAG" . 43)))
-;;  '(org-todo-keyword-faces
-;;    '(("TODO" . org-todo)
-;;      ("NEXT" . org-strt)
-;;      ("SDAY" . org-sday)
-;;      ("WAIT" . org-wait)
-;;      ("DELG" . org-delg)
-;;      ("CANC" . org-canc)
-;;      ("DONE" . org-done)))
-;;  '(org-todo-keywords
-;;    '((sequence "TODO(t)" "NEXT(n!)" "WAIT(w@/!)" "SDAY(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)")))
-;;  '(org-treat-S-cursor-todo-selection-as-state-change nil)
  '(package-enable-at-startup nil)
  '(package-selected-packages
-   '(company highlight-indentation rust-mode yasnippet pyvenv undo-tree elixir-mode calfw-cal calfw-org calfw lsp-java all-the-icons lsp-treemacs dap-mode avy minions quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode lisp-mode evil-org-agenda elpy which-key dumb-jump leuven-theme evil-collection tablist evil-org zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode))
+   '(dpkg-dev-el company highlight-indentation rust-mode yasnippet pyvenv undo-tree elixir-mode calfw-cal calfw-org calfw lsp-java all-the-icons lsp-treemacs dap-mode avy minions quasi-monochrome-theme org-roam org-ref deft modus-vivendi-theme modus-operandi-theme org-ql-view doom-themes org-ql lsp-ui tao-theme org-plus-contrib copy-as-format edit-server lsp-python-ms rjsx-mode eyebrowse lsp-mode ivy-hydra flycheck-color-mode-line flycheck-pycheckers expand-region esup magit-todos nnir poet-theme goose-theme flycheck-rust flycheck-popup-tip nim nim-mode text-mode prog-mode lisp-mode evil-org-agenda elpy which-key dumb-jump leuven-theme evil-collection tablist evil-org zoom-window rg dockerfile-mode racer toml-mode lua-mode ess counsel yaml-mode xclip web-mode use-package swiper spinner queue projectile pass paredit markdown-mode magit macrostep json-mode js2-mode hexrgb go-mode gnus-desktop-notify flycheck-flow flycheck-dialyzer flycheck-cython evil-nerd-commenter evil-matchit evil cython-mode cyberpunk-theme csv-mode))
  '(password-store-password-length 16)
  '(pdf-view-midnight-colors (cons "#2a2a2a" "#fafafa"))
  '(recentf-max-saved-items nil)
  '(reftex-default-bibliography '("~/zettelkasten/bibliography/references.bib"))
- ;; '(rg-custom-type-aliases
- ;;   '((#("gn" 0 1
- ;;        (idx 0))
- ;;      . "*.gn *.gni")
- ;;     (#("gyp" 0 1
- ;;        (idx 1))
- ;;      . "*.gyp *.gypi")
- ;;     (#("tmpl" 0 1
- ;;        (idx 2))
- ;;      . "*.tmpl")))
- ;; '(rg-group-result nil)
- ;; '(rust-format-on-save t t)
- ;; '(rustic-ansi-faces
- ;;   ["#fafafa" "#99324b" "#4f894c" "#9a7500" "#3b6ea8" "#97365b" "#398eac" "#2a2a2a"])
  '(safe-local-variable-values
    '((eval add-hook 'after-save-hook
            (lambda nil
@@ -325,8 +157,6 @@
  '(vc-follow-symlinks nil)
  '(vc-handled-backends '(Git))
  '(vc-log-show-limit 50)
- ;; '(vcs-resolve-exe
- ;;   "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py" t)
  '(w3m-home-page "about:")
  '(w3m-search-default-engine "startpage")
  '(w3m-search-engine-alist
@@ -371,9 +201,7 @@
  '(xterm-color-names
    ["#000000" "#ff8059" "#44bc44" "#eecc00" "#33beff" "#feacd0" "#00d3d0" "#a8a8a8"])
  '(xterm-color-names-bright
-   ["#181a20" "#f4923b" "#58dd13" "#e5f040" "#72a4ff" "#f78fe7" "#4ae8fc" "#ffffff"])
- ;; '(yas-indent-line 'fixed)
- )
+   ["#181a20" "#f4923b" "#58dd13" "#e5f040" "#72a4ff" "#f78fe7" "#4ae8fc" "#ffffff"]))
 
 ;; Preferred fonts: Terminus, Iosevka, SourceSerifPro, EBGaramond
 ;; More at https://fonts.google.com/?category=Serif&sort=popularity
