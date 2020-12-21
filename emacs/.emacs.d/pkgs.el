@@ -316,7 +316,7 @@
 
 (use-package explain-pause-mode
   ;; :demand t
-  :load-path "/home/lbolla/src/github.com/lastquestion/explain-pause-mode"
+  :load-path "~/src/github.com/lastquestion/explain-pause-mode"
   :custom
   (explain-pause-blocking-too-long-ms 100)
   :config
@@ -363,7 +363,7 @@
 
 (use-package flycheck-cython
   :disabled t
-  :load-path "/home/lbolla/src/github.com/lbolla/emacs-flycheck-cython/"
+  :load-path "~/src/github.com/lbolla/emacs-flycheck-cython/"
   :after flycheck
   :demand t)
 
@@ -376,7 +376,7 @@
 
 (use-package flycheck-flow
   :disabled t
-  :load-path "/home/lbolla/src/github.com/lbolla/emacs-flycheck-flow/"
+  :load-path "~/src/github.com/lbolla/emacs-flycheck-flow/"
   :after flycheck
   :config
   ;; (flycheck-add-next-checker 'javascript-flow '(warning . javascript-flow-coverage) t)
@@ -409,7 +409,7 @@
 (use-package go-mode
   :disabled t
   :custom
-  (godef-command "/home/lbolla/src/go/bin/godef")
+  (godef-command "~/src/go/bin/godef")
   :hook
   (before-save . gofmt-before-save)
   (go-mode . (lambda ()
@@ -562,7 +562,7 @@
 
 (use-package org
   ;; Install from Org's elpa
-  ;; :load-path "/home/lbolla/src/code.orgmode.org/bzg/org-mode/lisp/"
+  ;; :load-path "~/src/code.orgmode.org/bzg/org-mode/lisp/"
   ;; :load-path "/usr/share/emacs/site-lisp/org/"
 
   :ensure org-plus-contrib
@@ -1004,14 +1004,14 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :mode ((rx "Cargo")))
 
 (use-package vcs-resolve
-  :load-path "/home/lbolla/src/github.com/lbolla/vcs-resolve/"
+  :load-path "~/src/github.com/lbolla/vcs-resolve/"
   ;; :demand t
   :bind
   ("C-c v b" . vcs-resolve-buffer)
   ("C-c v p" . vcs-resolve-at-point)
   ("C-c v r" . vcs-resolve-region)
   :custom
-  (vcs-resolve-exe "/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"))
+  (vcs-resolve-exe "~/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"))
 
 (use-package web-mode
   :mode ((rx ".html" eos)

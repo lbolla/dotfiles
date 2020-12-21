@@ -6,12 +6,12 @@
 ;;; Code:
 
 (use-package quasi-monochrome-theme
-  :load-path "/home/lbolla/src/github.com/lbolla/emacs-quasi-monochrome/"
+  :load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"
   ;; :defer t
   :no-require t
   :demand t
   :config
-  (add-to-list 'custom-theme-load-path "/home/lbolla/src/github.com/lbolla/emacs-quasi-monochrome/"))
+  (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"))
 
 (use-package leuven-theme
   :defer t
