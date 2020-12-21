@@ -9,6 +9,8 @@
 (add-to-list 'org-mode-hook (lambda ()
                               (add-to-list 'org-agenda-files "~/org/roche.org")))
 
+(use-package dpkg-dev-el)
+
 (provide 'roche)
 
 ;;; roche.el ends here
