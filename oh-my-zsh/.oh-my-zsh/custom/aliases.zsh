@@ -44,8 +44,8 @@ alias -s doc="libreoffice"
 _media_fts=(ape avi flv m4a mkv mov mp3 mpeg mpg ogg ogm rm wav webm)
 for ft in $_media_fts; do alias -s $ft=mpv; done
 
-alias vcs-resolve="/home/lbolla/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"
-alias protonvpn='sudo /home/lbolla/.virtualenvs/protonvpn/bin/protonvpn'
+alias vcs-resolve="${HOME}/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"
+alias protonvpn="sudo ${HOME}/.virtualenvs/protonvpn/bin/protonvpn"
 
 function docker-images-children {
     for i in $(docker images -q)
