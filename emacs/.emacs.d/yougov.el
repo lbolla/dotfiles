@@ -14,17 +14,11 @@
 (defvar yg-paste-base-url)
 
 (defvar org-agenda-files)
+(defvar org-link-abbrev-alist)
 
 (defun yg-gitlab-object-url (tag)
   "Generate a YG GitLab OBJECT url for TAG."
-  (let ((gitlab "https://gitlab.yougov.net/")
-        (issue-re (rx (group (one-or-more (not (any "#")))) "#" (group (one-or-more digit))))
-        (mr-re (rx (group (one-or-more (not (any "!")))) "!" (group (one-or-more digit)))))
-  (cond
-   ((string-match issue-re tag)
-    (concat gitlab (match-string 1 tag) "/issues/" (match-string 2 tag)))
-   ((string-match mr-re tag)
-    (concat gitlab (match-string 1 tag) "/merge_requests/" (match-string 2 tag))))))
+  (gitlab-object-url "https://gitlab.yougov.net/" tag))
 
 (defun yg-fogbugz-cli ()
   "Open FogBugz command line interface."
