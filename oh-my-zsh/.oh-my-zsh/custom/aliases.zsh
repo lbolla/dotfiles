@@ -92,6 +92,14 @@ function w {
 }
 
 function fb {
-    maybe-tmux-rename-window fb
-    /home/lbolla/.virtualenvs/fbcli/bin/fb $*
+    maybe-tmux-rename-window fb "${HOME}/.virtualenvs/fbcli/bin/fb" $*
+}
+
+unalias z 2> /dev/null
+function z {
+    if [[ $# -eq 0 ]]; then
+        _z
+    else
+        _z $1 && maybe-tmux-rename-window $1
+    fi
 }
