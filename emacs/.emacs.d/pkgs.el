@@ -176,7 +176,8 @@
   (dumb-jump-selector 'ivy)
   (dumb-jump-window 'other)
   :init
-  (dumb-jump-mode))
+  ;; (dumb-jump-mode)
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 ;; Required by FF add-on "Edit with Emacs"
 (use-package edit-server
@@ -985,6 +986,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
          ((rx ".env") . shell-script-mode)
          ((rx ".venv") . shell-script-mode)
          ((rx ".vars") . shell-script-mode)
+         ((rx ".sh.inc") . shell-script-mode)
+         ((rx ".plugin" eos) . shell-script-mode)
          ;; Void package template files
          ((rx bos "template" eos) . shell-script-mode)))
 
