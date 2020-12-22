@@ -984,6 +984,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
          ((rx ".sh" eos) . shell-script-mode)
          ((rx ".env") . shell-script-mode)
          ((rx ".venv") . shell-script-mode)
+         ((rx ".vars") . shell-script-mode)
          ;; Void package template files
          ((rx bos "template" eos) . shell-script-mode)))
 
