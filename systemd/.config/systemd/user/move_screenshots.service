@@ -1,0 +1,6 @@
+[Unit]
+Description=Move screenshots out of the way
+
+[Service]
+ExecStart=
+ExecStart="/bin/sh" "-c" "mv -f $HOME/Pictures/Screenshot* /tmp"

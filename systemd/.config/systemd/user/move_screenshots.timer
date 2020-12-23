@@ -1,0 +1,8 @@
+[Unit]
+Description=Periodically move screenshots
+
+[Timer]
+OnCalendar=*:0/10
+
+[Install]
+WantedBy=timers.target
