@@ -40,3 +40,4 @@ aliases
 /python/.ipython/profile_default/history.sqlite
 /rust/.cargo/
 _obsolete/
+/systemd/.config/systemd/user/timers.target.wants
