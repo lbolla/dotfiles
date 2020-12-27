@@ -3,4 +3,4 @@ Description=Move screenshots out of the way
 
 [Service]
 ExecStart=
-ExecStart="/bin/sh" "-c" "mv -f $HOME/Pictures/Screenshot* /tmp"
+ExecStart="/bin/sh" "-c" "find $HOME/Pictures -name 'Screenshot*' -mmin +10 -exec mv {} /tmp \\;"
