@@ -139,10 +139,10 @@
                          ))))))
 
 (add-to-list 'org-mode-hook (lambda ()
-                              (add-to-list 'org-link-abbrev-alist '("FB" . ,(concat yg-fogbugz-url "/f/cases/%h")))
-                              (add-to-list 'org-link-abbrev-alist '("BSD" . ,(concat yg-jira-url "/browse/BSD-%h")))
-                              (add-to-list 'org-link-abbrev-alist '("BRI" . ,(concat yg-jira-url "/browse/BRI-%h")))
-                              (add-to-list 'org-link-abbrev-alist '("DEVO" . ,(concat yg-jira-url "/browse/DEVO-%h")))
+                              (add-to-list 'org-link-abbrev-alist `("FB" . ,(concat yg-fogbugz-url "/f/cases/%h")))
+                              (add-to-list 'org-link-abbrev-alist `("BSD" . ,(concat yg-jira-url "/browse/BSD-%h")))
+                              (add-to-list 'org-link-abbrev-alist `("BRI" . ,(concat yg-jira-url "/browse/BRI-%h")))
+                              (add-to-list 'org-link-abbrev-alist `("DEVO" . ,(concat yg-jira-url "/browse/DEVO-%h")))
                               (add-to-list 'org-link-abbrev-alist '("GL" . yg-gitlab-object-url))
                               (add-to-list 'org-agenda-files "~/org/yougov.org")))
 
