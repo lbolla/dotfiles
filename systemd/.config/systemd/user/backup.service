@@ -3,8 +3,17 @@ Description=Backup
 # ConditionACPower=true
 AssertPathExists=%h/.config/restic
 
+# Restart on failure at most 5 times
+# https://stackoverflow.com/questions/39284563/how-to-set-up-a-systemd-service-to-retry-5-times-on-a-cycle-of-30-seconds
+StartLimitInterval=200
+StartLimitBurst=5
+
 [Service]
 Environment=XDG_DATA_DIRS=/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
 ExecStart=
 ExecStart=%h/bin/backup
+
+# Restart on failure at most 5 times
+Restart=on-failure
+RestartSec=30
