@@ -230,13 +230,6 @@
   (interactive)
   (woman (thing-at-point 'word)))
 
-(defun github-issue-url (tag)
-  "Generate a GitHub issue url for TAG."
-  (let* ((tokens (reverse (split-string tag "#")))
-         (issue (car tokens))
-         (repo (mapconcat 'identity (reverse (cdr tokens)) "/")))
-    (format "https://github.com/%s/issues/%s" repo (url-hexify-string issue))))
-
 (defun python-insert-breakpoint (ipdb)
   "Insert Python PDB or IPDB breakpoint above point."
   (interactive "P")
@@ -479,6 +472,17 @@ is already narrowed."
     (concat base-url (match-string 1 tag) "/issues/" (match-string 2 tag)))
    ((string-match mr-re tag)
     (concat base-url (match-string 1 tag) "/merge_requests/" (match-string 2 tag))))))
+
+(defun github-object-url (tag)
+  "Generate a GitHub OBJECT url for TAG."
+  (let ((base-url "https://github.com/")
+        (issue-re (rx (group (one-or-more (not (any "#")))) "#" (group (one-or-more digit))))
+        (pr-re (rx (group (one-or-more (not (any "!")))) "!" (group (one-or-more digit)))))
+  (cond
+   ((string-match issue-re tag)
+    (concat base-url (match-string 1 tag) "/issues/" (match-string 2 tag)))
+   ((string-match pr-re tag)
+    (concat base-url (match-string 1 tag) "/pull/" (match-string 2 tag))))))
 
 (provide 'defuns)
 ;;; defuns.el ends here

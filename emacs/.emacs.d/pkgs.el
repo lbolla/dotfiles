@@ -657,7 +657,7 @@
   (org-fontify-whole-heading-line t)
   (org-html-htmlize-output-type 'css)
   (org-html-validation-link nil)
-  (org-link-abbrev-alist `(("GH" . github-issue-url)))
+  (org-link-abbrev-alist `(("GH" . github-object-url)))
   (org-log-done 'time)
   (org-log-into-drawer t)
   (org-module '(org-habit
