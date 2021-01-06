@@ -18,6 +18,7 @@ aliases
 /emacs/.emacs.d/auto-save-list/
 /emacs/.emacs.d/backups/
 /emacs/.emacs.d/bookmarks
+/emacs/.emacs.d/.dap-breakpoints
 /emacs/.emacs.d/ede-projects.el
 /emacs/.emacs.d/elpa/
 /emacs/.emacs.d/eshell/history

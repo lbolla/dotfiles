@@ -339,6 +339,7 @@
   (flycheck-flake8rc "setup.cfg")
   (flycheck-gcc-language-standard "c++1y")
   (flycheck-javascript-flow-args nil)
+  (flycheck-shellcheck-excluded-warnings '("SC2006" "SC2086" "SC2181"))
   ;; (flycheck-pylintrc nil)
   ;; (flycheck-python-flake8-executable nil)
   ;; (flycheck-python-mypy-cache-dir "/dev/null")
@@ -408,12 +409,12 @@
   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
 
 (use-package go-mode
-  :disabled t
-  :custom
-  (godef-command "~/src/go/bin/godef")
+  ;; :custom
+  ;; (godef-command "~/src/go/bin/godef")
   :hook
   (before-save . gofmt-before-save)
   (go-mode . (lambda ()
+               (require 'lsp-go)
                (define-key go-mode-map (kbd "K") 'godoc))))
 
 (use-package highlight-indentation)
@@ -458,6 +459,7 @@
   (lsp-diagnostics-flycheck-default-level 'info)
   (lsp-enable-indentation nil)
   (lsp-enable-snippet nil)
+  (lsp-headerline-breadcrumb-enable nil)
   (lsp-signature-auto-activate nil)
   (lsp-response-timeout 5)
   (lsp-rust-clippy-preference "on")
