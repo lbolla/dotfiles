@@ -60,7 +60,7 @@
   (interactive (list (intern (completing-read "Theme: "
                                               (->> (custom-available-themes)
                                                    (-map #'symbol-name))))))
-  (mapc #'disable-theme custom-enabled-themes)
+  (-map-when (lambda (x) (not (eq x 'use-package))) #'disable-theme custom-enabled-themes)
   (load-theme theme 'no-confirm))
 
 (defmacro lbolla/custom-theme-set-faces (theme &rest args)
