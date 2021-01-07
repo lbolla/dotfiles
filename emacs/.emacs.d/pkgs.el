@@ -662,19 +662,19 @@
   (org-link-abbrev-alist `(("GH" . github-object-url)))
   (org-log-done 'time)
   (org-log-into-drawer t)
-  (org-module '(org-habit
-                ox-confluence
-                org-protocol
-                ol-w3m
-                ol-bbdb
-                ol-bibtex
-                ol-docview
-                ;; ol-gnus
-                ol-info
-                ;; ol-irc
-                ;; ol-mhe
-                ;; ol-rmail
-                ol-eww))
+  (org-modules '(org-habit
+                 ox-confluence
+                 org-protocol
+                 ol-w3m
+                 ol-bbdb
+                 ol-bibtex
+                 ol-docview
+                 ;; ol-gnus
+                 ol-info
+                 ;; ol-irc
+                 ;; ol-mhe
+                 ;; ol-rmail
+                 ol-eww))
   (org-outline-path-complete-in-steps nil)
   (org-priority-faces '((65 . font-lock-warning-face)  ; A
                         (67 . font-lock-comment-face))) ; C
