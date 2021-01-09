@@ -3,3 +3,8 @@
 
 source <(pip completion --zsh)
 [[ -f ".venv" ]] && source ".venv"
+
+if declare -f maybe-tmux-rename-window > /dev/null
+then
+    maybe-tmux-rename-window $(basename ${VIRTUAL_ENV})
+fi

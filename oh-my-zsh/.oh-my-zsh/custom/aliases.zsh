@@ -83,14 +83,6 @@ function maybe-tmux-rename-window {
     fi
 }
 
-function w {
-    if [[ $# -eq 0 ]]; then
-        workon
-    else
-        workon $1 && maybe-tmux-rename-window $1
-    fi
-}
-
 function fb {
     maybe-tmux-rename-window fb "${HOME}/.virtualenvs/fbcli/bin/fb" $*
 }
