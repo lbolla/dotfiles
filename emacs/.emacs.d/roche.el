@@ -9,6 +9,7 @@
 
 (use-package dpkg-dev-el)
 (use-package go-mode)
+(use-package typescript-mode)
 
 (add-to-list 'org-mode-hook (lambda ()
                               (add-to-list 'org-link-abbrev-alist '("GL" . roche-gitlab-object-url))
