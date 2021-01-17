@@ -92,6 +92,6 @@ function z {
     if [[ $# -eq 0 ]]; then
         _z
     else
-        _z $1 && maybe-tmux-rename-window $1
+        _z $@ && maybe-tmux-rename-window ${@: -1}
     fi
 }

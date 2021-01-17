@@ -275,7 +275,7 @@
   (define-key evil-normal-state-map (kbd ",gf") 'counsel-git)
   (define-key evil-normal-state-map (kbd ",gg") 'counsel-git-grep)
 
-  (define-key evil-normal-state-map (kbd ",rG") 'rg-dwim)
+  (define-key evil-normal-state-map (kbd ",rG") 'my/rg-dwim-project-dir)
   (define-key evil-normal-state-map (kbd ",rg") 'counsel-rg)
   (define-key evil-normal-state-map (kbd ",rp") 'rg-project)
   (define-key evil-normal-state-map (kbd ",rr") 'rg)
@@ -652,7 +652,7 @@
   (org-columns-default-format "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
   (org-deadline-warning-days 30)
   (org-default-notes-file "~/org/refile.org")
-  (org-default-priority 68)
+  (org-priority-default 68)
   (org-export-backends '(ascii html icalendar latex odt confluence))
   (org-fast-tag-selection-single-key t)
   (org-fontify-quote-and-verse-blocks  t)
@@ -944,12 +944,13 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package rg
   :bind
-  ("C-c r G" . rg-dwim)
+  ("C-c r G" . my/rg-dwim-project-dir)
   ("C-c r g" . counsel-rg)
   ("C-c r p" . rg-project)
   ("C-c r r" . rg)
   :custom
   (rg-group-result nil)
+  (rg-default-alias-fallback "everything")
   (rg-custom-type-aliases '((#("gn" 0 1
                                (idx 0))
                              . "*.gn *.gni")
@@ -960,7 +961,13 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                                (idx 2))
                              . "*.tmpl")))
   :config
-  (rg-define-toggle "--context 3" "x" nil))
+  (rg-define-toggle "--context 3" "x" nil)
+  (rg-define-search my/rg-dwim-project-dir
+    "Search for thing at point in every file under the project root directory."
+    :query point
+    :format literal
+    :files "everything"
+    :dir project))
 
 (use-package rjsx-mode
   :mode ((rx ".js" eos)))

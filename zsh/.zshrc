@@ -169,4 +169,6 @@ export C_INCLUDE_PATH=/usr/lib/R/include
 # GnuPG
 export GPG_TTY=$(tty)
 
+autoload zmv
+
 # zprof
