@@ -60,6 +60,8 @@
   (interactive (list (intern (completing-read "Theme: "
                                               (->> (custom-available-themes)
                                                    (-map #'symbol-name))))))
+  ;; (-map #'disable-theme custom-enabled-themes)
+  ;; Don't disabled "use-package" theme
   (-map-when (lambda (x) (not (eq x 'use-package))) #'disable-theme custom-enabled-themes)
   (load-theme theme 'no-confirm))
 
