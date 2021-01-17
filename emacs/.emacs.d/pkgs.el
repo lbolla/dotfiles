@@ -880,6 +880,7 @@
     scheme-mode-hook) . enable-paredit-mode))
 
 (use-package pass
+  :disabled (version< emacs-version "27.1")
   :bind
   ("C-c x" . pass)
   ("C-c C-x" . password-store-copy)
