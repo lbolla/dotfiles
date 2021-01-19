@@ -14,6 +14,11 @@
   ;; (typescript-indent-level 2)
   )
 
+(use-package ivy-virtualbox
+  :load-path "~/src/github.com/lbolla/ivy-virtualbox/"
+  :bind
+  ("C-c v v" . ivy-virtualbox))
+
 (add-to-list 'org-mode-hook (lambda ()
                               (add-to-list 'org-link-abbrev-alist '("GL" . roche-gitlab-object-url))
                               (add-to-list 'org-link-abbrev-alist '("BB" . roche-bitbucket-object-url))
