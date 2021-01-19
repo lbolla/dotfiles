@@ -879,24 +879,24 @@
     cider-repl-mode-hook
     scheme-mode-hook) . enable-paredit-mode))
 
-(use-package pass
-  :disabled (version< emacs-version "27.1")
-  :bind
-  ("C-c x" . pass)
-  ("C-c C-x" . password-store-copy)
-  :config
-  (defun password-store-change (entry &optional password-length)
-    "Change password for ENTRY with PASSWORD-LENGTH.
+(unless (version< emacs-version "27.1")
+  (use-package pass
+    :bind
+    ("C-c x" . pass)
+    ("C-c C-x" . password-store-copy)
+    :config
+    (defun password-store-change (entry &optional password-length)
+      "Change password for ENTRY with PASSWORD-LENGTH.
 
 Default PASSWORD-LENGTH is `password-store-password-length'."
-    (interactive (list (read-string "Password entry: ")
-                       (when current-prefix-arg
-                         (abs (prefix-numeric-value current-prefix-arg)))))
-    (unless password-length (setq password-length password-store-password-length))
-    ;; A message with the output of the command is not printed because
-    ;; the output contains the password.
-    (password-store--run "generate" "--in-place" entry (number-to-string password-length))
-    nil))
+      (interactive (list (read-string "Password entry: ")
+                         (when current-prefix-arg
+                           (abs (prefix-numeric-value current-prefix-arg)))))
+      (unless password-length (setq password-length password-store-password-length))
+      ;; A message with the output of the command is not printed because
+      ;; the output contains the password.
+      (password-store--run "generate" "--in-place" entry (number-to-string password-length))
+      nil)))
 
 (use-package prog-mode
   :ensure nil
