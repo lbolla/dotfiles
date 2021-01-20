@@ -28,38 +28,42 @@
   "Generate a Roche GitLab OBJECT url for TAG."
   (gitlab-object-url "https://code.roche.com/" tag))
 
+(defun roche-bitbucket--build-url (tag what)
+  "Build a url for a given TAG and WHAT."
+  (let ((base-url "https://bitbucket.roche.com"))
+    (concat base-url
+            "/stash/"
+            (if (= 0 (length (match-string 1 tag))) "projects" "users")
+            "/"
+            (match-string 2 tag)
+            "/repos/"
+            (match-string 3 tag)
+            "/"
+            what
+            "/"
+            (match-string 4 tag))))
+
 (defun roche-bitbucket-object-url (tag)
   "Generate a BitBucket OBJECT url for TAG."
   (let ((base-url "https://bitbucket.roche.com")
         (issue-re (rx
-                   (group (one-or-more (not (any "/#")))) ;; user
+                   (group (zero-or-one "~"))
+                   (group (one-or-more (not (any "/#")))) ;; user/project
                    "/"
                    (group (one-or-more (not (any "!")))) ;; repo
                    "#"
                    (group (one-or-more digit))))
         (mr-re (rx
-                (group (one-or-more (not (any "/!")))) ;; user
+                (group (one-or-more (not (any "/!")))) ;; user/project
                 "/"
                 (group (one-or-more (not (any "!")))) ;; repo
                 "!"
                 (group (one-or-more digit)))))
   (cond
    ((string-match issue-re tag)
-    (concat base-url
-            "/stash/users/"
-            (match-string 1 tag)
-            "/repos/"
-            (match-string 2 tag)
-            "/issues/"
-            (match-string 3 tag)))
+    (roche-bitbucket--build-url tag "issue"))
    ((string-match mr-re tag)
-    (concat base-url
-            "/stash/users/"
-            (match-string 1 tag)
-            "/repos/"
-            (match-string 2 tag)
-            "/pull-requests/"
-            (match-string 3 tag))))))
+    (roche-bitbucket--build-url tag "pull-requests")))))
 
 (provide 'roche)
 
