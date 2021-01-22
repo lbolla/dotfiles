@@ -99,7 +99,7 @@
  '(flymake-warning-bitmap '(exclamation-mark modus-theme-fringe-yellow))
  '(font-use-system-font t)
  '(gc-cons-threshold 100000000)
- '(global-hl-line-mode nil)
+ '(global-hl-line-mode t)
  '(hl-sexp-background-color "#efebe9")
  '(hl-todo-keyword-faces
    '(("HOLD" . "#e5f040")

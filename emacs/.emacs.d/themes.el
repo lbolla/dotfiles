@@ -41,8 +41,9 @@
   :defer t
   :demand t
   :custom
-  (modus-theme-org-blocks 'greyscale)
-  (modus-theme-completions 'opinionated))
+  (modus-themes-region 'bg-only)
+  (modus-themes-org-blocks 'greyscale)
+  (modus-themes-completions 'opinionated))
 
 (use-package dash
   :demand t)
