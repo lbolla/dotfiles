@@ -198,7 +198,9 @@
  '(rg-group-result nil nil nil "Customized with use-package rg")
  '(rust-format-on-save t nil nil "Customized with use-package rust-mode")
  '(safe-local-variable-values
-   '((eval add-hook 'after-save-hook
+   '((flycheck-gcc-include-path quote
+                                ("/home/users/bollal/src/bitbucket.roche.com/RLXNEXT/rlx-osal/protobuf/" "/home/users/bollal/src/bitbucket.roche.com/RLXNEXT/rlx-osal/lib/"))
+     (eval add-hook 'after-save-hook
            (lambda nil
              (org-ascii-export-to-ascii nil))
            t t)

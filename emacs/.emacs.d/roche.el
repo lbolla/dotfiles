@@ -50,10 +50,11 @@
                    (group (zero-or-one "~"))
                    (group (one-or-more (not (any "/#")))) ;; user/project
                    "/"
-                   (group (one-or-more (not (any "!")))) ;; repo
+                   (group (one-or-more (not (any "#")))) ;; repo
                    "#"
                    (group (one-or-more digit))))
         (mr-re (rx
+                (group (zero-or-one "~"))
                 (group (one-or-more (not (any "/!")))) ;; user/project
                 "/"
                 (group (one-or-more (not (any "!")))) ;; repo

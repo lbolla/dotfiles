@@ -37,7 +37,7 @@
 
 (use-package avy
   :bind*
-  ("C-;" . avy-goto-char-timer))
+  ("C-c ;" . avy-goto-char-timer))
 
 (use-package calfw
   :commands (cfw:open-calendar-buffer)
