@@ -89,9 +89,7 @@
  '(flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled) nil nil "Customized with use-package flycheck")
  '(flycheck-clang-include-path
    '("/usr/include/glib-2.0" "/usr/lib/x86_64-linux-gnu/glib-2.0/include" "../deps" "../../deps") nil nil "Customized with use-package flycheck")
- '(flycheck-clang-language-standard "c++11" nil nil "Customized with use-package flycheck")
  '(flycheck-flake8rc "setup.cfg" nil nil "Customized with use-package flycheck")
- '(flycheck-gcc-language-standard "c++1y" nil nil "Customized with use-package flycheck")
  '(flycheck-ghc-language-extensions nil nil nil "Customized with use-package flycheck")
  '(flycheck-highlighting-mode 'lines nil nil "Customized with use-package flycheck")
  '(flycheck-javascript-flow-args nil nil nil "Customized with use-package flycheck")
