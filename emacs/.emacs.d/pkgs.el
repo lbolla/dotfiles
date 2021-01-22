@@ -333,11 +333,11 @@
                                  "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
                                  "../deps"
                                  "../../deps"))
-  (flycheck-clang-language-standard "c++11")
-  (flycheck-cppcheck-checks '("all"))
-  (flycheck-cppcheck-suppressions '("constStatement"))
+  (flycheck-clang-language-standard "c++17")
+  ;; (flycheck-cppcheck-checks '("all"))
+  ;; (flycheck-cppcheck-suppressions '("constStatement"))
   (flycheck-flake8rc "setup.cfg")
-  (flycheck-gcc-language-standard "c++1y")
+  (flycheck-gcc-language-standard "c++17")
   (flycheck-javascript-flow-args nil)
   (flycheck-shellcheck-excluded-warnings '("SC2006" "SC2086" "SC2181"))
   ;; (flycheck-pylintrc nil)
