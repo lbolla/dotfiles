@@ -100,7 +100,6 @@
  '(font-use-system-font t)
  '(gc-cons-threshold 100000000)
  '(global-hl-line-mode nil)
- '(gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
  '(hl-sexp-background-color "#efebe9")
  '(hl-todo-keyword-faces
    '(("HOLD" . "#e5f040")
