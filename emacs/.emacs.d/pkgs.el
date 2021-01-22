@@ -334,8 +334,8 @@
                                  "../deps"
                                  "../../deps"))
   (flycheck-clang-language-standard "c++11")
-  (flycheck-cppcheck-checks '("all"))
-  (flycheck-cppcheck-suppressions '("constStatement"))
+  ;; (flycheck-cppcheck-checks '("all"))
+  ;; (flycheck-cppcheck-suppressions '("constStatement"))
   (flycheck-flake8rc "setup.cfg")
   (flycheck-gcc-language-standard "c++1y")
   (flycheck-javascript-flow-args nil)
