@@ -53,6 +53,11 @@
   :init
   (elpy-enable))
 
+(use-package epg
+  :ensure nil
+  :custom
+  (epg-pinentry-mode 'loopback))
+
 (use-package eyebrowse
   :custom
   (eyebrowse-new-workspace t)
@@ -111,13 +116,13 @@
   :mode (("\\.erl\\'" . erlang-mode)
          ("\\vars.config\\'" . erlang-mode)
          ("\\rebar.config\\'" . erlang-mode))
-  :config (progn
-            (setq erlang-root-dir "/usr/lib/erlang")
-            (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)
-            (add-hook 'erlang-mode-hook
-                      (lambda ()
-                        ;; Unfortunately, erlang-mode does not inherit from prog-mode
-                        (modify-syntax-entry ?\_ "w")))))
+  :custom
+  (erlang-root-dir "/usr/lib/erlang")
+  :config
+  (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)
+  (add-hook 'erlang-mode-hook (lambda ()
+                                ;; Unfortunately, erlang-mode does not inherit from prog-mode
+                                (modify-syntax-entry ?\_ "w"))))
 
 (use-package flycheck-elixir
   :load-path "/home/lbolla/src/emacs-flycheck-elixir/"
@@ -615,7 +620,46 @@
 (use-package restclient
   :mode (((rx ".http" eos) . restclient-mode)))
 
-(use-package w3m)
+(use-package w3m
+  :custom
+ '(w3m-home-page "about:")
+  (w3m-search-default-engine "startpage")
+  (w3m-search-engine-alist
+   '(("searx" "https://searx.me/?q=%s" utf-8)
+     ("startpage" "https://www.ixquick.com/do/search?q=%s" utf-8)
+     ("yahoo" "https://search.yahoo.com/bin/search?p=%s" nil)
+     ("yahoo-ja" "https://search.yahoo.co.jp/bin/search?p=%s" euc-japan)
+     ("alc" "https://eow.alc.co.jp/%s/UTF-8/" utf-8)
+     ("blog" "https://blogsearch.google.com/blogsearch?q=%s&oe=utf-8&ie=utf-8" utf-8)
+     ("blog-en" "https://blogsearch.google.com/blogsearch?q=%s&hl=en&oe=utf-8&ie=utf-8" utf-8)
+     ("google" "https://www.google.com/search?q=%s&ie=utf-8&oe=utf-8" utf-8)
+     ("google-en" "https://www.google.com/search?q=%s&hl=en&ie=utf-8&oe=utf-8" utf-8)
+     ("google news" "https://news.google.com/news?q=%s&ie=utf-8&oe=utf-8" utf-8)
+     ("google news-en" "https://news.google.com/news?q=%s&hl=en&ie=utf-8&oe=utf-8" nil)
+     ("technorati" "https://www.technorati.com/search/%s" utf-8)
+     ("technorati-ja" "https://www.technorati.jp/search/search.html?query=%s&language=ja" utf-8)
+     ("technorati-tag" "https://www.technorati.com/tag/%s" utf-8)
+     ("goo-ja" "https://search.goo.ne.jp/web.jsp?MT=%s" euc-japan)
+     ("excite-ja" "https://www.excite.co.jp/search.gw?target=combined&look=excite_jp&lang=jp&tsug=-1&csug=-1&search=%s" shift_jis)
+     ("altavista" "https://altavista.com/sites/search/web?q=\"%s\"&kl=ja&search=Search" nil)
+     ("rpmfind" "https://rpmfind.net/linux/rpm2html/search.php?query=%s" nil)
+     ("debian-pkg" "https://packages.debian.org/search?&searchon=names&suite=stable&section=all&arch=amd64&keywords=%s" nil)
+     ("debian-bts" "https://bugs.debian.org/cgi-bin/pkgreport.cgi?archive=yes&pkg=%s" nil)
+     ("freebsd-users-jp" "https://home.jp.FreeBSD.org/cgi-bin/namazu.cgi?key=\"%s\"&whence=0&max=50&format=long&sort=score&dbname=FreeBSD-users-jp" euc-japan)
+     ("iij-archie" "https://www.iij.ad.jp/cgi-bin/archieplexform?query=%s&type=Case+Insensitive+Substring+Match&order=host&server=archie1.iij.ad.jp&hits=95&nice=Nice" nil)
+     ("waei" "https://dictionary.goo.ne.jp/search.php?MT=%s&kind=je" euc-japan)
+     ("eiwa" "https://dictionary.goo.ne.jp/search.php?MT=%s&kind=ej" nil)
+     ("kokugo" "https://dictionary.goo.ne.jp/search.php?MT=%s&kind=jn" euc-japan)
+     ("eiei" "https://www.dictionary.com/cgi-bin/dict.pl?term=%s&r=67" nil)
+     ("amazon" "https://www.amazon.com/exec/obidos/search-handle-form/250-7496892-7797857" iso-8859-1 "url=index=blended&field-keywords=%s")
+     ("amazon-ja" "https://www.amazon.co.jp/gp/search?__mk_ja_JP=%%83J%%83%%5E%%83J%%83i&url=search-alias%%3Daps&field-keywords=%s" shift_jis)
+     ("emacswiki" "https://www.emacswiki.org/cgi-bin/wiki?search=%s" nil)
+     ("en.wikipedia" "https://en.wikipedia.org/wiki/Special:Search?search=%s" nil)
+     ("de.wikipedia" "https://de.wikipedia.org/wiki/Spezial:Search?search=%s" utf-8)
+     ("ja.wikipedia" "https://ja.wikipedia.org/wiki/Special:Search?search=%s" utf-8)
+     ("msdn" "https://search.msdn.microsoft.com/search/default.aspx?query=%s" nil)
+     ("duckduckgo" "https://duckduckgo.com/?q=%s" utf-8)))
+  )
 
 (use-package fbcli
   :demand t
@@ -623,10 +667,6 @@
   :load-path "/home/lbolla/src/fbcli/")
 
 (use-package htmlize)
-
-(use-package nsm
-  :demand t
-  :custom (network-security-level 'high))
 
 (use-package olivetti)
 

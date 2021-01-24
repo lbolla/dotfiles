@@ -30,14 +30,28 @@
       use-package-minimum-reported-time 0.1
       use-package-verbose t)
 
-;; Necessary to use use-package's :bind
-(require 'bind-key)
-
 (use-package all-the-icons)
+
+(use-package ansi-color
+  :ensure nil
+  :custom
+  (ansi-color-faces-vector [default bold shadow italic underline success warning error])
+  (ansi-term-color-vector [unspecified "#fdf6e3" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#586e75"]))
+
+(use-package auth-source
+  :ensure nil
+  :custom
+  (auth-source-debug nil)
+  (auth-sources '("secrets:session" "secrets:Login" "~/.authinfo.gpg")))
 
 (use-package avy
   :bind*
   ("C-c ;" . avy-goto-char-timer))
+
+(use-package browse-url
+  :ensure nil
+  :custom
+  (browse-url-browser-function 'browse-url-xdg-open))
 
 (use-package calfw
   :commands (cfw:open-calendar-buffer)
@@ -62,8 +76,14 @@
       (cfw:cal-create-source "Orange") ; diary source
       ))))
 
-;; TODO builtin, move to init?
 (use-package cc-mode
+  :ensure nil
+  :custom
+  (c-default-style '((c-mode . "k&r")
+                     (c++-mode . "stroustrup-book")
+                     (java-mode . "java")
+                     (awk-mode . "awk")
+                     (other . "gnu")))
   :init
   ;; Run indent on save
   ;; (add-hook 'before-save-hook 'c-indent)
@@ -128,6 +148,17 @@
   (csv-mode . (lambda ()
                  (variable-pitch-mode 0))))
 
+;; TODO https://www.reddit.com/r/emacs/comments/g46sg2/a_solution_to_the_agony_of_customsetvariables_and/
+;; (use-package cus-edit
+;;   :custom
+;;   (custom-file null-device "Don't store customizations"))
+
+(use-package custom
+  :ensure nil
+  :custom
+  (custom-safe-themes t)
+  (gc-cons-threshold 100000000))
+
 (use-package cython-mode
   :after evil
   :config
@@ -160,6 +191,11 @@
   (deft-directory my/zettelkasten-directory)
   (deft-extensions '("org" "txt" "md")))
 
+(use-package delsel
+  :ensure nil
+  :custom
+  (delete-selection-mode t))
+
 (use-package doc-view
   :hook
   (doc-view . (lambda ()
@@ -178,6 +214,12 @@
   :init
   ;; (dumb-jump-mode)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+
+(use-package ediff
+  :ensure nil
+  :custom
+  (ediff-split-window-function 'split-window-horizontally)
+  (ediff-window-setup-function 'ediff-setup-windows-plain))
 
 ;; Required by FF add-on "Edit with Emacs"
 (use-package edit-server
@@ -243,13 +285,13 @@
   :demand t
 
   :custom
-  (evil-want-keybinding nil)
-  (evil-want-integration t)
   (evil-default-state (if my/lesser-evil 'emacs 'normal))
   (evil-lookup-func 'man-at-point)
-  (evil-want-C-w-in-emacs-state (not my/lesser-evil))
-  (evil-want-C-i-jump nil)  ;; Or it masks <TAB> in non-graphical mode
   (evil-undo-system 'undo-redo)
+  (evil-want-C-i-jump nil)  ;; Or it masks <TAB> in non-graphical mode
+  (evil-want-C-w-in-emacs-state (not my/lesser-evil))
+  (evil-want-integration t)
+  (evil-want-keybinding nil)
 
   :init
   (evil-mode t)
@@ -323,12 +365,27 @@
   :config
   (explain-pause-mode t))
 
+(use-package files
+  :ensure nil
+  :custom
+  (backup-directory-alist '(("." . "~/.emacs.d/backups")))
+  (delete-old-versions t)
+  (indent-tabs-mode nil))
+
+(use-package fill
+  :ensure nil
+  :custom
+  (fill-column 79))
+
+(use-package find-file
+  :ensure nil
+  :custom
+  (cc-search-directories '("." "/usr/include" "/usr/local/include/*" "../deps" "../../deps")))
+
 (use-package flycheck
   :custom
   ;; (flycheck-idle-change-delay 3)
   (flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
-  (flycheck-highlighting-mode 'lines)
-  (flycheck-ghc-language-extensions ())
   (flycheck-clang-include-path '("/usr/include/glib-2.0"
                                  "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
                                  "../deps"
@@ -338,11 +395,13 @@
   ;; (flycheck-cppcheck-suppressions '("constStatement"))
   (flycheck-flake8rc "setup.cfg")
   (flycheck-gcc-language-standard "c++17")
+  (flycheck-ghc-language-extensions ())
+  (flycheck-highlighting-mode 'lines)
   (flycheck-javascript-flow-args nil)
-  (flycheck-shellcheck-excluded-warnings '("SC2006" "SC2086" "SC2181"))
   ;; (flycheck-pylintrc nil)
   ;; (flycheck-python-flake8-executable nil)
   ;; (flycheck-python-mypy-cache-dir "/dev/null")
+  (flycheck-shellcheck-excluded-warnings '("SC2006" "SC2086" "SC2181"))
   :defines
   flycheck-javascript-flow-args
   :hook
@@ -408,6 +467,15 @@
   :config
   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
 
+(use-package frame
+  :ensure nil
+  :custom
+  (auto-hscroll-mode t)
+  (blink-cursor-mode t)
+  :init
+  (unless (eq (frame-parameter nil 'fullscreen) 'fullboth)
+    (toggle-frame-fullscreen)))
+
 (use-package go-mode
   ;; :custom
   ;; (godef-command "~/src/go/bin/godef")
@@ -433,6 +501,11 @@
   :config
   (ivy-mode t))
 
+(use-package hl-line
+  :ensure nil
+  :custom
+  (global-hl-line-mode t))
+
 (use-package ivy-hydra
   :demand t)
 
@@ -454,20 +527,20 @@
 
 (use-package lsp-mode
   :custom
-  (lsp-client-packages nil)  ;; Do not prompt to install new language servers
-  (lsp-keymap-prefix "C-c l")
+  (lsp-client-packages nil "Do not prompt to install new language servers")
+  (lsp-clients-clangd-executable "clangd-10")
   (lsp-diagnostics-flycheck-default-level 'info)
+  (lsp-diagnostics-modeline-scope :workspace)
   (lsp-enable-indentation nil)
   (lsp-enable-snippet nil)
   (lsp-headerline-breadcrumb-enable nil)
-  (lsp-signature-auto-activate nil)
+  (lsp-keymap-prefix "C-c l")
+  (lsp-prefer-capf t)
   (lsp-response-timeout 5)
   (lsp-rust-clippy-preference "on")
-  ;; (lsp-rust-server 'rust-analyzer)  ;; TODO not working with cube-rs
   (lsp-rust-server 'rls)
-  (lsp-diagnostics-modeline-scope :workspace)
-  (lsp-prefer-capf t)
-  (lsp-clients-clangd-executable "clangd-10")
+  (lsp-signature-auto-activate nil)
+  ;; (lsp-rust-server 'rust-analyzer)  ;; TODO not working with cube-rs
   :hook
   (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
@@ -509,22 +582,11 @@
 (use-package lua-mode)
 
 (use-package magit
-  ;; :after evil
   :custom
-  (magit-log-section-commit-count 10)
-  (magit-branch-arguments nil)
   (magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
-  (magit-push-always-verify nil)
+  (magit-log-section-commit-count 10)
   (magit-pull-or-fetch t)
-  :bind (
-         ;; :map magit-log-mode-map
-         ;; (",vp" . vcs-resolve-at-point)
-         ;; :map magit-revision-mode-map
-         ;; (",vp" . vcs-resolve-at-point)
-         ;; :map magit-status-mode-map
-         ;; ("C-p" . projectile-find-file)
-         :map magit-blame-mode-map
-         ("C-c <RET>" . magit-show-commit)))
+  (magit-push-always-verify nil))
 
 (use-package magit-todos
   :after magit
@@ -542,6 +604,23 @@
                  (modify-syntax-entry ?\- "w")
                  (setq indent-tabs-mode t))))
 
+(use-package markdown-mode
+  :bind (("<C-return>" . markdown-follow-link-at-point))
+  :hook
+  (markdown-mode . (lambda ()
+                     (auto-fill-mode t))))
+
+(use-package menu-bar
+  :ensure nil
+  :custom
+  (menu-bar-mode nil))
+
+(use-package message
+  :ensure nil
+  :custom
+  (message-citation-line-function 'message-insert-formatted-citation-line)
+  (message-kill-buffer-on-exit t))
+
 (use-package minions
   :demand t
   :bind*
@@ -549,11 +628,10 @@
   :config
   (minions-mode 1))
 
-(use-package markdown-mode
-  :bind (("<C-return>" . markdown-follow-link-at-point))
-  :hook
-  (markdown-mode . (lambda ()
-                     (auto-fill-mode t))))
+(use-package mouse
+  :ensure nil
+  :custom
+  (mouse-yank-at-point t))
 
 (use-package nim-mode
   :disabled t
@@ -562,6 +640,10 @@
   (nimsuggest-mode . (lambda ()
                        (evil-define-key 'normal nimsuggest-mode-map (kbd "K") 'nimsuggest-show-doc)
                        (evil-define-key 'normal nimsuggest-mode-map (kbd "M-.") 'nimsuggest-find-definition))))
+
+(use-package nsm
+  :ensure nil
+  :custom (network-security-level 'high))
 
 (use-package org
   ;; Install from Org's elpa
@@ -879,11 +961,18 @@
     cider-repl-mode-hook
     scheme-mode-hook) . enable-paredit-mode))
 
+(use-package paren
+  :ensure nil
+  :custom
+  (show-paren-mode t))
+
 (unless (version< emacs-version "27.1")
   (use-package pass
     :bind
     ("C-c x" . pass)
     ("C-c C-x" . password-store-copy)
+    :custom
+    (password-store-password-length 16)
     :config
     (defun password-store-change (entry &optional password-length)
       "Change password for ENTRY with PASSWORD-LENGTH.
@@ -917,7 +1006,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   :init
-  (projectile-mode +1))
+  (projectile-mode 1))
 
 (use-package python
   :after evil
@@ -941,6 +1030,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 (use-package pyvenv
   :init
   (pyvenv-mode))
+
+(use-package recentf
+  :ensure nil
+  :custom
+  (recentf-max-saved-items nil))
 
 (use-package rg
   :bind
@@ -984,6 +1078,16 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (rust-format-on-save t))
 
+(use-package scroll-bar
+  :ensure nil
+  :custom
+  (scroll-bar-mode nil))
+
+(use-package sendmail
+  :ensure nil
+  :custom
+  (send-mail-function 'smtpmail-send-it))
+
 (use-package server
   :demand t
   :config
@@ -1002,6 +1106,16 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
          ;; ((rx bos "template" eos) . shell-script-mode)  ;; Void package template files
          ))
 
+(use-package simple
+  :ensure nil
+  :custom
+  (column-number-mode t))
+
+(use-package startup
+  :ensure nil
+  :custom
+  (inhibit-startup-screen t))
+
 (use-package swiper
   :bind
   ("C-s" . swiper))
@@ -1015,8 +1129,51 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                  (variable-pitch-mode 0)
                  (flyspell-mode t))))
 
+(use-package time
+  :ensure nil
+  :custom
+  (world-clock-list '(("UTC" "UTC/GMT/Zulu")
+                      ("America/Los_Angeles" "palmcal")
+                      ("America/New_York" "fesh")
+                      ("America/Lima" "mbc")
+                      ("America/Sao_Paulo" "diogo")
+                      ("IST-5:30" "shashikant")
+                      ("America/Los_Angeles" "Palo Alto")
+                      ("America/Mexico_City" "Mexico City")
+                      ("America/Lima" "Lima")
+                      ("America/New_York" "New York")
+                      ("America/Montreal" "Montreal")
+                      ("America/Sao_Paulo" "Sao Paulo")
+                      ("Europe/London" "London")
+                      ("Europe/Rome" "Rome")
+                      ("Europe/Moscow" "Moscow")
+                      ("Asia/Jakarta" "Jakarta")
+                      ("Asia/Bangkok" "Bangkok")
+                      ("IST-5:30" "Mumbai")
+                      ("Asia/Singapore" "Singapore")
+                      ("Asia/Kuala_Lumpur" "Kuala Lumpur")
+                      ("Asia/Shanghai" "Shanghai")
+                      ("Asia/Tokyo" "Tokyo")
+                      ("Australia/Sydney" "Sydney"))))
+
 (use-package toml-mode
   :mode ((rx "Cargo")))
+
+(use-package tool-bar
+  :ensure nil
+  :custom
+  (tool-bar-mode nil))
+
+(use-package tramp
+  :ensure nil
+  :custom
+  (tramp-default-method "ssh"))
+
+(use-package vc-hooks
+  :ensure nil
+  :custom
+  (vc-follow-symlinks nil)
+  (vc-handled-backends '(Git)))
 
 (use-package vcs-resolve
   :load-path "~/src/github.com/lbolla/vcs-resolve/"
@@ -1042,6 +1199,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :hook
   (web-mode . (lambda ()
                  (modify-syntax-entry ?\- "w"))))
+
+(use-package whitespace
+  :ensure nil
+  :custom
+  (whitespace-style '(face trailing lines-tail)))
 
 (use-package yaml-mode
   :mode ((rx ".y" (opt "a") "ml" eos)
