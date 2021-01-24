@@ -60,3 +60,26 @@ Xft.lcdfilter: lcddefault
 ! XTerm*pointerColorBackground: black
 ! XTerm*cursorColor: yellow
 ! XTerm*cursorBlink: true
+
+! https://aduros.com/blog/xterm-its-better-than-you-thought/
+! Sensible defaults
+XTerm.vt100.locale: false
+XTerm.vt100.utf8: true
+XTerm.vt100.scrollTtyOutput: false
+XTerm.vt100.scrollKey: true
+XTerm.vt100.bellIsUrgent: true
+XTerm.vt100.metaSendsEscape: true
+XTerm.vt100.faceName: Iosevka
+XTerm.vt100.boldMode: false
+XTerm.vt100.faceSize: 24
+XTerm.vt100.internalBorder: 16
+XTerm.borderWidth: 0
+XTerm*pointerColor: white
+XTerm*pointerColorBackground: black
+XTerm*cursorColor: yellow
+XTerm*cursorBlink: true
+xterm*highlightSelection: true
+xterm*trimSelection: true
+xterm*on3Clicks: regex [^ ''""()<>$+]*
+xterm*on4Clicks: line
+xterm*on5Clicks: group
