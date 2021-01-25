@@ -70,6 +70,10 @@ function e {
     fi
 }
 
+function setup_emacs {
+    curl -s https://raw.githubusercontent.com/lbolla/dotfiles/master/emacs/bootstrap-dev.sh | sh
+}
+
 # From https://superuser.com/questions/285381/how-does-the-tmux-color-palette-work
 function list-colors-display {
     for i in {0..255}; do
@@ -81,10 +85,6 @@ function maybe-tmux-rename-window {
     if [[ -n "$TMUX" ]]; then
         tmux rename-window $1
     fi
-}
-
-function fb {
-    maybe-tmux-rename-window fb "${HOME}/.virtualenvs/fbcli/bin/fb" $*
 }
 
 unalias z 2> /dev/null
