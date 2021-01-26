@@ -45,8 +45,7 @@
 
 (defun roche-bitbucket-object-url (tag)
   "Generate a BitBucket OBJECT url for TAG."
-  (let ((base-url "https://bitbucket.roche.com")
-        (issue-re (rx
+  (let ((issue-re (rx
                    (group (zero-or-one "~"))
                    (group (one-or-more (not (any "/#")))) ;; user/project
                    "/"
@@ -65,6 +64,39 @@
     (roche-bitbucket--build-url tag "issue"))
    ((string-match mr-re tag)
     (roche-bitbucket--build-url tag "pull-requests")))))
+
+(defun roche-tfs-object-url (tag)
+  "Generate a Tfs OBJECT url for TAG."
+  (let ((base-url "https://tfsprod.emea.roche.com")
+        (issue-re (rx
+                   (group (one-or-more (not (any "#")))) ;; user/project
+                   "/"
+                   (group (one-or-more (not (any "#")))) ;; repo
+                   "#"
+                   (group (one-or-more digit))))
+        (mr-re (rx
+                (group (one-or-more (not (any "!")))) ;; user/project
+                "/"
+                (group (one-or-more (not (any "!")))) ;; repo
+                "!"
+                (group (one-or-more digit)))))
+  (cond
+   ((string-match issue-re tag)
+    (concat base-url
+            "/tfs/"
+            (match-string 1 tag)
+            "/"
+            (match-string 2 tag)
+            "/_workitems/edit/"
+            (match-string 3 tag)))
+   ((string-match mr-re tag)
+    (concat base-url
+            "/tfs/"
+            (match-string 1 tag)
+            "/_git/"
+            (match-string 2 tag)
+            "/pullrequest/"
+            (match-string 3 tag))))))
 
 (provide 'roche)
 
