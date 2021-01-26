@@ -98,8 +98,6 @@
                   (inline-open . 0)))))
 
 (use-package clang-format
-  ;; :load-path "/usr/share/emacs/site-lisp/clang-format-10/"
-  ;; :ensure nil
   :custom
   (clang-format-style "WebKit")
   :config
