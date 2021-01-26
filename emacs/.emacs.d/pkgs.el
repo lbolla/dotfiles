@@ -97,6 +97,17 @@
                  (c-offsets-alist
                   (inline-open . 0)))))
 
+(use-package clang-format
+  ;; :load-path "/usr/share/emacs/site-lisp/clang-format-10/"
+  ;; :ensure nil
+  :custom
+  (clang-format-style "WebKit")
+  :config
+  (evil-define-key 'normal c++-mode-map (kbd "=") 'clang-format-region)
+  (evil-define-key 'visual c++-mode-map (kbd "=") 'clang-format-region)
+  :bind (:map c++-mode-map
+              (("C-c =" . clang-format-region))))
+
 (use-package company
   :custom
   (company-idle-delay 0.2)
