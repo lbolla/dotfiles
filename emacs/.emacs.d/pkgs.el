@@ -101,7 +101,7 @@
   :custom
   (clang-format-style "WebKit")
   :config
-  (evil-define-key 'normal c++-mode-map (kbd "=") 'clang-format-region)
+  (evil-define-key 'normal c++-mode-map (kbd "=") 'clang-format-buffer)
   (evil-define-key 'visual c++-mode-map (kbd "=") 'clang-format-region)
   :bind (:map c++-mode-map
               (("C-c =" . clang-format-region))))
