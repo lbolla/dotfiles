@@ -100,11 +100,10 @@
 (use-package clang-format
   :custom
   (clang-format-style "WebKit")
-  :config
-  (evil-define-key 'normal c++-mode-map (kbd "=") 'clang-format-buffer)
-  (evil-define-key 'visual c++-mode-map (kbd "=") 'clang-format-region)
-  :bind (:map c++-mode-map
-              (("C-c =" . clang-format-region))))
+  :hook
+  (c++-mode . (lambda ()
+                (evil-define-key 'visual c++-mode-map (kbd "=") 'clang-format-region)
+                (define-key c++-mode-map (kbd "C-c =") 'clang-format-buffer))))
 
 (use-package company
   :custom
