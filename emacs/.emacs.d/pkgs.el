@@ -311,6 +311,7 @@
   (evil-set-initial-state 'eshell-mode 'emacs)
   (evil-set-initial-state 'eww-mode 'emacs)
   (evil-set-initial-state 'pass-mode 'emacs)
+  (evil-set-initial-state 'rg-mode 'emacs)
 
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)

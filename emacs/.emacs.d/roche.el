@@ -9,6 +9,7 @@
 
 (use-package dpkg-dev-el)
 (use-package go-mode)
+(use-package protobuf-mode)
 (use-package typescript-mode
   ;; :custom
   ;; (typescript-indent-level 2)
