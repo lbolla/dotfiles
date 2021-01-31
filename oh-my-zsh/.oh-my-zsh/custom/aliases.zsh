@@ -90,7 +90,7 @@ function maybe-tmux-rename-window {
 unalias z 2> /dev/null
 function z {
     if [[ $# -eq 0 ]]; then
-        dir="$(_z 2>&1 | awk '{print $2}' | fzf -1 -0 --no-sort +m --tac)"
+        dir="$(_z 2>&1 | awk '{$1 = ""; print $0}' | sed 's/^ //g' | fzf -1 -0 --no-sort +m --tac)"
         cd "$dir" && maybe-tmux-rename-window $(basename "$dir")
     else
         _z $@ && maybe-tmux-rename-window ${@: -1}
