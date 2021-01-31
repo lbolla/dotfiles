@@ -169,6 +169,9 @@ export C_INCLUDE_PATH=/usr/lib/R/include
 # GnuPG
 export GPG_TTY=$(tty)
 
+# FZF
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 autoload zmv
 
 # zprof

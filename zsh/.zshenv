@@ -5,7 +5,6 @@ export EDITOR="emacsclient --socket-name /run/user/$(id -u)/emacs/server"
 # export KUBE_EDITOR='emacsclient --socket-name /run/user/1000/emacs/server'
 # export EDITOR='emacsclient -nw'
 # export EDITOR='vim'
-export FZF_CTRL_T_COMMAND='rg -uuu --files'
 export FZF_TMUX=1
 export GOPATH=$HOME
 # export GOROOT=/usr/lib/go
