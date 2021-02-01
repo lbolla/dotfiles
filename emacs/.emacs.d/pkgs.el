@@ -99,11 +99,15 @@
 
 (use-package clang-format
   :custom
-  (clang-format-style "WebKit")
+  (clang-format-style "file")
+  (clang-format-fallback-style "WebKit")
   :hook
   (c++-mode . (lambda ()
                 (evil-define-key 'visual c++-mode-map (kbd "=") 'clang-format-region)
-                (define-key c++-mode-map (kbd "C-c =") 'clang-format-buffer))))
+                (define-key c++-mode-map (kbd "C-c =") 'clang-format-buffer)))
+  (js2-mode . (lambda ()
+                (evil-define-key 'visual js2-mode-map (kbd "=") 'clang-format-region)
+                (define-key js2-mode-map (kbd "C-c =") 'clang-format-buffer))))
 
 (use-package company
   :custom
