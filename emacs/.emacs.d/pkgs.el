@@ -1197,11 +1197,12 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 (use-package web-mode
   :mode ((rx ".html" eos)
          (rx ".tmpl" eos))
-  ;; Use .dir-locals.el
-  ;; :custom
-  ;; (web-mode-code-indent-offset 4)
-  ;; (web-mode-css-indent-offset 2)
-  ;; (web-mode-markup-indent-offset 2)
+  :custom
+  (web-mode-enable-auto-closing t)
+  (web-mode-enable-auto-indentation t)
+  (web-mode-enable-auto-paring t)
+  (web-mode-enable-auto-opening t)
+  (web-mode-enable-auto-quoting t)
   :init
   (evil-define-key 'normal web-mode-map (kbd "%") 'web-mode-tag-match)
   (evil-define-key 'visual web-mode-map (kbd "%") 'web-mode-tag-match)
