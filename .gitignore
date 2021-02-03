@@ -26,6 +26,7 @@ aliases
 /emacs/.emacs.d/flycheck_private.el
 /emacs/.emacs.d/games/
 /emacs/.emacs.d/network-security.data
+/emacs/.emacs.d/local.el
 /emacs/.emacs.d/private.el
 /emacs/.emacs.d/projectile-bookmarks.eld
 /emacs/.emacs.d/projectile.cache

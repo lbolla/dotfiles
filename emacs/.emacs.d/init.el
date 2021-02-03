@@ -70,6 +70,10 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
   ("troulwn0333"
    (require 'roche "~/.emacs.d/roche.el")))
 
+;; For local customizations
+(when (file-exists-p "~/.emacs.d/local.el")
+  (require 'local "~/.emacs.d/local.el"))
+
 ;; Optimizations
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
 ;; (setq auto-window-vscroll nil)

@@ -1,0 +1,6 @@
+[Unit]
+Description=Update fzf
+
+[Service]
+ExecStart=
+ExecStart="/bin/sh" "-c" "cd $HOME/.fzf && git pull && ./install --bin"
