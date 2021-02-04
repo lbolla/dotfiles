@@ -496,7 +496,7 @@
   (before-save . gofmt-before-save)
   (go-mode . (lambda ()
                (require 'lsp-go)
-               (define-key go-mode-map (kbd "K") 'godoc))))
+               (evil-define-key 'normal go-mode-map (kbd "K") 'godoc))))
 
 (use-package highlight-indentation)
 
