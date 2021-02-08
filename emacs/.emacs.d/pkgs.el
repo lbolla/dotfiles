@@ -78,6 +78,9 @@
 
 (use-package cc-mode
   :ensure nil
+  :hook
+  (c++-mode . (lambda ()
+                (require 'lsp-clangd)))
   :custom
   (c-default-style '((c-mode . "k&r")
                      (c++-mode . "stroustrup-book")
