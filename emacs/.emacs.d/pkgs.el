@@ -45,7 +45,7 @@
   (auth-sources '("secrets:session" "secrets:Login" "~/.authinfo.gpg")))
 
 (use-package avy
-  :bind*
+  :bind
   ("C-c ;" . avy-goto-char-timer))
 
 (use-package browse-url
@@ -62,8 +62,7 @@
     :commands (cfw:open-org-calendar cfw:org-create-source)
     :config
     ;; (setq cfw:org-agenda-schedule-args '(:timestamp :scheduled* deadline*))
-    (setq cfw:org-agenda-schedule-args nil)
-    )
+    (setq cfw:org-agenda-schedule-args nil))
   (use-package calfw-cal
     :commands (cfw:open-diary-calendar cfw:cal-create-source))
   (defun lbolla/open-calendar ()
@@ -616,6 +615,7 @@
   )
 
 (use-package make-mode
+  :mode (((rx "Makefile") . makefile-mode))
   :hook
   (makefile-mode . (lambda ()
                  (modify-syntax-entry ?\- "w")
