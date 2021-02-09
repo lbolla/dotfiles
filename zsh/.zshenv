@@ -1,14 +1,9 @@
-# export ALTERNATE_EDITOR=vim
 export BROWSER=firefox
-# export BROWSER=google-chrome
-export EDITOR="emacsclient --socket-name /run/user/$(id -u)/emacs/server"
-# export KUBE_EDITOR='emacsclient --socket-name /run/user/1000/emacs/server'
-# export EDITOR='emacsclient -nw'
-# export EDITOR='vim'
-# export FZF_TMUX_OPTS="-d 40%"
+export EDITOR="emacsclient -nw --alternate-editor nano"
+export VISUAL_EDITOR="emacsclient --socket-name /run/user/$(id -u)/emacs/server"
+export ALTERNATE_EDITOR="nano"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --info=inline --border"
 export GOPATH=$HOME
-# export GOROOT=/usr/lib/go
 export LESS="-R"
 export MAIL=$HOME/Mail/YG/INBOX/
 export PAGER=less
