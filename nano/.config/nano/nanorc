@@ -1,0 +1,4 @@
+set autoindent
+set backup
+set backupdir "~/.cache/nano/backups"
+set multibuffer
