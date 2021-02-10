@@ -543,7 +543,7 @@
 (use-package lsp-mode
   :custom
   (lsp-client-packages nil "Do not prompt to install new language servers")
-  (lsp-clients-clangd-executable "clangd-10")
+  ;; (lsp-clients-clangd-executable "clangd-10")
   (lsp-diagnostics-flycheck-default-level 'info)
   (lsp-diagnostics-modeline-scope :workspace)
   (lsp-enable-indentation nil)
