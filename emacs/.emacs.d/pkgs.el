@@ -1218,10 +1218,18 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (web-mode . (lambda ()
                  (modify-syntax-entry ?\- "w"))))
 
+(use-package which-key
+  :init (which-key-mode))
+
 (use-package whitespace
   :ensure nil
   :custom
   (whitespace-style '(face trailing lines-tail)))
+
+(use-package xref
+  :ensure nil
+  :bind
+  ("C-x ." . xref-find-definitions))
 
 (use-package yaml-mode
   :mode ((rx ".y" (opt "a") "ml" eos)
@@ -1239,9 +1247,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (yas-indent-line 'fixed)
   :init
   (yas-global-mode 1))
-
-(use-package which-key
-  :init (which-key-mode))
 
 (use-package zoom-window)
 
