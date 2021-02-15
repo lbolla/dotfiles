@@ -559,10 +559,11 @@
   :hook
   (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
-  (lsp-managed-mode . (lambda ()
-                        ;; This is when 'lsp flycheck checker is defined
-                        (flycheck-add-next-checker 'lsp 'python-pycheckers t)
-                        (flycheck-add-next-checker 'lsp 'c/c++-cppcheck t)))
+  ;; ;; TODO doesn't work because lsp is not a valid checker
+  ;; (lsp-managed-mode . (lambda ()
+  ;;                       ;; This is when 'lsp flycheck checker is defined
+  ;;                       (flycheck-add-next-checker 'lsp 'python-pycheckers t)
+  ;;                       (flycheck-add-next-checker 'lsp 'c/c++-cppcheck t)))
   :commands (lsp lsp-deferred)
   :config
   ;; From https://emacs-lsp.github.io/lsp-mode/page/performance/
