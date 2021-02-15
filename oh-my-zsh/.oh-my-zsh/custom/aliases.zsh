@@ -28,7 +28,6 @@ done
 # alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Control/" | sudo loadkeys'
 # unalias t; alias t=tmux
 alias psc="ps xawf -eo ppid,pid,user,cgroup,args"
-alias ssh='TERM=xterm ssh'
 alias ungron="gron --ungron"
 # alias w=workon
 alias youtube-dl-song="youtube-dl --force-ipv4 -x -f 'bestaudio[ext=m4a]/best[ext=mp4]/best' -o '%(title)s.%(ext)s'"
@@ -94,5 +93,14 @@ function z {
         [[ -n "$dir" ]] && cd "$dir" && maybe-tmux-rename-window $(basename "$dir")
     else
         _z $@ && maybe-tmux-rename-window ${@: -1}
+    fi
+}
+
+function w {
+    if [[ $# -eq 0 ]]; then
+        what="$(workon | fzf -1 -0 --no-sort +m --tac)"
+        [[ -n "${what}" ]] && workon "${what}"
+    else
+        workon ${what}
     fi
 }
