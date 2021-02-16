@@ -559,11 +559,11 @@
   :hook
   (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
-  ;; ;; TODO doesn't work because lsp is not a valid checker
-  ;; (lsp-managed-mode . (lambda ()
-  ;;                       ;; This is when 'lsp flycheck checker is defined
-  ;;                       (flycheck-add-next-checker 'lsp 'python-pycheckers t)
-  ;;                       (flycheck-add-next-checker 'lsp 'c/c++-cppcheck t)))
+  (lsp-managed-mode . (lambda ()
+                        (when (derived-mode-p 'python-mode)
+                          (setq my/flycheck-local-cache '((lsp . ((next-checkers . (python-pycheckers)))))))
+                        (when (derived-mode-p 'c++-mode)
+                          (setq my/flycheck-local-cache '((lsp . ((next-checkers . (c/c++-cppcheck)))))))))
   :commands (lsp lsp-deferred)
   :config
   ;; From https://emacs-lsp.github.io/lsp-mode/page/performance/
@@ -572,7 +572,15 @@
   (evil-define-key 'normal prog-mode-map (kbd "C-]") 'my/lsp-find-definition-other-window)
   (evil-define-key 'normal prog-mode-map (kbd "C-}") 'lsp-find-definition)
   (evil-define-key 'normal prog-mode-map (kbd "C-c C-]") 'lsp-find-references)
-  (evil-define-key 'normal prog-mode-map (kbd "K") 'lsp-describe-thing-at-point))
+  (evil-define-key 'normal prog-mode-map (kbd "K") 'lsp-describe-thing-at-point)
+
+  ;; Chain checkers after lsp
+  ;; See https://github.com/flycheck/flycheck/issues/1762
+  (defvar-local my/flycheck-local-cache nil)
+  (defun my/flycheck-checker-get (fn checker property)
+    (or (alist-get property (alist-get checker my/flycheck-local-cache))
+        (funcall fn checker property)))
+  (advice-add 'flycheck-checker-get :around 'my/flycheck-checker-get))
 
 ;; https://emacs-lsp.github.io/lsp-java/
 (use-package lsp-java
