@@ -484,5 +484,19 @@ is already narrowed."
    ((string-match pr-re tag)
     (concat base-url (match-string 1 tag) "/pull/" (match-string 2 tag))))))
 
+(defun github-git-clone (what)
+  "Clone GitHub repo WHAT where it belongs."
+  (interactive "sRepo: ")
+  (let ((repo (concat "git@github.com:" what ".git"))
+        (outdir (concat "~/src/github.com/" what)))
+    (magit-clone-regular repo outdir nil)))
+
+(defun github-git-clone-https (what)
+  "Clone GitHub repo WHAT where it belongs (using HTTPS)."
+  (interactive "sRepo: ")
+  (let ((repo (concat "https://github.com/" what ".git"))
+        (outdir (concat "~/src/github.com/" what)))
+    (magit-clone-regular repo outdir nil)))
+
 (provide 'defuns)
 ;;; defuns.el ends here

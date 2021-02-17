@@ -9,11 +9,9 @@
 
 (use-package dpkg-dev-el)
 (use-package go-mode)
+(use-package groovy-mode)
 (use-package protobuf-mode)
-(use-package typescript-mode
-  ;; :custom
-  ;; (typescript-indent-level 2)
-  )
+(use-package typescript-mode)
 
 (use-package ivy-virtualbox
   :load-path "~/src/github.com/lbolla/ivy-virtualbox/"
@@ -98,6 +96,20 @@
             (match-string 2 tag)
             "/pullrequest/"
             (match-string 3 tag))))))
+
+(defun roche-bitbucket-git-clone (what)
+  "Clone BitBucket repo WHAT where it belongs."
+  (interactive "sRepo: ")
+  (let ((repo (concat "ssh://git@bitbucket.roche.com:7999/" what ".git"))
+        (outdir (concat "~/src/bitbucket.roche.com/" what)))
+    (magit-clone-regular repo outdir nil)))
+
+(defun roche-gitlab-git-clone (what)
+  "Clone GitLab repo WHAT where it belongs."
+  (interactive "sRepo: ")
+  (let ((repo (concat "git@ssh.code.roche.com:" what ".git"))
+        (outdir (concat "~/src/code.roche.com/" what)))
+    (magit-clone-regular repo outdir nil)))
 
 (provide 'roche)
 
