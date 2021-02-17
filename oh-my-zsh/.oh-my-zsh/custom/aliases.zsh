@@ -101,6 +101,6 @@ function w {
         what="$(workon | fzf -1 -0 --no-sort +m --tac)"
         [[ -n "${what}" ]] && workon "${what}"
     else
-        workon ${what}
+        workon $1
     fi
 }
