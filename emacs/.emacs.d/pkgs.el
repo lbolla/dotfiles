@@ -103,13 +103,14 @@
   :custom
   (clang-format-style "file")
   (clang-format-fallback-style "WebKit")
+  :init
+  (defun my/clang-format-keybindings (mode-map)
+    (evil-define-key 'visual mode-map (kbd "=") 'clang-format-region)
+    (define-key mode-map (kbd "C-c =") 'clang-format-buffer))
   :hook
-  (c++-mode . (lambda ()
-                (evil-define-key 'visual c++-mode-map (kbd "=") 'clang-format-region)
-                (define-key c++-mode-map (kbd "C-c =") 'clang-format-buffer)))
-  (js2-mode . (lambda ()
-                (evil-define-key 'visual js2-mode-map (kbd "=") 'clang-format-region)
-                (define-key js2-mode-map (kbd "C-c =") 'clang-format-buffer))))
+  (c++-mode . (lambda () (my/clang-format-keybindings c++-mode-map)))
+  (js2-mode . (lambda ()(my/clang-format-keybindings js2-mode-map)))
+  (protobuf-mode . (lambda ()(my/clang-format-keybindings protobuf-mode-map))))
 
 (use-package company
   :custom
