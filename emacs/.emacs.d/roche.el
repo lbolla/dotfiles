@@ -23,6 +23,11 @@
                               (add-to-list 'org-link-abbrev-alist '("BB" . roche-bitbucket-object-url))
                               (add-to-list 'org-agenda-files "~/org/roche.org")))
 
+(use-package forge
+  :after magit
+  :config
+  (add-to-list 'forge-alist '("ssh.code.roche.com" "code.roche.com/api/v4" "code.roche.com" forge-gitlab-repository)))
+
 (defun roche-gitlab-object-url (tag)
   "Generate a Roche GitLab OBJECT url for TAG."
   (gitlab-object-url "https://code.roche.com/" tag))

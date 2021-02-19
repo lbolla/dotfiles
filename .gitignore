@@ -24,6 +24,7 @@ aliases
 /emacs/.emacs.d/eshell/history
 /emacs/.emacs.d/eshell/lastdir
 /emacs/.emacs.d/flycheck_private.el
+/emacs/.emacs.d/forge-database.sqlite
 /emacs/.emacs.d/games/
 /emacs/.emacs.d/network-security.data
 /emacs/.emacs.d/local.el

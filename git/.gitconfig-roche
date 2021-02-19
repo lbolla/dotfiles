@@ -2,3 +2,6 @@
 	name = Lorenzo Bolla
 	email = lorenzo.bolla@contractors.roche.com
 	signingkey = 0xC66542AE7E85707F
+
+[gitlab "code.roche.com/api/v4"]
+    user = lorenzo.bolla
