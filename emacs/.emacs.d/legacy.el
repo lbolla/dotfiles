@@ -515,6 +515,14 @@
 ;;   (defvar diary-file)
 ;;   (icalendar-import-buffer diary-file t t))
 
+(use-package org-alert
+  :after org
+  :custom
+  (alert-default-style 'notifications)
+  (org-alert-interval 600)
+  :config
+  (org-alert-enable))
+
 (use-package org-bullets
   :after org
   :demand t
