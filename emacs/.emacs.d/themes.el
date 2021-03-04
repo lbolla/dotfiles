@@ -128,6 +128,12 @@
          'doom-opera-light
          `(popup-tip-face                    ((t (:inherit popup-face :foreground "#842879" :background "khaki1"))))))
 
+       ;; Modus Operandi
+       ((eq theme 'modus-operandi)
+        (lbolla/custom-theme-set-faces
+         'modus-operandi
+         `(magit-tag                         ((t (:inherit bold :foreground "#863927"))))))  ;; yellow-alt-other
+
        ;; Modus Vivendi
        ((eq theme 'modus-vivendi)
         (lbolla/custom-theme-set-faces
