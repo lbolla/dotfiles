@@ -1,0 +1,80 @@
+# -*- mode: snippet -*-
+# name: example
+# key: example
+# --
+
+.EXPORT_ALL_VARIABLES:
+.PHONY: ${MAKECMDGOALS}
+
+SRC = pkg-name
+REQUIREMENTS = requirements.txt requirements_tests.txt
+DOCKER_IMAGE = ns/pkg-name
+DOCKER_IMAGE_TEST = ${DOCKER_IMAGE}-test
+PIP_INDEX_URL = https://devpi/
+
+# Self-documenting Makefile
+# https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+help:  ## Print this help
+	@grep -E '^[a-zA-Z][a-zA-Z0-9_-]*:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", \$\$1, \$\$2}'
+
+develop: upgrade-setuptools upgrade-pip requirements-install  ## Install project for development
+	pip install -e .
+
+upgrade-setuptools:  ## Upgrade setuptools
+	pip install -U setuptools
+
+upgrade-pip:  ## Upgrade pip
+	pip install -U pip
+
+test: pytest lint  ## Run tests
+
+pytest:  ## Run Python tests
+	pytest --verbose --cov \${SRC}
+
+lint: flake8 mypy  ## Run linters
+
+flake8:  ## Run flake8 linter
+	flake8 \${SRC}
+
+mypy:  ## Run mypy linter
+	mypy \${SRC}
+
+requirements: \${REQUIREMENTS}  ## Create requirements files
+
+requirements.txt: setup.py
+	pip-compile \${PIP_COMPILE_ARGS} --output-file requirements.txt setup.py
+
+%.txt: %.in
+	pip-compile \${PIP_COMPILE_ARGS} --output-file $@ $<
+
+requirements-upgrade: PIP_COMPILE_ARGS += --upgrade
+requirements-upgrade: requirements  ## Upgrade requirements
+
+requirements-sync: requirements  ## Synchronize requirements
+	pip-sync \${REQUIREMENTS}
+	pip install -e .
+
+requirements-install: requirements  ## Install requirements
+	$(foreach req, \${REQUIREMENTS}, pip install -r $(req);)
+
+clean-repo:
+	git diff --quiet HEAD  # no pending commits
+	git diff --cached --quiet HEAD  # no unstaged changes
+	git pull --ff-only  # latest code
+
+release: requirements clean-repo  ## Make a release (specify: PART=[major|minor|patch])
+	bump2version \${PART}
+	git push
+	git push --tags
+
+docker-build:
+	docker build -f Dockerfile -t \${DOCKER_IMAGE} .
+
+docker-run: docker-build
+	docker run --rm -it \${DOCKER_IMAGE}
+
+docker-build-test:
+	docker build -f Dockerfile.test -t \${DOCKER_IMAGE_TEST} .
+
+docker-run-test: docker-build-test
+	docker run --rm -it \${DOCKER_IMAGE_TEST} make test
