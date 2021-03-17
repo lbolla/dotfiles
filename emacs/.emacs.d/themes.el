@@ -31,7 +31,9 @@
 
 (use-package poet-theme
   :defer t
-  :demand t)
+  :demand t
+  :custom
+  (poet-theme-variable-headers nil))
 
 (use-package tao-theme
   :defer t
