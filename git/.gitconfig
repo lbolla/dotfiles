@@ -17,6 +17,8 @@
 	gpgSign = true
 [tag]
 	gpgSign = true
+[pull]
+        rebase = true
 [push]
 	default = current
 	followTags = true
@@ -24,7 +26,8 @@
 	decorate = full
 	# showSignature = true
 [alias]
-	tags = tag --sort=-taggerdate
+	# tags = tag --sort=-taggerdate
+        tags = for-each-ref refs/tags --sort=-taggerdate --format='%(objectname:short) %(color:cyan)%(objecttype) %(color:red)%(*authordate:short) %(color:yellow)%(refname:short)'
 	rank = shortlog -sn --no-merges
 	searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
 	last = cat-file commit HEAD
@@ -39,9 +42,7 @@
 [magit]
 	hideCampaign = true
 [tig]
-	show-date = yes
-	tab-size = 8
-	show-refs = yes
+        main-options = --all
 [color]
 	diff = auto
 	status = auto
