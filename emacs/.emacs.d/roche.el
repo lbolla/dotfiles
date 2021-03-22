@@ -90,10 +90,12 @@
   (mu4e-headers-date-format "%x %X")
   (mu4e-headers-fields '((:human-date . 18)
                          (:flags . 6)
-                         (:mailing-list . 10)
+                         (:mailing-list . 12)
                          (:from . 22)
                          (:subject)))
-  (mu4e-mailing-list-patterns '("\\([^.]*\\)\\.roche\\.com"))
+  (mu4e-mailing-list-patterns '("\\.\\([^.]+\\)\\.[^.]+\\.code\\.roche\\.com"
+                                "\\.\\([^.]+\\)\\.code\\.roche\\.com"
+                                "\\.\\([^.]+\\)\\.roche\\.com"))
   (mu4e-headers-include-related nil)
   ;; (mu4e-headers-results-limit 500)
   (mu4e-view-actions '(("capture message" . mu4e-action-capture-message)
