@@ -1,0 +1,9 @@
+[Unit]
+Description=Periodic YouGov backups
+
+[Timer]
+OnCalendar=18:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
