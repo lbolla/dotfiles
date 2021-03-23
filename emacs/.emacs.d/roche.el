@@ -107,6 +107,7 @@
   (mu4e-view-use-gnus nil))
 
 (use-package smtpmail
+  :demand t
   :defines
   roche-smtp-server
   roche-smtp-port

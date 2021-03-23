@@ -148,6 +148,7 @@
          'goose
          `(font-lock-string-face             ((t (:foreground "#666666" :slant italic))))
          `(mu4e-flagged-face                 ((t (:inherit (font-lock-constant-face) :foreground "firebrick" :weight bold))))
+         `(org-block                         ((t (:background "#dddddd"))))
          `(org-canc                          ((t (:foreground "#666666" :weight bold))))
          `(org-scheduled                     ((t (:inherit (default)))))
          `(org-scheduled-previously          ((t (:foreground "#666666" :weight normal))))
