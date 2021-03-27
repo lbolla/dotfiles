@@ -466,12 +466,15 @@ is already narrowed."
 (defun gitlab-object-url (base-url tag)
   "Generate a GitLab BASE-URL OBJECT url for TAG."
   (let ((issue-re (rx (group (one-or-more (not (any "#")))) "#" (group (one-or-more digit))))
-        (mr-re (rx (group (one-or-more (not (any "!")))) "!" (group (one-or-more digit)))))
+        (mr-re (rx (group (one-or-more (not (any "!")))) "!" (group (one-or-more digit))))
+        (snippet-re (rx "$" (group (one-or-more digit)))))
   (cond
    ((string-match issue-re tag)
     (concat base-url (match-string 1 tag) "/issues/" (match-string 2 tag)))
    ((string-match mr-re tag)
-    (concat base-url (match-string 1 tag) "/merge_requests/" (match-string 2 tag))))))
+    (concat base-url (match-string 1 tag) "/merge_requests/" (match-string 2 tag)))
+   ((string-match snippet-re tag)
+    (concat base-url "/-/snippets/" (match-string 1 tag))))))
 
 (defun github-object-url (tag)
   "Generate a GitHub OBJECT url for TAG."
