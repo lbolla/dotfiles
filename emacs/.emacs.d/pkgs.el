@@ -319,6 +319,7 @@
   (evil-set-initial-state 'eshell-mode 'emacs)
   (evil-set-initial-state 'eww-mode 'emacs)
   (evil-set-initial-state 'pass-mode 'emacs)
+  (evil-set-initial-state 'picture-mode 'emacs)
   (evil-set-initial-state 'rg-mode 'emacs)
   (evil-set-initial-state 'mu4e-main-mode 'emacs)
 
