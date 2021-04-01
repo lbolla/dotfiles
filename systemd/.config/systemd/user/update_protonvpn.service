@@ -1,0 +1,6 @@
+[Unit]
+Description=Update ProtonVPN CLI
+
+[Service]
+ExecStart=
+ExecStart="/bin/sh" "-c" "cd $HOME/.virtualenvs/protonvpn/bin && ./pip install -U protonvpn-cli"
