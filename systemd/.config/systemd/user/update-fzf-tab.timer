@@ -1,0 +1,8 @@
+[Unit]
+Description=Periodically update fzf-tab
+
+[Timer]
+OnCalendar=monthly
+
+[Install]
+WantedBy=timers.target

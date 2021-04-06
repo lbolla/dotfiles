@@ -1,0 +1,6 @@
+[Unit]
+Description=Update fzf-tab
+
+[Service]
+ExecStart=
+ExecStart="/bin/sh" "-c" "cd $HOME/src/github.com/Aloxaf/fzf-tab && git pull"
