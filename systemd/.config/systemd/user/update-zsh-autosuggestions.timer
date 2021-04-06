@@ -1,0 +1,8 @@
+[Unit]
+Description=Periodically update zsh-autosuggestions
+
+[Timer]
+OnCalendar=monthly
+
+[Install]
+WantedBy=timers.target

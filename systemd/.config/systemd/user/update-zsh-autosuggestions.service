@@ -1,0 +1,6 @@
+[Unit]
+Description=Update zsh-autosuggestions
+
+[Service]
+ExecStart=
+ExecStart="/bin/sh" "-c" "cd $HOME/src/github.com/zsh-users/zsh-autosuggestions && git pull"
