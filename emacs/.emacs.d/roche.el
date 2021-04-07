@@ -12,13 +12,15 @@
 (defvar org-link-abbrev-alist)
 
 (use-package dpkg-dev-el)
+
+(use-package forge
+  :after magit
+  :config
+  (add-to-list 'forge-alist '("ssh.code.roche.com" "code.roche.com/api/v4" "code.roche.com" forge-gitlab-repository)))
+
 (use-package go-mode)
+
 (use-package groovy-mode)
-(use-package protobuf-mode)
-(use-package typescript-mode
-  :hook
-  (typescript-mode . (lambda ()
-                       (require 'lsp-javascript))))
 
 (use-package ivy-virtualbox
   :load-path "~/src/github.com/lbolla/ivy-virtualbox/"
@@ -29,11 +31,6 @@
                               (add-to-list 'org-link-abbrev-alist '("GL" . roche-gitlab-object-url))
                               (add-to-list 'org-link-abbrev-alist '("BB" . roche-bitbucket-object-url))
                               (add-to-list 'org-agenda-files "~/org/roche.org")))
-
-(use-package forge
-  :after magit
-  :config
-  (add-to-list 'forge-alist '("ssh.code.roche.com" "code.roche.com/api/v4" "code.roche.com" forge-gitlab-repository)))
 
 (use-package mu4e
   :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
@@ -111,6 +108,8 @@
   (mu4e-view-show-images nil)
   (mu4e-view-use-gnus nil))
 
+(use-package protobuf-mode)
+
 (use-package smtpmail
   :demand t
   :defines
@@ -123,6 +122,11 @@
   (smtpmail-smtp-service roche-smtp-port)
   (smtpmail-mail-address roche-smtp-user)
   (smtpmail-stream-type 'starttls))
+
+(use-package typescript-mode
+  :hook
+  (typescript-mode . (lambda ()
+                       (require 'lsp-javascript))))
 
 (defun roche-gitlab-object-url (tag)
   "Generate a Roche GitLab OBJECT url for TAG."
