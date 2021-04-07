@@ -15,7 +15,10 @@
 (use-package go-mode)
 (use-package groovy-mode)
 (use-package protobuf-mode)
-(use-package typescript-mode)
+(use-package typescript-mode
+  :hook
+  (typescript-mode . (lambda ()
+                       (require 'lsp-javascript))))
 
 (use-package ivy-virtualbox
   :load-path "~/src/github.com/lbolla/ivy-virtualbox/"

@@ -1172,12 +1172,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (tramp-default-method "ssh"))
 
-(use-package typescript-mode
-  :ensure nil
-  :hook
-  (typescript-mode . (lambda ()
-                       (require 'lsp-javascript))))
-
 (use-package vc-hooks
   :ensure nil
   :custom
