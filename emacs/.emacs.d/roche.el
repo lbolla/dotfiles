@@ -6,6 +6,8 @@
 
 (require 'private-roche "~/Private/emacs/private-roche.el")
 
+(append-to-path '("/home/users/bollal/.nvm/versions/node/v10.19.0/bin"))
+
 (defvar org-agenda-files)
 (defvar org-link-abbrev-alist)
 

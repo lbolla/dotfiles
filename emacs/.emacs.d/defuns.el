@@ -501,5 +501,13 @@ is already narrowed."
         (outdir (concat "~/src/github.com/" what)))
     (magit-clone-regular repo outdir nil)))
 
+(defun append-to-path (paths)
+  "Add PATHS to execution paths."
+  (setq exec-path (append paths exec-path))
+  (setenv "PATH"
+          (concat
+           (mapconcat 'identity paths ":") ":"
+           (getenv "PATH"))))
+
 (provide 'defuns)
 ;;; defuns.el ends here
