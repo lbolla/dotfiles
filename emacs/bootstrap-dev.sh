@@ -13,7 +13,7 @@ else
     mkdir -p ${EMACS_HOME}
 fi
 
-for f in init.el pkgs.el defuns.el themes.el custom.el
+for f in init.el pkgs.el defuns.el themes.el custom.el ${EMACS_EXTRAS}
 do
     curl -s https://raw.githubusercontent.com/lbolla/dotfiles/master/emacs/.emacs.d/$f -o ~/.emacs.d/$f
 done
