@@ -1,7 +1,4 @@
 export BROWSER=firefox
-export EDITOR="emacsclient -nw --alternate-editor nano"
-export VISUAL_EDITOR="emacsclient --socket-name /run/user/$(id -u)/emacs/server"
-export ALTERNATE_EDITOR="nano"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --info=inline --border"
 export GOPATH=$HOME
 export LESS="-R"
@@ -97,4 +94,8 @@ fi
 if [[ -n "$INSIDE_EMACS" ]]
 then
     export TERM=dumb
+else
+    export EDITOR="emacsclient -nw --alternate-editor nano"
+    export VISUAL_EDITOR="emacsclient --socket-name /run/user/$(id -u)/emacs/server"
+    export ALTERNATE_EDITOR="nano"
 fi
