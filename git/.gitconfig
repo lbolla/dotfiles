@@ -22,6 +22,8 @@
 [push]
 	default = current
 	followTags = true
+[rebase]
+        autoSquash = true
 [log]
 	decorate = full
 	# showSignature = true
@@ -29,10 +31,10 @@
 	# tags = tag --sort=-taggerdate
         tags = for-each-ref refs/tags --sort=-taggerdate --format='%(objectname:short) %(color:cyan)%(objecttype) %(color:red)%(*authordate:short) %(color:yellow)%(refname:short)'
 	rank = shortlog -sn --no-merges
-	searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
-	last = cat-file commit HEAD
+	# searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
+	# last = cat-file commit HEAD
 	glog = log --pretty=format:'%C(green)%h %C(yellow)[%ad]%C(red)%d %C(reset)%s%C(blue) [%an] %C(black)%G?' --decorate --date=iso --graph --all
-        log1 = log --pretty=oneline
+        # log1 = log --pretty=oneline
 [diff]
 	tool = meld
 [diff "mwbdiff"]
