@@ -16,6 +16,7 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
+(setenv "INSIDE_EMACS" "1")
 (global-set-key (kbd "<f5>") 'compile)
 (global-set-key (kbd "M-o") 'my/open-line)
 (global-set-key (kbd "M-O") 'my/open-line-above)
