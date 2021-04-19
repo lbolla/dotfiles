@@ -68,7 +68,7 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
    (require 'personal "~/.emacs.d/personal.el"))
   ("frieza"
    (require 'yougov "~/.emacs.d/yougov.el"))
-  ("troulwn0333"
+  ((or "troulwn0333" "rabuwprlc0004")
    (require 'roche "~/.emacs.d/roche.el")))
 
 ;; For local customizations
