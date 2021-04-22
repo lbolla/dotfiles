@@ -80,7 +80,7 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 ;; (setq auto-window-vscroll nil)
 
 ;; Theme
-(my/switch-theme 'modus-vivendi)
+;; (my/switch-theme 'modus-vivendi)
 
 (provide 'init)
 ;;; init.el ends here
