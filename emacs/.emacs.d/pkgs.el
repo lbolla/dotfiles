@@ -1178,7 +1178,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :config
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
-  (treemacs-fringe-indicator-mode nil)
+  (treemacs-fringe-indicator-mode 'always)
   :bind
   (:map global-map
         ("M-0"       . treemacs-select-window)
@@ -1186,7 +1186,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
         ("C-x t t"   . treemacs)
         ("C-x t B"   . treemacs-bookmark)
         ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+        ("C-x t M-t" . treemacs-find-tag))
+  :hook
+  (treemacs-mode . (lambda () (setq cursor-in-non-selected-windows nil))))
 
 (use-package treemacs-magit
   :after (treemacs magit))
