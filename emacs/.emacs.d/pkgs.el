@@ -319,10 +319,11 @@
   (evil-set-initial-state 'deft-mode 'emacs)
   (evil-set-initial-state 'eshell-mode 'emacs)
   (evil-set-initial-state 'eww-mode 'emacs)
+  (evil-set-initial-state 'mu4e-main-mode 'emacs)
   (evil-set-initial-state 'pass-mode 'emacs)
   (evil-set-initial-state 'picture-mode 'emacs)
   (evil-set-initial-state 'rg-mode 'emacs)
-  (evil-set-initial-state 'mu4e-main-mode 'emacs)
+  (evil-set-initial-state 'treemacs-mode 'emacs)
 
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)
@@ -1172,6 +1173,26 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :ensure nil
   :custom
   (tramp-default-method "ssh"))
+
+(use-package treemacs
+  :config
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode nil)
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
+
+(use-package treemacs-magit
+  :after (treemacs magit))
+
+(use-package treemacs-projectile
+  :after (treemacs projectile))
 
 (use-package vc-hooks
   :ensure nil
