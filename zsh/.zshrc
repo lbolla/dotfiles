@@ -107,7 +107,7 @@ plugins=(
     z
     zsh-autosuggestions
     # Note: keep fzf-tab at the end because it overwrites some keybindings
-    fzf-tab
+    # fzf-tab
 )
 
 source $ZSH/oh-my-zsh.sh
