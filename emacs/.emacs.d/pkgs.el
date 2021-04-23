@@ -1176,15 +1176,18 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package treemacs
   :config
-  (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
+  (treemacs-follow-mode t)
   (treemacs-fringe-indicator-mode 'always)
+  (treemacs-git-mode -1)
+  (treemacs-tag-follow-mode -1)
   :bind
   (:map global-map
         ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
+        ;; ("C-x t 1"   . treemacs-delete-other-windows)
         ("C-x t t"   . treemacs)
-        ("C-x t B"   . treemacs-bookmark)
+        ;; ("C-x t t"   . treemacs-display-current-project-exclusively)
+        ;; ("C-x t B"   . treemacs-bookmark)
         ("C-x t C-t" . treemacs-find-file)
         ("C-x t M-t" . treemacs-find-tag))
   :hook
@@ -1194,7 +1197,10 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :after (treemacs magit))
 
 (use-package treemacs-projectile
-  :after (treemacs projectile))
+  :after (treemacs projectile)
+  :bind
+  (:map global-map
+        ("C-x t p"   . treemacs-projectile)))
 
 (use-package vc-hooks
   :ensure nil
