@@ -16,7 +16,10 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
+;; Environmental variables
 (setenv "INSIDE_EMACS" "1")
+(setenv "RIPGREP_CONFIG_PATH" (expand-file-name "~/.ripgreprc"))
+
 (global-set-key (kbd "<f5>") 'compile)
 (global-set-key (kbd "M-o") 'my/open-line)
 (global-set-key (kbd "M-O") 'my/open-line-above)

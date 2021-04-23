@@ -1050,15 +1050,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (rg-group-result nil)
   (rg-default-alias-fallback "everything")
-  (rg-custom-type-aliases '((#("gn" 0 1
-                               (idx 0))
-                             . "*.gn *.gni")
-                            (#("gyp" 0 1
-                               (idx 1))
-                             . "*.gyp *.gypi")
-                            (#("tmpl" 0 1
-                               (idx 2))
-                             . "*.tmpl")))
+  (rg-custom-type-aliases '(("gyp" . "*.gyp *.gypi")
+                            ("web" . "*.html *.css *.js *.tmpl")))
   :config
   (rg-define-toggle "--context 3" "x" nil)
   (rg-define-search my/rg-dwim-project-dir
