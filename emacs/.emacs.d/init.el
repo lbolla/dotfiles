@@ -12,6 +12,11 @@
 (when (< emacs-major-version 28)
   (package-initialize))
 
+;; See https://www.reddit.com/r/emacs/comments/cdei4p/failed_to_download_gnu_archive_bad_request/
+(when (= emacs-major-version 26)
+  (when (< emacs-minor-version 3)
+    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))
+
 ;; Store all customizations in custom file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
