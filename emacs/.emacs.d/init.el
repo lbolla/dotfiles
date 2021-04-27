@@ -23,7 +23,6 @@
 
 ;; Environmental variables
 (setenv "INSIDE_EMACS" "1")
-(setenv "RIPGREP_CONFIG_PATH" (expand-file-name "~/.ripgreprc"))
 
 (global-set-key (kbd "<f5>") 'compile)
 (global-set-key (kbd "M-o") 'my/open-line)

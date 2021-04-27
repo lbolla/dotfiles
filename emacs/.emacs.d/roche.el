@@ -27,6 +27,14 @@
   :bind
   ("C-c v v" . ivy-virtualbox))
 
+(use-package exec-path-from-shell
+  :custom
+  (exec-path-from-shell-shell-name "/usr/bin/zsh")
+  (exec-path-from-shell-variables '("RIPGREP_CONFIG_PATH"
+                                    "WORKON_HOME"))
+  :init
+  (exec-path-from-shell-initialize))
+
 (add-to-list 'org-mode-hook (lambda ()
                               (add-to-list 'org-link-abbrev-alist '("GL" . roche-gitlab-object-url))
                               (add-to-list 'org-link-abbrev-alist '("BB" . roche-bitbucket-object-url))
