@@ -331,6 +331,12 @@
   (when (functionp 'eyebrowse-rename-window-config)
     (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) (projectile-project-name))))
 
+(defun my/eyebrowse-switch-to-project ()
+  "Switch to project in a new eyebrowse slot."
+  (interactive)
+  (eyebrowse-create-window-config)
+  (projectile-switch-project))
+
 (defun lbolla.info/org-publish-sitemap-format-entry (entry style project)
   "Format ENTRY for sitemap STYLE for PROJECT lbolla.info."
   (cond ((not (directory-name-p entry))

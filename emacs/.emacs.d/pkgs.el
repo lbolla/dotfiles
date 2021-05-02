@@ -291,6 +291,8 @@
   (eyebrowse-default-workspace-slot 0)
   (eyebrowse-keymap-prefix (kbd "C-c e"))
   (eyebrowse-new-workspace t)
+  :bind
+  ("C-c e p" . my/eyebrowse-switch-to-project)
   :init
   (eyebrowse-mode t))
 
@@ -1050,6 +1052,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (rg-group-result nil)
   (rg-default-alias-fallback "everything")
+  (rg-ignore-ripgreprc t)
+  (rg-command-line-flags '("--sort=path"))
   (rg-custom-type-aliases '(("gyp" . "*.gyp *.gypi")
                             ("web" . "*.html *.css *.js *.tmpl")))
   :config
