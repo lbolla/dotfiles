@@ -15,3 +15,6 @@ web:*.{html,css,js,tmpl}*
 
 # Hidden files are files
 --hidden
+
+# Sort results by path
+--sort=path
