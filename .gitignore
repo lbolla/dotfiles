@@ -20,6 +20,7 @@ aliases
 /emacs/.emacs.d/bookmarks
 /emacs/.emacs.d/.dap-breakpoints
 /emacs/.emacs.d/ede-projects.el
+/emacs/.emacs.d/eln-cache/
 /emacs/.emacs.d/elpa/
 /emacs/.emacs.d/eshell/history
 /emacs/.emacs.d/eshell/lastdir
