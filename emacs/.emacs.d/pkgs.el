@@ -222,14 +222,11 @@
   :mode ((rx "Dockerfile")))
 
 (use-package dumb-jump
-  :functions
-  dumb-jump-mode
   :custom
-  (dump-jump-prefer-searcher 'rg)
+  ;; (dump-jump-prefer-searcher 'rg)
   (dumb-jump-selector 'ivy)
   (dumb-jump-window 'other)
   :init
-  ;; (dumb-jump-mode)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 (use-package ediff
@@ -709,19 +706,13 @@
                                  ((agenda "" nil)
                                   (tags-todo "-REFILE/NEXT"
                                         ((org-agenda-overriding-header "Next tasks")
-                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
-                                         ;; (org-agenda-files '("~/org/"))
-                                         ))
-                                  (tags-todo "-REFILE/WAIT"
+                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))
+                                  (tags-todo "-REFILE/!+WAIT|+REVW"
                                         ((org-agenda-overriding-header "Stuck tasks")
-                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
-                                         ;; (org-agenda-files '("~/org/"))
-                                         ))
+                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))
                                   (tags-todo "-REFILE/TODO"
                                         ((org-agenda-overriding-header "Todo tasks")
-                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
-                                         ;; (org-agenda-files '("~/org/"))
-                                         ))
+                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))
                                   ))
                                 ("," "Refile/Archive/Someday"
                                  ((org-ql-block '(tags-inherited "REFILE")
@@ -732,9 +723,7 @@
                                                 ((org-ql-block-header "Tasks to archive")))
                                   (tags-todo "-REFILE/SDAY"
                                         ((org-agenda-overriding-header "Someday tasks")
-                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)
-                                         ;; (org-agenda-files '("~/org/"))
-                                         ))))))
+                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))))))
   (org-agenda-files '("~/org/refile.org"))
   (org-agenda-include-diary t)
   (org-agenda-log-mode-items `(clock closed))
@@ -762,7 +751,7 @@
                            ))
   (org-clock-into-drawer "CLOCKS")
   (org-clock-out-remove-zero-time-clocks t)
-  (org-clock-out-when-done '("WAIT" "DONE" "CANC" "DELG"))
+  (org-clock-out-when-done '("WAIT" "REVW" "DONE" "CANC" "DELG"))
   (org-clocktable-defaults
    '(:maxlevel 2 :lang "en" :scope file :block nil :wstart 1 :mstart 1 :tstart nil :tend nil :step nil :stepskip0 nil :fileskip0 t :tags nil :match nil :emphasize nil :link nil :narrow 40! :indent t :hidefiles nil :formula nil :timestamp nil :level nil :tcolumns nil :formatter nil))
   (org-columns-default-format "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
@@ -883,7 +872,7 @@
   (org-src-tab-acts-natively t)
   (org-startup-indented t)
   (org-stuck-projects '("+LEVEL=2/-DONE"
-                        ("TODO" "NEXT" "SOMEDAY" "WAIT" "CANC" "DELG")
+                        ("TODO" "NEXT" "SOMEDAY" "WAIT" "REVW" "CANC" "DELG")
                         ("@ignore") ""))
   (org-tag-alist '((:startgroup)
                    ("@family" . ?f)
@@ -893,11 +882,12 @@
                    (:endgroup)
                    ("MEET" . ?m)
                    ("FLAG" . ?+)))
-  (org-todo-keywords '((sequence "TODO(t)" "NEXT(n!)" "WAIT(w@/!)" "SDAY(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)")))
+  (org-todo-keywords '((sequence "TODO(t)" "NEXT(n!)" "WAIT(w@/!)" "REVW(r!)" "SDAY(s!)" "|" "DONE(d!)" "CANC(c@)" "DELG(l@)")))
   (org-todo-keyword-faces '(("TODO" . org-todo)
                             ("NEXT" . org-strt)
                             ("SDAY" . org-sday)
                             ("WAIT" . org-wait)
+                            ("REVW" . org-revw)
                             ("DELG" . org-delg)
                             ("CANC" . org-canc)
                             ("DONE" . org-done)))
@@ -919,6 +909,7 @@
   (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
   (defface org-wait '((t (:inherit org-todo :foreground "gold"))) "Face used for waiting tasks." :group 'org-faces)
+  (defface org-revw '((t (:inherit org-todo :foreground "orange"))) "Face used for review tasks." :group 'org-faces)
   (defface org-delg '((t (:inherit org-todo :foreground "dark gray"))) "Face used for delegated tasks." :group 'org-faces)
   (defface org-sday '((t (:inherit org-todo :foreground "dark gray"))) "Face used for someday tasks." :group 'org-faces)
   (defface org-meet '((t (:inherit org-todo :foreground "deep sky blue"))) "Face used for meeting tasks." :group 'org-faces)
