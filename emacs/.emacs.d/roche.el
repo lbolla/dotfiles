@@ -6,7 +6,8 @@
 
 (require 'private-roche "~/Private/emacs/private-roche.el")
 
-(append-to-path '("/home/users/bollal/.nvm/versions/node/v10.19.0/bin"))
+;; TODO nvm which node
+(append-to-path '("/home/users/bollal/.nvm/versions/node/v14.17.0/bin"))
 
 (defvar org-agenda-files)
 (defvar org-link-abbrev-alist)
@@ -30,7 +31,9 @@
 (use-package exec-path-from-shell
   :custom
   (exec-path-from-shell-shell-name "/usr/bin/zsh")
-  (exec-path-from-shell-variables '("RIPGREP_CONFIG_PATH"
+  (exec-path-from-shell-variables '("GOPATH"
+                                    "GO111MODULE"
+                                    "RIPGREP_CONFIG_PATH"
                                     "WORKON_HOME"))
   :init
   (exec-path-from-shell-initialize))
@@ -132,6 +135,7 @@
   (smtpmail-stream-type 'starttls))
 
 (use-package typescript-mode
+  :mode (((rx "ts" eos) . typescript-mode))
   :hook
   (typescript-mode . (lambda ()
                        (require 'lsp-javascript))))
