@@ -47,3 +47,4 @@ _obsolete/
 /systemd/.config/systemd/user/timers.target.wants
 /emacs/.emacs.d/.org-id-locations
 /emacs/.emacs.d/org-roam.db
+/emacs/.emacs.d/projects
