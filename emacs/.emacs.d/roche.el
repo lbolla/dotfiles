@@ -140,6 +140,11 @@
   (typescript-mode . (lambda ()
                        (require 'lsp-javascript))))
 
+(use-package flycheck-checkbashisms
+  :after flycheck
+  :hook
+  (flycheck-mode . flycheck-checkbashisms-setup))
+
 (defun roche-gitlab-object-url (tag)
   "Generate a Roche GitLab OBJECT url for TAG."
   (gitlab-object-url "https://code.roche.com/" tag))

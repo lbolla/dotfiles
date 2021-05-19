@@ -223,7 +223,6 @@
 
 (use-package dumb-jump
   :custom
-  ;; (dump-jump-prefer-searcher 'rg)
   (dumb-jump-selector 'ivy)
   (dumb-jump-window 'other)
   :init
@@ -1232,6 +1231,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package xref
   :ensure nil
+  :custom
+  (xref-show-definitions-function #'xref-show-definitions-completing-read)
   :bind
   ("C-x ." . xref-find-definitions))
 
