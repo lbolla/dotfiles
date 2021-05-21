@@ -97,6 +97,6 @@ then
     export TERM=dumb
 else
     export EDITOR="emacsclient -nw --alternate-editor nano"
-    export VISUAL_EDITOR="emacsclient --socket-name /run/user/$(id -u)/emacs/server"
+    export VISUAL="emacsclient --socket-name /run/user/$(id -u)/emacs/server"
     export ALTERNATE_EDITOR="nano"
 fi
