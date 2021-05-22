@@ -44,6 +44,12 @@
   (auth-source-debug nil)
   (auth-sources '("secrets:session" "secrets:Login" "~/.authinfo.gpg")))
 
+;; https://www.gnu.org/software/emacs/manual/html_node/autotype/Autoinserting.html
+(use-package autoinsert
+  :ensure nil
+  :init
+  (auto-insert-mode t))
+
 (use-package avy
   :bind (("C-c ;" . avy-goto-char-timer)
          :map org-mode-map
@@ -505,6 +511,12 @@
                (evil-define-key 'normal go-mode-map (kbd "K") 'godoc))))
 
 (use-package highlight-indentation)
+
+;; https://www.gnu.org/software/emacs/manual/html_node/autotype/Hippie-Expand.html
+(use-package hippie-exp
+  :ensure nil
+  :bind
+  ("M-/" . hippie-expand))
 
 (use-package ivy
   :demand t
