@@ -3,4 +3,7 @@
 # key: usage
 # --
 
-usage() { echo "Usage: $0 <args>" 1>&2 ; exit 99; }
+usage() {
+$>echo "Usage: \$0 ${1:args}" 1>&2
+$>exit 99
+}

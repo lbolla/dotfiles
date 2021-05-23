@@ -1,4 +1,4 @@
-# key: sqlalchemy
+# key: sa
 # name: sqlalchemy
 # --
 from sqlalchemy import create_engine

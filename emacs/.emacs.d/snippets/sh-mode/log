@@ -1,0 +1,35 @@
+# -*- mode: snippet -*-
+# name: log
+# key: log
+# --
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+CYAN='\033[0;36m'
+NOCOLOR='\033[0m'
+
+_log() {
+    _log_color=\$1
+    _log_level=\$2
+    shift 2
+    printf "\${_log_color}\$(date '+%Y/%m/%dT%H:%M:%S') \${_log_level} \$@\${NOCOLOR}\n"
+}
+
+log_debug() {
+    _log \${CYAN} D \$@
+}
+
+log_info() {
+    _log \${GREEN} I \$@
+}
+
+log_warn() {
+    _log \${YELLOW} W \$@
+}
+
+log_error() {
+    _log \${RED} E \$@
+}
+
+$0

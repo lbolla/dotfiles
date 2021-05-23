@@ -1,4 +1,4 @@
-# key: docstring
+# key: """
 # name: docstring reST/Sphinx style
 # --
 """${1:Some docstring}

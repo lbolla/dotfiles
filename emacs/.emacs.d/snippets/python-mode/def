@@ -1,0 +1,13 @@
+# key: def
+# name: define function
+# --
+def ${1:foo}(${2:params}):
+    """"${3:Docstring}
+
+    ${4:Description}
+
+    :param ${5:x}: Description for param x.
+    :returns: Description for return value.
+    :raises ${6:KeyError}: Raises some exception
+    """
+    $0
