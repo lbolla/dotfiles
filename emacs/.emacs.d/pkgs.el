@@ -1260,10 +1260,14 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                  (flyspell-mode nil))))
 
 (use-package yasnippet
+  :bind
+  ("C-c & l" . yas-describe-tables)  ;; list available snippets
   :custom
   (yas-indent-line 'fixed)
   :init
   (yas-global-mode 1))
+
+(use-package yasnippet-snippets)
 
 (use-package zoom-window)
 
