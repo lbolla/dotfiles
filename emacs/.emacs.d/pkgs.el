@@ -256,7 +256,7 @@
   :mode (((rx ".mxs" eos) . elixir-mode)))
 
 (use-package erlang-start
-  :load-path "/usr/lib/erlang/lib/tools-3.5/emacs/"
+  :load-path "/usr/share/emacs/site-lisp/erlang/" ;; Part of erlang-solutions packages
   :mode (((rx ".erl" eos) . erlang-mode)
          ((rx ".app.src" eos) . erlang-mode)
          ((rx ".hrl" eos) . erlang-mode)
