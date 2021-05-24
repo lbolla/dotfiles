@@ -145,6 +145,9 @@
   :hook
   (flycheck-mode . flycheck-checkbashisms-setup))
 
+(use-package csharp-mode
+  :mode (((rx ".csproj" eos) . xml-mode)))
+
 (defun roche-gitlab-object-url (tag)
   "Generate a Roche GitLab OBJECT url for TAG."
   (gitlab-object-url "https://code.roche.com/" tag))
