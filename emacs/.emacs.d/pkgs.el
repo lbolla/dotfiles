@@ -256,27 +256,20 @@
   :mode (((rx ".mxs" eos) . elixir-mode)))
 
 (use-package erlang-start
-  :load-path "/usr/lib/erlang/lib/tools-3.4.1/emacs/"
+  :load-path "/usr/lib/erlang/lib/tools-3.5/emacs/"
   :mode (((rx ".erl" eos) . erlang-mode)
          ((rx ".app.src" eos) . erlang-mode)
          ((rx ".hrl" eos) . erlang-mode)
          ((rx ".config" eos) . erlang-mode)
          ((rx "rebar") . erlang-mode))
   :custom
-  (erlang-root-dir "/usr")
+  (erlang-root-dir "/usr/share")  ; For man pages
   :defines
   erlang-mode-map
   erlang-shell-mode-map
-  erlang-man-file-regexp
   :hook
   (erlang-mode . (lambda ()
-                   (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)
-                   ;; Only consider 3erl man files
-                   (setq erlang-man-file-regexp
-                         "\\(.*\\)/man[^/]*/\\([^.]+\\.3erl\\)\\(\\.gz\\)?$")
-                   (defun erlang-man-get-files (dir)
-                     "Return files in directory DIR."
-                     (directory-files dir t ".+\\.3erl\\(\\.gz\\)?\\'"))))
+                   (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)))
   (erlang-shell-mode . (lambda ()
                          (evil-define-key 'normal erlang-shell-mode-map (kbd "K") 'erlang-man-function))))
 
