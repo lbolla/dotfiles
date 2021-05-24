@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: beamer-column
-# key: beamer
+# key: <bcol
 # --
 
 *** $1

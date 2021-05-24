@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: beamer-example
-# key: beamer
+# key: <bex
 # --
 
 *** $1

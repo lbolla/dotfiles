@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Github merge request
+# key: gh!
+# --
+[[GH:${1:namespace}/${2:project}!${3:merge_request}]] ${4:title}

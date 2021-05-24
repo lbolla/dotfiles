@@ -1,4 +1,4 @@
-# key: key
+# key: <roam-key
 # name: roam-key
 # --
 #+ROAM_KEY: ${1:key}

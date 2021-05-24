@@ -47,6 +47,8 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/autotype/Autoinserting.html
 (use-package autoinsert
   :ensure nil
+  :custom
+  (auto-insert-query nil)
   :init
   (auto-insert-mode t))
 

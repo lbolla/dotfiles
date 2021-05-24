@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: beamer-alert
-# key: beamer
+# key: <bal
 # --
 
 *** $1

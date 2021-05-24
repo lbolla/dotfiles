@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: beamer-header
-# key: beamer
+# key: <bh
 # --
 
 #+STARTUP: beamer
