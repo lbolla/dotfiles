@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: apt-get
+# key: apt-get
+# --
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    $0 \
+    && rm -rf /var/lib/apt/lists/*

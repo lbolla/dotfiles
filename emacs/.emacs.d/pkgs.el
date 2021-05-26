@@ -221,6 +221,11 @@
   :custom
   (delete-selection-mode t))
 
+(use-package dired
+  :ensure nil
+  :custom
+  (dired-listing-switches "-ahl"))
+
 (use-package doc-view
   :hook
   (doc-view . (lambda ()
