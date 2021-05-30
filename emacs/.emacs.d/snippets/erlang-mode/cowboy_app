@@ -1,8 +1,7 @@
-# key: cowboy_app
+# -*- mode: snippet -*-
 # name: cowboy_app
 # --
 
--module(hello_world_app).
 -behaviour(application).
 
 -export([start/2, stop/1]).

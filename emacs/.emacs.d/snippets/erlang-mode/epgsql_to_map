@@ -1,6 +1,7 @@
-# key: epgsql_to_map
+# -*- mode: snippet -*-
 # name: epgsql_to_map
 # --
+
 -include_lib("epgsql/include/epgsql.hrl").
 
 %% Transform a list of Rows and Cols from epgsql in a map

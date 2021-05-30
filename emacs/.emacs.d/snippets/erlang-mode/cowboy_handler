@@ -1,9 +1,7 @@
 # -*- mode: snippet -*-
 # name: cowboy_handler
-# key: cowboy_handler
 # --
 
--module(hello_handler).
 -behavior(cowboy_handler).
 
 -export([init/2]).
