@@ -1055,7 +1055,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (rg-group-result nil)
   (rg-default-alias-fallback "everything")
   (rg-ignore-ripgreprc t)
-  (rg-command-line-flags '("--sort=path"))
+  (rg-command-line-flags '("--sort=path" "--hidden"))
   (rg-custom-type-aliases '(("gyp" . "*.gyp *.gypi")
                             ("web" . "*.html *.css *.js *.tmpl")))
   :config
