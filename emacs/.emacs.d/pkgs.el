@@ -53,9 +53,7 @@
   (auto-insert-mode t))
 
 (use-package avy
-  :bind (("C-c ;" . avy-goto-char-timer)
-         :map org-mode-map
-         ("C-c ;" . avy-goto-char-timer)))
+  :bind* (("C-c ;" . avy-goto-char-timer)))
 
 (use-package browse-url
   :ensure nil
