@@ -223,6 +223,7 @@
 (use-package dired
   :ensure nil
   :custom
+  (dired-dwim-target t)
   (dired-listing-switches "-ahl"))
 
 (use-package doc-view
