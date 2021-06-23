@@ -124,6 +124,7 @@
   :custom
   (company-idle-delay 0.2)
   (company-tooltip-align-annotations t)
+  (company-global-modes '(not org-mode))
   :hook
   (after-init . global-company-mode))
 
