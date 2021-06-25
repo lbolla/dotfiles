@@ -272,6 +272,11 @@
   :defines
   erlang-mode-map
   erlang-shell-mode-map
+  :config
+  (setq erlang-man-file-regexp "\\(.*\\)/man[^/]*/\\([^.]+\\.3erl\\)\\(\\.gz\\)?$")
+  (defun erlang-man-get-files (dir)
+    "Return files in directory DIR."
+    (directory-files dir t ".+\\.3erl\\(\\.gz\\)?\\'"))
   :hook
   (erlang-mode . (lambda ()
                    (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)))
