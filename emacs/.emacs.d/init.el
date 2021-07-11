@@ -19,7 +19,8 @@
 
 ;; Store all customizations in custom file
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 ;; Environmental variables
 (setenv "INSIDE_EMACS" "1")
