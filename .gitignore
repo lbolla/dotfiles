@@ -48,3 +48,4 @@ _obsolete/
 /emacs/.emacs.d/.org-id-locations
 /emacs/.emacs.d/org-roam.db
 /emacs/.emacs.d/projects
+/systemd/.config/systemd/user/protonvpn_reconnect.service
