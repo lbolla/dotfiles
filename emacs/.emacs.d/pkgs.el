@@ -705,6 +705,24 @@
   :ensure nil
   :custom (network-security-level 'high))
 
+(use-package nxml-mode
+  :ensure nil
+  :config
+  ;; See https://emacs.stackexchange.com/questions/2884/the-old-how-to-fold-xml-question
+  (add-to-list 'hs-special-modes-alist
+               '(nxml-mode
+                 "<!--\\|<[^/>]*[^/]>"
+                 "-->\\|</[^/>]*[^/]>"
+
+                 "<!--"
+                 sgml-skip-tag-forward
+                 nil))
+  :hook
+  (nxml-mode . hs-minor-mode)
+  :bind
+  (:map nxml-mode-map
+        ("TAB" . hs-toggle-hiding)))
+
 (use-package org
   ;; Install from Org's elpa
   ;; :load-path "~/src/code.orgmode.org/bzg/org-mode/lisp/"
@@ -937,8 +955,8 @@
   (require 'org-habit)  ;; Otherwise habits are not rendered in org-agenda
   (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
-  (defface org-wait '((t (:inherit org-todo :foreground "gold"))) "Face used for waiting tasks." :group 'org-faces)
-  (defface org-revw '((t (:inherit org-todo :foreground "orange"))) "Face used for review tasks." :group 'org-faces)
+  (defface org-wait '((t (:inherit org-todo :foreground "goldenrod"))) "Face used for waiting tasks." :group 'org-faces)
+  (defface org-revw '((t (:inherit org-todo :foreground "gold"))) "Face used for review tasks." :group 'org-faces)
   (defface org-delg '((t (:inherit org-todo :foreground "dark gray"))) "Face used for delegated tasks." :group 'org-faces)
   (defface org-sday '((t (:inherit org-todo :foreground "dark gray"))) "Face used for someday tasks." :group 'org-faces)
   (defface org-meet '((t (:inherit org-todo :foreground "deep sky blue"))) "Face used for meeting tasks." :group 'org-faces)
@@ -1202,8 +1220,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (:map global-map
         ("M-0"       . treemacs-select-window)
         ;; ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ;; ("C-x t t"   . treemacs-display-current-project-exclusively)
+        ;; ("C-x t t"   . treemacs)
+        ("C-x t t"   . treemacs-display-current-project-exclusively)
         ;; ("C-x t B"   . treemacs-bookmark)
         ("C-x t C-t" . treemacs-find-file)
         ("C-x t M-t" . treemacs-find-tag))
