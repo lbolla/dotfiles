@@ -515,6 +515,15 @@
                (require 'lsp-go)
                (evil-define-key 'normal go-mode-map (kbd "K") 'godoc))))
 
+(use-package haskell-mode
+  :hook
+  (haskell-mode . (lambda ()
+                    (require 'lsp-haskell)
+                    (lsp)))
+  (haskell-literate-mode . (lambda ()
+                             (require 'lsp-haskell)
+                             (lsp))))
+
 (use-package highlight-indentation)
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/autotype/Hippie-Expand.html
@@ -602,6 +611,10 @@
     (or (alist-get property (alist-get checker my/flycheck-local-cache))
         (funcall fn checker property)))
   (advice-add 'flycheck-checker-get :around 'my/flycheck-checker-get))
+
+(use-package lsp-haskell
+  :config
+  (append-to-path '("~/.ghcup/bin")))
 
 ;; https://emacs-lsp.github.io/lsp-java/
 (use-package lsp-java
