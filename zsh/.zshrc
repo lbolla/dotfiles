@@ -90,6 +90,7 @@ plugins=(
     helm
     helm3
     httpie
+    ghcup
     gitfast
     kubectl
     kubectl-patch
