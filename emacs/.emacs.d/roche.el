@@ -121,6 +121,8 @@
 
 (use-package protobuf-mode)
 
+(use-package qml-mode)
+
 (use-package smtpmail
   :demand t
   :defines
