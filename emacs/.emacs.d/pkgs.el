@@ -613,7 +613,7 @@
   (advice-add 'flycheck-checker-get :around 'my/flycheck-checker-get))
 
 (use-package lsp-haskell
-  :config
+  :init
   (append-to-path '("~/.ghcup/bin")))
 
 ;; https://emacs-lsp.github.io/lsp-java/

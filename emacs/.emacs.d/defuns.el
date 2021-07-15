@@ -509,11 +509,12 @@ is already narrowed."
 
 (defun append-to-path (paths)
   "Add PATHS to execution paths."
-  (setq exec-path (append paths exec-path))
-  (setenv "PATH"
-          (concat
-           (mapconcat 'identity paths ":") ":"
-           (getenv "PATH"))))
+  (let ((epaths (mapcar #'expand-file-name paths)))
+    (setq exec-path (append epaths exec-path))
+    (setenv "PATH"
+            (concat
+             (mapconcat 'identity epaths ":") ":"
+             (getenv "PATH")))))
 
 (provide 'defuns)
 ;;; defuns.el ends here

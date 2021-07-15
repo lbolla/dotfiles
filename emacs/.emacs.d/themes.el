@@ -113,7 +113,7 @@
         (lbolla/custom-theme-set-faces
          'doom-laserwave
          `(ivy-current-match                 ((t (:background "#4e2e49" :inherit (region)))))
-         `(mode-line-emphasis                ((t (:foreground "#1b1720" :weight bold))))
+         `(eyebrowse-mode-line-active        ((t (:weight bold))))
          `(org-mode-line-clock               ((t (:slant italic :weight bold))))
          `(org-mode-line-clock-overrun       ((t (:inherit font-lock-warning-face :slant italic :weight bold))))
          `(popup-tip-face                    ((t (:inherit popup-face :foreground "#B381C5" :background "black"))))))
