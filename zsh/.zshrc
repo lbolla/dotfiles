@@ -142,6 +142,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias cdp='cd "$(git rev-parse --show-toplevel || echo .)"'
 
 # Rehash automatically (https://wiki.archlinux.org/index.php/zsh#Persistent_rehash)
 zstyle ':completion:*' rehash true
