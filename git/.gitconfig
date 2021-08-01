@@ -31,6 +31,7 @@
 	# tags = tag --sort=-taggerdate
         tags = for-each-ref refs/tags --sort=-taggerdate --format='%(objectname:short) %(color:cyan)%(objecttype) %(color:red)%(*authordate:short) %(color:yellow)%(refname:short)'
 	rank = shortlog -sn --no-merges
+        root = rev-parse --show-toplevel
 	# searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
 	# last = cat-file commit HEAD
 	# glog = log --pretty=format:'%C(green)%h %C(yellow)[%ad]%C(red)%d %C(reset)%s%C(blue) [%an] %C(black)%G?' --decorate --date=iso --graph
