@@ -95,7 +95,7 @@ plugins=(
     kubectl
     kubectl-patch
     # kube-ps1  # Slow! enable with KUBE_PS1_ENABLED (used in theme)
-    lxc
+    lxd-completion-zsh
     nvm
     paver
     # pyenv
