@@ -1032,6 +1032,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
       (password-store--run "generate" "--in-place" entry (number-to-string password-length))
       nil)))
 
+(use-package poetry
+  :hook (python-mode . poetry-tracking-mode))
+
 (use-package prog-mode
   :ensure nil
   :hook
