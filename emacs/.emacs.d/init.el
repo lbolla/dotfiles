@@ -44,6 +44,9 @@
 ;; (global-set-key (kbd "C-c f i") 'my/find-file-init)
 ;; (global-set-key (kbd "C-c f p") 'my/find-file-pkgs)
 
+;; Always use y/n instead of yes/no
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 (defadvice kill-buffer (around kill-buffer-around-advice activate)
   "Bury *scratch* buffer instead of killing it.
 See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#235069"
