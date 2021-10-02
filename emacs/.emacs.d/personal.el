@@ -14,7 +14,7 @@
                               (add-to-list 'org-agenda-files "~/org/programming.org")))
 
 (use-package org-ref
-  :after org-roam
+  ;; :after org-roam
   :custom
   (reftex-default-bibliography `(,(concat my/zettelkasten-directory "/bibliography/references.bib")))
   (org-ref-default-bibliography `(,(concat my/zettelkasten-directory "/bibliography/references.bib")))
@@ -24,8 +24,9 @@
 (use-package org-roam
   :custom
   (org-roam-directory my/zettelkasten-directory)
+  (org-roam-v2-ack t)
   :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
+              (("C-c n l" . org-roam-buffer-toggle)
                ("C-c n f" . org-roam-find-file)
                ("C-c n c" . org-ref-insert-link)
                ("C-c n b" . org-roam-switch-to-buffer)
@@ -37,8 +38,8 @@
     (interactive)
     (org-roam-db--clear)
     (org-roam-db-build-cache))
-  (require 'org-ref)
-  (org-roam-mode))
+  ;; (require 'org-ref)
+  (org-roam-setup))
 
 (provide 'personal)
 
