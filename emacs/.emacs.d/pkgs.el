@@ -1033,6 +1033,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
       nil)))
 
 (use-package poetry
+  :custom
+  (poetry-tracking-strategy 'projectile)
   :hook (python-mode . poetry-tracking-mode))
 
 (use-package prog-mode
