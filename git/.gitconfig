@@ -6,9 +6,9 @@
 	# bigfilethreshold = 200K
 [pager]
         # See https://veronneau.org/a-better-git-diff.html
-        log = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRSX
-        show = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRSX
-        diff = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRSX
+        # log = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRSX
+        # show = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRSX
+        # diff = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRSX
 [user]
         name = Lorenzo Bolla
         email = code@lbolla.info
@@ -37,8 +37,9 @@
 	# glog = log --pretty=format:'%C(green)%h %C(yellow)[%ad]%C(red)%d %C(reset)%s%C(blue) [%an] %C(black)%G?' --decorate --date=iso --graph
 	glog = log --pretty=format:'%C(green)%h %C(yellow)[%ad]%C(blue) [%<(15,trunc)%an] %C(white dim)%G?%C(red)%d %C(reset)%s' --decorate --date=iso --graph
         log1 = log --pretty=oneline
-# [diff]
-# 	tool = meld
+[diff]
+	tool = meld
+	# tool = vimdiff
 # [merge]
 # 	tool = emerge
 # [diff "mwbdiff"]
@@ -69,6 +70,8 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+[github]
+	user = lbolla
 [includeIf "gitdir:~/src/github.com/lbolla/"]
         path = .gitconfig-github.com-lbolla
 [includeIf "gitdir:~/src/github.com/yougov/"]
@@ -77,5 +80,3 @@
         path = .gitconfig-yougov
 [includeIf "gitdir:~/src/*.roche.com/"]
         path = .gitconfig-roche
-[github]
-	user = lbolla
