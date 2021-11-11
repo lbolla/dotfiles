@@ -24,6 +24,8 @@
 	followTags = true
 [rebase]
         autoSquash = true
+# [submodule]
+# 	recurse = true
 [log]
 	decorate = full
 	# showSignature = true
