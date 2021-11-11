@@ -181,6 +181,7 @@
   :ensure nil
   :custom
   (custom-safe-themes t)
+  (enable-recursive-minibuffers t)  ;; https://www.masteringemacs.org/article/executing-shell-commands-emacs
   (gc-cons-threshold 100000000))
 
 (use-package cython-mode
@@ -376,9 +377,7 @@
     :demand t
     :after (evil org)
     :hook
-    (org-mode . evil-org-mode)
-    (evil-org-mode . (lambda ()
-                       (evil-org-set-key-theme)))))
+    (org-mode . evil-org-mode)))
 
 (unless my/lesser-evil
   (use-package evil-org-agenda
@@ -507,13 +506,13 @@
     (toggle-frame-fullscreen)))
 
 (use-package go-mode
-  ;; :custom
-  ;; (godef-command "~/src/go/bin/godef")
+  :custom
+  (godoc-at-point-function #'godoc-gogetdoc)
   :hook
   (before-save . gofmt-before-save)
   (go-mode . (lambda ()
                (require 'lsp-go)
-               (evil-define-key 'normal go-mode-map (kbd "K") 'godoc))))
+               (evil-define-key 'normal go-mode-map (kbd "K") 'godoc-at-point))))
 
 (use-package haskell-mode
   :hook
@@ -1178,11 +1177,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :ensure nil
   :custom
   (world-clock-list '(("UTC" "UTC/GMT/Zulu")
-                      ("America/Los_Angeles" "palmcal")
-                      ("America/New_York" "fesh")
-                      ("America/Lima" "mbc")
-                      ("America/Sao_Paulo" "diogo")
-                      ("IST-5:30" "shashikant")
+                      ;; ("America/Los_Angeles" "palmcal")
+                      ;; ("America/New_York" "fesh")
+                      ;; ("America/Lima" "mbc")
+                      ;; ("America/Sao_Paulo" "diogo")
+                      ;; ("IST-5:30" "shashikant")
                       ("America/Los_Angeles" "Palo Alto")
                       ("America/Mexico_City" "Mexico City")
                       ("America/Lima" "Lima")
@@ -1190,6 +1189,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                       ("America/Montreal" "Montreal")
                       ("America/Sao_Paulo" "Sao Paulo")
                       ("Europe/London" "London")
+                      ("Europe/Zurich" "Zurich")
                       ("Europe/Rome" "Rome")
                       ("Europe/Moscow" "Moscow")
                       ("Asia/Jakarta" "Jakarta")
