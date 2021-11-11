@@ -6,6 +6,7 @@ alias -g SN="| sort -n"
 alias -g U="| sort | uniq -c"
 alias -g UN="| sort -n | uniq -c"
 
+alias find-dangling-links="find . -xtype l"
 alias docker-dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 alias docker-dockivz-images-tree="docker-dockviz images -t -l"
 alias docker-dive="docker run --pull always --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest"
