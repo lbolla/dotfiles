@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: if_main
+# name: if main
 # key: ifm
 # --
+
 if __name__ == '__main__':
-    main()
+    ${1:main}()
