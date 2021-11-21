@@ -41,7 +41,10 @@
   ;; (require 'org-ref)
   (org-roam-setup))
 
-(use-package zig-mode)
+(use-package zig-mode
+  :hook (zig-mode . (lambda ()
+                      (require 'lsp-zig)
+                      (setq lsp-zig-zls-executable "/opt/zls-0.1.0/zls"))))
 
 (provide 'personal)
 
