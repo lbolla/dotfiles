@@ -41,6 +41,8 @@
   ;; (require 'org-ref)
   (org-roam-setup))
 
+(use-package zig-mode)
+
 (provide 'personal)
 
 ;;; personal.el ends here

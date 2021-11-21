@@ -1310,8 +1310,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package yasnippet-snippets)
 
-(use-package zig-mode)
-
 (use-package zoom-window)
 
 (provide 'pkgs)
