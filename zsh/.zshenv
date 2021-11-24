@@ -31,6 +31,7 @@ export HELM_V3_CONFIG=$HOME/.helm3
 export HELM_V3_DATA=$PWD/.helm3-data
 export NVM_LAZY=1
 # export KUBE_PS1_ENABLED=true
+export REPORTTIME=3
 
 # Enable Erlang shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
