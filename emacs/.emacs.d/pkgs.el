@@ -942,9 +942,9 @@
   :hook
   (org-mode . auto-fill-mode)
   (org-mode . flyspell-mode)
-  (org-agenda-mode . (lambda ()
-                       (add-hook 'auto-save-hook 'org-save-all-org-buffers nil t)
-                       (auto-save-mode)))
+  ;; (org-agenda-mode . (lambda ()
+  ;;                      (add-hook 'auto-save-hook 'org-save-all-org-buffers nil t)
+  ;;                      (auto-save-mode)))
 
   :bind
   ;; From https://orgmode.org/manual/Activation.html#Activation
@@ -956,6 +956,7 @@
   :config
   (require 'org-habit)  ;; Otherwise habits are not rendered in org-agenda
   (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
   (defface org-wait '((t (:inherit org-todo :foreground "goldenrod"))) "Face used for waiting tasks." :group 'org-faces)
   (defface org-revw '((t (:inherit org-todo :foreground "gold"))) "Face used for review tasks." :group 'org-faces)
