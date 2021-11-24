@@ -942,6 +942,9 @@
   :hook
   (org-mode . auto-fill-mode)
   (org-mode . flyspell-mode)
+  (org-agenda-mode . (lambda ()
+                       (add-hook 'auto-save-hook 'org-save-all-org-buffers nil t)
+                       (auto-save-mode)))
 
   :bind
   ;; From https://orgmode.org/manual/Activation.html#Activation
