@@ -49,3 +49,4 @@ _obsolete/
 /emacs/.emacs.d/org-roam.db
 /emacs/.emacs.d/projects
 /systemd/.config/systemd/user/protonvpn_reconnect.service
+/oh-my-zsh/.oh-my-zsh/custom/themes/powerlevel10k/
