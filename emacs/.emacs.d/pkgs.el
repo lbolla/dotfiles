@@ -800,7 +800,12 @@
   (org-deadline-warning-days 30)
   (org-default-notes-file "~/org/refile.org")
   (org-priority-default 68)
-  (org-export-backends '(ascii html icalendar latex odt confluence))
+  (org-export-backends '(ascii
+                         ;; confluence  ;; requires org-contrib
+                         html
+                         icalendar
+                         latex
+                         odt))
   (org-fast-tag-selection-single-key t)
   (org-fontify-quote-and-verse-blocks  t)
   (org-fontify-whole-heading-line t)
