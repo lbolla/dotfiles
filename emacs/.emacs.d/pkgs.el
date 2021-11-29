@@ -9,10 +9,11 @@
 
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")
         ("gnu" . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
         ;; ("marmalade" . "https://marmalade-repo.org/packages/")
         ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ;; ("org" . "https://orgmode.org/elpa/")
         ;; ("sc" . "https://joseito.republika.pl/sunrise-commander/")
         ))
 
@@ -723,11 +724,6 @@
         ("TAB" . hs-toggle-hiding)))
 
 (use-package org
-  ;; Install from Org's elpa
-  ;; :load-path "~/src/code.orgmode.org/bzg/org-mode/lisp/"
-  ;; :load-path "/usr/share/emacs/site-lisp/org/"
-
-  :ensure org-plus-contrib
   :demand t
   :after evil
 
@@ -784,7 +780,7 @@
   ;; (org-archive-location "%s_archive::* Archived Tasks")
   (org-babel-load-languages
    '((emacs-lisp . t)
-     (ledger . t)
+     ;; (ledger . t)  ;; needs org-contrib
      (shell . t)
      (sql . t)
      (python . t)))
