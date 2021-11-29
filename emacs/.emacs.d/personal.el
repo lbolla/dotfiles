@@ -13,6 +13,15 @@
                               (add-to-list 'org-agenda-files "~/org/personal.org")
                               (add-to-list 'org-agenda-files "~/org/programming.org")))
 
+(use-package nim-mode
+  :hook
+  (numsuggest-mode . company-mode)
+  ;; (numsuggest-mode . flycheck-mode)
+  (nimsuggest-mode . flycheck-nimsuggest-setup)
+  (nim-mode . nimsuggest-mode)
+  :init
+  (append-to-path '("~/.nimble/bin")))
+
 (use-package org-ref
   ;; :after org-roam
   :custom

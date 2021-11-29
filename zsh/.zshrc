@@ -14,6 +14,7 @@ fi
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 PATHS=(
     "${HOME}/.cache/rebar3/bin"
+    "${HOME}/.nimble/bin"
     "${HOME}/perl5/bin"
     "${HOME}/.poetry/bin"
     "/opt/apache-maven-3.6.3/bin"
