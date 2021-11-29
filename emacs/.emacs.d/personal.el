@@ -39,7 +39,9 @@
     (org-roam-db--clear)
     (org-roam-db-build-cache))
   ;; (require 'org-ref)
-  (org-roam-setup))
+  :init
+  (setq org-roam-v2-ack t)
+  (org-roam-db-autosync-mode))
 
 (use-package zig-mode
   :hook (zig-mode . (lambda ()
