@@ -12,7 +12,34 @@
 (defvar org-agenda-files)
 (defvar org-link-abbrev-alist)
 
+(use-package csharp-mode
+  :mode (((rx ".csproj" eos) . xml-mode)))
+
+(defun roche-gitlab-object-url (tag)
+  "Generate a Roche GitLab OBJECT url for TAG."
+  (gitlab-object-url "https://code.roche.com/" tag))
+
 (use-package dpkg-dev-el)
+
+(use-package exec-path-from-shell
+  :custom
+  (exec-path-from-shell-shell-name "/usr/bin/zsh")
+  (exec-path-from-shell-variables '("GOPATH"
+                                    "GO111MODULE"
+                                    "RIPGREP_CONFIG_PATH"
+                                    "WORKON_HOME"))
+  :init
+  (exec-path-from-shell-initialize))
+
+(use-package flycheck-checkbashisms
+  :after flycheck
+  :hook
+  (flycheck-mode . flycheck-checkbashisms-setup))
+
+(add-to-list 'org-mode-hook (lambda ()
+                              (add-to-list 'org-link-abbrev-alist '("GL" . roche-gitlab-object-url))
+                              (add-to-list 'org-link-abbrev-alist '("BB" . roche-bitbucket-object-url))
+                              (add-to-list 'org-agenda-files "~/org/roche.org")))
 
 (use-package forge
   :after magit
@@ -27,21 +54,6 @@
   :load-path "~/src/github.com/lbolla/ivy-virtualbox/"
   :bind
   ("C-c v v" . ivy-virtualbox))
-
-(use-package exec-path-from-shell
-  :custom
-  (exec-path-from-shell-shell-name "/usr/bin/zsh")
-  (exec-path-from-shell-variables '("GOPATH"
-                                    "GO111MODULE"
-                                    "RIPGREP_CONFIG_PATH"
-                                    "WORKON_HOME"))
-  :init
-  (exec-path-from-shell-initialize))
-
-(add-to-list 'org-mode-hook (lambda ()
-                              (add-to-list 'org-link-abbrev-alist '("GL" . roche-gitlab-object-url))
-                              (add-to-list 'org-link-abbrev-alist '("BB" . roche-bitbucket-object-url))
-                              (add-to-list 'org-agenda-files "~/org/roche.org")))
 
 (use-package mu4e
   :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
@@ -136,23 +148,15 @@
   (smtpmail-mail-address roche-smtp-user)
   (smtpmail-stream-type 'starttls))
 
+(use-package terraform-mode
+  :hook
+  (terraform-mode . terraform-format-on-save-mode))
+
 (use-package typescript-mode
   :mode (((rx "ts" eos) . typescript-mode))
   :hook
   (typescript-mode . (lambda ()
                        (require 'lsp-javascript))))
-
-(use-package flycheck-checkbashisms
-  :after flycheck
-  :hook
-  (flycheck-mode . flycheck-checkbashisms-setup))
-
-(use-package csharp-mode
-  :mode (((rx ".csproj" eos) . xml-mode)))
-
-(defun roche-gitlab-object-url (tag)
-  "Generate a Roche GitLab OBJECT url for TAG."
-  (gitlab-object-url "https://code.roche.com/" tag))
 
 (defun roche-bitbucket--build-url (tag what)
   "Build a url for a given TAG and WHAT."
