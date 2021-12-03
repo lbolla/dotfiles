@@ -17,11 +17,6 @@
   (when (< emacs-minor-version 3)
     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))
 
-;; Store all customizations in custom file
-(setq custom-file "~/.emacs.d/custom.el")
-(when (file-exists-p custom-file)
-  (load custom-file))
-
 ;; Environmental variables
 (setenv "INSIDE_EMACS" "1")
 
@@ -85,13 +80,6 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 ;; For local customizations
 (when (file-exists-p "~/.emacs.d/local.el")
   (require 'local "~/.emacs.d/local.el"))
-
-;; Optimizations
-;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
-;; (setq auto-window-vscroll nil)
-
-;; Theme
-;; (my/switch-theme 'modus-vivendi)
 
 (provide 'init)
 ;;; init.el ends here

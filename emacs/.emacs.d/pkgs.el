@@ -173,17 +173,26 @@
   (csv-mode . (lambda ()
                  (variable-pitch-mode 0))))
 
-;; TODO https://www.reddit.com/r/emacs/comments/g46sg2/a_solution_to_the_agony_of_customsetvariables_and/
-;; (use-package cus-edit
-;;   :custom
-;;   (custom-file null-device "Don't store customizations"))
+(use-package cus-edit
+  :ensure nil
+  :custom
+  (custom-file null-device "Don't store customizations"))
 
 (use-package custom
   :ensure nil
   :custom
   (custom-safe-themes t)
   (enable-recursive-minibuffers t)  ;; https://www.masteringemacs.org/article/executing-shell-commands-emacs
-  (gc-cons-threshold 100000000))
+  (gc-cons-threshold 100000000)
+  (line-spacing 0.2)
+  (safe-local-variable-values
+   '((flycheck-pycheckers-max-line-length . 130)))
+  :init
+  (custom-set-faces
+   '(default ((t (:family "Iosevka" :weight light :height 120))))
+   '(fixed-pitch ((t (:family "Iosevka" :height 120))))
+   '(fixed-pitch-serif ((t (:family "FreeMono" :height 120))))
+   '(variable-pitch ((t (:family "Gentium" :height 140))))))
 
 (use-package cython-mode
   :after evil
