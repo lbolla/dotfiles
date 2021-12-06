@@ -164,7 +164,10 @@
 
 (use-package counsel
   :bind*
-  ("M-x" . counsel-M-x))
+  ;; ("M-x" . counsel-M-x)
+  ("C-c t" . counsel-load-theme)
+  :init
+  (counsel-mode))
 
 (use-package css-mode
   :mode ((rx ".scss" eos))
