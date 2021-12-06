@@ -53,8 +53,12 @@
   :init
   (auto-insert-mode t))
 
+;; TODO see https://karthinks.com/software/avy-can-do-anything/
 (use-package avy
-  :bind* (("C-c ;" . avy-goto-char-timer)))
+  :bind* (("C-c ;" . avy-goto-char-timer)
+          ("C-;" . avy-goto-char-timer))
+  :init
+  (avy-setup-default))
 
 (use-package browse-url
   :ensure nil
@@ -1086,9 +1090,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
   (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
   :hook
-  (python-mode . hs-minor-mode)
-  (python-mode . (lambda ()
-                   (set-whitespace-line-column 79))))
+  (python-mode . hs-minor-mode))
+  ;; (python-mode . (lambda ()
+  ;;                  (set-whitespace-line-column 79)))
 
 (use-package pyvenv
   :init
