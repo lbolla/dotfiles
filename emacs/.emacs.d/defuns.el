@@ -291,12 +291,6 @@
   (interactive "P")
   (python--run-in-new-buffer "python-modernize" (if inplace "-nw " "") "*modernize*"))
 
-(defun python-indent-jaraco ()
-  "Set jaraco-style indentation."
-  (interactive)
-  (python-indent-guess-indent-offset)
-  (setq indent-tabs-mode t))
-
 (defun python-pyformat-buffer ()
   "Run pyformat on current buffer."
   (interactive)

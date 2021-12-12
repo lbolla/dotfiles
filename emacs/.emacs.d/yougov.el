@@ -138,6 +138,12 @@
                          ;;   (switch-to-buffer-other-window (current-buffer)))
                          ))))))
 
+(defun python-indent-jaraco ()
+  "Set jaraco-style indentation."
+  (interactive)
+  (python-indent-guess-indent-offset)
+  (setq indent-tabs-mode t))
+
 (add-to-list 'org-mode-hook (lambda ()
                               (add-to-list 'org-link-abbrev-alist `("FB" . ,(concat yg-fogbugz-url "/f/cases/%h")))
                               (add-to-list 'org-link-abbrev-alist `("BSD" . ,(concat yg-jira-url "/browse/BSD-%h")))
