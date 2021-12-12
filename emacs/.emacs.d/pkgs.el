@@ -65,28 +65,6 @@
   :custom
   (browse-url-browser-function 'browse-url-xdg-open))
 
-(use-package calfw
-  :commands (cfw:open-calendar-buffer)
-  :bind
-  ("C-c o k" . lbolla/open-calendar)
-  :config
-  (use-package calfw-org
-    :commands (cfw:open-org-calendar cfw:org-create-source)
-    :config
-    ;; (setq cfw:org-agenda-schedule-args '(:timestamp :scheduled* deadline*))
-    (setq cfw:org-agenda-schedule-args nil))
-  (use-package calfw-cal
-    :commands (cfw:open-diary-calendar cfw:cal-create-source))
-  (defun lbolla/open-calendar ()
-    "Open a calendar view."
-    (interactive)
-    (cfw:open-calendar-buffer
-     :contents-sources
-     (list
-      (cfw:org-create-source)  ; orgmode source
-      (cfw:cal-create-source "Orange") ; diary source
-      ))))
-
 (use-package cc-mode
   :ensure nil
   :hook
@@ -153,15 +131,6 @@
   (conf-mode . (lambda ()
                  (modify-syntax-entry ?\_ "w"))))
 
-(use-package copy-as-format
-  :bind
-  ("C-c w j" . copy-as-format-jira)
-  ("C-c w s" . copy-as-format-slack)
-  ("C-c w w" . (lambda ()
-                 (interactive)
-                 (let ((current-prefix-arg 4))
-                   (copy-as-format)))))
-
 (use-package counsel
   :bind*
   ;; ("M-x" . counsel-M-x)
@@ -180,14 +149,10 @@
   (csv-mode . (lambda ()
                  (variable-pitch-mode 0))))
 
-(use-package cus-edit
-  :ensure nil
-  :custom
-  (custom-file null-device "Don't store customizations"))
-
 (use-package custom
   :ensure nil
   :custom
+  (custom-file null-device "Don't store customizations")
   (custom-safe-themes t)
   (enable-recursive-minibuffers t)  ;; https://www.masteringemacs.org/article/executing-shell-commands-emacs
   (gc-cons-threshold 100000000)
@@ -205,33 +170,6 @@
   :after evil
   :config
   (evil-define-key 'normal cython-mode-map (kbd ",a") 'cython-show-annotated))
-
-; https://gitlab.com/skybert/my-little-friends/blob/master/emacs/.emacs#L780
-(use-package dap-java
-  :ensure nil
-  :after lsp-java
-  :bind
-  ("C-c d d" . dap-java-debug))
-
-;; https://emacs-lsp.github.io/dap-mode/
-(use-package dap-mode
-  :bind
-  ;; ("C-c d d" . dap-debug)
-  ;; ("C-c d s" . dap-step-in)
-  ;; ("C-c d r" . dap-step-out)
-  ;; ("C-c d n" . dap-next)
-  ;; ("C-c d c" . dap-continue)
-  ("C-c d B" . dap-breakpoint-delete-all)
-  ("C-c d b" . dap-breakpoint-toggle)
-  :hook
-  (dap-stopped . (lambda (arg) (call-interactively #'dap-hydra))))
-
-(use-package deft
-  :bind
-  ("C-c n d" . deft)
-  :custom
-  (deft-directory my/zettelkasten-directory)
-  (deft-extensions '("org" "txt" "md")))
 
 (use-package delsel
   :ensure nil
@@ -307,9 +245,11 @@
   (ess-mode . (lambda ()
                  (modify-syntax-entry ?\_ "w"))))
 
+;; Startup profiler
 (use-package esup
   :disabled t)
 
+;; TODO remove for tab-mode
 (use-package eyebrowse
   ;; :demand t
   :custom
@@ -382,21 +322,18 @@
     :demand t
     :after evil
     :config
-    (evil-collection-init)))
+    (evil-collection-init))
 
-(unless my/lesser-evil
   (use-package evil-nerd-commenter
     :demand t
-    :after evil))
+    :after evil)
 
-(unless my/lesser-evil
   (use-package evil-org
     :demand t
     :after (evil org)
     :hook
-    (org-mode . evil-org-mode)))
+    (org-mode . evil-org-mode))
 
-(unless my/lesser-evil
   (use-package evil-org-agenda
     :ensure nil  ;; Part of evil-org
     :demand t
@@ -415,8 +352,7 @@
   :ensure nil
   :custom
   (backup-directory-alist '(("." . "~/.emacs.d/backups")))
-  (delete-old-versions t)
-  (indent-tabs-mode nil))
+  (delete-old-versions t))
 
 (use-package fill
   :ensure nil
@@ -709,13 +645,7 @@
   :custom
   (mouse-yank-at-point t))
 
-(use-package nim-mode
-  :disabled t
-  :hook
-  (nim-mode . nimsuggest-mode)
-  (nimsuggest-mode . (lambda ()
-                       (evil-define-key 'normal nimsuggest-mode-map (kbd "K") 'nimsuggest-show-doc)
-                       (evil-define-key 'normal nimsuggest-mode-map (kbd "M-.") 'nimsuggest-find-definition))))
+(use-package nim-mode)
 
 (use-package nsm
   :ensure nil
@@ -1064,15 +994,25 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                  ;; Underscore is part of a word
                  (modify-syntax-entry ?\_ "w"))))
 
+(use-package project
+  :ensure nil
+  :config
+  (add-to-list 'project-switch-commands '(magit-status "Magit status" "m"))
+  (add-to-list 'project-switch-commands '(rg-project "Ripgrep" "r")))
+
 (use-package projectile
   :custom
-  (projectile-after-switch-project-hook '(my/eyebrowse-name-from-project projectile-vc))
+  ;; TODO get rid of eyebrowse
+  ;; (projectile-after-switch-project-hook '(my/eyebrowse-name-from-project projectile-vc))
+  (projectile-after-switch-project-hook '(my/tab-name-from-project projectile-vc))
   (projectile-globally-ignored-directories
    '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
      ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist"
      ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
   (projectile-globally-ignored-file-suffixes '("pyc" "beam"))
   (projectile-switch-project-action 'projectile-dired)
+  ;; :bind
+  ;; ("C-x t p" . my/projectile-switch-project-new-tab)
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   :init
@@ -1106,6 +1046,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (recentf-max-saved-items nil))
 
+(use-package repeat
+  :ensure nil
+  :config
+  (repeat-mode t))
+
 (use-package rg
   :bind
   ("C-c r G" . my/rg-dwim-project-dir)
@@ -1137,7 +1082,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                 (auto-fill-mode t))))
 
 (use-package rust-mode
-  :after evil
   :hook
   (rust-mode . hs-minor-mode)
   :custom
@@ -1174,7 +1118,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 (use-package simple
   :ensure nil
   :custom
-  (column-number-mode t))
+  (column-number-mode t)
+  (indent-tabs-mode nil))
 
 (use-package startup
   :ensure nil
@@ -1235,6 +1180,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (tramp-default-method "ssh"))
 
+;; https://github.com/Alexander-Miller/treemacs
 (use-package treemacs
   :config
   (treemacs-filewatch-mode t)
@@ -1242,15 +1188,15 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (treemacs-fringe-indicator-mode 'always)
   (treemacs-git-mode -1)
   (treemacs-tag-follow-mode -1)
-  :bind
-  (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ;; ("C-x t 1"   . treemacs-delete-other-windows)
-        ;; ("C-x t t"   . treemacs)
-        ("C-x t t"   . treemacs-display-current-project-exclusively)
-        ;; ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag))
+  ;; :bind
+  ;; (:map global-map
+  ;;       ("M-0"       . treemacs-select-window)
+  ;;       ;; ("C-x t 1"   . treemacs-delete-other-windows)
+  ;;       ;; ("C-x t t"   . treemacs)
+  ;;       ("C-x t t"   . treemacs-display-current-project-exclusively)
+  ;;       ;; ("C-x t B"   . treemacs-bookmark)
+  ;;       ("C-x t C-t" . treemacs-find-file)
+  ;;       ("C-x t M-t" . treemacs-find-tag))
   :hook
   (treemacs-mode . (lambda () (setq cursor-in-non-selected-windows nil))))
 
@@ -1259,9 +1205,10 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package treemacs-projectile
   :after (treemacs projectile)
-  :bind
-  (:map global-map
-        ("C-x t p"   . treemacs-projectile)))
+  ;; :bind
+  ;; (:map global-map
+  ;;       ("C-x t p"   . treemacs-projectile))
+  )
 
 (use-package vc-hooks
   :ensure nil
@@ -1295,8 +1242,14 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (web-mode . (lambda ()
                  (modify-syntax-entry ?\- "w"))))
 
+(use-package which-func
+  :ensure nil
+  :config
+  (which-function-mode t))
+
 (use-package which-key
-  :init (which-key-mode))
+  :init
+  (which-key-mode))
 
 (use-package whitespace
   :ensure nil

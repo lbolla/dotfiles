@@ -13,6 +13,13 @@
                               (add-to-list 'org-agenda-files "~/org/personal.org")
                               (add-to-list 'org-agenda-files "~/org/programming.org")))
 
+(use-package deft
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-directory my/zettelkasten-directory)
+  (deft-extensions '("org" "txt" "md")))
+
 (use-package nim-mode
   :hook
   (numsuggest-mode . company-mode)

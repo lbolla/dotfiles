@@ -27,7 +27,7 @@
 (global-set-key (kbd "C-x 3") 'my/split-window-right-and-switch-buffer)
 ;; (global-set-key (kbd "C-x n") 'narrow-or-widen-dwim)
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;; (global-set-key (kbd "C-x C-b") 'ibuffer)
 ;; (global-set-key (kbd "C-c e") 'eshell)
 ;; (global-set-key (kbd "C-c f") 'variable-pitch-mode)
 ;; (global-set-key (kbd "C-c t c") 'my/switch-theme)

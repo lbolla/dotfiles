@@ -41,6 +41,37 @@
   :init (progn
           ))
 
+(use-package calfw
+  :commands (cfw:open-calendar-buffer)
+  :bind
+  ("C-c o k" . lbolla/open-calendar)
+  :config
+  (use-package calfw-org
+    :commands (cfw:open-org-calendar cfw:org-create-source)
+    :config
+    ;; (setq cfw:org-agenda-schedule-args '(:timestamp :scheduled* deadline*))
+    (setq cfw:org-agenda-schedule-args nil))
+  (use-package calfw-cal
+    :commands (cfw:open-diary-calendar cfw:cal-create-source))
+  (defun lbolla/open-calendar ()
+    "Open a calendar view."
+    (interactive)
+    (cfw:open-calendar-buffer
+     :contents-sources
+     (list
+      (cfw:org-create-source)  ; orgmode source
+      (cfw:cal-create-source "Orange") ; diary source
+      ))))
+
+(use-package copy-as-format
+  :bind
+  ("C-c w j" . copy-as-format-jira)
+  ("C-c w s" . copy-as-format-slack)
+  ("C-c w w" . (lambda ()
+                 (interactive)
+                 (let ((current-prefix-arg 4))
+                   (copy-as-format)))))
+
 (use-package elpy
   :after python
   :diminish
@@ -95,6 +126,26 @@
 
 (use-package clojure-mode
   :disabled t)
+
+; https://gitlab.com/skybert/my-little-friends/blob/master/emacs/.emacs#L780
+(use-package dap-java
+  :ensure nil
+  :after lsp-java
+  :bind
+  ("C-c d d" . dap-java-debug))
+
+;; https://emacs-lsp.github.io/dap-mode/
+(use-package dap-mode
+  :bind
+  ;; ("C-c d d" . dap-debug)
+  ;; ("C-c d s" . dap-step-in)
+  ;; ("C-c d r" . dap-step-out)
+  ;; ("C-c d n" . dap-next)
+  ;; ("C-c d c" . dap-continue)
+  ("C-c d B" . dap-breakpoint-delete-all)
+  ("C-c d b" . dap-breakpoint-toggle)
+  :hook
+  (dap-stopped . (lambda (arg) (call-interactively #'dap-hydra))))
 
 (use-package disaster
   :config

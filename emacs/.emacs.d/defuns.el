@@ -8,7 +8,7 @@
 (defcustom my/mu4e-get-mail-command "mbsync -a"
   "Shell command to run to retrieve email manually." :group 'Mu4e)
 
-(defcustom my/lesser-evil nil
+(defcustom my/lesser-evil t
   "Only load minimal evil configuration." :group 'local)
 
 (defcustom my/fonts '(
@@ -335,6 +335,16 @@
   "Switch to project in a new eyebrowse slot."
   (interactive)
   (eyebrowse-create-window-config)
+  (projectile-switch-project))
+
+(defun my/tab-name-from-project ()
+  "Name tab bar after current project."
+  (tab-bar-rename-tab (projectile-project-name)))
+
+(defun my/projectile-switch-project-new-tab ()
+  "Switch to project in a new tab."
+  (interactive)
+  (tab-bar-new-tab-to -1)
   (projectile-switch-project))
 
 (defun lbolla.info/org-publish-sitemap-format-entry (entry style project)

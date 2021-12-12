@@ -46,8 +46,6 @@
   :config
   (add-to-list 'forge-alist '("ssh.code.roche.com" "code.roche.com/api/v4" "code.roche.com" forge-gitlab-repository)))
 
-(use-package go-mode)
-
 (use-package groovy-mode)
 
 (use-package ivy-virtualbox
