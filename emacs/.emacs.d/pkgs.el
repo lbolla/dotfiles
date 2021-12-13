@@ -998,7 +998,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :ensure nil
   :config
   (add-to-list 'project-switch-commands '(magit-status "Magit status" "m"))
-  (add-to-list 'project-switch-commands '(rg-project "Ripgrep" "r")))
+  (add-to-list 'project-switch-commands '(rg-project "Ripgrep" "r"))
+  (advice-add 'project-switch-project :after (lambda (dir) (my/tab-name-from-project))))
 
 (use-package projectile
   :custom
@@ -1128,7 +1129,14 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package swiper
   :bind
-  ("C-s" . swiper))
+  ("C-s" . swiper)
+  ("C-c s" . swiper-thing-at-point))
+
+(use-package tab-bar
+  :ensure nil
+  :custom
+  (tab-bar-tab-hints t)
+  (tab-bar-select-tab-modifiers '(control)))
 
 (use-package text-mode
   :ensure nil
