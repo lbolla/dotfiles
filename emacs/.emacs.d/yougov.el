@@ -18,7 +18,7 @@
 
 (defun yg-gitlab-object-url (tag)
   "Generate a YG GitLab OBJECT url for TAG."
-  (gitlab-object-url "https://gitlab.yougov.net/" tag))
+  (my/gitlab-object-url "https://gitlab.yougov.net/" tag))
 
 (defun yg-fogbugz-cli ()
   "Open FogBugz command line interface."

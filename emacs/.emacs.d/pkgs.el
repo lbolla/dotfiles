@@ -81,7 +81,7 @@
   ;; (add-hook 'before-save-hook 'c-indent)
   ;; (add-hook 'cc-mode-hook
   ;;           (lambda ()
-  ;;             (evil-define-key 'normal cc-mode-map (kbd ",h") 'cppref-search)))
+  ;;             (evil-define-key 'normal cc-mode-map (kbd ",h") 'my/cppref-search)))
   ;; Style used in the C++ Programming Language book
   (c-add-style "stroustrup-book"
                '("stroustrup"
@@ -160,6 +160,7 @@
   (safe-local-variable-values
    '((flycheck-pycheckers-max-line-length . 130)))
   :init
+  (add-hook 'kill-buffer-query-functions 'my/unkillable-scratch-buffer)
   (custom-set-faces
    '(default ((t (:family "Iosevka" :weight light :height 120))))
    '(fixed-pitch ((t (:family "Iosevka" :height 120))))
@@ -168,8 +169,8 @@
 
 (use-package cython-mode
   :init
-  (maybe-with-evil
-   (evil-define-key 'normal cython-mode-map (kbd ",a") 'cython-show-annotated)))
+  (my/maybe-with-evil
+   (evil-define-key 'normal cython-mode-map (kbd ",a") 'my/cython-show-annotated)))
 
 (use-package delsel
   :ensure nil
@@ -271,7 +272,7 @@
 
   :custom
   (evil-default-state (if my/lesser-evil 'emacs 'normal))
-  (evil-lookup-func 'man-at-point)
+  (evil-lookup-func 'my/man-at-point)
   (evil-undo-system 'undo-redo)
   (evil-want-C-i-jump nil)  ;; Or it masks <TAB> in non-graphical mode
   (evil-want-C-w-in-emacs-state (not my/lesser-evil))
@@ -551,7 +552,7 @@
   :config
   ;; From https://emacs-lsp.github.io/lsp-mode/page/performance/
   (setq read-process-output-max (* 1024 1024))
-  (maybe-with-evil
+  (my/maybe-with-evil
    (evil-define-key 'normal prog-mode-map (kbd "C-]") 'my/lsp-find-definition-other-window)
    (evil-define-key 'normal prog-mode-map (kbd "C-}") 'lsp-find-definition)
    (evil-define-key 'normal prog-mode-map (kbd "C-c C-]") 'lsp-find-references)
@@ -567,7 +568,7 @@
 
 (use-package lsp-haskell
   :init
-  (append-to-path '("~/.ghcup/bin")))
+  (my/append-to-path '("~/.ghcup/bin")))
 
 ;; https://emacs-lsp.github.io/lsp-java/
 (use-package lsp-java
@@ -757,7 +758,7 @@
   (org-fontify-whole-heading-line t)
   (org-html-htmlize-output-type 'css)
   (org-html-validation-link nil)
-  (org-link-abbrev-alist `(("GH" . github-object-url)))
+  (org-link-abbrev-alist `(("GH" . my/github-object-url)))
   (org-log-done 'time)
   (org-log-into-drawer t)
   (org-modules '(org-habit
@@ -899,7 +900,7 @@
 
   :config
   (require 'org-habit) ;; Otherwise habits are not rendered in org-agenda
-  (maybe-with-evil
+  (my/maybe-with-evil
    (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return))
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
@@ -1029,10 +1030,10 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
    '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)
      ("\\<\\(FIXME\\)\\>" 1 font-lock-warning-face t)
      ("\\<\\(XXX\\)\\>" 1 font-lock-warning-face t)))
-  (maybe-with-evil
-   (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
-   (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
-   (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)))
+  (my/maybe-with-evil
+   (evil-define-key 'normal python-mode-map (kbd ",b") 'my/python-insert-breakpoint)
+   (evil-define-key 'normal python-mode-map (kbd ",pi") 'my/python-insert-pylint-ignore)
+   (evil-define-key 'normal python-mode-map (kbd ",t") 'my/python-insert-type-annotation)))
 
 (use-package pyvenv
   :init
@@ -1243,7 +1244,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (web-mode . (lambda ()
                 (modify-syntax-entry ?\- "w")))
   :config
-  (maybe-with-evil
+  (my/maybe-with-evil
    (evil-define-key 'normal web-mode-map (kbd "%") 'web-mode-tag-match)
    (evil-define-key 'visual web-mode-map (kbd "%") 'web-mode-tag-match)))
 

@@ -20,19 +20,20 @@
 ;; Environmental variables
 (setenv "INSIDE_EMACS" "1")
 
-(global-set-key (kbd "<f5>") 'compile)
-(global-set-key (kbd "M-o") 'my/open-line)
-(global-set-key (kbd "M-O") 'my/open-line-above)
-(global-set-key (kbd "C-x 2") 'my/split-window-below-and-switch-buffer)
-(global-set-key (kbd "C-x 3") 'my/split-window-right-and-switch-buffer)
-;; (global-set-key (kbd "C-x n") 'narrow-or-widen-dwim)
+;; TODO Move some of these in use-package common :bind
+;; (global-set-key (kbd "<f5>") 'compile)
+;; (global-set-key (kbd "M-o") 'my/open-line)
+;; (global-set-key (kbd "M-O") 'my/open-line-above)
+;; (global-set-key (kbd "C-x 2") 'my/split-window-below-and-switch-buffer)
+;; (global-set-key (kbd "C-x 3") 'my/split-window-right-and-switch-buffer)
+;; (global-set-key (kbd "C-x n") 'my/narrow-or-widen-dwim)
 
 ;; (global-set-key (kbd "C-x C-b") 'ibuffer)
 ;; (global-set-key (kbd "C-c e") 'eshell)
 ;; (global-set-key (kbd "C-c f") 'variable-pitch-mode)
 ;; (global-set-key (kbd "C-c t c") 'my/switch-theme)
 ;; (global-set-key (kbd "C-c t t") 'modus-themes-toggle)
-(global-set-key (kbd "C-c v w") 'venv-workon-and-cdproject)
+;; (global-set-key (kbd "C-c v w") 'my/venv-workon-and-cdproject)
 ;; (global-set-key (kbd "C-c w") 'w3m)
 (global-set-key (kbd "C-c z") 'zoom-window-zoom)
 ;; (global-set-key (kbd "C-c f l") 'my/find-file-linkz)

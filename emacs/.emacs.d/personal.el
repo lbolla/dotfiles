@@ -27,7 +27,7 @@
   (nimsuggest-mode . flycheck-nimsuggest-setup)
   (nim-mode . nimsuggest-mode)
   :init
-  (append-to-path '("~/.nimble/bin")))
+  (my/append-to-path '("~/.nimble/bin")))
 
 (use-package org-ref
   ;; :after org-roam

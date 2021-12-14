@@ -7,7 +7,7 @@
 (require 'private-roche "~/Private/emacs/private-roche.el")
 
 ;; TODO nvm which node
-(append-to-path '("/home/users/bollal/.nvm/versions/node/v14.17.0/bin"))
+(my/append-to-path '("/home/users/bollal/.nvm/versions/node/v14.17.0/bin"))
 
 (defvar org-agenda-files)
 (defvar org-link-abbrev-alist)
@@ -17,7 +17,7 @@
 
 (defun roche-gitlab-object-url (tag)
   "Generate a Roche GitLab OBJECT url for TAG."
-  (gitlab-object-url "https://code.roche.com/" tag))
+  (my/gitlab-object-url "https://code.roche.com/" tag))
 
 (use-package dpkg-dev-el)
 

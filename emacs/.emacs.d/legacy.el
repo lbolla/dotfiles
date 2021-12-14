@@ -616,7 +616,7 @@
 ;;   :config
 ;;   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
 
-  ;; (define-key evil-normal-state-map (kbd ",=") 'c-indent)
+  ;; (define-key evil-normal-state-map (kbd ",=") 'my/c-indent)
 
 ;; (global-set-key (kbd "C-c f h")
 ;;                 (lambda ()
