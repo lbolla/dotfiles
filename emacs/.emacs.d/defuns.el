@@ -344,6 +344,10 @@ Position the cursor at it's beginning, according to the current mode."
   "Sckip org trees that are not scheduled."
   (org-agenda-skip-entry-if 'scheduled 'deadline))
 
+(defun my/project-short-name ()
+  "Return the project name in short form."
+  (file-name-nondirectory (directory-file-name (project-root (project-current t)))))
+
 (defun my/projectile-switch-project-new-tab ()
   "Switch to project in a new tab."
   (interactive)
@@ -442,7 +446,8 @@ Position the cursor at it's beginning, according to the current mode."
 
 (defun my/tab-name-from-project ()
   "Name tab bar after current project."
-  (tab-bar-rename-tab (projectile-project-name)))
+  ;; (tab-bar-rename-tab (projectile-project-name))
+  (tab-bar-rename-tab (my/project-short-name)))
 
 (defun my/true-color-p ()
   "Return non-nil on displays that support 256 colors."
@@ -461,17 +466,19 @@ Position the cursor at it's beginning, according to the current mode."
   (interactive
    (list
     (completing-read "Work on: "
-                     (progn
-                       (pyvenv-virtualenv-list))
+                     (pyvenv-virtualenv-list)
                      nil t nil 'pyvenv-workon-history nil nil)))
   (pyvenv-workon venv)
   (let ((dir (my/venv-get-proj-dir)))
     (when (not (string-equal (getenv "HOME") dir))
       (delete-other-windows)
       (dired dir)
-      (ignore-errors
-        (projectile-switch-project-by-name dir))
-      (other-window 1))))
+      ;; (ignore-errors
+      ;;   (projectile-switch-project-by-name dir))
+      ;; (other-window 1)
+      (let ((project-switch-commands 'magit-status))
+        (ignore-errors
+          (project-switch-project dir))))))
 
 ;; From https://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
 (defun my/narrow-or-widen-dwim (p)

@@ -35,7 +35,7 @@
 ;; (global-set-key (kbd "C-c t t") 'modus-themes-toggle)
 ;; (global-set-key (kbd "C-c v w") 'my/venv-workon-and-cdproject)
 ;; (global-set-key (kbd "C-c w") 'w3m)
-(global-set-key (kbd "C-c z") 'zoom-window-zoom)
+;; (global-set-key (kbd "C-c z") 'zoom-window-zoom)
 ;; (global-set-key (kbd "C-c f l") 'my/find-file-linkz)
 ;; (global-set-key (kbd "C-c f i") 'my/find-file-init)
 ;; (global-set-key (kbd "C-c f p") 'my/find-file-pkgs)

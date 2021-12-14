@@ -159,6 +159,8 @@
   (line-spacing 0.2)
   (safe-local-variable-values
    '((flycheck-pycheckers-max-line-length . 130)))
+  :bind
+  ("C-c v w" . my/venv-workon-and-cdproject)
   :init
   (add-hook 'kill-buffer-query-functions 'my/unkillable-scratch-buffer)
   (custom-set-faces
@@ -488,8 +490,8 @@
 
 (use-package ivy
   :demand t
-  :bind*
-  ("C-c C-r" . ivy-resume)
+  ;; :bind*
+  ;; ("C-c C-r" . ivy-resume)
   :custom
   (ivy-use-virtual-buffers t)
   (magit-completing-read-function 'ivy-completing-read)
@@ -1290,7 +1292,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package yasnippet-snippets)
 
-(use-package zoom-window)
+(use-package zoom-window
+  :bind
+  ("C-c z" . zoom-window-zoom))
 
 (provide 'pkgs)
 ;;; pkgs.el ends here
