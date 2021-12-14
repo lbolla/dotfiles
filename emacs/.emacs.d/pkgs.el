@@ -167,9 +167,9 @@
    '(variable-pitch ((t (:family "Gentium" :height 140))))))
 
 (use-package cython-mode
-  :after evil
-  :config
-  (evil-define-key 'normal cython-mode-map (kbd ",a") 'cython-show-annotated))
+  :init
+  (maybe-with-evil
+   (evil-define-key 'normal cython-mode-map (kbd ",a") 'cython-show-annotated)))
 
 (use-package delsel
   :ensure nil
@@ -267,6 +267,7 @@
 
 (use-package evil
   :demand t
+  :disabled my/lesser-evil
 
   :custom
   (evil-default-state (if my/lesser-evil 'emacs 'normal))
@@ -550,11 +551,11 @@
   :config
   ;; From https://emacs-lsp.github.io/lsp-mode/page/performance/
   (setq read-process-output-max (* 1024 1024))
-  ;; (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-  (evil-define-key 'normal prog-mode-map (kbd "C-]") 'my/lsp-find-definition-other-window)
-  (evil-define-key 'normal prog-mode-map (kbd "C-}") 'lsp-find-definition)
-  (evil-define-key 'normal prog-mode-map (kbd "C-c C-]") 'lsp-find-references)
-  (evil-define-key 'normal prog-mode-map (kbd "K") 'lsp-describe-thing-at-point)
+  (maybe-with-evil
+   (evil-define-key 'normal prog-mode-map (kbd "C-]") 'my/lsp-find-definition-other-window)
+   (evil-define-key 'normal prog-mode-map (kbd "C-}") 'lsp-find-definition)
+   (evil-define-key 'normal prog-mode-map (kbd "C-c C-]") 'lsp-find-references)
+   (evil-define-key 'normal prog-mode-map (kbd "K") 'lsp-describe-thing-at-point))
 
   ;; Chain checkers after lsp
   ;; See https://github.com/flycheck/flycheck/issues/1762
@@ -671,7 +672,6 @@
 
 (use-package org
   :demand t
-  :after evil
 
   :mode ((rx bos "diary" eos))
 
@@ -693,14 +693,14 @@
                                 ("." "Agenda/Next/Todo"
                                  ((agenda "" nil)
                                   (tags-todo "-REFILE/NEXT"
-                                        ((org-agenda-overriding-header "Next tasks")
-                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))
+                                             ((org-agenda-overriding-header "Next tasks")
+                                              (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))
                                   (tags-todo "-REFILE/!+WAIT|+REVW"
-                                        ((org-agenda-overriding-header "Stuck tasks")
-                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))
+                                             ((org-agenda-overriding-header "Stuck tasks")
+                                              (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))
                                   (tags-todo "-REFILE/TODO"
-                                        ((org-agenda-overriding-header "Todo tasks")
-                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))
+                                             ((org-agenda-overriding-header "Todo tasks")
+                                              (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))
                                   ))
                                 ("," "Refile/Archive/Someday"
                                  ((org-ql-block '(tags-inherited "REFILE")
@@ -710,8 +710,8 @@
                                                   (ts :to -60))
                                                 ((org-ql-block-header "Tasks to archive")))
                                   (tags-todo "-REFILE/SDAY"
-                                        ((org-agenda-overriding-header "Someday tasks")
-                                         (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))))))
+                                             ((org-agenda-overriding-header "Someday tasks")
+                                              (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))))))
   (org-agenda-files '("~/org/refile.org"))
   (org-agenda-include-diary t)
   (org-agenda-log-mode-items `(clock closed))
@@ -774,7 +774,7 @@
                  ;; ol-rmail
                  ol-eww))
   (org-outline-path-complete-in-steps nil)
-  (org-priority-faces '((65 . font-lock-warning-face)  ; A
+  (org-priority-faces '((65 . font-lock-warning-face)   ; A
                         (67 . font-lock-comment-face))) ; C
   (org-priority-start-cycle-with-default nil)
   (org-protocol-default-template-key "l")
@@ -889,9 +889,6 @@
   :hook
   (org-mode . auto-fill-mode)
   (org-mode . flyspell-mode)
-  ;; (org-agenda-mode . (lambda ()
-  ;;                      (add-hook 'auto-save-hook 'org-save-all-org-buffers nil t)
-  ;;                      (auto-save-mode)))
 
   :bind
   ;; From https://orgmode.org/manual/Activation.html#Activation
@@ -901,8 +898,9 @@
   ("C-c o C-l" . org-insert-link)
 
   :config
-  (require 'org-habit)  ;; Otherwise habits are not rendered in org-agenda
-  (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
+  (require 'org-habit) ;; Otherwise habits are not rendered in org-agenda
+  (maybe-with-evil
+   (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return))
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
   (defface org-strt '((t (:inherit org-todo :foreground "dark orange"))) "Face used for started tasks." :group 'org-faces)
   (defface org-wait '((t (:inherit org-todo :foreground "goldenrod"))) "Face used for waiting tasks." :group 'org-faces)
@@ -1020,23 +1018,21 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (projectile-mode 1))
 
 (use-package python
-  :after evil
   :mode (((rx ".pyi" eos) . python-mode) ;; type stub files
-         ((rx ".mk" eos) . python-mode) ;; check-mk config files
+         ((rx ".mk" eos) . python-mode)  ;; check-mk config files
          ((rx ".pyrc" eos) . python-mode))
+  :hook
+  (python-mode . hs-minor-mode)
   :config
   (font-lock-add-keywords
    'python-mode
    '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)
      ("\\<\\(FIXME\\)\\>" 1 font-lock-warning-face t)
      ("\\<\\(XXX\\)\\>" 1 font-lock-warning-face t)))
-  (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
-  (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
-  (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)
-  :hook
-  (python-mode . hs-minor-mode))
-  ;; (python-mode . (lambda ()
-  ;;                  (set-whitespace-line-column 79)))
+  (maybe-with-evil
+   (evil-define-key 'normal python-mode-map (kbd ",b") 'python-insert-breakpoint)
+   (evil-define-key 'normal python-mode-map (kbd ",pi") 'python-insert-pylint-ignore)
+   (evil-define-key 'normal python-mode-map (kbd ",t") 'python-insert-type-annotation)))
 
 (use-package pyvenv
   :init
@@ -1243,12 +1239,13 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (web-mode-enable-auto-paring t)
   (web-mode-enable-auto-opening t)
   (web-mode-enable-auto-quoting t)
-  :init
-  (evil-define-key 'normal web-mode-map (kbd "%") 'web-mode-tag-match)
-  (evil-define-key 'visual web-mode-map (kbd "%") 'web-mode-tag-match)
   :hook
   (web-mode . (lambda ()
-                 (modify-syntax-entry ?\- "w"))))
+                (modify-syntax-entry ?\- "w")))
+  :config
+  (maybe-with-evil
+   (evil-define-key 'normal web-mode-map (kbd "%") 'web-mode-tag-match)
+   (evil-define-key 'visual web-mode-map (kbd "%") 'web-mode-tag-match)))
 
 (use-package which-func
   :ensure nil

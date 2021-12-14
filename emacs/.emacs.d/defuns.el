@@ -26,6 +26,11 @@
 (defcustom my/zettelkasten-directory "~/Private/org/zettelkasten"
   "Direcory of my Zettelkasten" :group 'local)
 
+(defmacro maybe-with-evil (&rest body)
+  "Execute BODY only if evil-mode is defined."
+  `(when (boundp 'evil-mode-hook)
+     (add-hook 'evil-mode-hook (lambda () ,@body))))
+
 (defun my/split-window-below-and-switch-buffer ()
   "Split window below and select a buffer."
   (interactive)
