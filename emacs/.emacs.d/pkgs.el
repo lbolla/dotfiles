@@ -490,8 +490,8 @@
 
 (use-package ivy
   :demand t
-  ;; :bind*
-  ;; ("C-c C-r" . ivy-resume)
+  :bind*
+  ("C-c C-r" . ivy-resume)
   :custom
   (ivy-use-virtual-buffers t)
   (magit-completing-read-function 'ivy-completing-read)
