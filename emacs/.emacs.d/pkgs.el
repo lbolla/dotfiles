@@ -31,6 +31,10 @@
       use-package-minimum-reported-time 0.1
       use-package-verbose t)
 
+(use-package ace-window
+  :bind
+  ("M-o" . ace-window))
+
 (use-package all-the-icons)
 
 (use-package ansi-color
@@ -351,6 +355,11 @@
   (explain-pause-blocking-too-long-ms 100)
   :config
   (explain-pause-mode t))
+
+(use-package ffap
+  :ensure nil
+  :bind
+  ("C-c f" . find-file-at-point))
 
 (use-package files
   :ensure nil
@@ -1274,11 +1283,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :ensure nil
   :custom
   (whitespace-style '(face trailing lines-tail)))
-
-(use-package window
-  :ensure nil
-  :bind
-  ("M-o" . other-window))
 
 (use-package xref
   :ensure nil
