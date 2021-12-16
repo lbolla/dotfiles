@@ -539,6 +539,7 @@
   (lsp-diagnostics-modeline-scope :workspace)
   (lsp-enable-indentation nil)
   (lsp-enable-snippet nil)
+  (lsp-enable-xref nil) ;; dumb-jump works better
   (lsp-headerline-breadcrumb-enable nil)
   (lsp-keymap-prefix "C-c l")
   (lsp-prefer-capf t)
