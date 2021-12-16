@@ -518,6 +518,11 @@
   :custom
   (json-reformat:indent-width 2))
 
+(use-package keyfreq
+  :init
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))
+
 (use-package lisp-mode
   :ensure nil ;; builtin
   :hook
@@ -1121,6 +1126,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (column-number-mode t)
   (indent-tabs-mode nil))
 
+;; TODO maybe just use M-s . and then C-s/C-r
 (use-package smartscan
   :init
   (global-smartscan-mode 1))
