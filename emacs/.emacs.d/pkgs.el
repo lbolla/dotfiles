@@ -1122,7 +1122,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (indent-tabs-mode nil))
 
 (use-package smartscan
-  :config
+  :init
   (global-smartscan-mode 1))
 
 (use-package startup
