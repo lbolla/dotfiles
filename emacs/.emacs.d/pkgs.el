@@ -1268,6 +1268,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (whitespace-style '(face trailing lines-tail)))
 
+(use-package window
+  :ensure nil
+  :bind
+  ("M-o" . other-window))
+
 (use-package xref
   :ensure nil
   :custom
