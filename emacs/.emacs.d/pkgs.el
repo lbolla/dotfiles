@@ -468,7 +468,8 @@
   (auto-hscroll-mode t)
   (blink-cursor-mode t)
   :init
-  (unless (eq (frame-parameter nil 'fullscreen) 'fullboth)
+  (unless (or (string-equal (getenv "GDMSESSION") "sway")
+              (eq (frame-parameter nil 'fullscreen) 'fullboth))
     (toggle-frame-fullscreen)))
 
 (use-package go-mode
