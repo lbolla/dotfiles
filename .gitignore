@@ -51,3 +51,4 @@ _obsolete/
 /systemd/.config/systemd/user/protonvpn_reconnect.service
 /oh-my-zsh/.oh-my-zsh/custom/themes/powerlevel10k/
 /emacs/.emacs.d/tutorial/
+/emacs/.emacs.d/ido.last
