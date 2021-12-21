@@ -43,9 +43,9 @@
 ;; Always use y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#235069
 (defadvice kill-buffer (around kill-buffer-around-advice activate)
-  "Bury *scratch* buffer instead of killing it.
-See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#235069"
+  "Bury *scratch* buffer instead of killing it."
   (let ((buffer-to-kill (ad-get-arg 0)))
     (if (equal buffer-to-kill "*scratch*")
         (bury-buffer)
@@ -53,8 +53,7 @@ See https://stackoverflow.com/questions/234963/re-open-scratch-buffer-in-emacs#2
 
 ;; https://www.emacswiki.org/emacs/KillingAndYanking
 (defadvice kill-region (before unix-werase activate compile)
-  "When called interactively with no active region, delete a single word
-    backwards instead."
+  "When called interactively with no active region, delete a single word backwards instead."
   (interactive
    (if mark-active (list (region-beginning) (region-end))
      (list (save-excursion (backward-word 1) (point)) (point)))))
