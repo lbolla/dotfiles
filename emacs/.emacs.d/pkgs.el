@@ -139,6 +139,7 @@
   :bind*
   ;; ("M-x" . counsel-M-x)
   ("C-c t" . counsel-load-theme)
+  ("C-c C-j" . counsel-imenu)
   :init
   (counsel-mode))
 
