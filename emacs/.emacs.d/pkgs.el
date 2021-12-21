@@ -905,7 +905,7 @@
                             ("CANC" . org-canc)
                             ("DONE" . org-done)))
   (org-treat-S-cursor-todo-selection-as-state-change nil)
-  
+
   :hook
   (org-mode . auto-fill-mode)
   (org-mode . flyspell-mode)
@@ -1136,6 +1136,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package simple
   :ensure nil
+  :bind
+  ("C-w" . my/unix-werase-or-kill)
   :custom
   (column-number-mode t)
   (indent-tabs-mode nil))

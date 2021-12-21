@@ -514,6 +514,15 @@ is already narrowed."
   (insert initial-scratch-message)
   (lisp-interaction-mode))
 
+;; https://www.emacswiki.org/emacs/KillingAndYanking
+(defun my/unix-werase-or-kill (arg)
+  "Kill region or backward word."
+  (interactive "*p")
+  (if (and transient-mark-mode
+           mark-active)
+      (kill-region (region-beginning) (region-end))
+    (backward-kill-word arg)))
+
 ;; From https://www.emacswiki.org/emacs/RecreateScratchBuffer
 (defun my/unkillable-scratch-buffer ()
   "Clear instead of delete scratch buffer."
