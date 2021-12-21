@@ -67,6 +67,10 @@ exec swayidle -w \
 
 input * {
     xkb_options "ctrl:nocaps"
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
 }
 
 ### Key bindings
@@ -170,6 +174,9 @@ input * {
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
+    # Switch to previously focused workspace
+    bindsym $mod+tab workspace back_and_forth
 #
 # Scratchpad:
 #
