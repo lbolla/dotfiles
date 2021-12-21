@@ -1042,7 +1042,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
          ((rx ".mk" eos) . python-mode)  ;; check-mk config files
          ((rx ".pyrc" eos) . python-mode))
   :hook
-  (python-mode . hs-minor-mode)
+  (python-mode . (lambda ()
+                   (hs-minor-mode t)
+                   (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
   :config
   (font-lock-add-keywords
    'python-mode
