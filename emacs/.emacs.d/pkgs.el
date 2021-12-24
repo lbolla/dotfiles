@@ -1316,6 +1316,11 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package yasnippet-snippets)
 
+(use-package winner
+  :ensure nil
+  :init
+  (winner-mode t))
+
 (use-package zoom-window
   :bind
   ("C-c z" . zoom-window-zoom))
