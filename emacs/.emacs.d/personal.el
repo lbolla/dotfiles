@@ -18,7 +18,26 @@
   ("C-c n d" . deft)
   :custom
   (deft-directory my/zettelkasten-directory)
-  (deft-extensions '("org" "txt" "md")))
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-strip-summary-regexp
+   (concat "\\("
+	   "[\n\t]"                      ;; blank
+	   "\\|^#\\+[[:alpha:]_]+:.*$"   ;; org-mode metadata
+	   "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
+	   "\\)"))
+  :config
+  ;; See https://github.com/jrblevin/deft/issues/75
+  (defun cm/deft-parse-title (file contents)
+    "Parse the given FILE and CONTENTS and determine the title.
+  If `deft-use-filename-as-title' is nil, the title is taken to
+  be the first non-empty line of the FILE.  Else the base name of the FILE is
+  used as title."
+    (let ((begin (string-match "^#\\+[tT][iI][tT][lL][eE]: .*$" contents)))
+      (if begin
+	  (string-trim (substring contents begin (match-end 0)) "#\\+[tT][iI][tT][lL][eE]: *" "[\n\t ]+")
+        (deft-base-filename file))))
+  (advice-add 'deft-parse-title :override #'cm/deft-parse-title))
 
 (use-package nim-mode
   :hook
@@ -29,32 +48,19 @@
   :init
   (my/append-to-path '("~/.nimble/bin")))
 
-(use-package org-ref
-  ;; :after org-roam
-  :custom
-  (reftex-default-bibliography `(,(concat my/zettelkasten-directory "/bibliography/references.bib")))
-  (org-ref-default-bibliography `(,(concat my/zettelkasten-directory "/bibliography/references.bib")))
-  (org-ref-bibliography-notes (concat my/zettelkasten-directory "/bibliography/notes.bib"))
-  (org-ref-pdf-directory (concat my/zettelkasten-directory "/bibliography/bibtex-pdfs/")))
-
 (use-package org-roam
   :custom
+  (org-cite-global-bibliography '("~/Private/org/bibliography/references.bib"))
   (org-roam-directory my/zettelkasten-directory)
   (org-roam-v2-ack t)
-  :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam-buffer-toggle)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n c" . org-ref-insert-link)
-               ("C-c n b" . org-roam-switch-to-buffer)
-               ("C-c n g" . org-roam-graph-show))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert)))
-  :config
-  (defun my/org-roam-rebuild-db ()
-    (interactive)
-    (org-roam-db--clear)
-    (org-roam-db-build-cache))
-  ;; (require 'org-ref)
+  (org-roam-capture-templates
+   '(("d" "default" plain "%?" :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n") :unnarrowed t)
+     ("b" "Blog post" plain "%?" :target (file+head "~/src/github.com/lbolla/lbolla.info/org/${slug}.org" "#+TITLE: ${title}\n#+DATE: %t\n\n") :unnarrowed t)))
+  :bind
+  ("C-c n b" . org-roam-buffer-toggle)
+  ("C-c n c" . org-roam-capture)
+  ("C-c n f" . org-roam-node-find)
+  ("C-c n i" . org-roam-node-insert)
   :init
   (setq org-roam-v2-ack t)
   (org-roam-db-autosync-mode))
