@@ -153,21 +153,6 @@ representation for the files to include, as returned by
   (eyebrowse-create-window-config)
   (projectile-switch-project))
 
-(defun my/find-file-init ()
-  "Visit file init.el."
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
-
-(defun my/find-file-linkz ()
-  "Visit file Linkz."
-  (interactive)
-  (find-file "~/Private/org/org-linkz/Linkz.org"))
-
-(defun my/find-file-pkgs ()
-  "Visit file pkgs.el."
-  (interactive)
-  (find-file "~/.emacs.d/pkgs.el"))
-
 (defun my/github-git-clone (what)
   "Clone GitHub repo WHAT where it belongs."
   (interactive "sRepo: ")
