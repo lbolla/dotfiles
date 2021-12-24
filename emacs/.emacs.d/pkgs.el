@@ -754,9 +754,7 @@
                            ("m" "Meeting" entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
                            ("h" "Habit"   entry (file "~/org/refile.org") "* TODO %?\n:PROPERTIES:\n:STYLE:    habit\n:END:\n")
                            ("n" "Note"    entry (file "~/org/notes.org")  "* %? \n%U\n%a\n")
-                           ("i" "Idea"    entry (file "~/org/ideas.org")  "* %? \n%U\n%a\n")
-                           ("l" "Link"    entry (file+headline "~/org-linkz/Linkz.org" "INBOX") "* %a\n%i" :immediate-finish t)
-                           ))
+                           ("i" "Idea"    entry (file "~/org/ideas.org")  "* %? \n%U\n%a\n")))
   (org-clock-into-drawer "CLOCKS")
   (org-clock-out-remove-zero-time-clocks t)
   (org-clock-out-when-done '("WAIT" "REVW" "DONE" "CANC" "DELG"))
@@ -781,7 +779,7 @@
   (org-log-done 'time)
   (org-log-into-drawer t)
   (org-modules '(org-habit
-                 ox-confluence
+                 ;; ox-confluence
                  org-protocol
                  ol-w3m
                  ol-bbdb
