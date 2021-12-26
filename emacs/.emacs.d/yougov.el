@@ -156,6 +156,44 @@
                                (define-key evil-normal-state-map (kbd ",yp") 'yg-paste-buffer)
                                (define-key evil-visual-state-map (kbd ",yp") 'yg-paste-region)))
 
+(setq org-publish-project-alist
+      (cl-concatenate 'list org-publish-project-alist '(("kubernetes"
+                                                         :components ("kubernetes-org" "kubernetes-html"))
+                                                        ("kubernetes-org"
+                                                         :base-directory "~/work/kubernetes/"
+                                                         :base-extension "org"
+                                                         :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/"
+                                                         :publishing-function org-org-publish-to-org
+                                                         :recursive t)
+                                                        ("kubernetes-html"
+                                                         :base-directory "~/work/kubernetes/"
+                                                         :base-extension "org"
+                                                         :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/"
+                                                         :publishing-function org-html-publish-to-html
+                                                         :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">"
+                                                         :recursive t)
+                                                        ("cubeapi"
+                                                         :components ("cubeapi-notes" "cubeapi-static"))
+                                                        ("cubeapi-notes"
+                                                         :base-directory "~/work/cubeapi/notes/"
+                                                         :base-extension "org"
+                                                         :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
+                                                         :publishing-function org-html-publish-to-html
+                                                         :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">"
+                                                         :recursive t)
+                                                        ("cubeapi-static"
+                                                         :base-directory "~/work/cubeapi/notes/"
+                                                         :base-extension "png\\|jpg"
+                                                         :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
+                                                         :recursive t
+                                                         :publishing-function org-publish-attachment))))
+
+(use-package ess
+  :disabled t
+  :hook
+  (ess-mode . (lambda ()
+                (modify-syntax-entry ?\_ "w"))))
+
 (provide 'yougov)
 
 ;;; yougov.el ends here

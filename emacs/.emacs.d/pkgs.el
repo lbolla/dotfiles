@@ -57,10 +57,9 @@
   :init
   (auto-insert-mode t))
 
-;; TODO see https://karthinks.com/software/avy-can-do-anything/
 (use-package avy
-  :bind* (("C-c ;" . avy-goto-char-timer)
-          ("C-;" . avy-goto-char-timer))
+  :bind
+  ("C-c j" . avy-goto-char-timer)
   :init
   (avy-setup-default))
 
@@ -136,12 +135,11 @@
                  (modify-syntax-entry ?\_ "w"))))
 
 (use-package counsel
-  :bind*
-  ;; ("M-x" . counsel-M-x)
+  :bind
   ("C-c t" . counsel-load-theme)
-  ("C-c C-j" . counsel-imenu)
+  ("C-c i m" . counsel-imenu)
   :init
-  (counsel-mode))
+  (counsel-mode t))
 
 (use-package css-mode
   :mode ((rx ".scss" eos))
@@ -157,7 +155,9 @@
 (use-package custom
   :ensure nil
   :custom
-  (custom-file null-device "Don't store customizations")
+  ;; (custom-file null-device "Don't store customizations")
+  ;; TODO host specific custom file
+  (custom-file (concat "custom-" (system-name) ".el") "Store host specific customizations")
   (custom-safe-themes t)
   (enable-recursive-minibuffers t)  ;; https://www.masteringemacs.org/article/executing-shell-commands-emacs
   (gc-cons-threshold 100000000)
@@ -218,56 +218,28 @@
     (edit-server-start)))
 
 (use-package electric
-  :config
+  :init
   (electric-indent-mode t))
 
-(use-package elixir-mode
-  :mode (((rx ".mxs" eos) . elixir-mode)))
-
-(use-package erlang-start
-  :load-path "/usr/share/emacs/site-lisp/erlang/" ;; Part of erlang-solutions packages
-  :mode (((rx ".erl" eos) . erlang-mode)
-         ((rx ".app.src" eos) . erlang-mode)
-         ((rx ".hrl" eos) . erlang-mode)
-         ((rx ".config" eos) . erlang-mode)
-         ((rx "rebar") . erlang-mode))
-  :custom
-  (erlang-root-dir "/usr/share")  ; For man pages
-  :defines
-  erlang-mode-map
-  erlang-shell-mode-map
-  :config
-  (setq erlang-man-file-regexp "\\(.*\\)/man[^/]*/\\([^.]+\\.3erl\\)\\(\\.gz\\)?$")
-  (defun erlang-man-get-files (dir)
-    "Return files in directory DIR."
-    (directory-files dir t ".+\\.3erl\\(\\.gz\\)?\\'"))
-  :hook
-  (erlang-mode . (lambda ()
-                   (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function)))
-  (erlang-shell-mode . (lambda ()
-                         (evil-define-key 'normal erlang-shell-mode-map (kbd "K") 'erlang-man-function))))
-
-(use-package ess
-  :disabled t
-  :hook
-  (ess-mode . (lambda ()
-                 (modify-syntax-entry ?\_ "w"))))
+(use-package elec-pair
+  :init
+  (electric-pair-mode t))
 
 ;; Startup profiler
 (use-package esup
   :disabled t)
 
 ;; TODO remove for tab-mode
-(use-package eyebrowse
-  ;; :demand t
-  :custom
-  (eyebrowse-default-workspace-slot 0)
-  (eyebrowse-keymap-prefix (kbd "C-c e"))
-  (eyebrowse-new-workspace t)
-  :bind
-  ("C-c e p" . my/eyebrowse-switch-to-project)
-  :init
-  (eyebrowse-mode t))
+;; (use-package eyebrowse
+;;   ;; :demand t
+;;   :custom
+;;   (eyebrowse-default-workspace-slot 0)
+;;   (eyebrowse-keymap-prefix (kbd "C-c e"))
+;;   (eyebrowse-new-workspace t)
+;;   :bind
+;;   ("C-c e p" . my/eyebrowse-switch-to-project)
+;;   :init
+;;   (eyebrowse-mode t))
 
 (use-package expand-region
   :bind
@@ -398,8 +370,6 @@
   ;; (flycheck-python-flake8-executable nil)
   ;; (flycheck-python-mypy-cache-dir "/dev/null")
   (flycheck-shellcheck-excluded-warnings '("SC2006" "SC2086" "SC2181"))
-  :defines
-  flycheck-javascript-flow-args
   :hook
   (after-init . global-flycheck-mode)
   :init
@@ -493,23 +463,24 @@
 
 (use-package highlight-indentation)
 
-;; https://www.gnu.org/software/emacs/manual/html_node/autotype/Hippie-Expand.html
 (use-package hippie-exp
   :ensure nil
   :bind
   ("M-/" . hippie-expand))
 
+(use-package isearch
+  :ensure nil
+  :custom
+  (search-whitespace-regexp ".+"))
+
 (use-package ivy
   :demand t
-  :bind*
-  ("C-c C-r" . ivy-resume)
+  :bind
+  ("C-c i r" . ivy-resume)
   :custom
   (ivy-use-virtual-buffers t)
   (magit-completing-read-function 'ivy-completing-read)
   (projectile-completion-system 'ivy)
-  :defines
-  magit-completing-read-function
-  projectile-completion-system
   :config
   (ivy-mode t))
 
@@ -638,7 +609,9 @@
                  (setq indent-tabs-mode t))))
 
 (use-package markdown-mode
-  :bind (("<C-return>" . markdown-follow-link-at-point))
+  :bind
+  (:map markdown-mode-map
+        ("C-c f" . markdown-follow-link-at-point))
   :hook
   (markdown-mode . (lambda ()
                      (auto-fill-mode t))))
@@ -656,7 +629,7 @@
 
 (use-package minions
   :demand t
-  :bind*
+  :bind
   ([S-down-mouse-3] . minions-minor-modes-menu)
   :config
   (minions-mode 1))
@@ -692,21 +665,7 @@
 
 (use-package org
   :demand t
-
   :mode ((rx bos "diary" eos))
-
-  :defines
-  org-agenda-custom-commands
-  org-agenda-include-diary
-  org-agenda-sorting-strategy
-  org-agenda-span
-  org-agenda-start-on-weekday
-  org-capture-templates
-  org-clock-out-remove-zero-time-clocks
-  org-clock-out-when-done
-  org-publish-project-alist
-  org-stuck-projects
-
   :custom
   (org-agenda-block-separator "")
   (org-agenda-custom-commands '(
@@ -763,7 +722,6 @@
   (org-columns-default-format "%50ITEM %TODO %3PRIORITY %TAGS %10EFFORT %CLOCKSUM %CLOCKSUM_T")
   (org-deadline-warning-days 30)
   (org-default-notes-file "~/org/refile.org")
-  (org-priority-default 68)
   (org-export-backends '(ascii
                          ;; confluence  ;; requires org-contrib
                          html
@@ -772,7 +730,7 @@
                          odt))
   (org-fast-tag-selection-single-key t)
   (org-fontify-quote-and-verse-blocks  t)
-  (org-fontify-whole-heading-line t)
+  (org-fontqify-whole-heading-line t)
   (org-html-htmlize-output-type 'css)
   (org-html-validation-link nil)
   (org-link-abbrev-alist `(("GH" . my/github-object-url)))
@@ -792,6 +750,7 @@
                  ;; ol-rmail
                  ol-eww))
   (org-outline-path-complete-in-steps nil)
+  (org-priority-default 68)
   (org-priority-faces '((65 . font-lock-warning-face)   ; A
                         (67 . font-lock-comment-face))) ; C
   (org-priority-start-cycle-with-default nil)
@@ -844,43 +803,14 @@
                                 :html-postamble nil
                                 :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\">"
                                 :html-head-extra "<link rel=\"stylesheet\" href=\"./css/extra.css\" type=\"text/css\">"
-                                :publishing-function org-html-publish-to-html)
-                               ("kubernetes"
-                                :components ("kubernetes-org" "kubernetes-html"))
-                               ("kubernetes-org"
-                                :base-directory "~/work/kubernetes/"
-                                :base-extension "org"
-                                :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/"
-                                :publishing-function org-org-publish-to-org
-                                :recursive t)
-                               ("kubernetes-html"
-                                :base-directory "~/work/kubernetes/"
-                                :base-extension "org"
-                                :publishing-directory "/rsync:dev-lbolla:public_html/kubernetes/"
-                                :publishing-function org-html-publish-to-html
-                                :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">"
-                                :recursive t)
-                               ("cubeapi"
-                                :components ("cubeapi-notes" "cubeapi-static"))
-                               ("cubeapi-notes"
-                                :base-directory "~/work/cubeapi/notes/"
-                                :base-extension "org"
-                                :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
-                                :publishing-function org-html-publish-to-html
-                                :html-head "<link rel=\"stylesheet\" href=\"http://gongzhitaao.org/orgcss/org.css\" type=\"text/css\">"
-                                :recursive t)
-                               ("cubeapi-static"
-                                :base-directory "~/work/cubeapi/notes/"
-                                :base-extension "png\\|jpg"
-                                :publishing-directory "/rsync:dev-lbolla:public_html/cubeapi/"
-                                :recursive t
-                                :publishing-function org-publish-attachment)))
+                                :publishing-function org-html-publish-to-html)))
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-refile-targets '((org-agenda-files :level . 1)))
   (org-refile-use-outline-path t)
   (org-return-follows-link t)
   (org-src-fontify-natively t)
   (org-src-tab-acts-natively t)
+  (org-special-ctrl-a/e t)
   (org-startup-indented t)
   (org-stuck-projects '("+LEVEL=2/-DONE"
                         ("TODO" "NEXT" "SOMEDAY" "WAIT" "REVW" "CANC" "DELG")
@@ -929,8 +859,6 @@
   (defface org-canc '((t (:inherit org-todo :foreground "dim gray"))) "Face used for cancelled tasks." :group 'org-faces))
 
 (use-package org-ql
-  :defines
-  org-ql-views
   :bind
   ("C-c o /" . org-ql-search)
   ("C-c o v" . org-ql-view)
@@ -958,19 +886,25 @@
                    :query (and (tags "NOTE") (level 1))
                    :title "Notes") t)))
 
-(use-package paredit
-  :demand t
-  :hook
-  ((emacs-lisp-mode
-    eval-expression-minibuffer-setup
-    ielm-mode-hook
-    lisp-mode-hook
-    inferior-lisp-mode-hook
-    slime-repl-mode-hook
-    lisp-interaction-mode-hook
-    clojure-mode-hook
-    cider-repl-mode-hook
-    scheme-mode-hook) . enable-paredit-mode))
+(use-package paragraphs
+  :ensure nil
+  :custom
+  (sentence-end-double-space nil))
+
+;; TODO
+;; (use-package paredit
+;;   :demand t
+;;   :hook
+;;   ((emacs-lisp-mode
+;;     eval-expression-minibuffer-setup
+;;     ielm-mode-hook
+;;     lisp-mode-hook
+;;     inferior-lisp-mode-hook
+;;     slime-repl-mode-hook
+;;     lisp-interaction-mode-hook
+;;     clojure-mode-hook
+;;     cider-repl-mode-hook
+;;     scheme-mode-hook) . enable-paredit-mode))
 
 (use-package paren
   :ensure nil
@@ -980,8 +914,9 @@
 (unless (version< emacs-version "27.1")
   (use-package pass
     :bind
-    ("C-c x" . pass)
-    ("C-c C-x" . password-store-copy)
+    ("C-c x l" . pass)
+    ("C-c x w" . password-store-copy)
+    ("C-c x g" . password-store-generate)
     :custom
     (password-store-password-length 16)
     :config
@@ -1008,7 +943,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :hook
   (prog-mode . (lambda ()
                  ;; Underscore is part of a word
-                 (modify-syntax-entry ?\_ "w"))))
+                 (modify-syntax-entry ?\_ "w")
+                 (flyspell-prog-mode))))
 
 (use-package project
   :ensure nil
@@ -1017,23 +953,24 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (add-to-list 'project-switch-commands '(rg-project "Ripgrep" "r"))
   (advice-add 'project-switch-project :after (lambda (dir) (my/tab-name-from-project))))
 
-(use-package projectile
-  :custom
-  ;; TODO get rid of eyebrowse
-  ;; (projectile-after-switch-project-hook '(my/eyebrowse-name-from-project projectile-vc))
-  (projectile-after-switch-project-hook '(my/tab-name-from-project projectile-vc))
-  (projectile-globally-ignored-directories
-   '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
-     ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist"
-     ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
-  (projectile-globally-ignored-file-suffixes '("pyc" "beam"))
-  (projectile-switch-project-action 'projectile-dired)
-  ;; :bind
-  ;; ("C-x t p" . my/projectile-switch-project-new-tab)
-  :config
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  :init
-  (projectile-mode 1))
+;; TODO
+;; (use-package projectile
+;;   :custom
+;;   ;; TODO get rid of eyebrowse
+;;   ;; (projectile-after-switch-project-hook '(my/eyebrowse-name-from-project projectile-vc))
+;;   (projectile-after-switch-project-hook '(my/tab-name-from-project projectile-vc))
+;;   (projectile-globally-ignored-directories
+;;    '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
+;;      ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist"
+;;      ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
+;;   (projectile-globally-ignored-file-suffixes '("pyc" "beam"))
+;;   (projectile-switch-project-action 'projectile-dired)
+;;   ;; :bind
+;;   ;; ("C-x t p" . my/projectile-switch-project-new-tab)
+;;   :config
+;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;;   :init
+;;   (projectile-mode 1))
 
 (use-package python
   :mode (((rx ".pyi" eos) . python-mode) ;; type stub files
@@ -1136,6 +1073,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :ensure nil
   :bind
   ("C-w" . my/unix-werase-or-kill)
+  ("M-z" . zap-up-to-char)
   :custom
   (column-number-mode t)
   (indent-tabs-mode nil))
@@ -1152,8 +1090,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (use-package swiper
   :bind
-  ("C-s" . swiper)
-  ("C-c s" . swiper-thing-at-point))
+  ("C-c s s" . swiper)
+  ("C-c s p" . swiper-thing-at-point))
 
 (use-package tab-bar
   :ensure nil
@@ -1174,11 +1112,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :ensure nil
   :custom
   (world-clock-list '(("UTC" "UTC/GMT/Zulu")
-                      ;; ("America/Los_Angeles" "palmcal")
-                      ;; ("America/New_York" "fesh")
-                      ;; ("America/Lima" "mbc")
-                      ;; ("America/Sao_Paulo" "diogo")
-                      ;; ("IST-5:30" "shashikant")
                       ("America/Los_Angeles" "Palo Alto")
                       ("America/Mexico_City" "Mexico City")
                       ("America/Lima" "Lima")
@@ -1211,7 +1144,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :custom
   (tramp-default-method "ssh"))
 
-;; https://github.com/Alexander-Miller/treemacs
 (use-package treemacs
   :config
   (treemacs-filewatch-mode t)
@@ -1229,7 +1161,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   ;;       ("C-x t C-t" . treemacs-find-file)
   ;;       ("C-x t M-t" . treemacs-find-tag))
   :hook
-  (treemacs-mode . (lambda () (setq cursor-in-non-selected-windows nil))))
+  (treemacs-mode . (lambda ()
+                     (setq-local cursor-in-non-selected-windows nil))))
 
 (use-package treemacs-magit
   :after (treemacs magit))
@@ -1292,8 +1225,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :ensure nil
   :custom
   (xref-show-definitions-function #'xref-show-definitions-completing-read)
-  :bind
-  ("C-x ." . xref-find-definitions))
+  ;; :bind
+  ;; ("C-x ." . xref-find-definitions)
+)
 
 (use-package yaml-mode
   :mode ((rx ".y" (opt "a") "ml" eos)

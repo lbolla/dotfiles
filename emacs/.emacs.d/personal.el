@@ -39,6 +39,31 @@
         (deft-base-filename file))))
   (advice-add 'deft-parse-title :override #'cm/deft-parse-title))
 
+(use-package elixir-mode
+  :mode (((rx ".mxs" eos) . elixir-mode)))
+
+(use-package erlang-start
+  :load-path "/usr/share/emacs/site-lisp/erlang/" ;; Part of erlang-solutions packages
+  :mode (((rx ".erl" eos) . erlang-mode)
+         ((rx ".app.src" eos) . erlang-mode)
+         ((rx ".hrl" eos) . erlang-mode)
+         ((rx ".config" eos) . erlang-mode)
+         ((rx "rebar") . erlang-mode))
+  :custom
+  (erlang-root-dir "/usr/share")  ; For man pages
+  :config
+  (setq erlang-man-file-regexp "\\(.*\\)/man[^/]*/\\([^.]+\\.3erl\\)\\(\\.gz\\)?$")
+  (defun erlang-man-get-files (dir)
+    "Return files in directory DIR."
+    (directory-files dir t ".+\\.3erl\\(\\.gz\\)?\\'"))
+  :hook
+  (erlang-mode . (lambda ()
+                   (my/maybe-with-evil
+                    (evil-define-key 'normal erlang-mode-map (kbd "K") 'erlang-man-function))))
+  (erlang-shell-mode . (lambda ()
+                         (my/maybe-with-evil
+                          (evil-define-key 'normal erlang-shell-mode-map (kbd "K") 'erlang-man-function)))))
+
 (use-package nim-mode
   :hook
   (numsuggest-mode . company-mode)
@@ -53,9 +78,9 @@
   (org-cite-global-bibliography '("~/Private/org/bibliography/references.bib"))
   (org-roam-directory my/zettelkasten-directory)
   (org-roam-v2-ack t)
-  (org-roam-capture-templates
-   '(("d" "default" plain "%?" :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n") :unnarrowed t)
-     ("b" "Blog post" plain "%?" :target (file+head "~/src/github.com/lbolla/lbolla.info/org/${slug}.org" "#+TITLE: ${title}\n#+DATE: %t\n\n") :unnarrowed t)))
+  ;; (org-roam-capture-templates
+  ;;  '(("d" "default" plain "%?" :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n") :unnarrowed t)
+  ;;    ("b" "Blog post" plain "%?" :target (file+head "~/src/github.com/lbolla/lbolla.info/org/${slug}.org" "#+TITLE: ${title}\n#+DATE: %t\n\n") :unnarrowed t)))
   :bind
   ("C-c n b" . org-roam-buffer-toggle)
   ("C-c n c" . org-roam-capture)
