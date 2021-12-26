@@ -99,7 +99,8 @@
   :init
   (defun my/clang-format-keybindings ()
     (let ((mode-map (symbol-value (intern (concat (symbol-name major-mode) "-map")))))
-      (evil-define-key 'visual mode-map (kbd "=") 'clang-format-region)
+      (my/maybe-with-evil
+       (evil-define-key 'visual mode-map (kbd "=") 'clang-format-region))
       (define-key mode-map (kbd "C-c =") 'clang-format-buffer)))
   :hook
   (c++-mode . my/clang-format-keybindings)
@@ -450,7 +451,8 @@
   (before-save . gofmt-before-save)
   (go-mode . (lambda ()
                (require 'lsp-go)
-               (evil-define-key 'normal go-mode-map (kbd "K") 'godoc-at-point))))
+               (my/maybe-with-evil
+                (evil-define-key 'normal go-mode-map (kbd "K") 'godoc-at-point)))))
 
 (use-package haskell-mode
   :hook
@@ -495,8 +497,9 @@
 (use-package json-mode
   :mode ((rx ".ipynb" eos))
   :config
-  (evil-define-key 'normal json-mode-map (kbd "=") 'json-mode-beautify)
-  (evil-define-key 'visual json-mode-map (kbd "=") 'json-mode-beautify)
+  (my/maybe-with-evil
+   (evil-define-key 'normal json-mode-map (kbd "=") 'json-mode-beautify)
+   (evil-define-key 'visual json-mode-map (kbd "=") 'json-mode-beautify))
   :custom
   (json-reformat:indent-width 2))
 
