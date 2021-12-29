@@ -714,9 +714,7 @@
      (python . t)))
   (org-capture-templates '(("t" "Todo"    entry (file "~/org/refile.org") "* TODO %?\n%i\n%a\n")
                            ("m" "Meeting" entry (file "~/org/refile.org") "* TODO Meeting %? :MEET:\n%U")
-                           ("h" "Habit"   entry (file "~/org/refile.org") "* TODO %?\n:PROPERTIES:\n:STYLE:    habit\n:END:\n")
-                           ("n" "Note"    entry (file "~/org/notes.org")  "* %? \n%U\n%a\n")
-                           ("i" "Idea"    entry (file "~/org/ideas.org")  "* %? \n%U\n%a\n")))
+                           ("h" "Habit"   entry (file "~/org/refile.org") "* TODO %?\n:PROPERTIES:\n:STYLE:    habit\n:END:\n")))
   (org-clock-into-drawer "CLOCKS")
   (org-clock-out-remove-zero-time-clocks t)
   (org-clock-out-when-done '("WAIT" "REVW" "DONE" "CANC" "DELG"))
@@ -879,15 +877,7 @@
                  '("Overview: Prioritized tasks" :buffers-files org-agenda-files
                    :query (and (todo) (priority >= "C"))
                    :title "Prioritized tasks"
-                   :sort (priority todo)) t)
-    (add-to-list 'org-ql-views
-                 '("Personal: Ideas" :buffers-files org-agenda-files
-                   :query (and (tags "IDEA") (level 1))
-                   :title "Ideas") t)
-    (add-to-list 'org-ql-views
-                 '("Personal: Notes" :buffers-files org-agenda-files
-                   :query (and (tags "NOTE") (level 1))
-                   :title "Notes") t)))
+                   :sort (priority todo)) t)))
 
 (use-package paragraphs
   :ensure nil
