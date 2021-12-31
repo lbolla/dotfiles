@@ -129,11 +129,7 @@
          ((rx ".socket") . conf-unix-mode)
          ((rx ".swap") . conf-unix-mode)
          ((rx ".target") . conf-unix-mode)
-         ((rx ".timer") . conf-unix-mode))
-
-  :hook
-  (conf-mode . (lambda ()
-                 (modify-syntax-entry ?\_ "w"))))
+         ((rx ".timer") . conf-unix-mode)))
 
 (use-package counsel
   :bind
@@ -143,15 +139,7 @@
   (counsel-mode t))
 
 (use-package css-mode
-  :mode ((rx ".scss" eos))
-  :hook
-  (css-mode . (lambda ()
-                (modify-syntax-entry ?\- "w"))))
-
-(use-package csv-mode
-  :hook
-  (csv-mode . (lambda ()
-                 (variable-pitch-mode 0))))
+  :mode ((rx ".scss" eos)))
 
 (use-package custom
   :ensure nil
@@ -508,14 +496,6 @@
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
 
-(use-package lisp-mode
-  :ensure nil ;; builtin
-  :hook
-  (emacs-lisp-mode . (lambda ()
-                       ;; Dash and tilde are part of a lisp word
-                       (modify-syntax-entry ?\- "w")
-                       (modify-syntax-entry ?\~ "w"))))
-
 (use-package lsp-mode
   :custom
   (lsp-client-packages nil "Do not prompt to install new language servers")
@@ -608,8 +588,7 @@
   :mode (((rx "Makefile") . makefile-mode))
   :hook
   (makefile-mode . (lambda ()
-                 (modify-syntax-entry ?\- "w")
-                 (setq indent-tabs-mode t))))
+                     (setq-local indent-tabs-mode t))))
 
 (use-package markdown-mode
   :bind
@@ -924,6 +903,7 @@
   (prog-mode . (lambda ()
                  (hs-minor-mode 1)
                  (flyspell-prog-mode)
+                 (semantic-mode 1)
                  (superword-mode 1))))
 
 (use-package project
@@ -1081,8 +1061,6 @@
   :mode ((rx ".fbcli_comment" eos) . text-mode)
   :hook
   (text-mode . (lambda ()
-                 (modify-syntax-entry ?\_ "w")
-                 (variable-pitch-mode 0)
                  (flyspell-mode t))))
 
 (use-package time
@@ -1176,9 +1154,6 @@
   (web-mode-enable-auto-paring t)
   (web-mode-enable-auto-opening t)
   (web-mode-enable-auto-quoting t)
-  :hook
-  (web-mode . (lambda ()
-                (modify-syntax-entry ?\- "w")))
   :config
   (my/maybe-with-evil
    (evil-define-key 'normal web-mode-map (kbd "%") 'web-mode-tag-match)
@@ -1201,25 +1176,15 @@
 (use-package xref
   :ensure nil
   :custom
-  (xref-show-definitions-function #'xref-show-definitions-completing-read)
-  ;; :bind
-  ;; ("C-x ." . xref-find-definitions)
-)
+  (xref-show-definitions-function #'xref-show-definitions-completing-read))
 
 (use-package yaml-mode
   :mode ((rx ".y" (opt "a") "ml" eos)
-         (rx ".tpl" eos))
-  :hook
-  (yaml-mode . (lambda ()
-                 (modify-syntax-entry ?\_ "w")
-                 (modify-syntax-entry ?\- "w")
-                 (modify-syntax-entry ?\$ ".")
-                 (variable-pitch-mode 0)
-                 (flyspell-mode nil))))
+         (rx ".tpl" eos)))
 
 (use-package yasnippet
   :bind
-  ("C-c & l" . yas-describe-tables)  ;; list available snippets
+  ("C-c & l" . yas-describe-tables)
   :custom
   (yas-indent-line 'fixed)
   :init
