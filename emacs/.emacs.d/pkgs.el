@@ -660,8 +660,6 @@
                  "<!--"
                  sgml-skip-tag-forward
                  nil))
-  :hook
-  (nxml-mode . hs-minor-mode)
   :bind
   (:map nxml-mode-map
         ("TAB" . hs-toggle-hiding)))
@@ -907,24 +905,13 @@
 (unless (version< emacs-version "27.1")
   (use-package pass
     :bind
+    ("C-c x c" . my/password-store-change)
+    ("C-c x e" . password-store-edit)
+    ("C-c x g" . password-store-generate)
     ("C-c x l" . pass)
     ("C-c x w" . password-store-copy)
-    ("C-c x g" . password-store-generate)
     :custom
-    (password-store-password-length 16)
-    :config
-    (defun password-store-change (entry &optional password-length)
-      "Change password for ENTRY with PASSWORD-LENGTH.
-
-Default PASSWORD-LENGTH is `password-store-password-length'."
-      (interactive (list (read-string "Password entry: ")
-                         (when current-prefix-arg
-                           (abs (prefix-numeric-value current-prefix-arg)))))
-      (unless password-length (setq password-length password-store-password-length))
-      ;; A message with the output of the command is not printed because
-      ;; the output contains the password.
-      (password-store--run "generate" "--in-place" entry (number-to-string password-length))
-      nil)))
+    (password-store-password-length 16)))
 
 (use-package poetry
   :custom
@@ -935,9 +922,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   :ensure nil
   :hook
   (prog-mode . (lambda ()
-                 ;; Underscore is part of a word
-                 (modify-syntax-entry ?\_ "w")
-                 (flyspell-prog-mode))))
+                 (hs-minor-mode 1)
+                 (flyspell-prog-mode)
+                 (superword-mode 1))))
 
 (use-package project
   :ensure nil
@@ -971,7 +958,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
          ((rx ".pyrc" eos) . python-mode))
   :hook
   (python-mode . (lambda ()
-                   (hs-minor-mode t)
                    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
   :config
   (font-lock-add-keywords
@@ -1029,8 +1015,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
                 (auto-fill-mode t))))
 
 (use-package rust-mode
-  :hook
-  (rust-mode . hs-minor-mode)
   :custom
   (rust-format-on-save t))
 
