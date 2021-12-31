@@ -329,6 +329,18 @@ Position the cursor at it's beginning, according to the current mode."
   "Sckip org trees that are not scheduled."
   (org-agenda-skip-entry-if 'scheduled 'deadline))
 
+(defun my/password-store-change (entry &optional password-length)
+  "Change password for ENTRY with PASSWORD-LENGTH.
+
+Default PASSWORD-LENGTH is `password-store-password-length'."
+  (interactive (list (read-string "Password entry: ")
+                     (when current-prefix-arg
+                       (abs (prefix-numeric-value current-prefix-arg)))))
+  (let ((pass-len (or password-length password-store-password-length)))
+    (password-store--run "generate" "--in-place" entry (number-to-string password-length)))
+  ;; This nil prevents the output from the above command to be displayed
+  nil)
+
 (defun my/project-short-name ()
   "Return the project name in short form."
   (file-name-nondirectory (directory-file-name (project-root (project-current t)))))
