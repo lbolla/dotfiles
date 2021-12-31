@@ -489,7 +489,7 @@
 (use-package hl-line
   :ensure nil
   :custom
-  (global-hl-line-mode t))
+  (global-hl-line-mode nil))
 
 (use-package ivy-hydra
   :demand t)
