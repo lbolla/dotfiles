@@ -52,3 +52,4 @@ _obsolete/
 /oh-my-zsh/.oh-my-zsh/custom/themes/powerlevel10k/
 /emacs/.emacs.d/tutorial/
 /emacs/.emacs.d/ido.last
+/emacs/.emacs.d/semanticdb/

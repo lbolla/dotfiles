@@ -97,6 +97,12 @@ representation for the files to include, as returned by
   (interactive)
   (set-frame-font (ido-completing-read "Font: " my/fonts)))
 
+(defun my/clang-format-keybindings ()
+    (let ((mode-map (symbol-value (intern (concat (symbol-name major-mode) "-map")))))
+      (my/maybe-with-evil
+       (evil-define-key 'visual mode-map (kbd "=") 'clang-format-region))
+      (define-key mode-map (kbd "C-c c f") 'clang-format-buffer)))
+
 (defun my/cppref-search ()
   "Search word at point in cppreference.com."
   (interactive)

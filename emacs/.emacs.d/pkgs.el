@@ -96,12 +96,6 @@
   :custom
   (clang-format-style "file")
   (clang-format-fallback-style "WebKit")
-  :init
-  (defun my/clang-format-keybindings ()
-    (let ((mode-map (symbol-value (intern (concat (symbol-name major-mode) "-map")))))
-      (my/maybe-with-evil
-       (evil-define-key 'visual mode-map (kbd "=") 'clang-format-region))
-      (define-key mode-map (kbd "C-c =") 'clang-format-buffer)))
   :hook
   (c++-mode . my/clang-format-keybindings)
   (js2-mode . my/clang-format-keybindings)
