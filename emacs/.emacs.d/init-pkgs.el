@@ -443,10 +443,10 @@
   :hook
   (haskell-mode . (lambda ()
                     (require 'lsp-haskell)
-                    (lsp)))
+                    (lsp-deferred)))
   (haskell-literate-mode . (lambda ()
                              (require 'lsp-haskell)
-                             (lsp))))
+                             (lsp-deferred))))
 
 (use-package highlight-indentation)
 
@@ -461,14 +461,13 @@
   (search-whitespace-regexp ".+"))
 
 (use-package ivy
-  :demand t
   :bind
   ("C-c i r" . ivy-resume)
   :custom
   (ivy-use-virtual-buffers t)
   (magit-completing-read-function 'ivy-completing-read)
   (projectile-completion-system 'ivy)
-  :config
+  :init
   (ivy-mode t))
 
 (use-package hl-line
@@ -551,8 +550,7 @@
   :hook
   (python-mode . (lambda ()
                    (require 'lsp-python-ms)
-                   (lsp-deferred)))
-  )
+                   (lsp-deferred))))
 
 (use-package lsp-ui
   :after lsp-mode
