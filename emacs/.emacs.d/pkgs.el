@@ -65,8 +65,8 @@
 
 (use-package browse-url
   :ensure nil
-  :custom
-  (browse-url-browser-function 'browse-url-xdg-open))
+  :bind
+  ("C-c b p" . browse-url-at-point))
 
 (use-package cc-mode
   :ensure nil
@@ -304,6 +304,11 @@
     :after evil-org
     :config (evil-org-agenda-set-keys)))
 
+(use-package eww
+  :ensure nil
+  :bind
+  ("C-c b e" . eww))
+
 (use-package explain-pause-mode
   ;; :demand t
   :load-path "~/src/github.com/lastquestion/explain-pause-mode"
@@ -506,7 +511,6 @@
   (lsp-rust-clippy-preference "on")
   (lsp-rust-server 'rls)
   (lsp-signature-auto-activate nil)
-  ;; (lsp-rust-server 'rust-analyzer)  ;; TODO not working with cube-rs
   :hook
   (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
@@ -544,13 +548,13 @@
   (java-lens-mode . lsp-java-lens-mode))
 
 (use-package lsp-python-ms
-  ;; :demand t  ; TODO use :commands
-  ;; :after lsp-mode
   :custom
   (lsp-python-ms-disabled ["inherit-non-class"])
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-python-ms)
-                         (lsp-deferred))))
+  :hook
+  (python-mode . (lambda ()
+                   (require 'lsp-python-ms)
+                   (lsp-deferred)))
+  )
 
 (use-package lsp-ui
   :after lsp-mode
@@ -1028,11 +1032,6 @@
   :custom
   (column-number-mode t)
   (indent-tabs-mode nil))
-
-;; TODO maybe just use M-s . and then C-s/C-r
-(use-package smartscan
-  :init
-  (global-smartscan-mode 1))
 
 (use-package startup
   :ensure nil

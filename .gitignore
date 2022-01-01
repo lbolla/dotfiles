@@ -53,3 +53,5 @@ _obsolete/
 /emacs/.emacs.d/tutorial/
 /emacs/.emacs.d/ido.last
 /emacs/.emacs.d/semanticdb/
+/emacs/.emacs.d/srecode-map.el
+/emacs/.emacs.d/eww-bookmarks
