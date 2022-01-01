@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(require 'private "~/Private/emacs/private.el")
+(require 'local-secret "~/Private/emacs/secret-jiren.el")
 
 (defvar org-agenda-files)
 
@@ -95,6 +95,6 @@
                       (require 'lsp-zig)
                       (setq lsp-zig-zls-executable "/opt/zls-0.1.0/zls"))))
 
-(provide 'personal)
+(provide 'local-config)
 
 ;;; personal.el ends here

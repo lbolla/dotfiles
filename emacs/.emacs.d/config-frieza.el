@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(require 'private-yougov "~/Private/emacs/private-yougov.el")
+(require 'secret-frieza "~/Private/emacs/secret-frieza.el")
 
 ;; Defined in private.el
 (defvar yg-fogbugz-cli-buffer-name)

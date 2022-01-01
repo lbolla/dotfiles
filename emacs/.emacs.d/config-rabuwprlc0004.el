@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(require 'private-roche "~/Private/emacs/private-roche.el")
+(require 'secret-rabuwprlc0004 "~/Private/emacs/secret-rabuwprlc0004.el")
 
 ;; TODO nvm which node
 (my/append-to-path '("/home/users/bollal/.nvm/versions/node/v14.17.0/bin"))

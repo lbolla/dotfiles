@@ -50,17 +50,10 @@
 (require 'themes "~/.emacs.d/themes.el")
 
 ;; Site-dependent settings
-(pcase (system-name)
-  ("jiren"
-   (require 'personal "~/.emacs.d/personal.el"))
-  ("frieza"
-   (require 'yougov "~/.emacs.d/yougov.el"))
-  ((or "troulwn0333" "rabuwprlc0004")
-   (require 'roche "~/.emacs.d/roche.el")))
-
-;; For local customizations
-(when (file-exists-p "~/.emacs.d/local.el")
-  (require 'local "~/.emacs.d/local.el"))
+(let ((local-config (format "~/.emacs.d/config-%s.el" (system-name))))
+  (when (file-exists-p local-config)
+    (message "Loading %s" local-config)
+    (require 'local-config local-config)))
 
 (provide 'init)
 ;;; init.el ends here
