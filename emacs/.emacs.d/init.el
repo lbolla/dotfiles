@@ -45,9 +45,9 @@
                                          prj-parent) (file-name-nondirectory buffer-file-truename)))
                               "%b"))))))
 
-(require 'defuns "~/.emacs.d/defuns.el")
-(require 'pkgs "~/.emacs.d/pkgs.el")
-(require 'themes "~/.emacs.d/themes.el")
+(require 'init-defuns "~/.emacs.d/init-defuns.el")
+(require 'init-pkgs "~/.emacs.d/init-pkgs.el")
+(require 'init-themes "~/.emacs.d/init-themes.el")
 
 ;; Site-dependent settings
 (let ((local-config (format "~/.emacs.d/config-%s.el" (system-name))))

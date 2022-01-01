@@ -535,5 +535,5 @@ is already narrowed."
         nil)
     t))
 
-(provide 'defuns)
-;;; defuns.el ends here
+(provide 'init-defuns)
+;;; init-defuns.el ends here

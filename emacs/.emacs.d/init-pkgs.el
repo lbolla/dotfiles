@@ -1194,5 +1194,5 @@
   :bind
   ("C-c z" . zoom-window-zoom))
 
-(provide 'pkgs)
-;;; pkgs.el ends here
+(provide 'init-pkgs)
+;;; init-pkgs.el ends here

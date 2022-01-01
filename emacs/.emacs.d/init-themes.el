@@ -180,5 +180,5 @@
   "Run `after-load-theme-hook'."
   (run-hooks 'after-load-theme-hook))
 
-(provide 'themes)
-;;; themes.el ends here
+(provide 'init-themes)
+;;; init-themes.el ends here
