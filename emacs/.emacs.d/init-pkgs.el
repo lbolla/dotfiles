@@ -138,9 +138,7 @@
 (use-package custom
   :ensure nil
   :custom
-  ;; (custom-file null-device "Don't store customizations")
-  ;; TODO host specific custom file
-  (custom-file (concat "custom-" (system-name) ".el") "Store host specific customizations")
+  (custom-file (format "~/.emacs.d/custom-%s.el" (system-name)) "Store host specific customizations")
   (custom-safe-themes t)
   (enable-recursive-minibuffers t)  ;; https://www.masteringemacs.org/article/executing-shell-commands-emacs
   (gc-cons-threshold 100000000)
