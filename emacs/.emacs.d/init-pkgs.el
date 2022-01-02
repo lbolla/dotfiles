@@ -378,13 +378,11 @@
 (use-package flycheck-cython
   :disabled t
   :load-path "~/src/github.com/lbolla/emacs-flycheck-cython/"
-  :after flycheck
-  :demand t)
+  :after flycheck)
 
 (use-package flycheck-dialyzer
   :disabled t
   :after flycheck
-  :demand t
   :config
   (flycheck-add-next-checker 'erlang '(warning . erlang-dialyzer) t))
 
@@ -476,8 +474,7 @@
   :custom
   (global-hl-line-mode nil))
 
-(use-package ivy-hydra
-  :demand t)
+(use-package ivy-hydra)
 
 (use-package json-mode
   :mode ((rx ".ipynb" eos))
@@ -1004,7 +1001,7 @@
   (send-mail-function 'smtpmail-send-it))
 
 (use-package server
-  :demand t
+  :ensure nil
   :config
   (unless (server-running-p)
     (server-start)))
