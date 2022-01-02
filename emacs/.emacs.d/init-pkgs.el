@@ -357,8 +357,6 @@
   ;; (flycheck-python-flake8-executable nil)
   ;; (flycheck-python-mypy-cache-dir "/dev/null")
   (flycheck-shellcheck-excluded-warnings '("SC2006" "SC2086" "SC2181"))
-  :hook
-  (after-init . global-flycheck-mode)
   :init
   (add-to-list 'display-buffer-alist
                `(,(rx bos "*Flycheck errors*" eos)
@@ -368,7 +366,9 @@
                  (side            . bottom)
                  (window-height   . 0.20)))
   :config
-  (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t))
+  (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t)
+  :init
+  (global-flycheck-mode))
 
 (use-package flycheck-color-mode-line
   :after flycheck
@@ -409,14 +409,19 @@
 
 (use-package flycheck-rust
   :after rust-mode
-  :demand t
   :custom
   (flycheck-rust-check-tests nil)
   :hook
-  ;; (flycheck-mode . flycheck-rust-setup)
   (rust-mode . flycheck-rust-setup)
   :config
   (flycheck-add-next-checker 'rust-cargo '(warning . rust-clippy)))
+
+(use-package flymake
+  :ensure nil
+  :bind
+  (:map flymake-mode-map
+        ("M-n" . flymake-goto-next-error)
+        ("M-p" . flymake-goto-prev-error)))
 
 (use-package frame
   :ensure nil
@@ -602,10 +607,11 @@
   (message-kill-buffer-on-exit t))
 
 (use-package minions
-  :demand t
   :bind
   ([S-down-mouse-3] . minions-minor-modes-menu)
-  :config
+  :custom
+  (minions-prominent-modes '(flycheck-mode flymake-mode))
+  :init
   (minions-mode 1))
 
 (use-package mouse
@@ -894,6 +900,7 @@
   :hook
   (prog-mode . (lambda ()
                  (hs-minor-mode 1)
+                 ;; (flymake-mode 1)
                  (flyspell-prog-mode)
                  (semantic-mode 1)
                  (superword-mode 1))))
@@ -928,6 +935,8 @@
   :mode (((rx ".pyi" eos) . python-mode) ;; type stub files
          ((rx ".mk" eos) . python-mode)  ;; check-mk config files
          ((rx ".pyrc" eos) . python-mode))
+  :custom
+  (python-flymake-command '("pyflakes3"))
   :hook
   (python-mode . (lambda ()
                    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
