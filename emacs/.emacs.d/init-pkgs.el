@@ -128,8 +128,10 @@
 
 (use-package counsel
   :bind
-  ("C-c t" . counsel-load-theme)
-  ("C-c i m" . counsel-imenu)
+  ("C-c c <SPC>" . counsel-mark-ring)
+  ("C-c c i" . counsel-imenu)
+  ("C-c c t" . counsel-load-theme)
+  ("C-c c r" . counsel-rg)
   :init
   (counsel-mode t))
 
@@ -970,8 +972,7 @@
 
 (use-package rg
   :bind
-  ("C-c r G" . my/rg-dwim-project-dir)
-  ("C-c r g" . counsel-rg)
+  ("C-c r g" . rg-dwim-project-dir)
   ("C-c r p" . rg-project)
   ("C-c r r" . rg)
   :custom
@@ -982,13 +983,7 @@
   (rg-custom-type-aliases '(("gyp" . "*.gyp *.gypi")
                             ("web" . "*.html *.css *.js *.tmpl")))
   :config
-  (rg-define-toggle "--context 3" "x" nil)
-  (rg-define-search my/rg-dwim-project-dir
-    "Search for thing at point in every file under the project root directory."
-    :query point
-    :format literal
-    :files "everything"
-    :dir project))
+  (rg-define-toggle "--context 3" "x" nil))
 
 (use-package rjsx-mode
   :mode ((rx ".js" eos)))
