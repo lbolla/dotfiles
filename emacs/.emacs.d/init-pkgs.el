@@ -357,6 +357,12 @@
   ;; (flycheck-python-flake8-executable nil)
   ;; (flycheck-python-mypy-cache-dir "/dev/null")
   (flycheck-shellcheck-excluded-warnings '("SC2006" "SC2086" "SC2181"))
+  :bind
+  (:map flycheck-mode-map
+        ("M-n" . flycheck-next-error)
+        ("M-p" . flycheck-previous-error))
+  :config
+  (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t)
   :init
   (add-to-list 'display-buffer-alist
                `(,(rx bos "*Flycheck errors*" eos)
@@ -365,9 +371,6 @@
                  (reusable-frames . visible)
                  (side            . bottom)
                  (window-height   . 0.20)))
-  :config
-  (flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck t)
-  :init
   (global-flycheck-mode))
 
 (use-package flycheck-color-mode-line
