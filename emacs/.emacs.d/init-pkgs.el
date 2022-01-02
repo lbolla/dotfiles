@@ -92,14 +92,15 @@
                  (c-offsets-alist
                   (inline-open . 0)))))
 
-(use-package clang-format
-  :custom
-  (clang-format-style "file")
-  (clang-format-fallback-style "WebKit")
-  :hook
-  (c++-mode . my/clang-format-keybindings)
-  (js2-mode . my/clang-format-keybindings)
-  (protobuf-mode . my/clang-format-keybindings))
+(when (executable-find "clang-format")
+  (use-package clang-format
+    :custom
+    (clang-format-style "file")
+    (clang-format-fallback-style "WebKit")
+    :hook
+    (c++-mode . my/clang-format-keybindings)
+    (js2-mode . my/clang-format-keybindings)
+    (protobuf-mode . my/clang-format-keybindings)))
 
 (use-package company
   :custom
