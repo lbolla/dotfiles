@@ -162,9 +162,7 @@
           `(org-scheduled-today               ((t (:background "white" :weight bold))))
           `(org-strt                          ((t (:inherit (org-todo) :foreground "dark orange"))))
           `(org-ctodo                          ((t (:foreground "gray20" :weight bold :box t))))
-          `(org-wait                          ((t (:inherit (org-todo) :foreground "gold"))))
-          `(tab-line                          ((t (:foreground "gold"))))
-          )))))
+          `(org-wait                          ((t (:inherit (org-todo) :foreground "gold")))))))))
 
   "Hook run after a color theme is loaded using `load-theme'.")
 
