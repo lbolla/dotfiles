@@ -408,7 +408,7 @@
 (use-package flycheck-pycheckers
   :after flycheck
   :custom
-  (flycheck-pycheckers-checkers '(flake8 mypy3))
+  (flycheck-pycheckers-checkers '(pyflakes))
   :hook
   (flycheck-mode . flycheck-pycheckers-setup))
 
@@ -506,9 +506,10 @@
   ;; (lsp-clients-clangd-executable "clangd-10")
   (lsp-diagnostics-flycheck-default-level 'info)
   (lsp-diagnostics-modeline-scope :workspace)
-  (lsp-enable-indentation nil)
+  (lsp-enable-indentation t)
+  (lsp-enable-on-type-formatting t)
   (lsp-enable-snippet nil)
-  (lsp-enable-xref nil) ;; dumb-jump works better
+  (lsp-enable-xref nil)                 ; dumb-jump works better
   (lsp-headerline-breadcrumb-enable nil)
   (lsp-keymap-prefix "C-c l")
   (lsp-prefer-capf t)
