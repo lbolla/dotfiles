@@ -29,16 +29,6 @@
   :defer t
   :demand t)
 
-(use-package poet-theme
-  :defer t
-  :demand t
-  :custom
-  (poet-theme-variable-headers nil))
-
-(use-package tao-theme
-  :defer t
-  :demand t)
-
 (use-package modus-themes
   :defer t
   :demand t
@@ -103,14 +93,14 @@
 
        ;; Deeper blue
        ((eq theme 'deeper-blue)
-        (lbolla/custom-theme-set-faces
+        (my/custom-theme-set-faces
          'deeper-blue
          `(mode-line                         ((t (:background "gray55"))))
          `(region                            ((t (:background "#50506f"))))))
 
        ;; Doom Laserwave
        ((eq theme 'doom-laserwave)
-        (lbolla/custom-theme-set-faces
+        (my/custom-theme-set-faces
          'doom-laserwave
          `(ivy-current-match                 ((t (:background "#4e2e49" :inherit (region)))))
          `(eyebrowse-mode-line-active        ((t (:weight bold))))
@@ -120,31 +110,31 @@
 
        ;; Doom Monokai Classic
        ((eq theme 'doom-monokai-classic)
-        (lbolla/custom-theme-set-faces
+        (my/custom-theme-set-faces
          'doom-monokai-classic
          `(ivy-current-match                 ((t (:background "#4E4E4E" :inherit (region)))))))
 
        ;; Doom Opera Light
        ((eq theme 'doom-opera-light)
-        (lbolla/custom-theme-set-faces
+        (my/custom-theme-set-faces
          'doom-opera-light
          `(popup-tip-face                    ((t (:inherit popup-face :foreground "#842879" :background "khaki1"))))))
 
        ;; Modus Operandi
        ((eq theme 'modus-operandi)
-        (lbolla/custom-theme-set-faces
+        (my/custom-theme-set-faces
          'modus-operandi
          `(magit-tag                         ((t (:inherit bold :foreground "#863927"))))))  ;; yellow-alt-other
 
        ;; Modus Vivendi
        ((eq theme 'modus-vivendi)
-        (lbolla/custom-theme-set-faces
+        (my/custom-theme-set-faces
          'modus-vivendi
          `(org-block                         ((t (:background "#2a2a2a"))))))
 
        ;; Goose
        ((eq theme 'goose)
-        (lbolla/custom-theme-set-faces
+        (my/custom-theme-set-faces
          'goose
          `(font-lock-string-face             ((t (:foreground "#666666" :slant italic))))
          `(mu4e-flagged-face                 ((t (:inherit (font-lock-constant-face) :foreground "firebrick" :weight bold))))
@@ -156,7 +146,7 @@
 
        ;; Leuven
         ((eq theme 'leuven)
-         (lbolla/custom-theme-set-faces
+         (my/custom-theme-set-faces
           'leuven
           `(highlight-indentation-face        ((t (:inherit (fringe) :background "gray97"))))
           ;; `(magit-diff-file-heading-highlight ((t (:background "gray80"))))
