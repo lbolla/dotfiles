@@ -50,7 +50,7 @@
   (-map-when (lambda (x) (not (eq x 'use-package))) #'disable-theme custom-enabled-themes)
   (load-theme theme 'no-confirm))
 
-(defmacro lbolla/custom-theme-set-faces (theme &rest args)
+(defmacro my/custom-theme-set-faces (theme &rest args)
   "Set and activate ARGS faces in THEME."
   `(progn
      (custom-theme-set-faces
@@ -65,7 +65,7 @@
 
        ;; Cyberpunk
        ((eq theme 'cyberpunk)
-        (lbolla/custom-theme-set-faces
+        (my/custom-theme-set-faces
          'cyberpunk
          `(font-lock-warning-face            ((t (:foreground "#ff69b4" :inverse-video t :weight bold))))
          `(highlight-indentation-face        ((t (:inherit (fringe) :background "gray5"))))
@@ -161,8 +161,10 @@
           `(org-scheduled-previously          ((t (:foreground "gray50" :weight normal))))
           `(org-scheduled-today               ((t (:background "white" :weight bold))))
           `(org-strt                          ((t (:inherit (org-todo) :foreground "dark orange"))))
-          `(org-todo                          ((t (:foreground "gray20" :weight bold :box t))))
-          `(org-wait                          ((t (:inherit (org-todo) :foreground "gold")))))))))
+          `(org-ctodo                          ((t (:foreground "gray20" :weight bold :box t))))
+          `(org-wait                          ((t (:inherit (org-todo) :foreground "gold"))))
+          `(tab-line                          ((t (:foreground "gold"))))
+          )))))
 
   "Hook run after a color theme is loaded using `load-theme'.")
 
