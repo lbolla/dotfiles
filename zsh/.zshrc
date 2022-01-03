@@ -91,7 +91,6 @@ ZSH_CUSTOM=$HOME/src/github.com/lbolla/dotfiles/oh-my-zsh/.oh-my-zsh/custom/
 
 plugins=(
     aws
-    cargo
     colored-man-pages
     common-aliases
     docker
@@ -111,6 +110,7 @@ plugins=(
     # pyenv
     rclone
     restic
+    rust
     stern
     tmux
     virtualenv
