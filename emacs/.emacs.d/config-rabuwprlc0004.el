@@ -240,6 +240,6 @@
         (outdir (concat "~/src/code.roche.com/" what)))
     (magit-clone-regular repo outdir nil)))
 
-(provide 'roche)
+(provide 'local-config)
 
-;;; roche.el ends here
+;;; config-rabuwprlc0004.el ends here
