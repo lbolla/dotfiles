@@ -376,6 +376,7 @@
   (global-flycheck-mode))
 
 (use-package flycheck-color-mode-line
+  :disabled t
   :after flycheck
   :hook
   (flycheck-mode . flycheck-color-mode-line-mode))
