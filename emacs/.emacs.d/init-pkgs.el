@@ -844,8 +844,10 @@
   (org-treat-S-cursor-todo-selection-as-state-change nil)
 
   :hook
-  (org-mode . auto-fill-mode)
-  (org-mode . flyspell-mode)
+  (org-mode . (lambda ()
+                (auto-fill-mode t)
+                (flyspell-mode t)
+                (setq-local which-func-functions '((lambda () (org-get-heading t nil t t))))))
 
   :bind
   ;; From https://orgmode.org/manual/Activation.html#Activation
