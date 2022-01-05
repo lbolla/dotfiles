@@ -7,15 +7,16 @@
 
 (use-package cyberpunk-theme)
 
-(use-package dash)
-
 (use-package doom-themes)
 
 (use-package goose-theme)
 
 (use-package leuven-theme)
 
-(use-package matrix-theme)
+(use-package matrix-theme
+  :load-path "~/src/github.com/lbolla/matrix-emacs-theme/the-matrix"
+  :init
+  (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/matrix-emacs-theme/"))
 
 (use-package modus-themes
   :custom
@@ -25,19 +26,8 @@
 
 (use-package quasi-monochrome-theme
   :load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"
-  :no-require t
-  :config
+  :init
   (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"))
-
-(defun my/switch-theme (theme)
-  "Disable active themes and load THEME."
-  (interactive (list (intern (completing-read "Theme: "
-                                              (->> (custom-available-themes)
-                                                   (-map #'symbol-name))))))
-  ;; (-map #'disable-theme custom-enabled-themes)
-  ;; Don't disabled "use-package" theme
-  (-map-when (lambda (x) (not (eq x 'use-package))) #'disable-theme custom-enabled-themes)
-  (load-theme theme 'no-confirm))
 
 (defmacro my/custom-theme-set-faces (theme &rest args)
   "Set and activate ARGS faces in THEME."

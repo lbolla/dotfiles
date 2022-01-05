@@ -5,6 +5,8 @@
 ;;; Code:
 ;;; Keep these sexp sorted with (sort-paragraphs)
 
+(use-package dash)
+
 (defcustom my/fonts '(
                       "Monoid-10"
                       ;; "Operator Mono Light-14"
@@ -446,6 +448,16 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (split-window-right)
   (windmove-right)
   (ivy-switch-buffer))
+
+(defun my/switch-theme (theme)
+  "Disable active themes and load THEME."
+  (interactive (list (intern (completing-read "Theme: "
+                                              (->> (custom-available-themes)
+                                                   (-map #'symbol-name))))))
+  ;; (-map #'disable-theme custom-enabled-themes)
+  ;; Don't disabled "use-package" theme
+  (-map-when (lambda (x) (not (eq x 'use-package))) #'disable-theme custom-enabled-themes)
+  (load-theme theme 'no-confirm))
 
 (defun my/tab-name-from-project ()
   "Name tab bar after current project."

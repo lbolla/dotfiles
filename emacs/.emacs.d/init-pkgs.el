@@ -221,12 +221,6 @@
   (ediff-split-window-function 'split-window-horizontally)
   (ediff-window-setup-function 'ediff-setup-windows-plain))
 
-;; Required by FF add-on "Edit with Emacs"
-(use-package edit-server
-  :init
-  (unless (process-status "edit-server")
-    (edit-server-start)))
-
 (use-package electric
   :init
   (electric-indent-mode t))
@@ -1053,6 +1047,7 @@
 
 (use-package server
   :ensure nil
+  :demand t
   :config
   (unless (server-running-p)
     (server-start)))

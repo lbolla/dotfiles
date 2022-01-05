@@ -251,6 +251,12 @@
   :config (progn
             (kubernetes-global-mode t)))
 
+;; Required by FF add-on "Edit with Emacs"
+(use-package edit-server
+  :init
+  (unless (process-status "edit-server")
+    (edit-server-start)))
+
 (use-package ido
   :disabled t
   :init (progn
