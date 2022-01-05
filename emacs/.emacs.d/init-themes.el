@@ -5,40 +5,29 @@
 
 ;;; Code:
 
-(use-package quasi-monochrome-theme
-  :load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"
-  ;; :defer t
-  :no-require t
-  :demand t
-  :config
-  (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"))
+(use-package cyberpunk-theme)
 
-(use-package leuven-theme
-  :defer t
-  :demand t)
+(use-package dash)
 
-(use-package cyberpunk-theme
-  :defer t
-  :demand t)
+(use-package doom-themes)
 
-(use-package goose-theme
-  :defer t
-  :demand t)
+(use-package goose-theme)
 
-(use-package doom-themes
-  :defer t
-  :demand t)
+(use-package leuven-theme)
+
+(use-package matrix-theme)
 
 (use-package modus-themes
-  :defer t
-  :demand t
   :custom
   (modus-themes-region 'bg-only)
   (modus-themes-org-blocks 'greyscale)
   (modus-themes-completions 'opinionated))
 
-(use-package dash
-  :demand t)
+(use-package quasi-monochrome-theme
+  :load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"
+  :no-require t
+  :config
+  (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"))
 
 (defun my/switch-theme (theme)
   "Disable active themes and load THEME."
