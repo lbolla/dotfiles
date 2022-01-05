@@ -19,4 +19,4 @@
  '(default ((t (:family "Iosevka" :weight light :height 120))))
  '(fixed-pitch ((t (:family "Iosevka" :height 120))))
  '(fixed-pitch-serif ((t (:family "FreeMono" :height 120))))
- '(variable-pitch ((t (:family "Gentium" :height 140)))))
+ '(variable-pitch ((t (:family "Gentium" :height 120)))))
