@@ -87,6 +87,18 @@
          `(mode-line                         ((t (:background "gray55"))))
          `(region                            ((t (:background "#50506f"))))))
 
+       ;; Doom Ayu Mirage
+       ((eq theme 'doom-ayu-mirage)
+        (my/custom-theme-set-faces
+         'doom-ayu-mirage
+         `(ivy-current-match                 ((t (:weight bold))))))
+
+       ;; Doom Ayu Light
+       ((eq theme 'doom-ayu-light)
+        (my/custom-theme-set-faces
+         'doom-ayu-light
+         `(ivy-current-match                 ((t (:weight bold))))))
+
        ;; Doom Laserwave
        ((eq theme 'doom-laserwave)
         (my/custom-theme-set-faces
