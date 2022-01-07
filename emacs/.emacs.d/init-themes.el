@@ -14,7 +14,7 @@
 (use-package leuven-theme)
 
 (use-package matrix-theme
-  :load-path "~/src/github.com/lbolla/matrix-emacs-theme/the-matrix"
+  :load-path "~/src/github.com/lbolla/matrix-emacs-theme/"
   :init
   (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/matrix-emacs-theme/"))
 
@@ -153,8 +153,39 @@
           `(org-scheduled-today               ((t (:background "white" :weight bold))))
           `(org-strt                          ((t (:inherit (org-todo) :foreground "dark orange"))))
           `(org-ctodo                          ((t (:foreground "gray20" :weight bold :box t))))
-          `(org-wait                          ((t (:inherit (org-todo) :foreground "gold")))))))))
+          `(org-wait                          ((t (:inherit (org-todo) :foreground "gold"))))))
 
+        ;; The Matrix
+        ((eq theme 'the-matrix)
+         ;; From original theme
+         ;; TODO remove when https://github.com/monkeyjunglejuice/matrix-emacs-theme/pull/7 is merged
+         (let* ((color-bg      "#000000")
+                (color-bg-alt  "#011a0d")
+                (color-bg-red  "#330800")
+                (color-bg-blue "#001733")
+                (color-hl      "#00ff7f")
+                (color-bright  "#00ee76")
+                (color-middle  "#00cd66")
+                (color-fg      "#00a250")
+                (color-dark    "#007338")
+                (color-darker  "#004020")
+                (color-red     "#d92000")
+                (color-blue    "#006bf2"))
+           (my/custom-theme-set-faces
+            'the-matrix
+            ;; tab-line/tab-bar (Emacs 27+)
+            `(tab-line ((t (:background ,color-bg-alt :foreground ,color-fg))))
+            `(tab-line-tab ((t (:background ,color-bg :foreground ,color-fg))))
+            `(tab-line-tab-inactive ((t (:inherit tab-line-tab :background ,color-bg-alt :foreground ,color-fg))))
+            `(tab-line-tab-inactive-alternate ((t (:inherit tab-line-tab-inactive))))
+            `(tab-line-tab-current ((t (:background ,color-bg :foreground ,color-fg))))
+            `(tab-line-highlight ((t (:inherit tab-line-tab))))
+            `(tab-line-close-highlight ((t (:foreground color-hl))))
+            `(tab-bar ((t (:background ,color-bg-alt :foreground ,color-fg))))
+            `(tab-bar-tab ((t (:background ,color-bg :foreground ,color-fg))))
+            `(tab-bar-tab-inactive ((t (:inherit tab-line-tab :background ,color-bg-alt :foreground ,color-fg)))))))
+
+        )))
   "Hook run after a color theme is loaded using `load-theme'.")
 
 (defadvice load-theme (after run-after-load-theme-hook activate)

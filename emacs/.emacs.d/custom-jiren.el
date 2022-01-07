@@ -18,5 +18,5 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :weight light :height 120))))
  '(fixed-pitch ((t (:family "Iosevka" :height 120))))
- '(fixed-pitch-serif ((t (:family "FreeMono" :height 120))))
- '(variable-pitch ((t (:family "Gentium" :height 120)))))
+ '(fixed-pitch-serif ((t (:family "Iosevka Slab" :height 120))))
+ '(variable-pitch ((t (:family "Iosevka Etoile" :height 120)))))
