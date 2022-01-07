@@ -887,6 +887,7 @@
   :custom
   (org-cite-global-bibliography '("~/Private/org/bibliography/references.bib"))
   (org-roam-directory my/zettelkasten-directory)
+  (org-roam-graph-viewer 'browse-url)
   (org-roam-v2-ack t)
   :bind
   ("C-c n b" . org-roam-buffer-toggle)
