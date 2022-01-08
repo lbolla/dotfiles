@@ -77,23 +77,30 @@
          `(mode-line                         ((t (:background "gray55"))))
          `(region                            ((t (:background "#50506f"))))))
 
+       ;; Doom 1337
+       ((eq theme 'doom-1337)
+        (my/custom-theme-set-faces
+         'doom-1337
+         `(highlight                         ((t (:foreground #191919 :background #ffffff))))
+         `(ivy-current-match                 ((t (:weight bold :underline t))))))
+
        ;; Doom Ayu Mirage
        ((eq theme 'doom-ayu-mirage)
         (my/custom-theme-set-faces
          'doom-ayu-mirage
-         `(ivy-current-match                 ((t (:weight bold))))))
+         `(ivy-current-match                 ((t (:weight bold :underline t))))))
 
        ;; Doom Ayu Light
        ((eq theme 'doom-ayu-light)
         (my/custom-theme-set-faces
          'doom-ayu-light
-         `(ivy-current-match                 ((t (:weight bold))))))
+         `(ivy-current-match                 ((t (:weight bold :underline t))))))
 
        ;; Doom Laserwave
        ((eq theme 'doom-laserwave)
         (my/custom-theme-set-faces
          'doom-laserwave
-         `(ivy-current-match                 ((t (:background "#4e2e49" :inherit (region)))))
+         `(ivy-current-match                 ((t (:weight bold :underline t))))
          `(eyebrowse-mode-line-active        ((t (:weight bold))))
          `(org-mode-line-clock               ((t (:slant italic :weight bold))))
          `(org-mode-line-clock-overrun       ((t (:inherit font-lock-warning-face :slant italic :weight bold))))
@@ -103,7 +110,7 @@
        ((eq theme 'doom-monokai-classic)
         (my/custom-theme-set-faces
          'doom-monokai-classic
-         `(ivy-current-match                 ((t (:background "#4E4E4E" :inherit (region)))))))
+         `(ivy-current-match                 ((t (:weight bold :underline t))))))
 
        ;; Doom Opera Light
        ((eq theme 'doom-opera-light)
