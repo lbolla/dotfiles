@@ -81,7 +81,7 @@
        ((eq theme 'doom-1337)
         (my/custom-theme-set-faces
          'doom-1337
-         `(highlight                         ((t (:foreground #191919 :background #ffffff))))
+         `(highlight                         ((t (:foreground "#191919" :background "#ffffff"))))
          `(ivy-current-match                 ((t (:weight bold :underline t))))))
 
        ;; Doom Ayu Mirage
