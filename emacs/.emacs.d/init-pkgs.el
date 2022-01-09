@@ -143,7 +143,7 @@
   :custom
   (custom-file (format "~/.emacs.d/custom-%s.el" (system-name)) "Store host specific customizations")
   (custom-safe-themes t)
-  (enable-recursive-minibuffers t)  ;; https://www.masteringemacs.org/article/executing-shell-commands-emacs
+  (enable-recursive-minibuffers t) ;; https://www.masteringemacs.org/article/executing-shell-commands-emacs
   (gc-cons-threshold 100000000)
   (line-spacing 0.2)
   (safe-local-variable-values
@@ -621,6 +621,11 @@
   :hook
   (markdown-mode . (lambda ()
                      (auto-fill-mode t))))
+
+(use-package mb-depth
+  :ensure nil
+  :init
+  (minibuffer-depth-indicate-mode t))
 
 (use-package menu-bar
   :ensure nil
