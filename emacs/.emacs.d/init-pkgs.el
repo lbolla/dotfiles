@@ -1092,8 +1092,9 @@
 (use-package tab-bar
   :ensure nil
   :custom
-  (tab-bar-tab-hints t)
-  (tab-bar-select-tab-modifiers '(control)))
+  (tab-bar-format '(tab-bar-format-history tab-bar-format-tabs-groups tab-bar-separator tab-bar-format-add-tab))
+  (tab-bar-select-tab-modifiers '(control))
+  (tab-bar-tab-hints t))
 
 (use-package text-mode
   :ensure nil
