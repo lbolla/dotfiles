@@ -250,7 +250,6 @@
   ("C-=" . er/expand-region))
 
 (use-package evil
-  :demand t
   :disabled my/lesser-evil
 
   :custom
@@ -304,26 +303,23 @@
 
 (unless my/lesser-evil
   (use-package evil-collection
-    :demand t
     :after evil
-    :config
+    :init
     (evil-collection-init))
 
   (use-package evil-nerd-commenter
-    :demand t
     :after evil)
 
   (use-package evil-org
-    :demand t
     :after (evil org)
     :hook
     (org-mode . evil-org-mode))
 
   (use-package evil-org-agenda
     :ensure nil  ;; Part of evil-org
-    :demand t
     :after evil-org
-    :config (evil-org-agenda-set-keys)))
+    :config
+    (evil-org-agenda-set-keys)))
 
 (use-package eww
   :ensure nil
@@ -674,7 +670,6 @@
         ("TAB" . hs-toggle-hiding)))
 
 (use-package org
-  :demand t
   :mode ((rx bos "diary" eos))
   :custom
   (org-agenda-block-separator "")
