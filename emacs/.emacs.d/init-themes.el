@@ -13,10 +13,11 @@
 
 (use-package leuven-theme)
 
-(use-package matrix-theme
-  :load-path "~/src/github.com/lbolla/matrix-emacs-theme/"
-  :init
-  (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/matrix-emacs-theme/"))
+(use-package the-matrix-theme
+  ;; :load-path "~/src/github.com/lbolla/matrix-emacs-theme/"
+  ;; :init
+  ;; (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/matrix-emacs-theme/")
+  )
 
 (use-package modus-themes
   :custom
