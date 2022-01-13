@@ -131,7 +131,6 @@
   ("C-c c <SPC>" . counsel-mark-ring)
   ("C-c c i" . counsel-imenu)
   ("C-c c t" . counsel-load-theme)
-  ("C-c c r" . counsel-rg)
   :init
   (counsel-mode t))
 
@@ -1011,9 +1010,10 @@
 
 (use-package rg
   :bind
-  ("C-c r g" . rg-dwim-project-dir)
+  ("C-c r ." . rg-dwim-project-dir)
+  ("C-c r g" . rg)
   ("C-c r p" . rg-project)
-  ("C-c r r" . rg)
+  ("C-c r r" . counsel-rg)
   :custom
   (rg-group-result nil)
   (rg-default-alias-fallback "everything")
@@ -1174,9 +1174,7 @@
   :load-path "~/src/github.com/lbolla/vcs-resolve/"
   ;; :demand t
   :bind
-  ("C-c v b" . vcs-resolve-buffer)
-  ("C-c v p" . vcs-resolve-at-point)
-  ("C-c v r" . vcs-resolve-region)
+  ("C-c v ." . vcs-resolve-dwim)
   :custom
   (vcs-resolve-exe "~/src/github.com/lbolla/vcs-resolve/vcs-resolve.py"))
 
