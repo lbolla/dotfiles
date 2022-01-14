@@ -978,6 +978,8 @@
   :mode (((rx ".pyi" eos) . python-mode) ;; type stub files
          ((rx ".mk" eos) . python-mode)  ;; check-mk config files
          ((rx ".pyrc" eos) . python-mode))
+  :bind
+  ("C-c p b" . my/python-insert-breakpoint)
   :custom
   (python-flymake-command '("pyflakes3"))
   :hook
