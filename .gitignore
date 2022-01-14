@@ -56,3 +56,4 @@ _obsolete/
 /emacs/.emacs.d/srecode-map.el
 /emacs/.emacs.d/eww-bookmarks
 /emacs/.emacs.d/request/
+/emacs/.emacs.d/custom-*.el
