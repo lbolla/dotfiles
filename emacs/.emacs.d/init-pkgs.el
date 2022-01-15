@@ -732,6 +732,7 @@
                          odt))
   (org-fast-tag-selection-single-key t)
   (org-fontify-quote-and-verse-blocks  t)
+  (org-goto-interface 'outline-path-completion)
   (org-fontqify-whole-heading-line t)
   (org-html-htmlize-output-type 'css)
   (org-html-validation-link nil)
