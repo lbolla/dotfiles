@@ -207,6 +207,10 @@
 (use-package dockerfile-mode
   :mode ((rx "Dockerfile")))
 
+(use-package dot-mode
+  :init
+  (global-dot-mode t))
+
 (use-package dumb-jump
   :custom
   (dumb-jump-selector 'ivy)
