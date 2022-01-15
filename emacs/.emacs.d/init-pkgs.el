@@ -208,6 +208,8 @@
   :mode ((rx "Dockerfile")))
 
 (use-package dot-mode
+  :bind*
+  ("C-." . dot-mode-execute)            ; flyspell uses this binding
   :init
   (global-dot-mode t))
 
