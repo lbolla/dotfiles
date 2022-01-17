@@ -7,7 +7,7 @@
 (use-package gnus
   :custom
   (gnus-select-method '(nntp "news.gmane.io"))
-  (gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s\n"))
+  (gnus-summary-line-format "%&user-date; %U%R%z%I%(%[%4L: %-23,23f%]%) %s\n"))
 
 (provide '.gnus)
 ;;; .gnus ends here
