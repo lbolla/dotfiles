@@ -459,6 +459,15 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   (-map-when (lambda (x) (not (eq x 'use-package))) #'disable-theme custom-enabled-themes)
   (load-theme theme 'no-confirm))
 
+;; https://emacs.stackexchange.com/questions/7409/is-there-a-generic-toggle-previous-window-function
+(defun my/switch-to-last-window ()
+  (interactive)
+  (let ((win (get-mru-window t t t)))
+    (unless win (error "Last window not found"))
+    (let ((frame (window-frame win)))
+      (select-frame-set-input-focus frame)
+      (select-window win))))
+
 (defun my/tab-name-from-project ()
   "Name tab bar after current project."
   ;; (tab-bar-rename-tab (projectile-project-name))

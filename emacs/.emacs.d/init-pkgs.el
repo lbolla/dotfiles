@@ -149,6 +149,7 @@
    '((flycheck-pycheckers-max-line-length . 130)))
   :bind
   ("C-c v w" . my/venv-workon-and-cdproject)
+  ("C-c w" . my/switch-to-last-window)
   :init
   (add-hook 'kill-buffer-query-functions 'my/unkillable-scratch-buffer)
   (custom-set-faces
@@ -251,7 +252,7 @@
 ;;   (eyebrowse-mode t))
 
 (use-package expand-region
-  :bind
+  :bind*
   ("C-=" . er/expand-region))
 
 (use-package evil
