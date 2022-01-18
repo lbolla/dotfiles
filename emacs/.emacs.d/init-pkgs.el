@@ -149,7 +149,6 @@
    '((flycheck-pycheckers-max-line-length . 130)))
   :bind
   ("C-c v w" . my/venv-workon-and-cdproject)
-  ("C-c w" . my/switch-to-last-window)
   :init
   (add-hook 'kill-buffer-query-functions 'my/unkillable-scratch-buffer)
   (custom-set-faces
@@ -1215,6 +1214,15 @@
   :ensure nil
   :custom
   (whitespace-style '(face trailing lines-tail)))
+
+(use-package windmove
+  :ensure nil
+  :bind
+  ("C-c w l" . windmove-right)
+  ("C-c w h" . windmove-left)
+  ("C-c w k" . windmove-up)
+  ("C-c w j" . windmove-down)
+  ("C-c w w" . my/switch-to-last-window))
 
 (use-package xref
   :ensure nil
