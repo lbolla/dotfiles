@@ -207,7 +207,9 @@
 (use-package dockerfile-mode
   :mode ((rx "Dockerfile")))
 
+;; TODO uninstall?
 (use-package dot-mode
+  :disabled t
   :bind*
   ("C-." . dot-mode-execute)            ; flyspell uses this binding
   :init
@@ -232,7 +234,7 @@
 
 (use-package elec-pair
   :init
-  (electric-pair-mode t))
+  (electric-pair-mode nil))
 
 ;; Startup profiler
 (use-package esup
