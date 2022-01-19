@@ -287,7 +287,7 @@
 
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)
-  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+  ;; (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
   (define-key evil-normal-state-map (kbd "gp") 'counsel-yank-pop)
 
   (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
@@ -501,7 +501,6 @@
   :custom
   (ivy-use-virtual-buffers t)
   (magit-completing-read-function 'ivy-completing-read)
-  (projectile-completion-system 'ivy)
   :init
   (ivy-mode t))
 
@@ -953,8 +952,8 @@
     (password-store-password-length 16)))
 
 (use-package poetry
-  :custom
-  (poetry-tracking-strategy 'projectile)
+  ;; :custom
+  ;; (poetry-tracking-strategy 'projectile)
   :hook (python-mode . poetry-tracking-mode))
 
 (use-package prog-mode
@@ -980,6 +979,7 @@
 ;;   ;; TODO get rid of eyebrowse
 ;;   ;; (projectile-after-switch-project-hook '(my/eyebrowse-name-from-project projectile-vc))
 ;;   (projectile-after-switch-project-hook '(my/tab-name-from-project projectile-vc))
+;;   (projectile-completion-system 'ivy)
 ;;   (projectile-globally-ignored-directories
 ;;    '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
 ;;      ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist"
@@ -1178,12 +1178,13 @@
 (use-package treemacs-magit
   :after (treemacs magit))
 
-(use-package treemacs-projectile
-  :after (treemacs projectile)
-  ;; :bind
-  ;; (:map global-map
-  ;;       ("C-x t p"   . treemacs-projectile))
-  )
+;; TODO remove?
+;; (use-package treemacs-projectile
+;;   :after (treemacs projectile)
+;;   ;; :bind
+;;   ;; (:map global-map
+;;   ;;       ("C-x t p"   . treemacs-projectile))
+;;   )
 
 (use-package vc-hooks
   :ensure nil

@@ -150,16 +150,16 @@ representation for the files to include, as returned by
   (interactive "r")
   (eww (buffer-substring start end)))
 
-(defun my/eyebrowse-name-from-project ()
-  "Name eyebrowse session after current project."
-  (when (functionp 'eyebrowse-rename-window-config)
-    (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) (projectile-project-name))))
+;; (defun my/eyebrowse-name-from-project ()
+;;   "Name eyebrowse session after current project."
+;;   (when (functionp 'eyebrowse-rename-window-config)
+;;     (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) (projectile-project-name))))
 
-(defun my/eyebrowse-switch-to-project ()
-  "Switch to project in a new eyebrowse slot."
-  (interactive)
-  (eyebrowse-create-window-config)
-  (projectile-switch-project))
+;; (defun my/eyebrowse-switch-to-project ()
+;;   "Switch to project in a new eyebrowse slot."
+;;   (interactive)
+;;   (eyebrowse-create-window-config)
+;;   (projectile-switch-project))
 
 (defun my/github-git-clone (what)
   "Clone GitHub repo WHAT where it belongs."
@@ -351,14 +351,15 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (defun my/project-short-name (&optional project-dir)
   "Return the project name in short form."
-  (let ((project-current-inhibit-prompt t))
-    (file-name-nondirectory (directory-file-name (or project-dir (project-root (project-current t)))))))
+  (cond
+   (project-dir (file-name-nondirectory (directory-file-name project-dir)))
+   ((project-current) (file-name-nondirectory (directory-file-name (project-root (project-current)))))))
 
-(defun my/projectile-switch-project-new-tab ()
-  "Switch to project in a new tab."
-  (interactive)
-  (tab-bar-new-tab-to -1)
-  (projectile-switch-project))
+;; (defun my/projectile-switch-project-new-tab ()
+;;   "Switch to project in a new tab."
+;;   (interactive)
+;;   (tab-bar-new-tab-to -1)
+;;   (projectile-switch-project))
 
 (defun my/python--run-in-new-buffer (cmd args bufname)
   "Run CMD + ARGS and output to BUFNAME."
