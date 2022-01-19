@@ -151,6 +151,7 @@
   :bind
   ("C-c v w" . my/venv-workon-and-cdproject)
   :init
+  (load custom-file)
   (add-hook 'kill-buffer-query-functions 'my/unkillable-scratch-buffer)
   (custom-set-faces
    '(default ((t (:family "Iosevka" :weight light :height 120))))
