@@ -334,7 +334,7 @@ Position the cursor at it's beginning, according to the current mode."
         next-headline))))
 
 (defun my/org-agenda-skip-scheduled ()
-  "Sckip org trees that are not scheduled."
+  "Skip org trees that are not scheduled."
   (org-agenda-skip-entry-if 'scheduled 'deadline))
 
 (defun my/password-store-change (entry &optional password-length)
