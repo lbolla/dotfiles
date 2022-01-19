@@ -234,7 +234,7 @@
 
 (use-package elec-pair
   :init
-  (electric-pair-mode nil))
+  (electric-pair-mode -1))
 
 ;; Startup profiler
 (use-package esup
