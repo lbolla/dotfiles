@@ -35,7 +35,8 @@
   :bind
   ("M-o" . ace-window))
 
-(use-package all-the-icons)
+(use-package all-the-icons
+  :if (display-graphic-p))
 
 (use-package ansi-color
   :ensure nil
