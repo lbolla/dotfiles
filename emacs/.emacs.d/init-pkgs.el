@@ -961,8 +961,8 @@
   :ensure nil
   :config
   (add-to-list 'project-switch-commands '(magit-status "Magit status" "m"))
-  (add-to-list 'project-switch-commands '(rg-project "Ripgrep" "r"))
-  (advice-add 'project-switch-project :after (lambda (dir) (my/tab-name-from-project))))
+  ;; (add-to-list 'project-switch-commands '(rg-project "Ripgrep" "r"))
+  (advice-add 'project-switch-project :after (lambda (project-dir) (my/tab-name-from-project project-dir))))
 
 ;; TODO
 ;; (use-package projectile

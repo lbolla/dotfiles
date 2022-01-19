@@ -349,9 +349,10 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   ;; This nil prevents the output from the above command to be displayed
   nil)
 
-(defun my/project-short-name ()
+(defun my/project-short-name (&optional project-dir)
   "Return the project name in short form."
-  (file-name-nondirectory (directory-file-name (project-root (project-current t)))))
+  (let ((project-current-inhibit-prompt t))
+    (file-name-nondirectory (directory-file-name (or project-dir (project-root (project-current t)))))))
 
 (defun my/projectile-switch-project-new-tab ()
   "Switch to project in a new tab."
@@ -468,10 +469,10 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
       (select-frame-set-input-focus frame)
       (select-window win))))
 
-(defun my/tab-name-from-project ()
+(defun my/tab-name-from-project (&optional project-dir)
   "Name tab bar after current project."
   ;; (tab-bar-rename-tab (projectile-project-name))
-  (tab-bar-rename-tab (my/project-short-name)))
+  (tab-bar-rename-tab (my/project-short-name project-dir)))
 
 (defun my/true-color-p ()
   "Return non-nil on displays that support 256 colors."
