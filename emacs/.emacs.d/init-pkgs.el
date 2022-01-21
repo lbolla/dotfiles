@@ -239,6 +239,12 @@
   :init
   (electric-pair-mode -1))
 
+(use-package esh-mode
+  :ensure nil
+  :bind
+  ("C-c e e" . eshell)
+  ("C-c e h" . counsel-esh-history))
+
 ;; Startup profiler
 (use-package esup
   :disabled t)
