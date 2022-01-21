@@ -15,8 +15,9 @@ web:*.{html,css,js,tmpl}*
 
 # Hidden files are files
 --hidden
-# but really we don't want to search inside .git
+# but really we don't want to search inside .git or node_modules
 --glob=!.git/
+--glob=!node_modules/
 
 # Sort results by path
 --sort=path
