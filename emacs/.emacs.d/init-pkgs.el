@@ -67,7 +67,8 @@
 (use-package browse-url
   :ensure nil
   :bind
-  ("C-c b p" . browse-url-at-point))
+  ("C-c b ." . browse-url-at-point)
+  ("C-c b u" . browse-url))
 
 (use-package cc-mode
   :ensure nil
@@ -1031,7 +1032,7 @@
 
 (use-package rg
   :bind
-  ("C-c r ." . rg-dwim-project-dir)
+  ("C-c r ." . my/rg-dwim-project-dir)
   ("C-c r g" . rg)
   ("C-c r p" . rg-project)
   ("C-c r r" . counsel-rg)
@@ -1043,7 +1044,13 @@
   (rg-custom-type-aliases '(("gyp" . "*.gyp *.gypi")
                             ("web" . "*.html *.css *.js *.tmpl")))
   :config
-  (rg-define-toggle "--context 3" "x" nil))
+  (rg-define-toggle "--context 3" "x" nil)
+  (rg-define-search my/rg-dwim-project-dir
+    "Similar to rg-dwim-project-dir, but for all files types."
+    :query point
+    :format literal
+    :files "everything"
+    :dir project))
 
 (use-package rjsx-mode
   :mode ((rx ".js" eos)))
