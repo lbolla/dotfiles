@@ -188,11 +188,21 @@
                                                          :recursive t
                                                          :publishing-function org-publish-attachment))))
 
+(use-package cython-mode
+  :init
+  (my/maybe-with-evil
+   (evil-define-key 'normal cython-mode-map (kbd ",a") 'my/cython-show-annotated)))
+
 (use-package ess
   :disabled t
   :hook
   (ess-mode . (lambda ()
                 (modify-syntax-entry ?\_ "w"))))
+
+(use-package flycheck-cython
+  :disabled t
+  :load-path "~/src/github.com/lbolla/emacs-flycheck-cython/"
+  :after flycheck)
 
 (provide 'yougov)
 

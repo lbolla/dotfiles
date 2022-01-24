@@ -160,11 +160,6 @@
    '(fixed-pitch-serif ((t (:family "Iosevka Slab" :height 120))))
    '(variable-pitch ((t (:family "Iosevka Etoile" :height 120))))))
 
-(use-package cython-mode
-  :init
-  (my/maybe-with-evil
-   (evil-define-key 'normal cython-mode-map (kbd ",a") 'my/cython-show-annotated)))
-
 (use-package deft
   :bind
   ("C-c n d" . deft)
@@ -384,11 +379,6 @@
                  (side            . bottom)
                  (window-height   . 0.20)))
   (global-flycheck-mode))
-
-(use-package flycheck-cython
-  :disabled t
-  :load-path "~/src/github.com/lbolla/emacs-flycheck-cython/"
-  :after flycheck)
 
 (use-package flycheck-pycheckers
   :after flycheck
