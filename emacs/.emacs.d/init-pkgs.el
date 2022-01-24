@@ -10,12 +10,7 @@
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")
-        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-        ;; ("marmalade" . "https://marmalade-repo.org/packages/")
-        ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ;; ("org" . "https://orgmode.org/elpa/")
-        ;; ("sc" . "https://joseito.republika.pl/sunrise-commander/")
-        ))
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 
 (eval-when-compile
   (require 'package)
