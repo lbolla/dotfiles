@@ -385,30 +385,10 @@
                  (window-height   . 0.20)))
   (global-flycheck-mode))
 
-(use-package flycheck-color-mode-line
-  :disabled t
-  :after flycheck
-  :hook
-  (flycheck-mode . flycheck-color-mode-line-mode))
-
 (use-package flycheck-cython
   :disabled t
   :load-path "~/src/github.com/lbolla/emacs-flycheck-cython/"
   :after flycheck)
-
-(use-package flycheck-flow
-  :disabled t
-  :load-path "~/src/github.com/lbolla/emacs-flycheck-flow/"
-  :after flycheck
-  :config
-  ;; (flycheck-add-next-checker 'javascript-flow '(warning . javascript-flow-coverage) t)
-  (flycheck-add-next-checker 'javascript-jshint '(warning . javascript-flow) t))
-
-(use-package flycheck-popup-tip
-  :disabled t
-  :after flycheck
-  :hook
-  (flycheck-mode . flycheck-popup-tip-mode))
 
 (use-package flycheck-pycheckers
   :after flycheck
