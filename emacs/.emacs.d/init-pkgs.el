@@ -210,14 +210,6 @@
 (use-package dockerfile-mode
   :mode ((rx "Dockerfile")))
 
-;; TODO uninstall?
-(use-package dot-mode
-  :disabled t
-  :bind*
-  ("C-." . dot-mode-execute)            ; flyspell uses this binding
-  :init
-  (global-dot-mode t))
-
 (use-package dumb-jump
   :custom
   (dumb-jump-selector 'ivy)
