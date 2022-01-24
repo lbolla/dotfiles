@@ -38,6 +38,11 @@
                          (my/maybe-with-evil
                           (evil-define-key 'normal erlang-shell-mode-map (kbd "K") 'erlang-man-function)))))
 
+(use-package flycheck-dialyzer
+  :disabled t
+  :after flycheck
+  :config
+  (flycheck-add-next-checker 'erlang '(warning . erlang-dialyzer) t))
 
 (use-package lsp-java
   :after lsp-mode

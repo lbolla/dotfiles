@@ -396,12 +396,6 @@
   :load-path "~/src/github.com/lbolla/emacs-flycheck-cython/"
   :after flycheck)
 
-(use-package flycheck-dialyzer
-  :disabled t
-  :after flycheck
-  :config
-  (flycheck-add-next-checker 'erlang '(warning . erlang-dialyzer) t))
-
 (use-package flycheck-flow
   :disabled t
   :load-path "~/src/github.com/lbolla/emacs-flycheck-flow/"
