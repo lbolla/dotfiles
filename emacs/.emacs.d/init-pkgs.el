@@ -282,7 +282,6 @@
   (evil-set-initial-state 'pass-mode 'emacs)
   (evil-set-initial-state 'picture-mode 'emacs)
   (evil-set-initial-state 'rg-mode 'emacs)
-  (evil-set-initial-state 'treemacs-mode 'emacs)
 
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)
@@ -1126,37 +1125,6 @@
   :ensure nil
   :custom
   (tramp-default-method "ssh"))
-
-(use-package treemacs
-  :config
-  (treemacs-filewatch-mode t)
-  (treemacs-follow-mode t)
-  (treemacs-fringe-indicator-mode 'always)
-  (treemacs-git-mode -1)
-  (treemacs-tag-follow-mode -1)
-  ;; :bind
-  ;; (:map global-map
-  ;;       ("M-0"       . treemacs-select-window)
-  ;;       ;; ("C-x t 1"   . treemacs-delete-other-windows)
-  ;;       ;; ("C-x t t"   . treemacs)
-  ;;       ("C-x t t"   . treemacs-display-current-project-exclusively)
-  ;;       ;; ("C-x t B"   . treemacs-bookmark)
-  ;;       ("C-x t C-t" . treemacs-find-file)
-  ;;       ("C-x t M-t" . treemacs-find-tag))
-  :hook
-  (treemacs-mode . (lambda ()
-                     (setq-local cursor-in-non-selected-windows nil))))
-
-(use-package treemacs-magit
-  :after (treemacs magit))
-
-;; TODO remove?
-;; (use-package treemacs-projectile
-;;   :after (treemacs projectile)
-;;   ;; :bind
-;;   ;; (:map global-map
-;;   ;;       ("C-x t p"   . treemacs-projectile))
-;;   )
 
 (use-package vc-hooks
   :ensure nil
