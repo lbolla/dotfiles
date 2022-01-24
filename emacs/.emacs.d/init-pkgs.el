@@ -344,8 +344,8 @@
 
 (use-package ffap
   :ensure nil
-  :init
-  (ffap-bindings))
+  :bind
+  ("C-c f" . ffap-literally))
 
 (use-package files
   :ensure nil
