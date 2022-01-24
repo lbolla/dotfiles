@@ -241,18 +241,6 @@
 (use-package esup
   :disabled t)
 
-;; TODO remove for tab-mode
-;; (use-package eyebrowse
-;;   ;; :demand t
-;;   :custom
-;;   (eyebrowse-default-workspace-slot 0)
-;;   (eyebrowse-keymap-prefix (kbd "C-c e"))
-;;   (eyebrowse-new-workspace t)
-;;   :bind
-;;   ("C-c e p" . my/eyebrowse-switch-to-project)
-;;   :init
-;;   (eyebrowse-mode t))
-
 (use-package expand-region
   :bind*
   ("C-=" . er/expand-region))

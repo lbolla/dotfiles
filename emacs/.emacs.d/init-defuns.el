@@ -150,17 +150,6 @@ representation for the files to include, as returned by
   (interactive "r")
   (eww (buffer-substring start end)))
 
-;; (defun my/eyebrowse-name-from-project ()
-;;   "Name eyebrowse session after current project."
-;;   (when (functionp 'eyebrowse-rename-window-config)
-;;     (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) (projectile-project-name))))
-
-;; (defun my/eyebrowse-switch-to-project ()
-;;   "Switch to project in a new eyebrowse slot."
-;;   (interactive)
-;;   (eyebrowse-create-window-config)
-;;   (projectile-switch-project))
-
 (defun my/github-git-clone (what)
   "Clone GitHub repo WHAT where it belongs."
   (interactive "sRepo: ")

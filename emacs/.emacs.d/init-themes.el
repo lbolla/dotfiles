@@ -102,7 +102,6 @@
         (my/custom-theme-set-faces
          'doom-laserwave
          `(ivy-current-match                 ((t (:weight bold :underline t))))
-         `(eyebrowse-mode-line-active        ((t (:weight bold))))
          `(org-mode-line-clock               ((t (:slant italic :weight bold))))
          `(org-mode-line-clock-overrun       ((t (:inherit font-lock-warning-face :slant italic :weight bold))))
          `(popup-tip-face                    ((t (:inherit popup-face :foreground "#B381C5" :background "black"))))))
