@@ -285,7 +285,6 @@
 
   (define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
   (define-key evil-normal-state-map (kbd "/") 'swiper)
-  ;; (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
   (define-key evil-normal-state-map (kbd "gp") 'counsel-yank-pop)
 
   (define-key evil-normal-state-map (kbd ",c") 'evilnc-comment-or-uncomment-lines)
@@ -917,8 +916,6 @@
     (password-store-password-length 16)))
 
 (use-package poetry
-  ;; :custom
-  ;; (poetry-tracking-strategy 'projectile)
   :hook (python-mode . poetry-tracking-mode))
 
 (use-package prog-mode
@@ -937,26 +934,6 @@
   (add-to-list 'project-switch-commands '(magit-status "Magit status" "m"))
   ;; (add-to-list 'project-switch-commands '(rg-project "Ripgrep" "r"))
   (advice-add 'project-switch-project :after 'my/tab-name-from-project))
-
-;; TODO
-;; (use-package projectile
-;;   :custom
-;;   ;; TODO get rid of eyebrowse
-;;   ;; (projectile-after-switch-project-hook '(my/eyebrowse-name-from-project projectile-vc))
-;;   (projectile-after-switch-project-hook '(my/tab-name-from-project projectile-vc))
-;;   (projectile-completion-system 'ivy)
-;;   (projectile-globally-ignored-directories
-;;    '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox"
-;;      ".svn" ".stack-work" "deps" "node_modules" "build" "_build" "dist"
-;;      ".cache" ".eggs" ".tox" "__pycache__" ".mypy_cache"))
-;;   (projectile-globally-ignored-file-suffixes '("pyc" "beam"))
-;;   (projectile-switch-project-action 'projectile-dired)
-;;   ;; :bind
-;;   ;; ("C-x t p" . my/projectile-switch-project-new-tab)
-;;   :config
-;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-;;   :init
-;;   (projectile-mode 1))
 
 (use-package python
   :mode (((rx ".pyi" eos) . python-mode) ;; type stub files

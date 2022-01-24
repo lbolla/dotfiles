@@ -355,12 +355,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
    (project-dir (file-name-nondirectory (directory-file-name project-dir)))
    ((project-current) (file-name-nondirectory (directory-file-name (project-root (project-current)))))))
 
-;; (defun my/projectile-switch-project-new-tab ()
-;;   "Switch to project in a new tab."
-;;   (interactive)
-;;   (tab-bar-new-tab-to -1)
-;;   (projectile-switch-project))
-
 (defun my/python--run-in-new-buffer (cmd args bufname)
   "Run CMD + ARGS and output to BUFNAME."
   (let ((outbuf (get-buffer-create bufname))
@@ -472,7 +466,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 
 (defun my/tab-name-from-project (&optional project-dir)
   "Name tab bar after current project."
-  ;; (tab-bar-rename-tab (projectile-project-name))
   (tab-bar-rename-tab (my/project-short-name project-dir)))
 
 (defun my/true-color-p ()
@@ -499,9 +492,6 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
     (when (not (string-equal (getenv "HOME") dir))
       (delete-other-windows)
       (dired dir)
-      ;; (ignore-errors
-      ;;   (projectile-switch-project-by-name dir))
-      ;; (other-window 1)
       (let ((project-switch-commands 'magit-status))
         (ignore-errors
           (project-switch-project dir))))))
