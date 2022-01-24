@@ -571,12 +571,6 @@
   :init
   (my/append-to-path '("~/.ghcup/bin")))
 
-;; https://emacs-lsp.github.io/lsp-java/
-(use-package lsp-java
-  :after lsp-mode
-  :hook
-  (java-lens-mode . lsp-java-lens-mode))
-
 (use-package lsp-python-ms
   :custom
   (lsp-python-ms-disabled ["inherit-non-class"])

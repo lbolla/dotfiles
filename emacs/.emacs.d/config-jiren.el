@@ -38,6 +38,12 @@
                          (my/maybe-with-evil
                           (evil-define-key 'normal erlang-shell-mode-map (kbd "K") 'erlang-man-function)))))
 
+
+(use-package lsp-java
+  :after lsp-mode
+  :hook
+  (java-lens-mode . lsp-java-lens-mode))
+
 (use-package nim-mode
   :hook
   (numsuggest-mode . company-mode)
