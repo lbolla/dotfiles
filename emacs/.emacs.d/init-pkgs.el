@@ -352,8 +352,8 @@
 
 (use-package ffap
   :ensure nil
-  :bind
-  ("C-c f" . find-file-at-point))
+  :init
+  (ffap-bindings))
 
 (use-package files
   :ensure nil
