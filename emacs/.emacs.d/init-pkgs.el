@@ -703,14 +703,8 @@
                                   ))
                                 ("," "Refile/Archive/Someday"
                                  (
-                                  ;; (org-ql-block '(tags-inherited "REFILE")
-                                  ;;               ((org-ql-block-header "Tasks to Refile")))
                                   (tags "REFILE"
                                              ((org-agenda-overriding-header "Tasks to Refile")))
-                                  ;; (org-ql-block '(and
-                                  ;;                 (done)
-                                  ;;                 (ts :to -60))
-                                  ;;               ((org-ql-block-header "Tasks to archive")))
                                   (tags "-REFILE"
                                         ((org-agenda-overriding-header "Tasks to Archive")
                                          (org-agenda-skip-function 'my/org-agenda-skip-non-archivable)))
@@ -719,7 +713,7 @@
                                               (org-agenda-skip-function 'my/org-agenda-skip-scheduled)))))))
   (org-agenda-files '("~/org/refile.org"))
   (org-agenda-include-diary t)
-  (org-agenda-log-mode-items `(clock closed))
+  ;; (org-agenda-log-mode-items `(clock closed))
   (org-agenda-sorting-strategy '((agenda habit-down time-up deadline-down scheduled-up timestamp-up todo-state-down priority-down alpha-up category-up tag-up)
                                  (todo todo-state-down priority-down category-up alpha-up)
                                  (tags todo-state-down priority-down category-up alpha-up)
@@ -873,7 +867,7 @@
   ("C-c o C-l" . org-insert-link)
 
   :config
-  (load-file "/usr/local/share/emacs/29.0.50/lisp/org/org-agenda.elc") ; TODO fix org-agenda mode-line...
+  (load-file (locate-library "org-agenda")) ; fix org-agenda mode-line...
   (require 'org-habit)        ; Otherwise habits are not rendered in org-agenda
   (my/maybe-with-evil
    (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return))
@@ -885,27 +879,6 @@
   (defface org-sday '((t (:inherit org-todo :foreground "dark gray"))) "Face used for someday tasks." :group 'org-faces)
   (defface org-meet '((t (:inherit org-todo :foreground "deep sky blue"))) "Face used for meeting tasks." :group 'org-faces)
   (defface org-canc '((t (:inherit org-todo :foreground "dim gray"))) "Face used for cancelled tasks." :group 'org-faces))
-
-;; TODO useful or uninstall?
-;; (use-package org-ql
-;;   :bind
-;;   ("C-c o /" . org-ql-search)
-;;   ("C-c o v" . org-ql-view)
-;;   ("C-c o r" . org-ql-view-recent-items)
-;;   :config
-;;   (use-package org-ql-view
-;;     :ensure nil
-;;     :config
-;;     (add-to-list 'org-ql-views
-;;                  '("Overview: Someday" :buffers-files org-agenda-files
-;;                    :query (todo "SDAY")
-;;                    :super-groups ((:auto-parent t))
-;;                    :title "Someday") t)
-;;     (add-to-list 'org-ql-views
-;;                  '("Overview: Prioritized tasks" :buffers-files org-agenda-files
-;;                    :query (and (todo) (priority >= "C"))
-;;                    :title "Prioritized tasks"
-;;                    :sort (priority todo)) t)))
 
 (use-package org-roam
   :custom
