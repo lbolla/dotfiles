@@ -145,7 +145,7 @@
   (safe-local-variable-values
    '((flycheck-pycheckers-max-line-length . 130)))
   :bind
-  ("C-c v w" . my/venv-workon-and-cdproject)
+  ("C-c v w" . my/workon-project-in-tab)
   :init
   (load custom-file)
   (add-hook 'kill-buffer-query-functions 'my/unkillable-scratch-buffer)

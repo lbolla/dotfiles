@@ -469,13 +469,14 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
     (when (file-exists-p fn)
       (my/chomp (my/read-file-in-string fn)))))
 
-(defun my/venv-workon-and-cdproject (venv)
-  "Activate VENV and cd to it."
+(defun my/workon-project-in-tab (venv)
+  "Activate workon VENV in a new tab."
   (interactive
    (list
     (completing-read "Work on: "
                      (pyvenv-virtualenv-list)
                      nil t nil 'pyvenv-workon-history nil nil)))
+  (tab-duplicate)
   (pyvenv-workon venv)
   (let ((dir (my/venv-get-proj-dir)))
     (when (not (string-equal (getenv "HOME") dir))
