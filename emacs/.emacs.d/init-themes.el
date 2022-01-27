@@ -5,27 +5,39 @@
 
 ;;; Code:
 
-(use-package cyberpunk-theme)
+;; Note: defer/demand is required to make the custom-theme-set-faces work on
+;; hooks
+(use-package cyberpunk-theme
+  :defer t
+  :demand t)
 
-(use-package doom-themes)
+(use-package doom-themes
+  :defer t
+  :demand t)
 
-(use-package goose-theme)
+(use-package goose-theme
+  :defer t
+  :demand t)
 
-(use-package leuven-theme)
+(use-package leuven-theme
+  :defer t
+  :demand t)
 
 (use-package the-matrix-theme
-  ;; :load-path "~/src/github.com/lbolla/matrix-emacs-theme/"
-  ;; :init
-  ;; (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/matrix-emacs-theme/")
-  )
+  :defer t
+  :demand t)
 
 (use-package modus-themes
+  :defer t
+  :demand t
   :custom
   (modus-themes-region 'bg-only)
   (modus-themes-org-blocks 'greyscale)
   (modus-themes-completions 'opinionated))
 
 (use-package quasi-monochrome-theme
+  :defer t
+  :demand t
   :load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"
   :init
   (add-to-list 'custom-theme-load-path "~/src/github.com/lbolla/emacs-quasi-monochrome/"))
@@ -96,6 +108,13 @@
         (my/custom-theme-set-faces
          'doom-ayu-light
          `(ivy-current-match                 ((t (:weight bold :underline t))))))
+
+       ;; ;; Doom Homage White
+       ;; TODO just change foreground not set the whole face
+       ;; ((eq theme 'doom-homage-white)
+       ;;  (my/custom-theme-set-faces
+       ;;   'doom-homage-white
+       ;;   `(magit-header-line                 ((t (:foreground "white"))))))
 
        ;; Doom Laserwave
        ((eq theme 'doom-laserwave)
