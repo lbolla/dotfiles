@@ -292,8 +292,7 @@ Position the cursor at its beginning, according to the current mode."
 Position the cursor at it's beginning, according to the current mode."
   (interactive)
   (move-beginning-of-line nil)
-  (newline-and-indent)
-  (forward-line -1)
+  (open-line 1)
   (indent-according-to-mode))
 
 (defun my/org-agenda-skip-non-archivable ()
