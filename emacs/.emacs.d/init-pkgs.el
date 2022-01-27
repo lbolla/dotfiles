@@ -490,10 +490,12 @@
   (lsp-mode . lsp-lens-mode)
   (prog-mode . lsp-deferred)
   (lsp-managed-mode . (lambda ()
-                        (when (derived-mode-p 'python-mode)
-                          (setq my/flycheck-local-cache '((lsp . ((next-checkers . (python-pycheckers)))))))
                         (when (derived-mode-p 'c++-mode)
-                          (setq my/flycheck-local-cache '((lsp . ((next-checkers . (c/c++-cppcheck)))))))))
+                          (setq my/flycheck-local-cache '((lsp . ((next-checkers . (c/c++-cppcheck)))))))
+                        (when (derived-mode-p 'go-mode)
+                          (setq my/flycheck-local-cache '((lsp . ((next-checkers . (golangci-lint)))))))
+                        (when (derived-mode-p 'python-mode)
+                          (setq my/flycheck-local-cache '((lsp . ((next-checkers . (python-pycheckers)))))))))
   :commands (lsp lsp-deferred)
   :config
   ;; From https://emacs-lsp.github.io/lsp-mode/page/performance/
