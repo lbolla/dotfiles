@@ -126,9 +126,14 @@
 (use-package counsel
   :bind
   ("C-c c <SPC>" . counsel-mark-ring)
+  ("C-c c c" . counsel-colors-emacs)
+  ("C-c c f" . counsel-fzf)
   ("C-c c i" . counsel-imenu)
+  ("C-c c m" . counsel-kmacro)
+  ("C-c c r" . counsel-register)
   ("C-c c t" . counsel-load-theme)
   :init
+  (my/append-to-path '("~/.fzf/bin"))
   (counsel-mode t))
 
 (use-package css-mode
