@@ -31,8 +31,8 @@
   :defer t
   :demand t
   :custom
-  (modus-themes-region 'bg-only)
-  (modus-themes-org-blocks 'greyscale)
+  (modus-themes-region '(bg-only accented))
+  (modus-themes-org-blocks 'gray-background)
   (modus-themes-completions 'opinionated))
 
 (use-package quasi-monochrome-theme
@@ -136,18 +136,6 @@
         (my/custom-theme-set-faces
          'doom-opera-light
          `(popup-tip-face                    ((t (:inherit popup-face :foreground "#842879" :background "khaki1"))))))
-
-       ;; Modus Operandi
-       ((eq theme 'modus-operandi)
-        (my/custom-theme-set-faces
-         'modus-operandi
-         `(magit-tag                         ((t (:inherit bold :foreground "#863927"))))))  ;; yellow-alt-other
-
-       ;; Modus Vivendi
-       ((eq theme 'modus-vivendi)
-        (my/custom-theme-set-faces
-         'modus-vivendi
-         `(org-block                         ((t (:background "#2a2a2a"))))))
 
        ;; Goose
        ((eq theme 'goose)
