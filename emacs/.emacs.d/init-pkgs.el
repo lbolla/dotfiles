@@ -131,6 +131,7 @@
   ("C-c c i" . counsel-imenu)
   ("C-c c m" . counsel-kmacro)
   ("C-c c r" . counsel-register)
+  ("C-c c s" . counsel-rg)
   ("C-c c t" . counsel-load-theme)
   :init
   (my/append-to-path '("~/.fzf/bin"))
@@ -926,11 +927,6 @@
   (repeat-mode t))
 
 (use-package rg
-  :bind
-  ("C-c r ." . my/rg-dwim-project-dir)
-  ("C-c r g" . rg)
-  ("C-c r p" . rg-project)
-  ("C-c r r" . counsel-rg)
   :custom
   (rg-group-result nil)
   (rg-default-alias-fallback "everything")
@@ -939,13 +935,15 @@
   (rg-custom-type-aliases '(("gyp" . "*.gyp *.gypi")
                             ("web" . "*.html *.css *.js *.tmpl")))
   :config
+  (rg-enable-default-bindings)
   (rg-define-toggle "--context 3" "x" nil)
   (rg-define-search my/rg-dwim-project-dir
     "Similar to rg-dwim-project-dir, but for all files types."
     :query point
     :format literal
     :files "everything"
-    :dir project))
+    :dir project
+    :menu ("Custom" "." "All project files")))
 
 (use-package rjsx-mode
   :mode ((rx ".js" eos)))
@@ -1002,10 +1000,7 @@
   :custom
   (inhibit-startup-screen t))
 
-(use-package swiper
-  :bind
-  ("C-c s s" . swiper)
-  ("C-c s p" . swiper-thing-at-point))
+(use-package swiper)
 
 (use-package tab-bar
   :ensure nil
