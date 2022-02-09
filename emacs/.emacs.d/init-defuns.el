@@ -105,6 +105,12 @@ representation for the files to include, as returned by
        (evil-define-key 'visual mode-map (kbd "=") 'clang-format-region))
       (define-key mode-map (kbd "C-c c f") 'clang-format-buffer)))
 
+(defun my/colorize-compilation-buffer ()
+  "Colorize compilation buffer."
+  (when (eq major-mode 'compilation-mode)
+    (require 'ansi-color)
+    (ansi-color-apply-on-region compilation-filter-start (point-max))))
+
 (defun my/cppref-search ()
   "Search word at point in cppreference.com."
   (interactive)

@@ -107,6 +107,11 @@
   :hook
   (after-init . global-company-mode))
 
+(use-package compile
+  :ensure nil
+  :hook
+  (compilation-filter . my/colorize-compilation-buffer))
+
 (use-package conf-mode
   :mode (((rx "rc" eos) . conf-unix-mode)
          ((rx ".pycheckers" eos) . conf-unix-mode)
