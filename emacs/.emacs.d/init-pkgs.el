@@ -35,9 +35,6 @@
 
 (use-package ansi-color
   :ensure nil
-  :custom
-  (ansi-color-faces-vector [default bold shadow italic underline success warning error])
-  (ansi-term-color-vector [unspecified "#fdf6e3" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#586e75"])
   :hook
   (compilation-filter . my/colorize-compilation-buffer))
 
