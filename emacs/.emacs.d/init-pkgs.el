@@ -37,7 +37,9 @@
   :ensure nil
   :custom
   (ansi-color-faces-vector [default bold shadow italic underline success warning error])
-  (ansi-term-color-vector [unspecified "#fdf6e3" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#586e75"]))
+  (ansi-term-color-vector [unspecified "#fdf6e3" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#586e75"])
+  :hook
+  (compilation-filter . my/colorize-compilation-buffer))
 
 (use-package auth-source
   :ensure nil
@@ -106,11 +108,6 @@
   (company-global-modes '(not org-mode))
   :hook
   (after-init . global-company-mode))
-
-(use-package compile
-  :ensure nil
-  :hook
-  (compilation-filter . my/colorize-compilation-buffer))
 
 (use-package conf-mode
   :mode (((rx "rc" eos) . conf-unix-mode)
