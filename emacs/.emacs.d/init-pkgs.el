@@ -935,7 +935,7 @@
                             ("web" . "*.html *.css *.js *.tmpl")))
   :config
   (rg-enable-default-bindings)
-  (rg-define-toggle "--context 3" "x" nil)
+  (rg-define-toggle "--context 3" "C" nil)
   (rg-define-search my/rg-dwim-project-dir
     "Similar to rg-dwim-project-dir, but for all files types."
     :query point
