@@ -108,7 +108,6 @@ representation for the files to include, as returned by
 (defun my/colorize-compilation-buffer ()
   "Colorize compilation buffer."
   (when (eq major-mode 'compilation-mode)
-    (require 'ansi-color)
     (ansi-color-apply-on-region compilation-filter-start (point-max))))
 
 (defun my/cppref-search ()
