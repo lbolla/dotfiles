@@ -384,7 +384,7 @@
 (use-package flycheck-pycheckers
   :after flycheck
   :custom
-  (flycheck-pycheckers-checkers '(pyflakes))
+  (flycheck-pycheckers-checkers '(flake8))
   :hook
   (flycheck-mode . flycheck-pycheckers-setup))
 
