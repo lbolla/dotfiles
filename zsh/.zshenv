@@ -101,3 +101,8 @@ else
     export VISUAL="emacsclient --socket-name /run/user/$(id -u)/emacs/server"
     export ALTERNATE_EDITOR="nano"
 fi
+
+if [[ -f "$HOME/.cargo/env" ]]
+then
+    . "$HOME/.cargo/env"
+fi
