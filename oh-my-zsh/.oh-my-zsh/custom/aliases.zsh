@@ -25,6 +25,7 @@ for v in ${PYTHON_VERSIONS[@]}; do
     fi
 done
 
+alias lxc-provision="make -C ${HOME}/src/github.com/lbolla/lxc-provision run"
 # alias mkvirtualenv-pypy2="mkvirtualenv --python /opt/pypy-6.0.0-linux_x86_64-portable/bin/pypy"
 # alias mkvirtualenv-pypy3="mkvirtualenv --python /opt/pypy3.5-6.0.0-linux_x86_64-portable/bin/pypy"
 # alias nocaps='sudo dumpkeys | tail -n +2 | sed "s/\s*58\s*=\s*Caps_Lock/ 58 = Control/" | sudo loadkeys'
