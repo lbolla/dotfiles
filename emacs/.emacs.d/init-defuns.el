@@ -103,7 +103,7 @@ representation for the files to include, as returned by
     (let ((mode-map (symbol-value (intern (concat (symbol-name major-mode) "-map")))))
       (my/maybe-with-evil
        (evil-define-key 'visual mode-map (kbd "=") 'clang-format-region))
-      (define-key mode-map (kbd "C-c c f") 'clang-format-buffer)))
+      (define-key mode-map (kbd "C-c q") 'clang-format-region)))
 
 (defun my/colorize-compilation-buffer ()
   "Colorize compilation buffer."
