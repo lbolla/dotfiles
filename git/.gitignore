@@ -1,7 +1,6 @@
-/.dir-locals.el
+# /.dir-locals.el
 /.mypy_cache
 /.paver_targets
-/.pycheckers
+# /.pycheckers
 /priv
-/Makefile.lorenzo
-/TAGS
+# /TAGS
