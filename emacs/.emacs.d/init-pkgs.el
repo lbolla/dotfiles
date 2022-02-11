@@ -496,7 +496,6 @@
   (lsp-prefer-capf t)
   (lsp-response-timeout 5)
   (lsp-rust-clippy-preference "on")
-  (lsp-rust-server 'rls)
   (lsp-signature-auto-activate nil)
   :hook
   (lsp-mode . lsp-lens-mode)
@@ -961,7 +960,11 @@
 
 (use-package rust-mode
   :custom
-  (rust-format-on-save t))
+  (rust-format-on-save t)
+  :hook
+  (rust-mode . (lambda ()
+                 (require 'lsp-rust)
+                 (lsp-deferred))))
 
 (use-package scroll-bar
   :ensure nil
