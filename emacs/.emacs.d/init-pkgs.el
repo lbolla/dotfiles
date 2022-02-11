@@ -58,6 +58,13 @@
   :init
   (avy-setup-default))
 
+(use-package blacken
+  :after python
+  :custom
+  (blacken-only-if-project-is-blackened t)
+  :hook
+  (python-mode . blacken-mode))
+
 (use-package browse-url
   :ensure nil
   :bind
