@@ -101,9 +101,7 @@
     (clang-format-style "file")
     (clang-format-fallback-style "WebKit")
     :hook
-    (c++-mode . my/clang-format-keybindings)
-    (js2-mode . my/clang-format-keybindings)
-    (protobuf-mode . my/clang-format-keybindings)))
+    ((c++-mode js2-mode protobuf-mode) . my/clang-format-keybindings)))
 
 (use-package company
   :custom
@@ -432,12 +430,9 @@
 
 (use-package haskell-mode
   :hook
-  (haskell-mode . (lambda ()
-                    (require 'lsp-haskell)
-                    (lsp-deferred)))
-  (haskell-literate-mode . (lambda ()
-                             (require 'lsp-haskell)
-                             (lsp-deferred))))
+  ((haskell-mode haskell-literate-mode) . (lambda ()
+                                            (require 'lsp-haskell)
+                                            (lsp-deferred))))
 
 (use-package highlight-indentation)
 
