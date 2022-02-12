@@ -58,12 +58,11 @@
   :init
   (avy-setup-default))
 
+;; Activate per-directory using something like:
+;; ((python-mode . ((eval . (blacken-mode t)))))
+;; to avoid blackening projects that don't use black
 (use-package blacken
-  :after python
-  :custom
-  (blacken-only-if-project-is-blackened t)
-  :hook
-  (python-mode . blacken-mode))
+  :after python)
 
 (use-package browse-url
   :ensure nil
