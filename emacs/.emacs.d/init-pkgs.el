@@ -523,13 +523,13 @@
   :init
   (my/append-to-path '("~/.ghcup/bin")))
 
-(use-package lsp-python-ms
-  :custom
-  (lsp-python-ms-disabled ["inherit-non-class"])
-  :hook
-  (python-mode . (lambda ()
-                   (require 'lsp-python-ms)
-                   (lsp-deferred))))
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp-deferred)))
+  :init
+  (my/append-to-path '("~/.nvm/versions/node/v17.5.0/bin/")))
 
 (use-package lsp-ui
   :after lsp-mode

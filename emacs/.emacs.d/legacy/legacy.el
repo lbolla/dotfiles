@@ -1046,3 +1046,12 @@
   (smtpmail-smtp-service yg-smtp-port)
   (smtpmail-mail-address yg-smtp-user)
   (smtpmail-stream-type 'starttls))
+
+;; Use pyright instead
+;; (use-package lsp-python-ms
+;;   :custom
+;;   (lsp-python-ms-disabled ["inherit-non-class"])
+;;   :hook
+;;   (python-mode . (lambda ()
+;;                    (require 'lsp-python-ms)
+;;                    (lsp-deferred))))
