@@ -32,8 +32,7 @@
   :demand t
   :custom
   (modus-themes-region '(bg-only accented))
-  (modus-themes-org-blocks 'gray-background)
-  (modus-themes-completions 'opinionated))
+  (modus-themes-org-blocks 'tinted-background))
 
 (use-package quasi-monochrome-theme
   :defer t
