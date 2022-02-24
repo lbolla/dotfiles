@@ -15,8 +15,9 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 PATHS=(
     "${HOME}/.cache/rebar3/bin"
     "${HOME}/.nimble/bin"
-    "${HOME}/perl5/bin"
     "${HOME}/.poetry/bin"
+    "${HOME}/go/bin"
+    "${HOME}/perl5/bin"
     "/opt/apache-maven-3.6.3/bin"
 )
 for p in "${PATHS[@]}"; do
