@@ -4,9 +4,6 @@
 
 ;;; Code:
 
-(defvar my/lesser-evil)
-(defvar package-archives)
-
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")
@@ -73,8 +70,8 @@
 (use-package cc-mode
   :ensure nil
   :hook
-  (c++-mode . (lambda ()
-                (require 'lsp-clangd)))
+  ((c-mode c++-mode) . (lambda ()
+                         (require 'lsp-clangd)))
   :custom
   (c-default-style '((c-mode . "k&r")
                      (c++-mode . "stroustrup-book")
@@ -111,6 +108,7 @@
   (after-init . global-company-mode))
 
 (use-package conf-mode
+  :ensure nil
   :mode (((rx "rc" eos) . conf-unix-mode)
          ((rx ".pycheckers" eos) . conf-unix-mode)
          ((rx ".importlinter" eos) . conf-unix-mode)
@@ -141,6 +139,7 @@
   (counsel-mode t))
 
 (use-package css-mode
+  :ensure nil
   :mode ((rx ".scss" eos)))
 
 (use-package custom
@@ -202,6 +201,7 @@
   (dired-listing-switches "-ahl"))
 
 (use-package doc-view
+  :ensure nil
   :hook
   (doc-view . (lambda ()
                 (setq cursor-type nil))))
@@ -223,10 +223,12 @@
   (ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (use-package electric
+  :ensure nil
   :init
   (electric-indent-mode t))
 
 (use-package elec-pair
+  :ensure nil
   :init
   (electric-pair-mode -1))
 
@@ -558,6 +560,7 @@
   )
 
 (use-package make-mode
+  :ensure nil
   :mode (((rx "Makefile") . makefile-mode))
   :hook
   (makefile-mode . (lambda ()
@@ -890,6 +893,7 @@
   (advice-add 'project-switch-project :after 'my/tab-name-from-project))
 
 (use-package python
+  :ensure nil
   :mode (((rx ".pyi" eos) . python-mode) ;; type stub files
          ((rx ".mk" eos) . python-mode)  ;; check-mk config files
          ((rx ".pyrc" eos) . python-mode))
@@ -948,6 +952,7 @@
   :mode ((rx ".js" eos)))
 
 (use-package rst
+  :ensure nil
   :hook
   (rst-mode . (lambda ()
                 (auto-fill-mode t))))
@@ -978,6 +983,7 @@
     (server-start)))
 
 (use-package sh-script
+  :ensure nil
   :mode (((rx "." (or "z" "ba") "sh") . shell-script-mode)
          ((rx ".sh" eos) . shell-script-mode)
          ((rx ".env") . shell-script-mode)
