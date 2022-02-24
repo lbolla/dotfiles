@@ -1,7 +1,7 @@
 export BROWSER=firefox
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --info=inline --border"
-export GOPATH=$HOME
-export GO111MODULE=auto
+# export GOPATH=$HOME
+# export GO111MODULE=auto
 export LESS="-R"
 export MAIL=$HOME/Mail/YG/INBOX/
 export PAGER=less
