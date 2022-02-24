@@ -386,6 +386,11 @@
                  (window-height   . 0.20)))
   (global-flycheck-mode))
 
+(use-package flycheck-golangci-lint
+  :after flycheck
+  :hook
+  (flycheck-mode . flycheck-golangci-lint-setup))
+
 (use-package flycheck-pycheckers
   :after flycheck
   :custom
@@ -427,7 +432,9 @@
   (go-mode . (lambda ()
                (require 'lsp-go)
                (my/maybe-with-evil
-                (evil-define-key 'normal go-mode-map (kbd "K") 'godoc-at-point)))))
+                (evil-define-key 'normal go-mode-map (kbd "K") 'godoc-at-point))))
+  :init
+  (my/append-to-path '("~/go/bin")))
 
 (use-package haskell-mode
   :hook
@@ -500,7 +507,7 @@
                         (when (derived-mode-p 'c++-mode)
                           (setq my/flycheck-local-cache '((lsp . ((next-checkers . (c/c++-cppcheck)))))))
                         (when (derived-mode-p 'go-mode)
-                          (setq my/flycheck-local-cache '((lsp . ((next-checkers . (golangci-lint)))))))
+                          (setq my/flycheck-local-cache '((lsp . ((next-checkers . (go-gofmt golangci-lint)))))))
                         (when (derived-mode-p 'python-mode)
                           (setq my/flycheck-local-cache '((lsp . ((next-checkers . (python-pycheckers)))))))))
   :commands (lsp lsp-deferred)

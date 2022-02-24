@@ -41,11 +41,6 @@
                               (add-to-list 'org-link-abbrev-alist '("BB" . roche-bitbucket-object-url))
                               (add-to-list 'org-agenda-files "~/org/roche.org")))
 
-(use-package flycheck-golangci-lint
-  :after flycheck
-  :hook
-  (flycheck-mode . flycheck-golangci-lint-setup))
-
 (use-package forge
   :after magit
   :config
