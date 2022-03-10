@@ -1,0 +1,5 @@
+# key: prln
+# name: fmt.Println(...)
+# --
+fmt.Println($1)
+$0

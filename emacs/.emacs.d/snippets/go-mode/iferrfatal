@@ -1,0 +1,7 @@
+# key: iferrfatal
+# name: if error fatal
+# --
+if err != nil {
+	log.Fatal(err)
+}
+$0

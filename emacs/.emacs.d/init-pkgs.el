@@ -163,6 +163,14 @@
    '(fixed-pitch-serif ((t (:family "Iosevka Slab" :height 120))))
    '(variable-pitch ((t (:family "Iosevka Etoile" :height 120))))))
 
+(use-package dap-mode
+  :bind
+  ("C-c d d" . dap-debug)
+  ("C-c d B" . dap-breakpoint-delete-all)
+  ("C-c d b" . dap-breakpoint-toggle)
+  :hook
+  (dap-stopped . (lambda (arg) (call-interactively #'dap-hydra))))
+
 (use-package deft
   :bind
   ("C-c n d" . deft)
@@ -431,6 +439,7 @@
   (before-save . gofmt-before-save)
   (go-mode . (lambda ()
                (require 'lsp-go)
+               (require 'dap-go)
                (my/maybe-with-evil
                 (evil-define-key 'normal go-mode-map (kbd "K") 'godoc-at-point))))
   :init
