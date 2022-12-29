@@ -255,7 +255,7 @@
   ("C-=" . er/expand-region))
 
 (use-package evil
-  :disabled my/lesser-evil
+  :if (not my/lesser-evil)
 
   :custom
   (evil-default-state (if my/lesser-evil 'emacs 'normal))

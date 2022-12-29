@@ -19,7 +19,7 @@
                       "Iosevka-12"
                       ) "List of fonts I like." :group 'local :type 'list)
 
-(defcustom my/lesser-evil t
+(defcustom my/lesser-evil nil
   "Only load minimal evil configuration." :group 'local :type 'boolean)
 
 (defcustom my/mu4e-get-mail-command "mbsync -a"
