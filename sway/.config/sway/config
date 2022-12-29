@@ -54,6 +54,9 @@ exec swayidle -w \
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 
+# Start nm-applet to allow protonvpn to connect
+exec nm-applet
+
 ### Input configuration
 #
 # Example configuration:
@@ -69,7 +72,7 @@ exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 # Read `man 5 sway-input` for more information about this section.
 
 input * {
-    xkb_options "ctrl:nocaps"
+    xkb_options "ctrl:nocaps,compose:prsc"
     dwt enabled
     tap enabled
     natural_scroll enabled
@@ -99,11 +102,23 @@ input * {
     # Reload the configuration file
     bindsym $mod+Shift+c reload
 
+    # Launch apps
+    bindsym $mod+Ctrl+e exec emacs
+    bindsym $mod+Ctrl+f exec firefox
+    bindsym $mod+Ctrl+c exec chromium
+
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
     # Lock screen
     bindsym $mod+Ctrl+Shift+l exec swaylock -f -c 000000
+
+    # Screenshot
+    bindsym $mod+Ctrl+Shift+s exec grimshot save area
+
+    # Pass
+    bindsym $mod+Ctrl+p exec passmenu
+    bindsym $mod+Ctrl+Shift+p exec passmenu --type
 
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}' > $WOBSOCK
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}' > $WOBSOCK
@@ -125,10 +140,10 @@ input * {
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
     # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+    # bindsym $mod+Left focus left
+    # bindsym $mod+Down focus down
+    # bindsym $mod+Up focus up
+    # bindsym $mod+Right focus right
 
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
@@ -167,6 +182,10 @@ input * {
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+    bindsym $mod+Left workspace prev
+    bindsym $mod+Right workspace next
+
 #
 # Layout stuff:
 #
@@ -175,7 +194,7 @@ input * {
     # respectively.
     bindsym $mod+b split horizontal
     bindsym $mod+v split vertical
-    bindsym $mod+n split toggle
+    bindsym $mod+n split none
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
@@ -238,6 +257,7 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
+    swaybar_command waybar
     position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
