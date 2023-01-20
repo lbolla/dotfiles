@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+protonvpn-cli c CH-UK#1
+sudo nextdns stop

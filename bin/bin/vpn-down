@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+protonvpn-cli d
+sudo nextdns restart
