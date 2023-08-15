@@ -853,7 +853,6 @@
 ")
       :unnarrowed t)))
   (org-roam-directory my/zettelkasten-directory)
-  (org-roam-graph-viewer 'browse-url)
   (org-roam-dailies-directory "daily/")
   (org-roam-dailies-capture-templates
    '(("d" "default" entry
