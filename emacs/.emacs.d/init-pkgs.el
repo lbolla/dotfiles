@@ -173,7 +173,7 @@
 
 (use-package deft
   :bind
-  ("C-c n d" . deft)
+  ("C-c n ." . deft)
   :custom
   (deft-directory my/zettelkasten-directory)
   (deft-recursive t)
@@ -840,17 +840,35 @@
 (use-package org-roam
   :custom
   (org-cite-global-bibliography '("~/Private/org/bibliography/references.bib"))
+  (org-roam-capture-templates
+   '(("d" "default" plain "%?" :target
+      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}
+")
+      :unnarrowed t)
+     ("r" "reading card" plain "%?" :target
+      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}
+#+filetags: :foo:bar:
+
+[cite:@foobar1977]
+")
+      :unnarrowed t)))
   (org-roam-directory my/zettelkasten-directory)
   (org-roam-graph-viewer 'browse-url)
-  (org-roam-v2-ack t)
+  (org-roam-dailies-directory "daily/")
+  (org-roam-dailies-capture-templates
+   '(("d" "default" entry
+      "* %?"
+      :target (file+head "%<%Y-%m-%d>.org"
+                         "#+title: %<%Y-%m-%d>\n"))))
   :bind
-  ("C-c n b" . org-roam-buffer-toggle)
+  ("C-c n b" . org-roam-buffer-display-dedicated)
   ("C-c n c" . org-roam-capture)
   ("C-c n f" . org-roam-node-find)
   ("C-c n i" . org-roam-node-insert)
+  ("C-c n d" . org-roam-dailies-capture-today)
   :init
-  (setq org-roam-v2-ack t)
   (org-roam-db-autosync-mode))
+
 
 (use-package paragraphs
   :ensure nil
