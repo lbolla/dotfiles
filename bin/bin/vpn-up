@@ -1,4 +1,11 @@
-#!/bin/bash -e
+#!/bin/bash
 
-protonvpn-cli c CH-UK#1
-sudo nextdns stop
+COUNTRY=${1@U}
+if [[ -z $COUNTRY ]]
+then 
+	PARAMS="-f"
+else
+	NUM=${2:-'1'}
+	PARAMS="CH-${COUNTRY}#${NUM}"
+fi
+protonvpn-cli c ${PARAMS} && sudo nextdns stop
