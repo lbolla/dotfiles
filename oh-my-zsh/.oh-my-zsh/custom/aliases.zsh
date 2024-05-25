@@ -44,7 +44,9 @@ alias -s pdf="evince"
 alias -s tgz="tar tf"
 alias -s xlsx="libreoffice"
 alias -s doc="libreoffice"
-alias -s JPEG="xdg-open"
+
+_image_fts=(JPG JPEG)
+for ft in $_image_fts; do alias -s $ft=xdg-open; done
 _media_fts=(ape avi flv m4a mkv mov mp3 mpeg mpg ogg ogm rm wav webm)
 for ft in $_media_fts; do alias -s $ft=mpv; done
 

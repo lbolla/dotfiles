@@ -2,7 +2,7 @@
 Description=Periodic backups
 
 [Timer]
-OnCalendar=18:00
+OnCalendar=Mon,Thu *-*-* 18:00:00
 Persistent=true
 
 [Install]

@@ -157,6 +157,7 @@
   :init
   (load custom-file)
   (add-hook 'kill-buffer-query-functions 'my/unkillable-scratch-buffer)
+  (load-theme 'modus-vivendi)
   (custom-set-faces
    '(default ((t (:family "Iosevka" :weight light :height 120))))
    '(fixed-pitch ((t (:family "Iosevka" :height 120))))
@@ -428,9 +429,11 @@
   (auto-hscroll-mode t)
   (blink-cursor-mode t)
   :init
-  (unless (or (string-equal (getenv "GDMSESSION") "sway")
-              (eq (frame-parameter nil 'fullscreen) 'fullboth))
-    (toggle-frame-fullscreen)))
+  ;; (unless (or (string-equal (getenv "GDMSESSION") "sway")
+  ;;             (eq (frame-parameter nil 'fullscreen) 'fullboth))
+  ;;   (toggle-frame-fullscreen))
+  (if (window-system)
+      (set-frame-size (selected-frame) 140 40)))
 
 (use-package go-mode
   :custom
@@ -864,9 +867,7 @@
   ("C-c n c" . org-roam-capture)
   ("C-c n f" . org-roam-node-find)
   ("C-c n i" . org-roam-node-insert)
-  ("C-c n d" . org-roam-dailies-capture-today)
-  :init
-  (org-roam-db-autosync-mode))
+  ("C-c n d" . org-roam-dailies-capture-today))
 
 
 (use-package paragraphs
@@ -1168,6 +1169,8 @@
   :ensure nil
   :init
   (winner-mode t))
+
+(use-package zig-mode)
 
 (use-package zoom-window
   :bind
