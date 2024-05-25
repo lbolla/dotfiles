@@ -59,3 +59,4 @@ _obsolete/
 /emacs/.emacs.d/eww-bookmarks
 /emacs/.emacs.d/request/
 /emacs/.emacs.d/custom-*.el
+/emacs/.emacs.d/*.sqlite
