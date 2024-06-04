@@ -717,6 +717,7 @@
   (org-log-into-drawer t)
   (org-modules '(org-habit
                  ;; ox-confluence
+                 ox-publish
                  org-protocol
                  ol-w3m
                  ol-bbdb
@@ -780,8 +781,7 @@
                                 :html-home/up-format "<div id=\"org-div-home-and-up\"><a accesskey=\"h\" href=\"/\">Home</a> | <a accesskey=\"a\" href=\"/articles.html\">Articles</a> | <a accesskey=\"c\" href=\"/cv.html\">CV</a> (<a href=\"/cv.pdf\">pdf</a> | <a href=\"/cv-short.pdf\">short</a>)</div>"
                                 :html-preamble lbolla.info/html-preamble
                                 :html-postamble nil
-                                :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\">"
-                                :html-head-extra "<link rel=\"stylesheet\" href=\"./css/extra.css\" type=\"text/css\">"
+                                :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\"><link rel=\"stylesheet\" href=\"./css/extra.css\" type=\"text/css\"><link href=\"https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap\" rel=\"stylesheet\" />"
                                 :publishing-function org-html-publish-to-html)))
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-refile-targets '((org-agenda-files :level . 1)))
