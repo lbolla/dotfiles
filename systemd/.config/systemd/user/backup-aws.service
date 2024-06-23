@@ -1,5 +1,5 @@
 [Unit]
-Description=Backup to NAS
+Description=Backup
 # ConditionACPower=true
 AssertPathExists=%h/.config/restic
 
@@ -12,7 +12,7 @@ StartLimitBurst=5
 Environment=XDG_DATA_DIRS=/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
 ExecStart=
-ExecStart=%h/bin/backup-nas
+ExecStart=%h/bin/backup-aws
 
 # Restart on failure at most 5 times
 Restart=on-failure

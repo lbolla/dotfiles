@@ -1,5 +1,5 @@
 [Unit]
-Description=Periodic backups
+Description=Periodic AWS backups
 
 [Timer]
 OnCalendar=Mon,Thu *-*-* 18:00:00

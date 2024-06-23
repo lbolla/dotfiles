@@ -1,8 +1,8 @@
 [Unit]
-Description=Periodic YouGov backups
+Description=Periodic USB backups
 
 [Timer]
-OnCalendar=18:00
+OnCalendar=11:00
 Persistent=true
 
 [Install]
