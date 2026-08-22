@@ -2,7 +2,7 @@
 Description=Periodic USB backups
 
 [Timer]
-OnCalendar=11:00
+OnCalendar=Tue,Fri *-*-* 11:00:00
 Persistent=true
 
 [Install]
