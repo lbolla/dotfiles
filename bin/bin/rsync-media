@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a pipeline returns non-zero, treat unset variables as errors
+set -euo pipefail
+
+DEST_MOUNT="/mnt/WDElements"
+
+# Array of source directories relative to HOME
+SOURCES=(
+  "$HOME/Videos"
+  "$HOME/Pictures"
+  "$HOME/Music"
+)
+
+# 1. Check if destination directory is an active mount point
+if ! mountpoint -q "$DEST_MOUNT"; then
+  echo "[ERROR] $(date '+%Y-%m-%d %H:%M:%S') - $DEST_MOUNT is not mounted. Aborting backup."
+  exit 1
+fi
+
+echo "=================================================="
+echo "Starting backup to $DEST_MOUNT at $(date)"
+echo "=================================================="
+
+# 2. Iterate and sync each directory
+for SRC in "${SOURCES[@]}"; do
+  if [ -d "$SRC" ]; then
+    echo "--> Syncing $SRC to $DEST_MOUNT/..."
+    
+    # Flags explanation:
+    # -a : Archive mode (preserves permissions, timestamps, symlinks, owners)
+    # -v : Verbose output
+    # -h : Human-readable numbers
+    # --progress : Show progress during transfer
+    rsync -avh --progress "$SRC" "$DEST_MOUNT/"
+  else
+    echo "[WARNING] Source directory $SRC does not exist. Skipping."
+  fi
+done
+
+echo "=================================================="
+echo "Backup finished at $(date)"
+echo "=================================================="
