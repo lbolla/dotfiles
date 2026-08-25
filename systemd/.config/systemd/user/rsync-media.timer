@@ -1,8 +1,8 @@
 [Unit]
-Description=Periodic WDElements backups
+Description=Periodic RSync media
 
 [Timer]
-OnCalendar=*-*-* 13:00:00
+OnCalendar=*-*-* 13:30:00
 Persistent=true
 
 [Install]

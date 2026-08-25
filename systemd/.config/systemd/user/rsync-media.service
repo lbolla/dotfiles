@@ -1,0 +1,7 @@
+[Unit]
+Description=RSync media
+
+[Service]
+Type=oneshot
+ExecStart=
+ExecStart=%h/bin/rsync-media
